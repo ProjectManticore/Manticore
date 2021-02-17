@@ -112,7 +112,7 @@ int jailbreak(void *init){
     //    [apiController sendMessageToLog:@"====================== Stage 4 (KCE) ======================"];
     //    printf("Allowing SpringBoard to show non system apps..");
     [apiController sendMessageToLog:@"========================= Stage 4 ========================="];
-    if(setup_filesystem() == 0) printf("Filesystem base installed successfully")
+    if(setup_filesystem() == 0) printf("Filesystem base installed successfully");
     return 0;
 }
 
