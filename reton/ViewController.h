@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *logWindow;
 - (IBAction)runJailbreak:(id)sender;
 - (void)sendMessageToLog:(NSString *)Message;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
 @end
 
