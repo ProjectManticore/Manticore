@@ -43,35 +43,16 @@ void Log(int type, const char *format, ...) {
 }
 
 bool modifyPlist(NSString *filename, void (^function)(id)) {
-    cicuta_log("%s: Will modify plist: %s", __FUNCTION__, [filename UTF8String]);
     NSData *data = [NSData dataWithContentsOfFile:filename];
-    if (data == nil) {
-        cicuta_log("%s: Failed to read file: %s", __FUNCTION__, [filename UTF8String]);
-        return false;
-    }
+    if (data == nil) return false;
     NSPropertyListFormat format = 0;
     NSError *error = nil;
     id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
-    if (plist == nil) {
-        cicuta_log("%s: Failed to generate plist data: %s", __FUNCTION__, [[NSString stringWithFormat:@"%@", error] UTF8String]);
-        return false;
-    }
-    if (function) {
-        function(plist);
-    }
+    if (plist == nil) return false;
+    if (function) function(plist);
     NSData *newData = [NSPropertyListSerialization dataWithPropertyList:plist format:format options:0 error:&error];
-    if (newData == nil) {
-        cicuta_log("%s: Failed to generate new plist data: %s", __FUNCTION__, [[NSString stringWithFormat:@"%@", error] UTF8String]);
-        return false;
-    }
-    if (![data isEqual:newData]) {
-        cicuta_log("%s: Writing to file: %s", __FUNCTION__, [filename UTF8String]);
-        if (![newData writeToFile:filename atomically:YES]) {
-            cicuta_log("%s: Failed to write to file: %s", __FUNCTION__, [filename UTF8String]);
-            return false;
-        }
-    }
-    cicuta_log("%s: Success", __FUNCTION__);
+    if (newData == nil) return false;
+    if (![data isEqual:newData]) if (![newData writeToFile:filename atomically:YES]) return false;
     return true;
 }
 
