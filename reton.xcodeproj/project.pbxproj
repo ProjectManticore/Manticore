@@ -15,8 +15,6 @@
 		23C7050425DB2EE90078DC37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23C7050325DB2EE90078DC37 /* Assets.xcassets */; };
 		23C7050725DB2EE90078DC37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C7050525DB2EE90078DC37 /* LaunchScreen.storyboard */; };
 		23C7050A25DB2EE90078DC37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7050925DB2EE90078DC37 /* main.m */; };
-		23C7051425DB2EE90078DC37 /* retonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7051325DB2EE90078DC37 /* retonTests.m */; };
-		23C7051F25DB2EE90078DC37 /* retonUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7051E25DB2EE90078DC37 /* retonUITests.m */; };
 		23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053225DB2F210078DC37 /* cicuta_log.c */; };
 		23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053325DB2F210078DC37 /* cicuta_virosa.c */; };
 		23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053525DB2F210078DC37 /* exploit_utilities.c */; };
@@ -28,23 +26,6 @@
 		23C7054E25DB2F790078DC37 /* jailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7054D25DB2F790078DC37 /* jailbreak.m */; };
 		23C7055C25DB30240078DC37 /* support.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7055B25DB30240078DC37 /* support.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		23C7051025DB2EE90078DC37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23C704E925DB2EE80078DC37 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 23C704F025DB2EE80078DC37;
-			remoteInfo = reton;
-		};
-		23C7051B25DB2EE90078DC37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23C704E925DB2EE80078DC37 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 23C704F025DB2EE80078DC37;
-			remoteInfo = reton;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		231D23F225DD2CCF003C09FB /* jelbrekLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jelbrekLib.h; sourceTree = "<group>"; };
@@ -61,12 +42,6 @@
 		23C7050625DB2EE90078DC37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23C7050825DB2EE90078DC37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23C7050925DB2EE90078DC37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		23C7050F25DB2EE90078DC37 /* retonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = retonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		23C7051325DB2EE90078DC37 /* retonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = retonTests.m; sourceTree = "<group>"; };
-		23C7051525DB2EE90078DC37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		23C7051A25DB2EE90078DC37 /* retonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = retonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		23C7051E25DB2EE90078DC37 /* retonUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = retonUITests.m; sourceTree = "<group>"; };
-		23C7052025DB2EE90078DC37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23C7053125DB2F210078DC37 /* cicuta_virosa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicuta_virosa.h; sourceTree = "<group>"; };
 		23C7053225DB2F210078DC37 /* cicuta_log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cicuta_log.c; sourceTree = "<group>"; };
 		23C7053325DB2F210078DC37 /* cicuta_virosa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cicuta_virosa.c; sourceTree = "<group>"; };
@@ -96,20 +71,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		23C7050C25DB2EE90078DC37 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		23C7051725DB2EE90078DC37 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -133,8 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				23C704F325DB2EE80078DC37 /* reton */,
-				23C7051225DB2EE90078DC37 /* retonTests */,
-				23C7051D25DB2EE90078DC37 /* retonUITests */,
 				23C704F225DB2EE80078DC37 /* Products */,
 				231D23F325DD2CE8003C09FB /* Frameworks */,
 			);
@@ -144,8 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				23C704F125DB2EE80078DC37 /* reton.app */,
-				23C7050F25DB2EE90078DC37 /* retonTests.xctest */,
-				23C7051A25DB2EE90078DC37 /* retonUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,24 +126,6 @@
 				23C7050025DB2EE80078DC37 /* reton.xcdatamodeld */,
 			);
 			path = reton;
-			sourceTree = "<group>";
-		};
-		23C7051225DB2EE90078DC37 /* retonTests */ = {
-			isa = PBXGroup;
-			children = (
-				23C7051325DB2EE90078DC37 /* retonTests.m */,
-				23C7051525DB2EE90078DC37 /* Info.plist */,
-			);
-			path = retonTests;
-			sourceTree = "<group>";
-		};
-		23C7051D25DB2EE90078DC37 /* retonUITests */ = {
-			isa = PBXGroup;
-			children = (
-				23C7051E25DB2EE90078DC37 /* retonUITests.m */,
-				23C7052025DB2EE90078DC37 /* Info.plist */,
-			);
-			path = retonUITests;
 			sourceTree = "<group>";
 		};
 		23C7052F25DB2F0D0078DC37 /* Exploit */ = {
@@ -249,42 +188,6 @@
 			productReference = 23C704F125DB2EE80078DC37 /* reton.app */;
 			productType = "com.apple.product-type.application";
 		};
-		23C7050E25DB2EE90078DC37 /* retonTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 23C7052625DB2EE90078DC37 /* Build configuration list for PBXNativeTarget "retonTests" */;
-			buildPhases = (
-				23C7050B25DB2EE90078DC37 /* Sources */,
-				23C7050C25DB2EE90078DC37 /* Frameworks */,
-				23C7050D25DB2EE90078DC37 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				23C7051125DB2EE90078DC37 /* PBXTargetDependency */,
-			);
-			name = retonTests;
-			productName = retonTests;
-			productReference = 23C7050F25DB2EE90078DC37 /* retonTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		23C7051925DB2EE90078DC37 /* retonUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 23C7052925DB2EE90078DC37 /* Build configuration list for PBXNativeTarget "retonUITests" */;
-			buildPhases = (
-				23C7051625DB2EE90078DC37 /* Sources */,
-				23C7051725DB2EE90078DC37 /* Frameworks */,
-				23C7051825DB2EE90078DC37 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				23C7051C25DB2EE90078DC37 /* PBXTargetDependency */,
-			);
-			name = retonUITests;
-			productName = retonUITests;
-			productReference = 23C7051A25DB2EE90078DC37 /* retonUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -295,14 +198,6 @@
 				TargetAttributes = {
 					23C704F025DB2EE80078DC37 = {
 						CreatedOnToolsVersion = 12.3;
-					};
-					23C7050E25DB2EE90078DC37 = {
-						CreatedOnToolsVersion = 12.3;
-						TestTargetID = 23C704F025DB2EE80078DC37;
-					};
-					23C7051925DB2EE90078DC37 = {
-						CreatedOnToolsVersion = 12.3;
-						TestTargetID = 23C704F025DB2EE80078DC37;
 					};
 				};
 			};
@@ -320,8 +215,6 @@
 			projectRoot = "";
 			targets = (
 				23C704F025DB2EE80078DC37 /* reton */,
-				23C7050E25DB2EE90078DC37 /* retonTests */,
-				23C7051925DB2EE90078DC37 /* retonUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -336,20 +229,6 @@
 				23C7054525DB2F220078DC37 /* README.md in Resources */,
 				23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */,
 				23C7054625DB2F220078DC37 /* LICENSE in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		23C7050D25DB2EE90078DC37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		23C7051825DB2EE90078DC37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,36 +254,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		23C7050B25DB2EE90078DC37 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				23C7051425DB2EE90078DC37 /* retonTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		23C7051625DB2EE90078DC37 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				23C7051F25DB2EE90078DC37 /* retonUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		23C7051125DB2EE90078DC37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 23C704F025DB2EE80078DC37 /* reton */;
-			targetProxy = 23C7051025DB2EE90078DC37 /* PBXContainerItemProxy */;
-		};
-		23C7051C25DB2EE90078DC37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 23C704F025DB2EE80078DC37 /* reton */;
-			targetProxy = 23C7051B25DB2EE90078DC37 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		23C704FD25DB2EE80078DC37 /* Main.storyboard */ = {
@@ -545,9 +395,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				DEVELOPMENT_TEAM = H8TJ3GVX98;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reton/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,7 +408,7 @@
 					"$(PROJECT_DIR)/reton/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.reton;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pwn.reton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -570,9 +421,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				DEVELOPMENT_TEAM = H8TJ3GVX98;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reton/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -582,85 +434,9 @@
 					"$(PROJECT_DIR)/reton/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.reton;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pwn.reton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		23C7052725DB2EE90078DC37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
-				INFOPLIST_FILE = retonTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.retonTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/reton.app/reton";
-			};
-			name = Debug;
-		};
-		23C7052825DB2EE90078DC37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
-				INFOPLIST_FILE = retonTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.retonTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/reton.app/reton";
-			};
-			name = Release;
-		};
-		23C7052A25DB2EE90078DC37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
-				INFOPLIST_FILE = retonUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.retonUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = reton;
-			};
-			name = Debug;
-		};
-		23C7052B25DB2EE90078DC37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
-				INFOPLIST_FILE = retonUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.retonUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = reton;
 			};
 			name = Release;
 		};
@@ -681,24 +457,6 @@
 			buildConfigurations = (
 				23C7052425DB2EE90078DC37 /* Debug */,
 				23C7052525DB2EE90078DC37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		23C7052625DB2EE90078DC37 /* Build configuration list for PBXNativeTarget "retonTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				23C7052725DB2EE90078DC37 /* Debug */,
-				23C7052825DB2EE90078DC37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		23C7052925DB2EE90078DC37 /* Build configuration list for PBXNativeTarget "retonUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				23C7052A25DB2EE90078DC37 /* Debug */,
-				23C7052B25DB2EE90078DC37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
