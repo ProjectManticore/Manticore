@@ -65,6 +65,11 @@ NSDictionary *readPlist(NSString *filename){
     return 0;
 }
 
+bool createEmptyPlist(NSString *path, NSString *filename){
+    // TODO
+    return NO;
+}
+
 NSString *programVersion(){
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }

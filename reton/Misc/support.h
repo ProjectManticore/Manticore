@@ -29,5 +29,7 @@ NSString *programVersion(void);
 bool modifyPlist(NSString *filename, void (^function)(id));
 NSDictionary *readPlist(NSString *filename);
 
+// TODO
+bool createEmptyPlist(NSString *path, NSString *filename);
 
 #endif /* support_h */

@@ -127,6 +127,8 @@ int jailbreak(void *init){
     if(setup_filesystem() == 0) printf("Manticore-Files installed successfully\n");
     printf("Everything done.\n");
     sleep(1);
+    bool plistUtilTest = modifyPlist(@"/var/mobile/.manticore/jailbreak.plist", ^(id plist) { [plist setValue:@"test" forKey:@"test"]; });
+    printf("Plist util returned: %d\n", plistUtilTest);
     return 0;
 }
 
@@ -144,15 +146,23 @@ bool check_root_rw(){
 }
 
 int setup_filesystem(){
-    NSString *jailbreakPlistPath = @"/var/mobile/.manticore/jailbreak.plist";
-    if([[NSFileManager defaultManager] fileExistsAtPath:jailbreakPlistPath]){
-        NSDictionary *jailbreakPlist = readPlist(jailbreakPlistPath);
-        printf("Existing installation of manticore found. (Version %s)\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]] UTF8String]);
-        if(programVersion() != [NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]]){
-            printf("Systemwide installed version and current version mismatch (%s) / (%s)!\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]] UTF8String], [programVersion() UTF8String]);
+    NSString *jailbreakDirBasePath  = @"/var/mobile/.manticore";
+    NSString *jailbreakPlistPath    = [NSString stringWithFormat:@"%@/jailbreak.plist", jailbreakDirBasePath];
+    if([[NSFileManager defaultManager] fileExistsAtPath:jailbreakDirBasePath isDirectory:YES]){
+        if([[NSFileManager defaultManager] fileExistsAtPath:jailbreakPlistPath isDirectory:NO]){
+            NSDictionary *jailbreakPlist = readPlist(jailbreakPlistPath);
+            printf("Existing installation of manticore found. (Version %s)\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]] UTF8String]);
+            if(programVersion() != [NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]]){
+                printf("Systemwide installed version and current version mismatch (%s) / (%s)!\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]] UTF8String], [programVersion() UTF8String]);
+            }
         }
-    } else {
+    }else {
         printf("initial installation of manticore starting...\n");
+        if(![[NSFileManager defaultManager] fileExistsAtPath:jailbreakDirBasePath isDirectory:YES]){
+            // Creating Base Jailbreak directory
+            [[NSFileManager defaultManager] createDirectoryAtPath:jailbreakDirBasePath withIntermediateDirectories:YES attributes:nil error:NULL];
+            // Creating Configuration files (.plist etc)
+        }
     }
     return 0;
 }
