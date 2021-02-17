@@ -32,8 +32,26 @@ cpu_subtype_t get_cpu_subtype() {
 
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
+
+static unsigned off_p_pid = 0x68;               // proc_t::p_pid
+static unsigned off_task = 0x10;                // proc_t::task
+static unsigned off_p_uid = 0x30;               // proc_t::p_uid
+static unsigned off_p_gid = 0x34;               // proc_t::p_uid
+static unsigned off_p_ruid = 0x38;              // proc_t::p_uid
+static unsigned off_p_rgid = 0x3c;              // proc_t::p_uid
+static unsigned off_p_ucred = 0xf0;            // proc_t::p_ucred
+static unsigned off_p_csflags = 0x280;          // proc_t::p_csflags
+
 static unsigned off_ucred_cr_uid = 0x18;        // ucred::cr_uid
+static unsigned off_ucred_cr_ruid = 0x1c;       // ucred::cr_ruid
+static unsigned off_ucred_cr_svuid = 0x20;      // ucred::cr_svuid
+static unsigned off_ucred_cr_ngroups = 0x24;    // ucred::cr_ngroups
+static unsigned off_ucred_cr_groups = 0x28;     // ucred::cr_groups
+static unsigned off_ucred_cr_rgid = 0x68;       // ucred::cr_rgid
+static unsigned off_ucred_cr_svgid = 0x6c;      // ucred::cr_svgid
 static unsigned off_ucred_cr_label = 0x78;      // ucred::cr_label
+
+static unsigned off_t_flags = 0x3a0; // task::t_flags
 
 static unsigned off_sandbox_slot = 0x10;
 
@@ -105,28 +123,36 @@ int jailbreak(void *init){
     setgid(0);
     uint32_t gid = getgid();
     printf("getgid() returns %u\n", gid);
-    sleep(1);
-    // printf("Setting hsp4 to tfp0...");
-   // if(setHSP4() == 0) printf("Successfully set hsp4 to tfp0");
-    //    printf("Starting Kernel code execution....\n");
-    //    [apiController sendMessageToLog:@"====================== Stage 4 (KCE) ======================"];
-    //    printf("Allowing SpringBoard to show non system apps..");
     [apiController sendMessageToLog:@"========================= Stage 4 ========================="];
-    if(setup_filesystem() == 0) printf("Filesystem base installed successfully");
+    if(setup_filesystem() == 0) printf("Manticore-Files installed successfully\n");
+    printf("Everything done.\n");
+    sleep(1);
     return 0;
 }
 
+int install_bootstrap(){
+    return 0;
+}
+
+bool check_root_rw(){
+    [[NSFileManager defaultManager] createFileAtPath:@"/.manticore_rw" contents:nil attributes:nil];
+    if([[NSFileManager defaultManager] fileExistsAtPath:@"/.manticore_rw"]){
+        [[NSFileManager defaultManager] removeItemAtPath:@"/.manticore_rw" error:nil];
+        return true;
+    }
+    return false;
+}
+
 int setup_filesystem(){
-    // checking for existing installations of retron
-    NSString *jailbreakPlistPath = @"/var/mobile/.retron/jailbreak.plist";
+    NSString *jailbreakPlistPath = @"/var/mobile/.manticore/jailbreak.plist";
     if([[NSFileManager defaultManager] fileExistsAtPath:jailbreakPlistPath]){
         NSDictionary *jailbreakPlist = readPlist(jailbreakPlistPath);
-        printf("Existing installation of retron found. (Version %s)\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"retron_version_installed"]] UTF8String]);
-        if(programVersion() != [NSString stringWithFormat:@"%@", jailbreakPlist[@"retron_version_installed"]]){
-            printf("Systemwide installed version and current version mismatch (%s) / (%s)!\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"retron_version_installed"]] UTF8String], [programVersion() UTF8String]);
+        printf("Existing installation of manticore found. (Version %s)\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]] UTF8String]);
+        if(programVersion() != [NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]]){
+            printf("Systemwide installed version and current version mismatch (%s) / (%s)!\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"manticore_version_installed"]] UTF8String], [programVersion() UTF8String]);
         }
     } else {
-        printf("initial installation of retron starting...\n");
+        printf("initial installation of manticore starting...\n");
     }
     return 0;
 }
