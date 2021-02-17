@@ -23,5 +23,10 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 void Log(int type,const char *format, ...) __attribute__ ((format (printf, 2, 3)));
+NSString *programVersion();
+
+bool modifyPlist(NSString *filename, void (^function)(id));
+NSDictionary *readPlist(NSString *filename);
+
 
 #endif /* support_h */

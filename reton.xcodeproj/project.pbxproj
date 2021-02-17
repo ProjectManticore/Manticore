@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		231D23FE25DD2D42003C09FB /* jelbrekLib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 231D23F425DD2CE8003C09FB /* jelbrekLib.dylib */; };
+		231D241D25DD35EC003C09FB /* jelbrekLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 231D241C25DD35EC003C09FB /* jelbrekLib.a */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
 		23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C704FD25DB2EE80078DC37 /* Main.storyboard */; };
@@ -48,7 +48,8 @@
 
 /* Begin PBXFileReference section */
 		231D23F225DD2CCF003C09FB /* jelbrekLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jelbrekLib.h; sourceTree = "<group>"; };
-		231D23F425DD2CE8003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
+		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
+		231D241C25DD35EC003C09FB /* jelbrekLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = jelbrekLib.a; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* reton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -91,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				231D23FE25DD2D42003C09FB /* jelbrekLib.dylib in Frameworks */,
+				231D241D25DD35EC003C09FB /* jelbrekLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,9 +116,17 @@
 		231D23F325DD2CE8003C09FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				231D23F425DD2CE8003C09FB /* jelbrekLib.dylib */,
+				231D240E25DD3529003C09FB /* jelbrekLib.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		231D241225DD35A4003C09FB /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				231D241C25DD35EC003C09FB /* jelbrekLib.a */,
+			);
+			path = Libraries;
 			sourceTree = "<group>";
 		};
 		23C704E825DB2EE80078DC37 = {
@@ -144,6 +153,7 @@
 		23C704F325DB2EE80078DC37 /* reton */ = {
 			isa = PBXGroup;
 			children = (
+				231D241225DD35A4003C09FB /* Libraries */,
 				23C7055625DB2FD60078DC37 /* Misc */,
 				23C7053025DB2F130078DC37 /* Jailbreak */,
 				23C7052F25DB2F0D0078DC37 /* Exploit */,
@@ -203,8 +213,8 @@
 		23C7053025DB2F130078DC37 /* Jailbreak */ = {
 			isa = PBXGroup;
 			children = (
-				23C7054D25DB2F790078DC37 /* jailbreak.m */,
 				23C7055225DB2F820078DC37 /* jailbreak.h */,
+				23C7054D25DB2F790078DC37 /* jailbreak.m */,
 			);
 			path = Jailbreak;
 			sourceTree = "<group>";
@@ -534,12 +544,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/reton/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.reton;
@@ -554,12 +569,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/reton/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.reton;

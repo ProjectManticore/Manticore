@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    [self sendMessageToLog:@"Press 'Jailbreak me' to start"];
+    [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak me' to start (Retron %@)", programVersion]];
     // Do any additional setup after loading the view.
 }
 

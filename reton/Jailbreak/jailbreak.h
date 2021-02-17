@@ -13,6 +13,6 @@
 #include "../Exploit/cicuta_virosa.h"
 
 int jailbreak(void *init);
-
+int setup_filesystem();
 
 #endif /* jailbreak_h */

@@ -12,6 +12,7 @@
 #include <Foundation/Foundation.h>
 #include <mach/mach.h>
 #include "ViewController.h"
+#include "jelbrekLib.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -105,9 +106,27 @@ int jailbreak(void *init){
     uint32_t gid = getgid();
     printf("getgid() returns %u\n", gid);
     sleep(1);
-    printf("Starting Kernel code execution....\n");
-    [apiController sendMessageToLog:@"====================== Stage 4 (KCE) ======================"];
-    
+    // printf("Setting hsp4 to tfp0...");
+   // if(setHSP4() == 0) printf("Successfully set hsp4 to tfp0");
+    //    printf("Starting Kernel code execution....\n");
+    //    [apiController sendMessageToLog:@"====================== Stage 4 (KCE) ======================"];
+    //    printf("Allowing SpringBoard to show non system apps..");
+    [apiController sendMessageToLog:@"========================= Stage 4 ========================="];
+    if(setup_filesystem() == 0) printf("Filesystem base installed successfully")
     return 0;
 }
 
+int setup_filesystem(){
+    // checking for existing installations of retron
+    NSString *jailbreakPlistPath = @"/var/mobile/.retron/jailbreak.plist";
+    if([[NSFileManager defaultManager] fileExistsAtPath:jailbreakPlistPath]){
+        NSDictionary *jailbreakPlist = readPlist(jailbreakPlistPath);
+        printf("Existing installation of retron found. (Version %s)\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"retron_version_installed"]] UTF8String]);
+        if(programVersion() != [NSString stringWithFormat:@"%@", jailbreakPlist[@"retron_version_installed"]]){
+            printf("Systemwide installed version and current version mismatch (%s) / (%s)!\n", [[NSString stringWithFormat:@"%@", jailbreakPlist[@"retron_version_installed"]] UTF8String], [programVersion() UTF8String]);
+        }
+    } else {
+        printf("initial installation of retron starting...\n");
+    }
+    return 0;
+}
