@@ -20,6 +20,7 @@
     [super viewDidLoad];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak me' to start (Manticore %@)", programVersion]];
+    [self sendMessageToLog:[NSString stringWithFormat:@"@RPwnage && PwnedC99"]];
     // Do any additional setup after loading the view.
 }
 
