@@ -162,8 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				23C7055A25DB30240078DC37 /* support.h */,
-				231D23F225DD2CCF003C09FB /* jelbrekLib.h */,
 				23C7055B25DB30240078DC37 /* support.m */,
+				231D23F225DD2CCF003C09FB /* jelbrekLib.h */,
 			);
 			path = Misc;
 			sourceTree = "<group>";

@@ -13,7 +13,7 @@
 #include "../Exploit/cicuta_virosa.h"
 
 int jailbreak(void *init);
-int setup_filesystem(void);
+bool setup_manticore_filesystem(void);
 bool check_root_rw(void);
 
 #endif /* jailbreak_h */

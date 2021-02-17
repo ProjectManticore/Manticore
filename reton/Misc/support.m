@@ -56,6 +56,12 @@ bool modifyPlist(NSString *filename, void (^function)(id)) {
     return true;
 }
 
+bool createEmptyPlist(NSString *filename){
+    NSMutableDictionary *plist = [[NSMutableDictionary alloc] init];
+    plist[@"test"] = @"test";
+    return [plist writeToFile:filename atomically:YES];
+}
+
 NSDictionary *readPlist(NSString *filename){
     NSURL *url = [NSURL fileURLWithPath:filename];
     NSError *error;
@@ -63,11 +69,6 @@ NSDictionary *readPlist(NSString *filename){
     NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:data options:0 format:nil error:&error];
     if (!error) return dictionary;
     return 0;
-}
-
-bool createEmptyPlist(NSString *path, NSString *filename){
-    // TODO
-    return NO;
 }
 
 NSString *programVersion(){

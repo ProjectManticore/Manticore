@@ -30,6 +30,6 @@ bool modifyPlist(NSString *filename, void (^function)(id));
 NSDictionary *readPlist(NSString *filename);
 
 // TODO
-bool createEmptyPlist(NSString *path, NSString *filename);
+bool createEmptyPlist(NSString *path);
 
 #endif /* support_h */
