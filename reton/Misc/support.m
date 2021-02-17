@@ -56,6 +56,12 @@ bool modifyPlist(NSString *filename, void (^function)(id)) {
     return true;
 }
 
+bool createEmptyPlist(NSString *filename){
+    NSMutableDictionary *plist = [[NSMutableDictionary alloc] init];
+    plist[@"test"] = @"test";
+    return [plist writeToFile:filename atomically:YES];
+}
+
 NSDictionary *readPlist(NSString *filename){
     NSURL *url = [NSURL fileURLWithPath:filename];
     NSError *error;
