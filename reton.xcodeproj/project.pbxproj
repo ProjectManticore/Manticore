@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231D23FE25DD2D42003C09FB /* jelbrekLib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 231D23F425DD2CE8003C09FB /* jelbrekLib.dylib */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
 		23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C704FD25DB2EE80078DC37 /* Main.storyboard */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		231D23F225DD2CCF003C09FB /* jelbrekLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jelbrekLib.h; sourceTree = "<group>"; };
+		231D23F425DD2CE8003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* reton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				231D23FE25DD2D42003C09FB /* jelbrekLib.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +112,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231D23F325DD2CE8003C09FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				231D23F425DD2CE8003C09FB /* jelbrekLib.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		23C704E825DB2EE80078DC37 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +127,7 @@
 				23C7051225DB2EE90078DC37 /* retonTests */,
 				23C7051D25DB2EE90078DC37 /* retonUITests */,
 				23C704F225DB2EE80078DC37 /* Products */,
+				231D23F325DD2CE8003C09FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				23C7055A25DB30240078DC37 /* support.h */,
+				231D23F225DD2CCF003C09FB /* jelbrekLib.h */,
 				23C7055B25DB30240078DC37 /* support.m */,
 			);
 			path = Misc;
@@ -521,6 +535,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -540,6 +555,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
