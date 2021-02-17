@@ -7,6 +7,7 @@
 
 #include "jailbreak.h"
 #include <sys/sysctl.h>
+#include <sys/snapshot.h>
 #include "../Misc/support.h"
 #include <UIKit/UIKit.h>
 #include <Foundation/Foundation.h>
@@ -123,11 +124,23 @@ int jailbreak(void *init){
     setgid(0);
     uint32_t gid = getgid();
     printf("getgid() returns %u\n", gid);
+    printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
+
+     
+
+    
+    
+    // RootFS remount
+    printf("[*] Trying to remount rootfs...\n");
+    
+    
+    
     [apiController sendMessageToLog:@"========================= Stage 4 ========================="];
     if(setup_manticore_filesystem()) printf("Manticore-Files installed successfully\n");
     sleep(1);
     return 0;
 }
+
 
 int install_bootstrap(){
     return 0;
@@ -161,3 +174,4 @@ bool setup_manticore_filesystem(){
     }
     return NO;
 }
+
