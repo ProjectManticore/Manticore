@@ -8,5 +8,7 @@
 #ifndef amfid_h
 #define amfid_h
 
+int amfid_patches(uint64_t cr_label);
+
 
 #endif /* amfid_h */

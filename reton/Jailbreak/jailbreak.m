@@ -14,6 +14,7 @@
 #include <mach/mach.h>
 #include "../Misc/kernel_offsets.h"
 #include "ViewController.h"
+#include "amfid.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -156,7 +157,7 @@ int jailbreak(void *init) {
     printf("getgid() returns %u\n", gid);
     printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
 
-    remount_RootFS();
+    amfid_patches(cr_label);
     return 0;
 }
 
