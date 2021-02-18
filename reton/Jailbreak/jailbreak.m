@@ -141,18 +141,23 @@ int jailbreak(void *init){
 }
 
 
-int install_bootstrap(){
+int remount_rootfs(void) {
+    // kptr_t rootfs_vnode = find_vnode_with_fd(myProcAddr, rootfd);
     return 0;
 }
 
-int sb_allow_ndefault() {
+int install_bootstrap(void){
+    return 0;
+}
+
+int sb_allow_ndefault(void) {
     // Allow SpringBoard to show non-default system apps.
     if(modifyPlist(@"/var/mobile/Library/Preferences/com.apple.springboard.plist", ^(id plist) { plist[@"SBShowNonDefaultSystemApps"] = @YES; }))
         return 1;
     return 0;
 }
 
-bool check_root_rw(){
+bool check_root_rw(void){
     [[NSFileManager defaultManager] createFileAtPath:@"/.manticore_rw" contents:nil attributes:nil];
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/.manticore_rw"]){
         [[NSFileManager defaultManager] removeItemAtPath:@"/.manticore_rw" error:nil];
@@ -161,7 +166,7 @@ bool check_root_rw(){
     return false;
 }
 
-bool setup_manticore_filesystem(){
+bool setup_manticore_filesystem(void){
     NSString *jailbreakDirBasePath  = @"/var/mobile/.manticore/";
     NSString *jailbreakPlistPath    = [NSString stringWithFormat:@"%@jailbreak.plist", jailbreakDirBasePath];
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/.manticore/"] && [[NSFileManager defaultManager]  fileExistsAtPath:jailbreakPlistPath]) {
