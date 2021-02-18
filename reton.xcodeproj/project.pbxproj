@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		233576AD25DE771000432C08 /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 233576AC25DE771000432C08 /* kernel_offsets.m */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
 		23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C704FD25DB2EE80078DC37 /* Main.storyboard */; };
@@ -29,6 +30,8 @@
 /* Begin PBXFileReference section */
 		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
 		231D241C25DD35EC003C09FB /* jelbrekLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = jelbrekLib.a; sourceTree = "<group>"; };
+		233576AB25DE770000432C08 /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
+		233576AC25DE771000432C08 /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* reton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 			children = (
 				23C7055A25DB30240078DC37 /* support.h */,
 				23C7055B25DB30240078DC37 /* support.m */,
+				233576AB25DE770000432C08 /* kernel_offsets.h */,
+				233576AC25DE771000432C08 /* kernel_offsets.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 				23C7050A25DB2EE90078DC37 /* main.m in Sources */,
 				23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */,
 				23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */,
+				233576AD25DE771000432C08 /* kernel_offsets.m in Sources */,
 				23C7050225DB2EE80078DC37 /* reton.xcdatamodeld in Sources */,
 				23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */,
 				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
