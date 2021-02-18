@@ -13,7 +13,7 @@
 #include <Foundation/Foundation.h>
 #include <mach/mach.h>
 #include "../Misc/kernel_offsets.h"
-#include "ViewController.h"
+#include "../ViewController.h"
 #include "amfid.h"
 #include "rootfs.h"
 #include "utils.h"

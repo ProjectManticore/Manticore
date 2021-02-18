@@ -6,8 +6,8 @@
 //
 
 #import "ViewController.h"
-#include "cicuta_virosa.h"
-#include "jailbreak.h"
+#include "Exploit/cicuta_virosa.h"
+#include "Jailbreak/jailbreak.h"
 #include <objc/runtime.h>
 
 @interface ViewController ()
