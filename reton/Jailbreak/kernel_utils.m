@@ -8,6 +8,9 @@
 #import <Foundation/Foundation.h>
 #include "../Misc/support.h"
 #include "../Exploit/cicuta_virosa.h"
+#include "../Libraries/jelbrekLib/jelbrekLib.h"
+#include <mach/mach_traps.h>
+#include "kernel_utils.h"
 
 kptr_t get_proc_struct_for_pid(pid_t pid){
     __block kptr_t proc = KPTR_NULL;
@@ -20,6 +23,21 @@ kptr_t get_proc_struct_for_pid(pid_t pid){
     // TODO check if possible (allproc inclusive?)
     return proc;
 }
+
+typedef struct {
+    struct {
+        uint64_t data;
+        uint32_t reserved : 24,
+                    type     :  8;
+        uint32_t pad;
+    } lock; // mutex lock
+    uint32_t ref_count;
+    uint32_t active;
+    uint32_t halting;
+    uint32_t pad;
+    uint64_t map;
+} ktask_t;
+
 
 
 bool set_platform_binary(kptr_t proc, bool set) {
@@ -36,6 +54,6 @@ bool set_platform_binary(kptr_t proc, bool set) {
     }
     write_32((task_struct_addr + 0x3a0), (void*)task_t_flags);
     ret = true;
-out:;
     return ret;
 }
+
