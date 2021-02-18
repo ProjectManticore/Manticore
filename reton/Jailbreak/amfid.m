@@ -15,8 +15,8 @@ int amfid_patches(uint64_t cr_label){
     printf("Trying to patch amfid slot...\n");
     printf("amfid slot found -> 0x%llx\n", read_64(cr_label + 0x8));
     printf("patching amfid...");
-    uint32_t buffer[5] = {0, 0, 0, 1, 0};
-    write_64(cr_label + 0x8, (void*)buffer);
-    printf("\tdone (0x%llx)\n", read_64(cr_label + 0x8));
+//    uint32_t buffer[5] = {0, 0, 0, 1, 0};
+//    write_64(cr_label + 0x8, (void*)buffer);
+//    printf("\tdone (0x%llx)\n", read_64(cr_label + 0x8));
     return 0;
 }

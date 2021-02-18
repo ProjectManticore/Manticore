@@ -160,12 +160,6 @@ int jailbreak(void *init) {
     return 0;
 }
 
-
-int remount_rootfs(void) {
-    // kptr_t rootfs_vnode = find_vnode_with_fd(myProcAddr, rootfd);
-    return 0;
-}
-
 int install_bootstrap(void){
     return 0;
 }
@@ -177,14 +171,7 @@ int sb_allow_ndefault(void) {
     return 0;
 }
 
-bool check_root_rw(void){
-    [[NSFileManager defaultManager] createFileAtPath:@"/.manticore_rw" contents:nil attributes:nil];
-    if([[NSFileManager defaultManager] fileExistsAtPath:@"/.manticore_rw"]){
-        [[NSFileManager defaultManager] removeItemAtPath:@"/.manticore_rw" error:nil];
-        return true;
-    }
-    return false;
-}
+
 
 bool setup_manticore_filesystem(void){
     NSString *jailbreakDirBasePath  = @"/var/mobile/.manticore/";
