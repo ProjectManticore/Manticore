@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		230215F625DE8AF3003E7C5C /* amfid.m in Sources */ = {isa = PBXBuildFile; fileRef = 230215F525DE8AF3003E7C5C /* amfid.m */; };
 		230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */ = {isa = PBXBuildFile; fileRef = 230215FA25DE8E8F003E7C5C /* rootfs.m */; };
+		2302160425DE93B5003E7C5C /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2302160225DE93B5003E7C5C /* libsnappy.c */; };
+		2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2302160625DE93D6003E7C5C /* IOKit.framework */; };
 		233576AD25DE771000432C08 /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 233576AC25DE771000432C08 /* kernel_offsets.m */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
@@ -34,6 +36,14 @@
 		230215F825DE8B02003E7C5C /* amfid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfid.h; sourceTree = "<group>"; };
 		230215FA25DE8E8F003E7C5C /* rootfs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rootfs.m; sourceTree = "<group>"; };
 		230215FD25DE8E97003E7C5C /* rootfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rootfs.h; sourceTree = "<group>"; };
+		2302160125DE93B5003E7C5C /* snappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snappy.h; sourceTree = "<group>"; };
+		2302160225DE93B5003E7C5C /* libsnappy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libsnappy.c; sourceTree = "<group>"; };
+		2302160625DE93D6003E7C5C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		2302160C25DE965B003E7C5C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = ../../../../System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
+		2302161125DE9791003E7C5C /* IOReturn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOReturn.h; sourceTree = "<group>"; };
+		2302161225DE9791003E7C5C /* IOTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOTypes.h; sourceTree = "<group>"; };
+		2302161325DE9791003E7C5C /* IOKitLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
+		2302161525DE97B8003E7C5C /* IOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKit.h; sourceTree = "<group>"; };
 		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
 		233576AB25DE770000432C08 /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
 		233576AC25DE771000432C08 /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
@@ -73,15 +83,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		230215FF25DE93AD003E7C5C /* snappy */ = {
+			isa = PBXGroup;
+			children = (
+				2302160225DE93B5003E7C5C /* libsnappy.c */,
+				2302160125DE93B5003E7C5C /* snappy.h */,
+			);
+			path = snappy;
+			sourceTree = "<group>";
+		};
+		2302161025DE9786003E7C5C /* IOKit */ = {
+			isa = PBXGroup;
+			children = (
+				2302161325DE9791003E7C5C /* IOKitLib.h */,
+				2302161125DE9791003E7C5C /* IOReturn.h */,
+				2302161525DE97B8003E7C5C /* IOKit.h */,
+				2302161225DE9791003E7C5C /* IOTypes.h */,
+			);
+			path = IOKit;
+			sourceTree = "<group>";
+		};
 		231D23F325DD2CE8003C09FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2302160625DE93D6003E7C5C /* IOKit.framework */,
+				2302160C25DE965B003E7C5C /* IOKit.framework */,
 				231D240E25DD3529003C09FB /* jelbrekLib.dylib */,
 			);
 			name = Frameworks;
@@ -90,6 +123,8 @@
 		231D241225DD35A4003C09FB /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2302161025DE9786003E7C5C /* IOKit */,
+				230215FF25DE93AD003E7C5C /* snappy */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -262,6 +297,7 @@
 				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
 				230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */,
 				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
+				2302160425DE93B5003E7C5C /* libsnappy.c in Sources */,
 				230215F625DE8AF3003E7C5C /* amfid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
