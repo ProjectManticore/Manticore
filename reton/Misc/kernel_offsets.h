@@ -3,6 +3,35 @@
 
 extern uint32_t* offsets;
 
+typedef struct {
+    /* struct proc */
+        uint32_t KSTRUCT_OFFSET_PROC_PID;
+        uint32_t KSTRUCT_OFFSET_PROC_TASK;
+        uint32_t KSTRUCT_OFFSET_PROC_UCRED;
+        uint32_t KSTRUCT_OFFSET_PROC_CSFLAGS;
+        uint32_t KSTRUCT_OFFSET_PROC_RGID;
+        uint32_t KSTRUCT_OFFSET_PROC_RUID;
+        uint32_t KSTRUCT_OFFSET_PROC_GID;
+        uint32_t KSTRUCT_OFFSET_PROC_UID;
+
+    /* struct ucred */
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_UID;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_RUID;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_SVUID;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_NGROUPS;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_GROUPS;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_RGID;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_SVGID;
+        uint32_t KSTRUCT_OFFSET_UCRED_CR_LABEL;
+
+    /* struct task */
+        uint32_t KSTRUCT_OFFSET_TASK_TFLAGS;
+    /* sandbox */
+        uint32_t KSTRUCT_OFFSET_SANDBOX_SLOT;
+} kernel_offset_array;
+
+kernel_offset_array dynamic_koffsets_ios_14_4(void);
+
 enum kernel_offset {
     /* struct proc */
         KSTRUCT_OFFSET_PROC_PID,

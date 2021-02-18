@@ -53,8 +53,8 @@ static unsigned off_p_rgid = 0x3c;              // proc_t::p_uid
 static unsigned off_p_ucred = 0xf0;            // proc_t::p_ucred
 static unsigned off_p_csflags = 0x280;          // proc_t::p_csflags
  
-static unsigned off_ucred_cr_uid = 0x18;        // ucred::cr_uid    q
-static unsigned off_ucred_cr_ruid = 0x1c;       // ucred::cr_ruid   q
+static unsigned off_ucred_cr_uid = 0x18;        // ucred::cr_uid  
+static unsigned off_ucred_cr_ruid = 0x1c;       // ucred::cr_ruid
 static unsigned off_ucred_cr_svuid = 0x20;      // ucred::cr_svuid
 static unsigned off_ucred_cr_ngroups = 0x24;    // ucred::cr_ngroups
 static unsigned off_ucred_cr_groups = 0x28;     // ucred::cr_groups
