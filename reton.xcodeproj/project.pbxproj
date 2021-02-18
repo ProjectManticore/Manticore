@@ -85,7 +85,6 @@
 		231D241225DD35A4003C09FB /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				231D241C25DD35EC003C09FB /* jelbrekLib.a */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
