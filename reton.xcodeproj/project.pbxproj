@@ -28,7 +28,6 @@
 
 /* Begin PBXFileReference section */
 		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
-		231D241C25DD35EC003C09FB /* jelbrekLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = jelbrekLib.a; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* reton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -82,7 +81,6 @@
 		231D241225DD35A4003C09FB /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				231D241C25DD35EC003C09FB /* jelbrekLib.a */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
