@@ -35,7 +35,7 @@
 }
 
 - (void)sendMessageToLog:(NSString *)Message {
-    [self.logWindow insertText:[NSString stringWithFormat:@"\n%@", Message]];
+    [self.logWindow insertText:[NSString stringWithFormat:@"%@\n", Message]];
 }
 
 @end

@@ -18,44 +18,39 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35I-cO-oQs">
                                 <rect key="frame" x="20" y="595" width="728" height="409"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="409" id="Z4a-uG-7re"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="10"/>
+                                </userDefinedRuntimeAttributes>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hM-Fc-FDp">
                                 <rect key="frame" x="340.5" y="407" width="87" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Jailbreak Me"/>
                                 <connections>
                                     <action selector="runJailbreak:" destination="BYZ-38-t0r" eventType="touchUpInside" id="846-FF-Buq"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="axc-Aj-jcz">
-                                <rect key="frame" x="20" y="559" width="728" height="4"/>
-                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="axc-Aj-jcz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1OH-Dh-0OE"/>
                             <constraint firstItem="6hM-Fc-FDp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1YN-pi-WWD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="35I-cO-oQs" secondAttribute="trailing" constant="20" id="Ahg-zZ-yth"/>
                             <constraint firstItem="6hM-Fc-FDp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-90" id="Imf-YZ-dGD"/>
                             <constraint firstItem="35I-cO-oQs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="TUr-D0-YNk"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="axc-Aj-jcz" secondAttribute="trailing" constant="20" id="aHX-R7-ppt"/>
-                            <constraint firstItem="35I-cO-oQs" firstAttribute="top" secondItem="axc-Aj-jcz" secondAttribute="bottom" constant="32" id="bJr-iC-0ah"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="35I-cO-oQs" secondAttribute="bottom" constant="20" id="fwY-d9-Ix4"/>
                             <constraint firstItem="35I-cO-oQs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ofH-nT-DnJ"/>
-                            <constraint firstItem="axc-Aj-jcz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zXj-Zd-hEm"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="jailbreakButton" destination="6hM-Fc-FDp" id="cwt-8W-N3N"/>
                         <outlet property="logWindow" destination="35I-cO-oQs" id="kRi-PO-qXI"/>
-                        <outlet property="progressView" destination="axc-Aj-jcz" id="wS7-7F-k08"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

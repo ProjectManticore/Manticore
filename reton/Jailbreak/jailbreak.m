@@ -13,7 +13,6 @@
 #include <Foundation/Foundation.h>
 #include <mach/mach.h>
 #include "ViewController.h"
-#include "jelbrekLib.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -143,6 +142,13 @@ int jailbreak(void *init){
 
 
 int install_bootstrap(){
+    return 0;
+}
+
+int sb_allow_ndefault() {
+    // Allow SpringBoard to show non-default system apps.
+    if(modifyPlist(@"/var/mobile/Library/Preferences/com.apple.springboard.plist", ^(id plist) { plist[@"SBShowNonDefaultSystemApps"] = @YES; }))
+        return 1;
     return 0;
 }
 
