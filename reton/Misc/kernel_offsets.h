@@ -11,7 +11,7 @@ enum kernel_offset {
         KSTRUCT_OFFSET_PROC_CSFLAGS,
         KSTRUCT_OFFSET_PROC_RGID,
         KSTRUCT_OFFSET_PROC_RUID,
-        KSTRUCT_OFFSET_PROC_GID
+        KSTRUCT_OFFSET_PROC_GID,
         KSTRUCT_OFFSET_PROC_UID,
     
     /* struct ucred */
@@ -22,7 +22,7 @@ enum kernel_offset {
         KSTRUCT_OFFSET_UCRED_CR_GROUPS,
         KSTRUCT_OFFSET_UCRED_CR_RGID,
         KSTRUCT_OFFSET_UCRED_CR_SVGID,
-        KSTRUCT_OFFSET_UCRED_CR_LABEL
+        KSTRUCT_OFFSET_UCRED_CR_LABEL,
     
     /* struct task */
         KSTRUCT_OFFSET_TASK_TFLAGS

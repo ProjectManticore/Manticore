@@ -12,6 +12,7 @@
 #include <UIKit/UIKit.h>
 #include <Foundation/Foundation.h>
 #include <mach/mach.h>
+#include "../Misc/kernel_offsets.h"
 #include "ViewController.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
