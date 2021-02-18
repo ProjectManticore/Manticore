@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		230215F625DE8AF3003E7C5C /* amfid.m in Sources */ = {isa = PBXBuildFile; fileRef = 230215F525DE8AF3003E7C5C /* amfid.m */; };
+		230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */ = {isa = PBXBuildFile; fileRef = 230215FA25DE8E8F003E7C5C /* rootfs.m */; };
+		2302160425DE93B5003E7C5C /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2302160225DE93B5003E7C5C /* libsnappy.c */; };
+		2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2302160625DE93D6003E7C5C /* IOKit.framework */; };
+		2302161B25DEA254003E7C5C /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.m */; };
+		2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.m */; };
+		2302163325DEB09B003E7C5C /* jelbrekLib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 231D240E25DD3529003C09FB /* jelbrekLib.dylib */; };
+		2302163725DEB41F003E7C5C /* tfp0.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302163625DEB41F003E7C5C /* tfp0.m */; };
+		233576AD25DE771000432C08 /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 233576AC25DE771000432C08 /* kernel_offsets.m */; };
+		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
+		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
+		23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C704FD25DB2EE80078DC37 /* Main.storyboard */; };
+		23C7050225DB2EE80078DC37 /* reton.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 23C7050025DB2EE80078DC37 /* reton.xcdatamodeld */; };
+		23C7050425DB2EE90078DC37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23C7050325DB2EE90078DC37 /* Assets.xcassets */; };
+		23C7050725DB2EE90078DC37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C7050525DB2EE90078DC37 /* LaunchScreen.storyboard */; };
+		23C7050A25DB2EE90078DC37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7050925DB2EE90078DC37 /* main.m */; };
+		23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053225DB2F210078DC37 /* cicuta_log.c */; };
+		23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053325DB2F210078DC37 /* cicuta_virosa.c */; };
+		23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053525DB2F210078DC37 /* exploit_utilities.c */; };
+		23C7054225DB2F220078DC37 /* voucher_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053925DB2F210078DC37 /* voucher_utils.c */; };
+		23C7054325DB2F220078DC37 /* fake_element_spray.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053B25DB2F220078DC37 /* fake_element_spray.c */; };
+		23C7054425DB2F220078DC37 /* descriptors_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 23C7053C25DB2F220078DC37 /* descriptors_utils.c */; };
+		23C7054525DB2F220078DC37 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053D25DB2F220078DC37 /* README.md */; };
+		23C7054625DB2F220078DC37 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053E25DB2F220078DC37 /* LICENSE */; };
+		23C7054E25DB2F790078DC37 /* jailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7054D25DB2F790078DC37 /* jailbreak.m */; };
+		23C7055C25DB30240078DC37 /* support.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7055B25DB30240078DC37 /* support.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		230215F525DE8AF3003E7C5C /* amfid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = amfid.m; sourceTree = "<group>"; };
+		230215F825DE8B02003E7C5C /* amfid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfid.h; sourceTree = "<group>"; };
+		230215FA25DE8E8F003E7C5C /* rootfs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rootfs.m; sourceTree = "<group>"; };
+		230215FD25DE8E97003E7C5C /* rootfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rootfs.h; sourceTree = "<group>"; };
+		2302160125DE93B5003E7C5C /* snappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snappy.h; sourceTree = "<group>"; };
+		2302160225DE93B5003E7C5C /* libsnappy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libsnappy.c; sourceTree = "<group>"; };
+		2302160625DE93D6003E7C5C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		2302160C25DE965B003E7C5C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = ../../../../System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
+		2302161125DE9791003E7C5C /* IOReturn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOReturn.h; sourceTree = "<group>"; };
+		2302161225DE9791003E7C5C /* IOTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOTypes.h; sourceTree = "<group>"; };
+		2302161325DE9791003E7C5C /* IOKitLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
+		2302161525DE97B8003E7C5C /* IOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKit.h; sourceTree = "<group>"; };
+		2302161A25DEA254003E7C5C /* utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = utils.m; sourceTree = "<group>"; };
+		2302161D25DEA25E003E7C5C /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		2302162125DEA2D2003E7C5C /* kern_control.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kern_control.h; sourceTree = "<group>"; };
+		2302162225DEA2D2003E7C5C /* proc_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = proc_info.h; sourceTree = "<group>"; };
+		2302162725DEA352003E7C5C /* route.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = route.h; sourceTree = "<group>"; };
+		2302162A25DEA365003E7C5C /* libproc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libproc.h; sourceTree = "<group>"; };
+		2302162D25DEA566003E7C5C /* kernel_utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_utils.m; sourceTree = "<group>"; };
+		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
+		2302163425DEB0A1003E7C5C /* jelbrekLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jelbrekLib.h; sourceTree = "<group>"; };
+		2302163625DEB41F003E7C5C /* tfp0.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tfp0.m; sourceTree = "<group>"; };
+		2302163925DEB42B003E7C5C /* tfp0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tfp0.h; sourceTree = "<group>"; };
+		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
+		233576AB25DE770000432C08 /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
+		233576AC25DE771000432C08 /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
+		23C704F125DB2EE80078DC37 /* manticore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manticore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		23C704FA25DB2EE80078DC37 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		23C704FB25DB2EE80078DC37 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		23C704FE25DB2EE80078DC37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		23C7050125DB2EE80078DC37 /* reton.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = reton.xcdatamodel; sourceTree = "<group>"; };
+		23C7050325DB2EE90078DC37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		23C7050625DB2EE90078DC37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		23C7050825DB2EE90078DC37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23C7050925DB2EE90078DC37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		23C7053125DB2F210078DC37 /* cicuta_virosa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicuta_virosa.h; sourceTree = "<group>"; };
+		23C7053225DB2F210078DC37 /* cicuta_log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cicuta_log.c; sourceTree = "<group>"; };
+		23C7053325DB2F210078DC37 /* cicuta_virosa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cicuta_virosa.c; sourceTree = "<group>"; };
+		23C7053425DB2F210078DC37 /* exploit_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exploit_utilities.h; sourceTree = "<group>"; };
+		23C7053525DB2F210078DC37 /* exploit_utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exploit_utilities.c; sourceTree = "<group>"; };
+		23C7053625DB2F210078DC37 /* descriptors_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = descriptors_utils.h; sourceTree = "<group>"; };
+		23C7053725DB2F210078DC37 /* fake_element_spray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fake_element_spray.h; sourceTree = "<group>"; };
+		23C7053825DB2F210078DC37 /* voucher_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voucher_utils.h; sourceTree = "<group>"; };
+		23C7053925DB2F210078DC37 /* voucher_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voucher_utils.c; sourceTree = "<group>"; };
+		23C7053A25DB2F220078DC37 /* cicuta_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicuta_log.h; sourceTree = "<group>"; };
+		23C7053B25DB2F220078DC37 /* fake_element_spray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fake_element_spray.c; sourceTree = "<group>"; };
+		23C7053C25DB2F220078DC37 /* descriptors_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = descriptors_utils.c; sourceTree = "<group>"; };
+		23C7053D25DB2F220078DC37 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		23C7053E25DB2F220078DC37 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		23C7054D25DB2F790078DC37 /* jailbreak.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jailbreak.m; sourceTree = "<group>"; };
+		23C7055225DB2F820078DC37 /* jailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jailbreak.h; sourceTree = "<group>"; };
+		23C7055A25DB30240078DC37 /* support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = support.h; sourceTree = "<group>"; };
+		23C7055B25DB30240078DC37 /* support.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = support.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23C704EE25DB2EE80078DC37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */,
+				2302163325DEB09B003E7C5C /* jelbrekLib.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		230215FF25DE93AD003E7C5C /* snappy */ = {
+			isa = PBXGroup;
+			children = (
+				2302160225DE93B5003E7C5C /* libsnappy.c */,
+				2302160125DE93B5003E7C5C /* snappy.h */,
+			);
+			path = snappy;
+			sourceTree = "<group>";
+		};
+		2302161025DE9786003E7C5C /* IOKit */ = {
+			isa = PBXGroup;
+			children = (
+				2302161325DE9791003E7C5C /* IOKitLib.h */,
+				2302161125DE9791003E7C5C /* IOReturn.h */,
+				2302161525DE97B8003E7C5C /* IOKit.h */,
+				2302161225DE9791003E7C5C /* IOTypes.h */,
+			);
+			path = IOKit;
+			sourceTree = "<group>";
+		};
+		2302161F25DEA2C4003E7C5C /* System */ = {
+			isa = PBXGroup;
+			children = (
+				2302162A25DEA365003E7C5C /* libproc.h */,
+				2302162925DEA358003E7C5C /* net */,
+				2302162025DEA2C8003E7C5C /* sys */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		2302162025DEA2C8003E7C5C /* sys */ = {
+			isa = PBXGroup;
+			children = (
+				2302162125DEA2D2003E7C5C /* kern_control.h */,
+				2302162225DEA2D2003E7C5C /* proc_info.h */,
+			);
+			path = sys;
+			sourceTree = "<group>";
+		};
+		2302162925DEA358003E7C5C /* net */ = {
+			isa = PBXGroup;
+			children = (
+				2302162725DEA352003E7C5C /* route.h */,
+			);
+			path = net;
+			sourceTree = "<group>";
+		};
+		2302163225DEB081003E7C5C /* jelbrekLib */ = {
+			isa = PBXGroup;
+			children = (
+				2302163425DEB0A1003E7C5C /* jelbrekLib.h */,
+			);
+			path = jelbrekLib;
+			sourceTree = "<group>";
+		};
+		231D23F325DD2CE8003C09FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2302160625DE93D6003E7C5C /* IOKit.framework */,
+				2302160C25DE965B003E7C5C /* IOKit.framework */,
+				231D240E25DD3529003C09FB /* jelbrekLib.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		231D241225DD35A4003C09FB /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				2302163225DEB081003E7C5C /* jelbrekLib */,
+				2302161F25DEA2C4003E7C5C /* System */,
+				2302161025DE9786003E7C5C /* IOKit */,
+				230215FF25DE93AD003E7C5C /* snappy */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		23C704E825DB2EE80078DC37 = {
+			isa = PBXGroup;
+			children = (
+				23C704F325DB2EE80078DC37 /* manticore */,
+				23C704F225DB2EE80078DC37 /* Products */,
+				231D23F325DD2CE8003C09FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		23C704F225DB2EE80078DC37 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				23C704F125DB2EE80078DC37 /* manticore.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		23C704F325DB2EE80078DC37 /* manticore */ = {
+			isa = PBXGroup;
+			children = (
+				231D241225DD35A4003C09FB /* Libraries */,
+				23C7055625DB2FD60078DC37 /* Misc */,
+				23C7053025DB2F130078DC37 /* Jailbreak */,
+				23C7052F25DB2F0D0078DC37 /* Exploit */,
+				23C704F425DB2EE80078DC37 /* AppDelegate.h */,
+				23C704F525DB2EE80078DC37 /* AppDelegate.m */,
+				23C704FA25DB2EE80078DC37 /* ViewController.h */,
+				23C704FB25DB2EE80078DC37 /* ViewController.m */,
+				23C704FD25DB2EE80078DC37 /* Main.storyboard */,
+				23C7050325DB2EE90078DC37 /* Assets.xcassets */,
+				23C7050525DB2EE90078DC37 /* LaunchScreen.storyboard */,
+				23C7050825DB2EE90078DC37 /* Info.plist */,
+				23C7050925DB2EE90078DC37 /* main.m */,
+				23C7050025DB2EE80078DC37 /* reton.xcdatamodeld */,
+			);
+			path = manticore;
+			sourceTree = "<group>";
+		};
+		23C7052F25DB2F0D0078DC37 /* Exploit */ = {
+			isa = PBXGroup;
+			children = (
+				23C7053225DB2F210078DC37 /* cicuta_log.c */,
+				23C7053A25DB2F220078DC37 /* cicuta_log.h */,
+				23C7053325DB2F210078DC37 /* cicuta_virosa.c */,
+				23C7053125DB2F210078DC37 /* cicuta_virosa.h */,
+				23C7053C25DB2F220078DC37 /* descriptors_utils.c */,
+				23C7053625DB2F210078DC37 /* descriptors_utils.h */,
+				23C7053525DB2F210078DC37 /* exploit_utilities.c */,
+				23C7053425DB2F210078DC37 /* exploit_utilities.h */,
+				23C7053B25DB2F220078DC37 /* fake_element_spray.c */,
+				23C7053725DB2F210078DC37 /* fake_element_spray.h */,
+				23C7053E25DB2F220078DC37 /* LICENSE */,
+				23C7053D25DB2F220078DC37 /* README.md */,
+				23C7053925DB2F210078DC37 /* voucher_utils.c */,
+				23C7053825DB2F210078DC37 /* voucher_utils.h */,
+			);
+			path = Exploit;
+			sourceTree = "<group>";
+		};
+		23C7053025DB2F130078DC37 /* Jailbreak */ = {
+			isa = PBXGroup;
+			children = (
+				23C7055225DB2F820078DC37 /* jailbreak.h */,
+				23C7054D25DB2F790078DC37 /* jailbreak.m */,
+				230215F525DE8AF3003E7C5C /* amfid.m */,
+				230215F825DE8B02003E7C5C /* amfid.h */,
+				230215FA25DE8E8F003E7C5C /* rootfs.m */,
+				230215FD25DE8E97003E7C5C /* rootfs.h */,
+				2302161A25DEA254003E7C5C /* utils.m */,
+				2302161D25DEA25E003E7C5C /* utils.h */,
+				2302162D25DEA566003E7C5C /* kernel_utils.m */,
+				2302163025DEA571003E7C5C /* kernel_utils.h */,
+				2302163625DEB41F003E7C5C /* tfp0.m */,
+				2302163925DEB42B003E7C5C /* tfp0.h */,
+			);
+			path = Jailbreak;
+			sourceTree = "<group>";
+		};
+		23C7055625DB2FD60078DC37 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				23C7055A25DB30240078DC37 /* support.h */,
+				23C7055B25DB30240078DC37 /* support.m */,
+				233576AB25DE770000432C08 /* kernel_offsets.h */,
+				233576AC25DE771000432C08 /* kernel_offsets.m */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		23C704F025DB2EE80078DC37 /* manticore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23C7052325DB2EE90078DC37 /* Build configuration list for PBXNativeTarget "manticore" */;
+			buildPhases = (
+				23C704ED25DB2EE80078DC37 /* Sources */,
+				23C704EE25DB2EE80078DC37 /* Frameworks */,
+				23C704EF25DB2EE80078DC37 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = manticore;
+			productName = reton;
+			productReference = 23C704F125DB2EE80078DC37 /* manticore.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		23C704E925DB2EE80078DC37 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					23C704F025DB2EE80078DC37 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+				};
+			};
+			buildConfigurationList = 23C704EC25DB2EE80078DC37 /* Build configuration list for PBXProject "manticore" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 23C704E825DB2EE80078DC37;
+			productRefGroup = 23C704F225DB2EE80078DC37 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				23C704F025DB2EE80078DC37 /* manticore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23C704EF25DB2EE80078DC37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23C7050725DB2EE90078DC37 /* LaunchScreen.storyboard in Resources */,
+				23C7050425DB2EE90078DC37 /* Assets.xcassets in Resources */,
+				23C7054525DB2F220078DC37 /* README.md in Resources */,
+				23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */,
+				23C7054625DB2F220078DC37 /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23C704ED25DB2EE80078DC37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23C7054425DB2F220078DC37 /* descriptors_utils.c in Sources */,
+				23C7055C25DB30240078DC37 /* support.m in Sources */,
+				23C7054225DB2F220078DC37 /* voucher_utils.c in Sources */,
+				23C7054E25DB2F790078DC37 /* jailbreak.m in Sources */,
+				23C7054325DB2F220078DC37 /* fake_element_spray.c in Sources */,
+				23C7050A25DB2EE90078DC37 /* main.m in Sources */,
+				23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */,
+				23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */,
+				233576AD25DE771000432C08 /* kernel_offsets.m in Sources */,
+				23C7050225DB2EE80078DC37 /* reton.xcdatamodeld in Sources */,
+				23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */,
+				2302161B25DEA254003E7C5C /* utils.m in Sources */,
+				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
+				230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */,
+				2302163725DEB41F003E7C5C /* tfp0.m in Sources */,
+				2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */,
+				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
+				2302160425DE93B5003E7C5C /* libsnappy.c in Sources */,
+				230215F625DE8AF3003E7C5C /* amfid.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		23C704FD25DB2EE80078DC37 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23C704FE25DB2EE80078DC37 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		23C7050525DB2EE90078DC37 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23C7050625DB2EE90078DC37 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		23C7052125DB2EE90078DC37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		23C7052225DB2EE90078DC37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		23C7052425DB2EE90078DC37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.0.1;
+				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = manticore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/reton/Libraries",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		23C7052525DB2EE90078DC37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0.0.1;
+				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = manticore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/reton/Libraries",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23C704EC25DB2EE80078DC37 /* Build configuration list for PBXProject "manticore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23C7052125DB2EE90078DC37 /* Debug */,
+				23C7052225DB2EE90078DC37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23C7052325DB2EE90078DC37 /* Build configuration list for PBXNativeTarget "manticore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23C7052425DB2EE90078DC37 /* Debug */,
+				23C7052525DB2EE90078DC37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		23C7050025DB2EE80078DC37 /* reton.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				23C7050125DB2EE80078DC37 /* reton.xcdatamodel */,
+			);
+			currentVersion = 23C7050125DB2EE80078DC37 /* reton.xcdatamodel */;
+			path = reton.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 23C704E925DB2EE80078DC37 /* Project object */;
+}
