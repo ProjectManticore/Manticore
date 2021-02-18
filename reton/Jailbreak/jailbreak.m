@@ -119,6 +119,7 @@ int jailbreak(void *init) {
     
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
     write_20(ucred + off_ucred_cr_uid, (void*)buffer);
+    write_20(ucred + off_ucred_cr_rgid, (void*)buffer);
     
     uint32_t uid = getuid();
     printf("getuid() returns %u\n", uid);

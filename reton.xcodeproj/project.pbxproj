@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		230215F625DE8AF3003E7C5C /* amfid.m in Sources */ = {isa = PBXBuildFile; fileRef = 230215F525DE8AF3003E7C5C /* amfid.m */; };
 		233576AD25DE771000432C08 /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 233576AC25DE771000432C08 /* kernel_offsets.m */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		230215F525DE8AF3003E7C5C /* amfid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = amfid.m; sourceTree = "<group>"; };
+		230215F825DE8B02003E7C5C /* amfid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfid.h; sourceTree = "<group>"; };
 		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
 		233576AB25DE770000432C08 /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
 		233576AC25DE771000432C08 /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 			children = (
 				23C7055225DB2F820078DC37 /* jailbreak.h */,
 				23C7054D25DB2F790078DC37 /* jailbreak.m */,
+				230215F525DE8AF3003E7C5C /* amfid.m */,
+				230215F825DE8B02003E7C5C /* amfid.h */,
 			);
 			path = Jailbreak;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 				23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */,
 				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
 				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
+				230215F625DE8AF3003E7C5C /* amfid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

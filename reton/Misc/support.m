@@ -10,6 +10,7 @@
 #include "support.h"
 #include "cicuta_log.h"
 
+
 void LogHandler(int type, const char *fmt) {
     switch (type) {
         case log_info:
