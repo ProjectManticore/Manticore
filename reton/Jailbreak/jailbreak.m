@@ -15,6 +15,8 @@
 #include "../Misc/kernel_offsets.h"
 #include "ViewController.h"
 #include "amfid.h"
+#include "rootfs.h"
+#include "utils.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -32,15 +34,6 @@ cpu_subtype_t get_cpu_subtype() {
     return ret;
 }
 
-int remount_RootFS () {
-    // RootFS remount
-    printf("[*] Trying to remount rootfs...\n");
-    ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [apiController sendMessageToLog:@"========================= Stage 4 ========================="];
-    if(setup_manticore_filesystem()) printf("Manticore-Files installed successfully\n");
-    
-    return 0;
-}
 
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
@@ -156,7 +149,9 @@ int jailbreak(void *init) {
     printf("getgid() returns %u\n", gid);
     printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
 
-    amfid_patches(cr_label);
+    printf("Checking pid of process function...\n");
+    pid_t backboardd_pid = pid_of_process("/usr/libexec/backboardd");
+    printf("backboardd pid = %d\n", backboardd_pid);
     return 0;
 }
 

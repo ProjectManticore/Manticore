@@ -11,6 +11,8 @@
 		230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */ = {isa = PBXBuildFile; fileRef = 230215FA25DE8E8F003E7C5C /* rootfs.m */; };
 		2302160425DE93B5003E7C5C /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2302160225DE93B5003E7C5C /* libsnappy.c */; };
 		2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2302160625DE93D6003E7C5C /* IOKit.framework */; };
+		2302161B25DEA254003E7C5C /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.m */; };
+		2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.m */; };
 		233576AD25DE771000432C08 /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 233576AC25DE771000432C08 /* kernel_offsets.m */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
@@ -44,6 +46,14 @@
 		2302161225DE9791003E7C5C /* IOTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOTypes.h; sourceTree = "<group>"; };
 		2302161325DE9791003E7C5C /* IOKitLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
 		2302161525DE97B8003E7C5C /* IOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKit.h; sourceTree = "<group>"; };
+		2302161A25DEA254003E7C5C /* utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = utils.m; sourceTree = "<group>"; };
+		2302161D25DEA25E003E7C5C /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		2302162125DEA2D2003E7C5C /* kern_control.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kern_control.h; sourceTree = "<group>"; };
+		2302162225DEA2D2003E7C5C /* proc_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = proc_info.h; sourceTree = "<group>"; };
+		2302162725DEA352003E7C5C /* route.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = route.h; sourceTree = "<group>"; };
+		2302162A25DEA365003E7C5C /* libproc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libproc.h; sourceTree = "<group>"; };
+		2302162D25DEA566003E7C5C /* kernel_utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_utils.m; sourceTree = "<group>"; };
+		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
 		231D240E25DD3529003C09FB /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../jelbrekLib/downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
 		233576AB25DE770000432C08 /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
 		233576AC25DE771000432C08 /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
@@ -110,6 +120,33 @@
 			path = IOKit;
 			sourceTree = "<group>";
 		};
+		2302161F25DEA2C4003E7C5C /* System */ = {
+			isa = PBXGroup;
+			children = (
+				2302162A25DEA365003E7C5C /* libproc.h */,
+				2302162925DEA358003E7C5C /* net */,
+				2302162025DEA2C8003E7C5C /* sys */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		2302162025DEA2C8003E7C5C /* sys */ = {
+			isa = PBXGroup;
+			children = (
+				2302162125DEA2D2003E7C5C /* kern_control.h */,
+				2302162225DEA2D2003E7C5C /* proc_info.h */,
+			);
+			path = sys;
+			sourceTree = "<group>";
+		};
+		2302162925DEA358003E7C5C /* net */ = {
+			isa = PBXGroup;
+			children = (
+				2302162725DEA352003E7C5C /* route.h */,
+			);
+			path = net;
+			sourceTree = "<group>";
+		};
 		231D23F325DD2CE8003C09FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +160,7 @@
 		231D241225DD35A4003C09FB /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2302161F25DEA2C4003E7C5C /* System */,
 				2302161025DE9786003E7C5C /* IOKit */,
 				230215FF25DE93AD003E7C5C /* snappy */,
 			);
@@ -197,6 +235,10 @@
 				230215F825DE8B02003E7C5C /* amfid.h */,
 				230215FA25DE8E8F003E7C5C /* rootfs.m */,
 				230215FD25DE8E97003E7C5C /* rootfs.h */,
+				2302161A25DEA254003E7C5C /* utils.m */,
+				2302161D25DEA25E003E7C5C /* utils.h */,
+				2302162D25DEA566003E7C5C /* kernel_utils.m */,
+				2302163025DEA571003E7C5C /* kernel_utils.h */,
 			);
 			path = Jailbreak;
 			sourceTree = "<group>";
@@ -294,8 +336,10 @@
 				233576AD25DE771000432C08 /* kernel_offsets.m in Sources */,
 				23C7050225DB2EE80078DC37 /* reton.xcdatamodeld in Sources */,
 				23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */,
+				2302161B25DEA254003E7C5C /* utils.m in Sources */,
 				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
 				230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */,
+				2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */,
 				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
 				2302160425DE93B5003E7C5C /* libsnappy.c in Sources */,
 				230215F625DE8AF3003E7C5C /* amfid.m in Sources */,

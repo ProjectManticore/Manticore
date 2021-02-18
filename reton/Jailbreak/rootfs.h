@@ -13,7 +13,7 @@
 #define KERN_POINTER_VALID(val) (((val) & 0xffffffff) != 0xdeadbeef && (val) >= VM_MIN_KERNEL_ADDRESS && (val) <= VM_MAX_KERNEL_ADDRESS)
 typedef uint64_t kptr_t;
 
-int remount_rootfs(uint32_t proc);
+int remount_rootfs(kptr_t proc);
 kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 bool check_root_rw(void);
 #endif /* rootfs_h */
