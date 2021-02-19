@@ -79,7 +79,6 @@ int jailbreak(void *init) {
         fprintf(stderr, "failed to get proc_uid\n");
     } else {
         uint64_t proc_uid = proc_uid_pac | 0xffffff8000000000;
-        
         fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid_pac);
         fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid);
         fprintf(stdout, "PAC decrypt: 0x%llx -> 0x%llx\n", proc_uid_pac, proc_uid);
@@ -168,7 +167,14 @@ int jailbreak(void *init) {
     write_32(task + KSTRUCT_OFFSET_TASK_TFLAGS, &t_flag);
     printf("\t0x%llx\n", t_flag);
     printf("[==================] Patches End [==================]\n");
+    printf("====> Kernel patches finished.\n");
     
+    // TODO
+    /*
+     *  AMFI
+     *      - allproc, kernproc, ourcreds, spincred, spinents
+     *
+     */
     
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
 
