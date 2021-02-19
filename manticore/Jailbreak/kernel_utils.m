@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #include "../Misc/support.h"
 #include "../Exploit/cicuta_virosa.h"
-#include "../Libraries/jelbrekLib/jelbrekLib.h"
 #include <mach/mach_traps.h>
 #include "kernel_utils.h"
 
