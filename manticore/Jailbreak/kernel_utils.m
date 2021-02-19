@@ -9,6 +9,7 @@
 #include "../Misc/support.h"
 #include "../Exploit/cicuta_virosa.h"
 #include <mach/mach_traps.h>
+#include <mach/mach.h>
 #include "kernel_utils.h"
 
 

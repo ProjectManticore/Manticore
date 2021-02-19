@@ -9,7 +9,10 @@
 #include "../Exploit/cicuta_virosa.h"
 #include "utils.h"
 #include <mach/mach_traps.h>
+#include <mach/mach_init.h>
+#include <mach/mach_error.h>
 #include <mach/mach.h>
+
 
 uint64_t perform_amfid_patches(uint64_t cr_label){
     printf("\n[================] AMFID Patches [================]\n");
