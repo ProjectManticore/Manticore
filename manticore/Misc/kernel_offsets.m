@@ -8,6 +8,23 @@
 #import <Foundation/Foundation.h>
 #include "kernel_offsets.h"
 
+//kCFCoreFoundationVersionNumbers for determination of iOS Versions
+#ifndef kCFCoreFoundationVersionNumber_iOS_14_0
+#define kCFCoreFoundationVersionNumber_iOS_14_0 1751.108
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iOS_14_1
+#define kCFCoreFoundationVersionNumber_iOS_14_1 1751.108
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iOS_14_2
+#define kCFCoreFoundationVersionNumber_iOS_14_2 1770.106
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iOS_14_3
+#define kCFCoreFoundationVersionNumber_iOS_14_3 1770.300
+#endif
+
 // Offset templates taken from iOS 13
 
 uint32_t* offsets = NULL;
@@ -164,9 +181,9 @@ uint32_t create_outsize;
 uint32_t koffset(enum kernel_offset offset) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ([[[NSProcessInfo processInfo] processName] isEqual:@""]) {//incomplete
+        if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_14_3) {
+            fprintf(stdout, "kCFCoreFoundation: %f", kCFCoreFoundationVersionNumber_iOS_14_3);
             offsets = kernel_offsets_14_3;
-            create_outsize = 0xdd0;
         }
     });
     if (offsets == NULL) {

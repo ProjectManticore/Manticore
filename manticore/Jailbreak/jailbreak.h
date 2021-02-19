@@ -16,5 +16,6 @@ int jailbreak(void *init);
 bool setup_manticore_filesystem(void);
 uint64_t root_patch(uint64_t task_pac);
 int sb_allow_ndefault(void);
+bool check_sandbox_escape(void);
 
 #endif /* jailbreak_h */

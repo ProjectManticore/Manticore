@@ -32,9 +32,9 @@
     self.jailbreakButton.enabled = NO;
     int jailbreak_ret = jailbreak(nil);
     if(jailbreak_ret == 0){
-        self.jailbreakButton.titleLabel.text = @"Jailbroken";
+        [_jailbreakButton setTitle:@"Jailbroken" forState:UIControlStateNormal];
     }else {
-        printf("Jailbreak function returned %d\n", jailbreak_ret);
+        printf("[Error] Jailbreak function returned %d\n", jailbreak_ret);
     }
 }
 
