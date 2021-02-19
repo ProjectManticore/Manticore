@@ -80,6 +80,7 @@ uint32_t kernel_offsets_14_3[] = {
     
     /* struct task */
         0x3A0,  // KSTRUCT_OFFSET_TASK_TFLAGS
+    
     /* struct misc */
         0x10,   // KSTRUCT_OFFSET_SANDBOX_SLOT
 };

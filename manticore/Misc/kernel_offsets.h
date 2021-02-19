@@ -56,7 +56,7 @@ enum kernel_offset {
     /* struct task */
         KSTRUCT_OFFSET_TASK_TFLAGS,
     
-    /* sandbox */
+    /* struct misc */
         KSTRUCT_OFFSET_SANDBOX_SLOT
 };
 
