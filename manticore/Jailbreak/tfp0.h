@@ -8,6 +8,6 @@
 #ifndef tfp0_h
 #define tfp0_h
 
-int gain_tfp0(uint64_t self_task);
+mach_port_t gain_tfp0(uint64_t self_task);
 
 #endif /* tfp0_h */

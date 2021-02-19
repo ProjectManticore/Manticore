@@ -156,3 +156,18 @@ uint32_t kernel_offsets_14_3[] = {
 //    0x00, // 0xb7, // KVTABLE_OFFSET_GET_EXTERNAL_TRAP_FOR_INDEX,
 //    0x00, // 0x6c, /* KFREE_ADDR_OFFSET */
 };
+
+uint32_t create_outsize;
+uint32_t koffset(enum kernel_offset offset) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if ([[[NSProcessInfo processInfo] processName] isEqual:@""]) {//incomplete
+            offsets = kernel_offsets_14_3;
+            create_outsize = 0xdd0;
+        }
+    });
+    if (offsets == NULL) {
+        return 0;
+    }
+    return offsets[offset];
+}
