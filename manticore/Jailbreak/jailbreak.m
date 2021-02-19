@@ -68,7 +68,7 @@ int jailbreak(void *init) {
     printf("\n[==================] Discovery v1 [==================]\n");
     /* Before PAC ---> After PAC */
     uint64_t task = task_pac | 0xffffff8000000000;
-    printf("Task:\t0x%llx\t--->\t0x%llx\n", task_pac, task);
+    printf("Task:\t\t0x%llx\t--->\t0x%llx\n", task_pac, task);
     
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", task_pac, task]];
     uint64_t proc_pac;
@@ -88,7 +88,7 @@ int jailbreak(void *init) {
     }
     
     uint64_t proc = proc_pac | 0xffffff8000000000;
-    printf("Proc:\t0x%llx\t--->\t0x%llx\n", proc_pac, proc);
+    printf("Proc:\t\t0x%llx\t--->\t0x%llx\n", proc_pac, proc);
     
     uint64_t ucred_pac;
     
@@ -99,33 +99,42 @@ int jailbreak(void *init) {
     }
 
     uint64_t ucred = ucred_pac | 0xffffff8000000000;
-    printf("UCRED:\t0x%llx\t--->\t0x%llx\n", ucred_pac, ucred);
+    printf("UCRED:\t\t0x%llx\t--->\t0x%llx\n", ucred_pac, ucred);
     
+    uint32_t buffer[5] = {0, 0, 0, 1, 0};
+    uint64_t old_uid = read_64(ucred + off_ucred_cr_uid);
+    write_20(ucred + off_ucred_cr_uid, (void*)buffer);
+    uint64_t new_uid = read_64(ucred + off_ucred_cr_uid);
 
+    uint32_t uid = getuid();
 //    printf("getuid() returns %u\n", uid);
 
     uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
     uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
-    printf("CR_Label:\t0x%llx\t--->\t0x%llx\t\t(success)\n", cr_label_pac, cr_label);
+    printf("CR_Label:\t0x%llx\t--->\t0x%llx\n", cr_label_pac, cr_label);
     
+    [apiController sendMessageToLog:@"========================= Stage 2 ========================="];
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> getuid() returns %u", uid]];
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> whoami: %s", uid == 0 ? "root" : "mobile"]];
     printf("[==================] Discovery End [==================]\n");
 
-    // printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
-    uint32_t buffer[5] = {0, 0, 0, 1, 0};
+    
     printf("\n[==================] Patches v1 [==================]\n");
     /* Sandbox patches */
-    printf("Sandbox-Slot: 0x%llx", (cr_label + off_sandbox_slot));
+    printf("Sandbox-Slot:\t0x%llx", (cr_label + off_sandbox_slot));
     write_20(cr_label + off_sandbox_slot, (void*)buffer);
     printf("\t--->\t0x%llx", read_64(cr_label + off_sandbox_slot));
     if(check_sandbox_escape() == true) printf("\t\t(success)\n");
     else printf("\t\t(failed)\n");
+    /* Root User patches */
+    printf("Root-User:\t\t0x%llx\t--->\t0x%llx", old_uid, new_uid);
+    uid == 0 ? printf("\t\t(success)\n") : printf("\t\t(failed)\n");
+    /* Setting Group ID to 0 */
+    uint32_t old_gid = getgid();
     setgid(0);
-    /* Root UID */
-    write_20(ucred + off_ucred_cr_uid, (void*)buffer);
-    uint32_t uid = getuid();
-    uid == 0 ? printf("==> UID set to 0\t(whoami: root)") : printf("\n==> Setting UID -> 0 failed!\n");
-
-    
+    uint32_t gid = getgid();
+    printf("GroupID:\t\t%u ---> %u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
+    printf("whoami:\t\t%s\n", uid == 0 ? "root" : "mobile");
     printf("[==================] Patches End [==================]\n");
 
     
@@ -134,9 +143,7 @@ int jailbreak(void *init) {
     
 
     
-    uint32_t gid = getgid();
-    printf("getgid() returns %u\n", gid);
-    printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
+    
 //
 //    printf("Checking pid of process function...\n");
 //    pid_t backboardd_pid = pid_of_process("/usr/libexec/backboardd");
