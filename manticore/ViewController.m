@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak me' to start (Manticore %@)", programVersion]];
     [self sendMessageToLog:[NSString stringWithFormat:@"@RPwnage && PwnedC99"]];

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,15 +13,12 @@
             <objects>
                 <viewController interfaceStyle="dark" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35I-cO-oQs">
-                                <rect key="frame" x="20" y="595" width="728" height="409"/>
+                                <rect key="frame" x="20" y="548" width="388" height="324"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="409" id="SaQ-Cz-ZJT"/>
-                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -29,22 +26,35 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="10"/>
                                 </userDefinedRuntimeAttributes>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hM-Fc-FDp">
-                                <rect key="frame" x="340.5" y="490" width="87" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Jailbreak Me"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hM-Fc-FDp">
+                                <rect key="frame" x="128.33333333333331" y="412.66666666666669" width="171.33333333333331" height="60.333333333333314"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <state key="normal" title="Jailbreak">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="runJailbreak:" destination="BYZ-38-t0r" eventType="touchUpInside" id="846-FF-Buq"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 14.0 - 14.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kda-OK-gFg">
-                                <rect key="frame" x="307" y="200" width="154" height="20"/>
-                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <rect key="frame" x="160" y="183.66666666666666" width="108" height="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="0.66666666666666663" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manticore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0il-tf-sNa">
-                                <rect key="frame" x="96" y="102.5" width="576" height="87.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manticore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0il-tf-sNa">
+                                <rect key="frame" x="53.666666666666657" y="89.333333333333343" width="321" height="87.333333333333343"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="75"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -53,18 +63,22 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="0il-tf-sNa" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.0943125" id="09L-cU-aF9"/>
                             <constraint firstItem="0il-tf-sNa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" multiplier="0.1" id="2M2-VB-fRF"/>
                             <constraint firstItem="Kda-OK-gFg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4D5-ry-lgg"/>
                             <constraint firstItem="0il-tf-sNa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A6P-p4-Kad"/>
                             <constraint firstItem="0il-tf-sNa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="Fch-rb-0da"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="35I-cO-oQs" secondAttribute="trailing" constant="20" id="Glv-r5-qmr"/>
                             <constraint firstItem="35I-cO-oQs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="YRQ-QA-M0G"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="35I-cO-oQs" secondAttribute="bottom" constant="20" id="b1e-Z7-IkP"/>
+                            <constraint firstAttribute="bottom" secondItem="35I-cO-oQs" secondAttribute="bottom" constant="54" id="b1e-Z7-IkP"/>
+                            <constraint firstItem="35I-cO-oQs" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.35" id="bgT-wM-NHD"/>
                             <constraint firstItem="35I-cO-oQs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cWQ-s8-gHD"/>
                             <constraint firstItem="35I-cO-oQs" firstAttribute="top" secondItem="6hM-Fc-FDp" secondAttribute="bottom" constant="75" id="cx2-eA-O3G"/>
+                            <constraint firstItem="6hM-Fc-FDp" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.065" id="gxF-nw-jA3"/>
                             <constraint firstItem="6hM-Fc-FDp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kkl-ha-i98"/>
-                            <constraint firstItem="Kda-OK-gFg" firstAttribute="top" secondItem="0il-tf-sNa" secondAttribute="bottom" constant="10" id="lpA-Jt-uH2"/>
+                            <constraint firstItem="Kda-OK-gFg" firstAttribute="top" secondItem="0il-tf-sNa" secondAttribute="bottom" constant="7" id="lpA-Jt-uH2"/>
                             <constraint firstItem="35I-cO-oQs" firstAttribute="centerX" secondItem="6hM-Fc-FDp" secondAttribute="centerX" id="oF5-zI-y0X"/>
+                            <constraint firstItem="6hM-Fc-FDp" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="oLl-Y3-9AS"/>
                         </constraints>
                     </view>
                     <connections>
@@ -83,6 +97,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
