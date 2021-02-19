@@ -130,30 +130,36 @@ int jailbreak(void *init) {
 
     
     printf("\n[==================] Patches v1 [==================]\n");
+    
     /* Sandbox patches */
     printf("Sandbox-Slot:\t0x%llx", (cr_label + off_sandbox_slot));
     write_20(cr_label + off_sandbox_slot, (void*)buffer);
     printf("\t--->\t0x%llx", read_64(cr_label + off_sandbox_slot));
     if(check_sandbox_escape() == true) printf("\t\t(success)\n");
     else printf("\t\t(failed)\n");
+    
     /* Root User patches */
     printf("Root-User:\t\t0x%llx\t\t--->\t0x%llx", old_uid, new_uid);
     uid == 0 ? printf("\t\t(success)\n") : printf("\t\t(failed)\n");
+    
     /* Setting Group ID to 0 */
     uint32_t old_gid = getgid();
     setgid(0);
     uint32_t gid = getgid();
     printf("GroupID:\t\t%u\t\t\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
     printf("whoami:\t\t\t%s\n", uid == 0 ? "root" : "mobile");
+    
     /* CS Flags */
     uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, (void*)csflags_mod);
     printf("CS Flags:\t\t0x%llx\t\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+    
     /* TF_PLATFORM */
     uint64_t t_flag = read_32(task + KSTRUCT_OFFSET_TASK_TFLAGS);
     printf("TF_PLATFORM:\t0x%llx\t--->", t_flag);
     t_flag|=0x4000000;
+    
     write_32(task + KSTRUCT_OFFSET_TASK_TFLAGS, &t_flag);
     printf("\t0x%llx\n",t_flag);
     printf("[==================] Patches End [==================]\n");
@@ -193,7 +199,7 @@ bool setup_manticore_filesystem(void){
     NSString *jailbreakPlistPath    = [NSString stringWithFormat:@"%@jailbreak.plist", jailbreakDirBasePath];
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/.manticore/"] && [[NSFileManager defaultManager]  fileExistsAtPath:jailbreakPlistPath]) {
         return YES;
-    }else {
+    } else {
         printf("initial installation of manticore starting...\n");
         
         // Create /var/mobile/.manticore folder for jailbreak/project specific files

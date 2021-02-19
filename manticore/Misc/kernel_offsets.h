@@ -54,7 +54,10 @@ enum kernel_offset {
         KSTRUCT_OFFSET_UCRED_CR_LABEL,
     
     /* struct task */
-        KSTRUCT_OFFSET_TASK_TFLAGS
+        KSTRUCT_OFFSET_TASK_TFLAGS,
+    
+    /* sandbox */
+        KSTRUCT_OFFSET_SANDBOX_SLOT
 };
 
 uint32_t koffset(enum kernel_offset offset);
