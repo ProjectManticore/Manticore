@@ -70,6 +70,16 @@ int jailbreak(void *init) {
     uint64_t task = task_pac | 0xffffff8000000000;
     printf("Task:\t\t0x%llx\t--->\t0x%llx\n", task_pac, task);
     
+    uint64_t proc_uid_pac = read_64(task + 0x388 + 0x30);
+    if (!proc_uid_pac) {
+        fprintf(stderr, "failed to get proc_uid\n");
+    } else {
+        fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid_pac);
+        uint64_t proc_uid = proc_uid_pac | 0xffffff8000000000;
+        fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid);
+        fprintf(stdout, "PAC decrypt: 0x%llx -> 0x%llx\n", proc_uid_pac, proc_uid);
+    }
+    
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", task_pac, task]];
     uint64_t proc_pac;
     

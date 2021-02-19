@@ -68,6 +68,7 @@ NSDictionary *readPlist(NSString *filename){
     NSError *error;
     NSData *data = [NSData dataWithContentsOfURL:url options:0 error:&error];
     NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:data options:0 format:nil error:&error];
+    
     if (!error) return dictionary;
     return 0;
 }
