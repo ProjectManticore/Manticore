@@ -122,25 +122,26 @@ int jailbreak(void *init) {
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> whoami: %s", uid == 0 ? "root" : "mobile"]];
     
     printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
-    printf("Escaping sandbox.\n");
     
-        printf("[=========] Patches v1 [=========]\n");
-        /* Sandbox patches */
-        uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
-        uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
-        printf("PAC decrypt: 0x%llx -> 0x%llx\n", cr_label_pac, cr_label);
-        printf("Sandbox-Slot: 0x%llx", (cr_label + off_sandbox_slot));
-        write_20(cr_label + off_sandbox_slot, (void*)buffer);
-        printf(" ---> 0x%llx", read_64(cr_label + off_sandbox_slot));
-        [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
-        if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/escaped"]){
-            printf("\t\t(success)\n");
-            [[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/escaped" error:nil];
-        } else {
-            printf("\t\t(failed)\n");
-            return 1;
-        }
-        setgid(0);
+    printf("\n[=========] Patches v1 [=========]\n");
+    /* Sandbox patches */
+    uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
+    uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
+    printf("PAC decrypt: 0x%llx\t--->\t0x%llx\t\t(success)\n", cr_label_pac, cr_label);
+    printf("Sandbox-Slot: 0x%llx", (cr_label + off_sandbox_slot));
+    write_20(cr_label + off_sandbox_slot, (void*)buffer);
+    printf("\t--->\t0x%llx", read_64(cr_label + off_sandbox_slot));
+    [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
+    if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/escaped"]){
+        printf("\t\t(success)\n");
+        [[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/escaped" error:nil];
+    } else {
+        printf("\t\t(failed)\n");
+        return 1;
+    }
+    setgid(0);
+    printf("[=========] Patches End [=========]\n");
+
     
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
     
