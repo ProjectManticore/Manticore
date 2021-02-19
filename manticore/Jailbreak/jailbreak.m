@@ -145,7 +145,7 @@ int jailbreak(void *init) {
     
     
 //
-//    printf("Checking pid of process function...\n");
+//    printf("Checking pid of process function...\n");s
 //    pid_t backboardd_pid = pid_of_process("/usr/libexec/backboardd");
 //    printf("backboardd pid = %d\n", backboardd_pid);
     return 0;
