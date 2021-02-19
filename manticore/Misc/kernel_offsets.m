@@ -29,7 +29,6 @@
 
 uint32_t* offsets = NULL;
 
-
 kernel_offset_array dynamic_koffsets_ios_14_4(void){
     kernel_offset_array offset_arr;
     /* struct proc */
