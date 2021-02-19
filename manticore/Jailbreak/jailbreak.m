@@ -62,10 +62,14 @@ static unsigned off_sandbox_slot = 0x10;
 
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
     [apiController sendMessageToLog:@"========================= Stage 1 ========================="];
+    
     uint64_t task_pac = cicuta_virosa();
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Task-PAC: 0x%llx", task_pac]];
+    
     printf("\n[==================] Discovery v1 [==================]\n");
+    
     /* Before PAC ---> After PAC */
     uint64_t task = task_pac | 0xffffff8000000000;
     printf("Task:\t\t0x%llx\t--->\t0x%llx\n", task_pac, task);
@@ -74,8 +78,9 @@ int jailbreak(void *init) {
     if (!proc_uid_pac) {
         fprintf(stderr, "failed to get proc_uid\n");
     } else {
-        fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid_pac);
         uint64_t proc_uid = proc_uid_pac | 0xffffff8000000000;
+        
+        fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid_pac);
         fprintf(stdout, "proc_uid: 0x%llu\n", proc_uid);
         fprintf(stdout, "PAC decrypt: 0x%llx -> 0x%llx\n", proc_uid_pac, proc_uid);
     }
@@ -158,11 +163,13 @@ int jailbreak(void *init) {
     /* TF_PLATFORM */
     uint64_t t_flag = read_32(task + KSTRUCT_OFFSET_TASK_TFLAGS);
     printf("TF_PLATFORM:\t0x%llx\t--->", t_flag);
-    t_flag|=0x4000000;
+    t_flag |= 0x4000000;
     
     write_32(task + KSTRUCT_OFFSET_TASK_TFLAGS, &t_flag);
-    printf("\t0x%llx\n",t_flag);
+    printf("\t0x%llx\n", t_flag);
     printf("[==================] Patches End [==================]\n");
+    
+    
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
 
 //    printf("Checking pid of process function...\n");
@@ -170,6 +177,7 @@ int jailbreak(void *init) {
 //    printf("backboardd pid = %d\n", backboardd_pid);
     return 0;
 }
+
 
 bool check_sandbox_escape(void){
     [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
