@@ -8,6 +8,7 @@
 #ifndef utils_h
 #define utils_h
 
+int perform_root_patches(kptr_t ucred);
 char *get_path_for_pid(pid_t pid);
 pid_t pid_of_process(const char *name);
 bool restartSpringBoard(void);

