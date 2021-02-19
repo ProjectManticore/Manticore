@@ -145,21 +145,18 @@ int jailbreak(void *init) {
     uint32_t gid = getgid();
     printf("GroupID:\t\t%u\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
     printf("whoami:\t\t\t%s\n", uid == 0 ? "root" : "mobile");
+    
     /* CS Flags */
-    uint64_t csflags = read_32(proc +0x290);
+    uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
-    write_32(proc +0x290, (void*)csflags_mod);
+    
+    write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, (void*)csflags_mod);
     printf("CS Flags:\t\t0x%llx\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
     printf("[==================] Patches End [==================]\n");
 
     
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
-    
-    
 
-    
-    
-//
 //    printf("Checking pid of process function...\n");s
 //    pid_t backboardd_pid = pid_of_process("/usr/libexec/backboardd");
 //    printf("backboardd pid = %d\n", backboardd_pid);
