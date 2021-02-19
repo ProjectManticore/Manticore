@@ -11,6 +11,17 @@
 #include <mach/mach_traps.h>
 #include "kernel_utils.h"
 
+
+#if 1
+#define MAX_CHUNK 0xff0
+#else
+#define MAX_CHUNK 0x2000
+#endif
+
+mach_port_t tfp0 = MACH_PORT_NULL;
+uint64_t kreads = 0;
+uint64_t kwrites = 0;
+
 kptr_t get_proc_struct_for_pid(pid_t pid){
     __block kptr_t proc = KPTR_NULL;
     void (^handler)(kptr_t, pid_t, bool *) = ^(kptr_t found_proc, pid_t found_pid, bool *iterate) {
@@ -56,3 +67,24 @@ bool set_platform_binary(kptr_t proc, bool set) {
     return ret;
 }
 
+size_t kread(kptr_t where, void* p, size_t size){
+    int rv;
+    size_t offset = 0;
+    while (offset < size) {
+        mach_vm_size_t sz, chunk = MAX_CHUNK;
+        if (chunk > size - offset) {
+            chunk = size - offset;
+        }
+        rv = mach_vm_read_overwrite(tfp0,
+            where + offset,
+            chunk,
+            (mach_vm_address_t)p + offset,
+            &sz);
+        if (rv || sz == 0) {
+            break;
+        }
+        offset += sz;
+    }
+    kreads += offset;
+    return offset;
+}
