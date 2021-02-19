@@ -491,7 +491,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = H8TJ3GVX98;
+				DEVELOPMENT_TEAM = 3LJ9H6BD56;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = manticore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -501,10 +501,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/reton/Libraries",
+					"$(PROJECT_DIR)/manticore/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cpwn.manticore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -517,7 +517,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = H8TJ3GVX98;
+				DEVELOPMENT_TEAM = 3LJ9H6BD56;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = manticore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -527,10 +527,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/reton/Libraries",
+					"$(PROJECT_DIR)/manticore/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cpwn.manticore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
