@@ -57,6 +57,7 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
 }
 
 uint32_t kernel_offsets_14_3[] = {
+
     /* struct proc */
         0x68,   // KSTRUCT_OFFSET_PROC_PID
         0x10,   // KSTRUCT_OFFSET_PROC_TASK
@@ -79,6 +80,8 @@ uint32_t kernel_offsets_14_3[] = {
     
     /* struct task */
         0x3A0,  // KSTRUCT_OFFSET_TASK_TFLAGS
+    /* struct misc */
+        0x10,   // KSTRUCT_OFFSET_SANDBOX_SLOT
 };
 
 uint32_t create_outsize;
