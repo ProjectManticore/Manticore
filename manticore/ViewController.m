@@ -30,8 +30,11 @@
     [self sendMessageToLog:@"[*] Starting...."];
     self.logWindow.text = @"";
     self.jailbreakButton.enabled = NO;
-    if(jailbreak(nil) == 0){
+    int jailbreak_ret = jailbreak(nil);
+    if(jailbreak_ret == 0){
         self.jailbreakButton.titleLabel.text = @"Jailbroken";
+    }else {
+        printf("Jailbreak function returned %d\n", jailbreak_ret);
     }
 }
 
