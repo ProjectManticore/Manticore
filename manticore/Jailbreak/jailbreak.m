@@ -127,14 +127,19 @@ int jailbreak(void *init) {
     if(check_sandbox_escape() == true) printf("\t\t(success)\n");
     else printf("\t\t(failed)\n");
     /* Root User patches */
-    printf("Root-User:\t\t0x%llx\t--->\t0x%llx", old_uid, new_uid);
+    printf("Root-User:\t\t0x%llx\t\t--->\t0x%llx", old_uid, new_uid);
     uid == 0 ? printf("\t\t(success)\n") : printf("\t\t(failed)\n");
     /* Setting Group ID to 0 */
     uint32_t old_gid = getgid();
     setgid(0);
     uint32_t gid = getgid();
-    printf("GroupID:\t\t%u ---> %u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
-    printf("whoami:\t\t%s\n", uid == 0 ? "root" : "mobile");
+    printf("GroupID:\t\t%u\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
+    printf("whoami:\t\t\t%s\n", uid == 0 ? "root" : "mobile");
+    /* CS Flags */
+    uint64_t csflags = read_32(proc +0x290);
+    uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
+    write_32(proc +0x290, (void*)csflags_mod);
+    printf("CS Flags:\t\t0x%llx\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
     printf("[==================] Patches End [==================]\n");
 
     
