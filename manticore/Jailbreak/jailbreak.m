@@ -165,7 +165,7 @@ int jailbreak(void *init) {
     printf("[==================] Patches End [==================]\n");
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
 
-//    printf("Checking pid of process function...\n");s
+//    printf("Checking pid of process function...\n");
 //    pid_t backboardd_pid = pid_of_process("/usr/libexec/backboardd");
 //    printf("backboardd pid = %d\n", backboardd_pid);
     return 0;
