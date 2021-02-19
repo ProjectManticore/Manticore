@@ -143,18 +143,21 @@ int jailbreak(void *init) {
     uint32_t old_gid = getgid();
     setgid(0);
     uint32_t gid = getgid();
-    printf("GroupID:\t\t%u\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
+    printf("GroupID:\t\t%u\t\t\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
     printf("whoami:\t\t\t%s\n", uid == 0 ? "root" : "mobile");
-    
     /* CS Flags */
     uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
-    
     write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, (void*)csflags_mod);
-    printf("CS Flags:\t\t0x%llx\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+    printf("CS Flags:\t\t0x%llx\t\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+    /* TF_PLATFORM */
+    uint64_t t_flag = read_32(task + KSTRUCT_OFFSET_TASK_TFLAGS);
+    printf("TF_PLATFORM:\t\t0x%llx\t--->", t_flag);
+    t_flag|=0x4000000;
+    write_32(task + KSTRUCT_OFFSET_TASK_TFLAGS, &t_flag);
+    write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, csflags|0x24004001u);
+    printf("\t0x%llx\n",t_flag);
     printf("[==================] Patches End [==================]\n");
-
-    
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
 
 //    printf("Checking pid of process function...\n");s
