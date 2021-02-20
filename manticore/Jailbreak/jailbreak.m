@@ -5,15 +5,17 @@
 //  Created by Luca on 15.02.21.
 //
 
-#include "jailbreak.h"
+#include <Foundation/Foundation.h>
 #include <sys/sysctl.h>
 #include <sys/snapshot.h>
-#include "../Misc/support.h"
 #include <UIKit/UIKit.h>
-#include <Foundation/Foundation.h>
 #include <mach/mach.h>
+
 #include "../Misc/kernel_offsets.h"
+#include "../Misc/support.h"
 #include "../ViewController.h"
+
+#include "jailbreak.h"
 #include "amfid.h"
 #include "rootfs.h"
 #include "utils.h"
@@ -36,29 +38,6 @@ cpu_subtype_t get_cpu_subtype() {
 
 
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
-
-
-static unsigned off_p_pid = 0x68;               // proc_t::p_pid
-static unsigned off_task = 0x10;                // proc_t::task
-static unsigned off_p_uid = 0x30;               // proc_t::p_uid
-static unsigned off_p_gid = 0x34;               // proc_t::p_uid
-static unsigned off_p_ruid = 0x38;              // proc_t::p_uid
-static unsigned off_p_rgid = 0x3c;              // proc_t::p_uid
-static unsigned off_p_ucred = 0xf0;            // proc_t::p_ucred
-static unsigned off_p_csflags = 0x280;          // proc_t::p_csflags
-
-static unsigned off_ucred_cr_uid = 0x18;        // ucred::cr_uid
-static unsigned off_ucred_cr_ruid = 0x1c;       // ucred::cr_ruid
-static unsigned off_ucred_cr_svuid = 0x20;      // ucred::cr_svuid
-static unsigned off_ucred_cr_ngroups = 0x24;    // ucred::cr_ngroups
-static unsigned off_ucred_cr_groups = 0x28;     // ucred::cr_groups
-static unsigned off_ucred_cr_rgid = 0x68;       // ucred::cr_rgid
-static unsigned off_ucred_cr_svgid = 0x6c;      // ucred::cr_svgid
-static unsigned off_ucred_cr_label = 0x78;      // ucred::cr_label
-
-static unsigned off_t_flags = 0x3a0; // task::t_flags
-
-static unsigned off_sandbox_slot = 0x10;
 
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -115,25 +94,9 @@ int jailbreak(void *init) {
     uint64_t ucred = ucred_pac | 0xffffff8000000000;
     printf("UCRED:\t\t0x%llx\t--->\t0x%llx\n", ucred_pac, ucred);
     
-    
-
-    
-    
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
     
     write_20(ucred + 0x18, (void*)buffer);
-    //Initialize a Port
-//        mach_port_t port = MACH_PORT_NULL;
-//        kern_return_t err;
-//        //Allocate the port and get a receive right
-//        err = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &port);
-//        if (err != KERN_SUCCESS) {
-//            printf("Failed to Allocate a port \n");
-//            return MACH_PORT_NULL;
-//        }
-//     
-//    printf("New Port:\t0x%llx\n", (uint64_t)port);
-//    printf("PID:\t\t%d\n", getpid());
     
     uint64_t old_uid = read_64(ucred + off_ucred_cr_uid);
     write_20(ucred + off_ucred_cr_uid, (void*)buffer);
@@ -186,6 +149,8 @@ int jailbreak(void *init) {
 //
 //    write_32(task + KSTRUCT_OFFSET_TASK_TFLAGS, &t_flag);
 //    printf("\t0x%llx\n", t_flag);
+    
+    
     printf("[==================] Patches End [==================]\n");
     uint64_t amfid_d = perform_amfid_patches(cr_label);
     
@@ -225,8 +190,6 @@ int sb_allow_ndefault(void) {
         return 1;
     return 0;
 }
-
-
 
 bool setup_manticore_filesystem(void){
     NSString *jailbreakDirBasePath  = @"/var/mobile/.manticore/";

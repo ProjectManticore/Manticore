@@ -24,4 +24,7 @@ extern kern_return_t mach_vm_read_overwrite (
     mach_vm_size_t *outsize
 );
 
+
+uint64_t proc_of_pid(pid_t pid);
+
 #endif /* kernel_utils_h */
