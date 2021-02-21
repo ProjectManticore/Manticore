@@ -8,7 +8,7 @@
 
 #include <Foundation/Foundation.h>
 #include "support.h"
-#include "../Exploit/cicuta_log.h"
+#include "cicuta_log.h"
 
 
 void LogHandler(int type, const char *fmt) {
