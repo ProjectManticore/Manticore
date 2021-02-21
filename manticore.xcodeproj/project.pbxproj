@@ -14,7 +14,6 @@
 		2302161B25DEA254003E7C5C /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.m */; };
 		2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.m */; };
 		2302163725DEB41F003E7C5C /* tfp0.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302163625DEB41F003E7C5C /* tfp0.m */; };
-		233576AD25DE771000432C08 /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 233576AC25DE771000432C08 /* kernel_offsets.m */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
 		23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C704FD25DB2EE80078DC37 /* Main.storyboard */; };
@@ -32,6 +31,8 @@
 		23C7054625DB2F220078DC37 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053E25DB2F220078DC37 /* LICENSE */; };
 		23C7054E25DB2F790078DC37 /* jailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7054D25DB2F790078DC37 /* jailbreak.m */; };
 		23C7055C25DB30240078DC37 /* support.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7055B25DB30240078DC37 /* support.m */; };
+		EF073FA225E144180025FCCF /* patchfinder64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF073FA125E144180025FCCF /* patchfinder64.m */; };
+		EF073FB025E148610025FCCF /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = EF073FAF25E148610025FCCF /* kernel_offsets.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,8 +58,6 @@
 		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
 		2302163625DEB41F003E7C5C /* tfp0.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tfp0.m; sourceTree = "<group>"; };
 		2302163925DEB42B003E7C5C /* tfp0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tfp0.h; sourceTree = "<group>"; };
-		233576AB25DE770000432C08 /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
-		233576AC25DE771000432C08 /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* manticore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manticore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -88,6 +87,10 @@
 		23C7055225DB2F820078DC37 /* jailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jailbreak.h; sourceTree = "<group>"; };
 		23C7055A25DB30240078DC37 /* support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = support.h; sourceTree = "<group>"; };
 		23C7055B25DB30240078DC37 /* support.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = support.m; sourceTree = "<group>"; };
+		EF073FA125E144180025FCCF /* patchfinder64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = patchfinder64.m; sourceTree = "<group>"; };
+		EF073FA425E144420025FCCF /* patchfinder64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
+		EF073FAF25E148610025FCCF /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
+		EF073FB225E1486E0025FCCF /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				2302163025DEA571003E7C5C /* kernel_utils.h */,
 				2302163625DEB41F003E7C5C /* tfp0.m */,
 				2302163925DEB42B003E7C5C /* tfp0.h */,
+				EF073FA125E144180025FCCF /* patchfinder64.m */,
+				EF073FA425E144420025FCCF /* patchfinder64.h */,
 			);
 			path = Jailbreak;
 			sourceTree = "<group>";
@@ -251,8 +256,8 @@
 			children = (
 				23C7055A25DB30240078DC37 /* support.h */,
 				23C7055B25DB30240078DC37 /* support.m */,
-				233576AB25DE770000432C08 /* kernel_offsets.h */,
-				233576AC25DE771000432C08 /* kernel_offsets.m */,
+				EF073FAF25E148610025FCCF /* kernel_offsets.m */,
+				EF073FB225E1486E0025FCCF /* kernel_offsets.h */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -336,13 +341,14 @@
 				23C7050A25DB2EE90078DC37 /* main.m in Sources */,
 				23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */,
 				23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */,
-				233576AD25DE771000432C08 /* kernel_offsets.m in Sources */,
+				EF073FA225E144180025FCCF /* patchfinder64.m in Sources */,
 				23C7050225DB2EE80078DC37 /* reton.xcdatamodeld in Sources */,
 				23C7054125DB2F220078DC37 /* exploit_utilities.c in Sources */,
 				2302161B25DEA254003E7C5C /* utils.m in Sources */,
 				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
 				230215FB25DE8E8F003E7C5C /* rootfs.m in Sources */,
 				2302163725DEB41F003E7C5C /* tfp0.m in Sources */,
+				EF073FB025E148610025FCCF /* kernel_offsets.m in Sources */,
 				2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */,
 				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
 				2302160425DE93B5003E7C5C /* libsnappy.c in Sources */,
@@ -491,7 +497,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				DEVELOPMENT_TEAM = H8TJ3GVX98;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = manticore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -504,7 +510,7 @@
 					"$(PROJECT_DIR)/manticore/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cpwn.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -517,7 +523,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				DEVELOPMENT_TEAM = H8TJ3GVX98;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = manticore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -530,7 +536,7 @@
 					"$(PROJECT_DIR)/manticore/Libraries",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cpwn.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

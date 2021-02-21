@@ -108,6 +108,14 @@ int jailbreak(void *init) {
     
     printf("\n[==================] Patches v1 [==================]\n");
     
+//    //
+//    printf("Sandbox-Slot:\t0x%llx", (cr_label + off_sandbox_slot));
+//    printf("Sandbox-Slot-Value: %u", read_32(cr_label + off_sandbox_slot));
+//    printf("Manipulating Sandbox Slot...");
+//    void *test = "AAAA";
+//    write_32(cr_label + off_sandbox_slot, test);
+//    printf("Sandbox-Slot-new_value: %u", read_32(cr_label + off_sandbox_slot));
+    
     /* Sandbox patches */
     printf("Sandbox-Slot:\t0x%llx", (cr_label + off_sandbox_slot));
     write_20(cr_label + off_sandbox_slot, (void*)buffer);
