@@ -49,6 +49,7 @@ static unsigned off_ucred_cr_svgid = 0x6c;      // ucred::cr_svgid
 static unsigned off_ucred_cr_label = 0x78;      // ucred::cr_label
 static unsigned off_t_flags = 0x3a0; // task::t_flags
 static unsigned off_sandbox_slot = 0x10;
+
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
         
@@ -137,7 +138,7 @@ int jailbreak(void *init) {
     setgid(0);
     uint32_t gid = getgid();
     printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
-    printf("whoami:\t\t\t%s\n", uid == 0 ? "root" : "mobile");
+    printf("whoami:\t\t\t%s\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
         
     /* CS Flags */
     uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
