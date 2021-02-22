@@ -18,6 +18,7 @@
 #include "rootfs.h"
 #include "utils.h"
 #include "patchfinder64.h"
+#include "../Libraries/Bazad/IOSurface.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -145,9 +146,31 @@ int jailbreak(void *init) {
     
     printf("[==================] Patches End [==================]\n");
     
-    printf("[==================] KernelPatches [==================]\n");
+    printf("\n[==================] KernelPatches [==================]\n");
     
-    
+    kern_return_t kr;
+    mach_port_t tfp0;
+    kr = host_get_special_port(mach_host_self(), HOST_LOCAL_NODE, 4, &tfp0);
+    if (!kr) {
+        printf("Got cached tfp0:\t0x%x\t\t\t(%s)\n", tfp0, tfp0 == 0 ? "success" : "failure");
+        struct task_dyld_info info;
+        mach_msg_type_number_t count = TASK_DYLD_INFO_COUNT;
+        task_info(tfp0, TASK_DYLD_INFO, (task_info_t) &info, &count);
+        uint64_t kernel_slide = info.all_image_info_size;
+        printf("KernelSlide:\t\t0x%llx\n", kernel_slide);
+        kern_return_t ret = KERN_SUCCESS;
+        mach_vm_size_t pagesize = 0;
+
+        ret = _host_page_size(mach_host_self(), (vm_size_t*)&pagesize);
+        printf("PageSize:\t\t\t0x%llx\t\t\t\t\t(%s)\n", pagesize, ret == 0 ? "success" : "failure");
+        if (ret != KERN_SUCCESS) {
+            printf("[-] failed to get page size! ret: %x %s\n", ret, mach_error_string(ret));
+            return ret;
+        }
+    } else {
+        printf("[-] tfp0 failed\n");
+    }
+
     
     printf("[================] End KernelPatches [================]\n");
     perform_amfid_patches(cr_label);
