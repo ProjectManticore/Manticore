@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #include "kernel_offsets.h"
 
+#define kernel_base_addr 0xFFFFFFF007004000
 //kCFCoreFoundationVersionNumbers for determination of iOS Versions
 #ifndef kCFCoreFoundationVersionNumber_iOS_14_0
 #define kCFCoreFoundationVersionNumber_iOS_14_0 1751.108
@@ -53,6 +54,8 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
         offset_arr.KSTRUCT_OFFSET_TASK_TFLAGS = 0x280;
     /* sandbox */
         offset_arr.KSTRUCT_OFFSET_SANDBOX_SLOT = 0x10;
+    /* kernel */
+        offset_arr.KSTRUCT_OFFSET_KERNEL_MAP = 0x6BC918;
     return offset_arr;
 }
 
@@ -83,6 +86,9 @@ uint32_t kernel_offsets_14_3[] = {
     
     /* struct misc */
         0x10,   // KSTRUCT_OFFSET_SANDBOX_SLOT
+    
+    /* struct kernel */
+        0x6BC918,
 };
 
 uint32_t create_outsize;

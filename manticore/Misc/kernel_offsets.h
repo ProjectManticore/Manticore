@@ -28,6 +28,8 @@ typedef struct {
         uint32_t KSTRUCT_OFFSET_TASK_TFLAGS;
     /* sandbox */
         uint32_t KSTRUCT_OFFSET_SANDBOX_SLOT;
+    /* kernel */
+        uint32_t KSTRUCT_OFFSET_KERNEL_MAP;
 } kernel_offset_array;
 
 kernel_offset_array dynamic_koffsets_ios_14_4(void);

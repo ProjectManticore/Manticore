@@ -5,15 +5,17 @@
 //  Created by 21 on 20.02.21.
 //
 
-#import <Foundation/Foundation.h>
-#import <assert.h>
-#import <stdint.h>
-#import <string.h>
-#import <stdbool.h>
-#import <mach-o/fat.h>
+#include <Foundation/Foundation.h>
+#include <assert.h>
+#include <stdint.h>
+#include <string.h>
+#include <stdbool.h>
+#include <mach-o/fat.h>
+#include <mach-o/loader.h>
 #include "patchfinder64.h"
 #include "../Libraries/IOKit/IOKit.h"
 #include "../Misc/support.h"
+#include "../Exploit/cicuta_virosa.h"
 
 
 uint64_t find_allproc(void) {
@@ -40,16 +42,11 @@ mach_vm_size_t get_page_size(mach_port_t mach_port){
     } else return pagesize;
 }
 
-uint64_t get_hardcoded_kernelbase(){
-    return 0xFFFFFFF007004000;
-}
-
 uint64_t get_hardcoded_allproc_ipad(){
     return 0xfffffff0099f3758;
 }
 
 uint64_t find_kernel_base(uint64_t proc_pointer) {
-    uint64_t kernel_base_pointer = 0;
     io_service_t service = IO_OBJECT_NULL;
     mach_port_t client = MACH_PORT_NULL;
     service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOSurfaceRoot"));
