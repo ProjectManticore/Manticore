@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YHF-Wz-R07">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -94,12 +94,12 @@
         <!--View Controller-->
         <scene sceneID="QbI-f5-76K">
             <objects>
-                <viewController interfaceStyle="dark" id="YHF-Wz-R07" sceneMemberID="viewController">
+                <viewController interfaceStyle="dark" id="YHF-Wz-R07" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rlb-Om-voS">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manticore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUJ-nK-XHv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manticore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mUJ-nK-XHv">
                                 <rect key="frame" x="0.0" y="90" width="428" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="98" id="NE9-cO-Iv2"/>
@@ -131,7 +131,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-wX-UeI">
-                                <rect key="frame" x="107" y="364" width="214" height="69.333333333333314"/>
+                                <rect key="frame" x="149.66666666666669" y="364" width="128.66666666666669" height="60.333333333333314"/>
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <state key="normal" title="Jailbreak">
@@ -142,15 +142,18 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="5"/>
+                                        <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
                                         <color key="value" red="0.15294117647058825" green="0.1529521942" blue="0.15291777249999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="runJailbreak:" destination="YHF-Wz-R07" eventType="touchUpInside" id="8M8-Qe-hdC"/>
+                                </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p82-Jv-jUY">
-                                <rect key="frame" x="107" y="448.33333333333331" width="214" height="4"/>
+                                <rect key="frame" x="149.66666666666669" y="439.33333333333331" width="128.66666666666669" height="4"/>
                                 <color key="progressTintColor" systemColor="labelColor"/>
                                 <color key="trackTintColor" red="0.1254752576" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
@@ -187,6 +190,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oZg-Pf-ew7">
+                                <rect key="frame" x="52" y="527" width="333" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gOM-ig-eaM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -194,7 +206,7 @@
                             <constraint firstItem="czz-vo-cHF" firstAttribute="centerX" secondItem="p82-Jv-jUY" secondAttribute="centerX" id="1ON-XO-agd"/>
                             <constraint firstItem="p82-Jv-jUY" firstAttribute="top" secondItem="B09-wX-UeI" secondAttribute="bottom" constant="15" id="3dK-lP-S2Y"/>
                             <constraint firstItem="KZq-oY-Zug" firstAttribute="centerX" secondItem="gOM-ig-eaM" secondAttribute="centerX" id="EsR-mf-MMz"/>
-                            <constraint firstItem="B09-wX-UeI" firstAttribute="height" secondItem="rlb-Om-voS" secondAttribute="height" multiplier="0.075" id="Iim-oC-AlU"/>
+                            <constraint firstItem="B09-wX-UeI" firstAttribute="height" secondItem="rlb-Om-voS" secondAttribute="height" multiplier="0.065" id="Iim-oC-AlU"/>
                             <constraint firstItem="B09-wX-UeI" firstAttribute="trailing" secondItem="p82-Jv-jUY" secondAttribute="trailing" id="OMy-qh-3Ev"/>
                             <constraint firstItem="mUJ-nK-XHv" firstAttribute="centerX" secondItem="rlb-Om-voS" secondAttribute="centerX" id="R0F-I0-fLi"/>
                             <constraint firstItem="czz-vo-cHF" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.8" id="Rub-h4-ey4"/>
@@ -211,9 +223,13 @@
                             <constraint firstItem="mUJ-nK-XHv" firstAttribute="leading" secondItem="gOM-ig-eaM" secondAttribute="leading" id="qmP-kg-drv"/>
                             <constraint firstItem="mUJ-nK-XHv" firstAttribute="top" secondItem="gOM-ig-eaM" secondAttribute="top" constant="46" id="sdx-BI-vV9"/>
                             <constraint firstItem="KZq-oY-Zug" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.8" id="w7T-nC-LMO"/>
-                            <constraint firstItem="B09-wX-UeI" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.5" id="wmq-45-9EI"/>
+                            <constraint firstItem="B09-wX-UeI" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.3" id="wmq-45-9EI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="jailbreakButton" destination="B09-wX-UeI" id="ImN-4T-Of0"/>
+                        <outlet property="logWindow" destination="oZg-Pf-ew7" id="IBL-q4-F8B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F9C-Iq-xac" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
