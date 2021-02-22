@@ -16,6 +16,7 @@ typedef struct {
         uint32_t KSTRUCT_OFFSET_PROC_RUID;
         uint32_t KSTRUCT_OFFSET_PROC_GID;
         uint32_t KSTRUCT_OFFSET_PROC_UID;
+        uint32_t KSTRUCT_OFFSET_PROC_P_FD;
     /* struct ipc_port */
         uint32_t KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT;
     /* struct ucred */
@@ -27,13 +28,16 @@ typedef struct {
         uint32_t KSTRUCT_OFFSET_UCRED_CR_RGID;
         uint32_t KSTRUCT_OFFSET_UCRED_CR_SVGID;
         uint32_t KSTRUCT_OFFSET_UCRED_CR_LABEL;
-
     /* struct task */
         uint32_t KSTRUCT_OFFSET_TASK_TFLAGS;
     /* sandbox */
         uint32_t KSTRUCT_OFFSET_SANDBOX_SLOT;
     /* kernel */
         uint32_t KSTRUCT_OFFSET_KERNEL_MAP;
+    /* misc/desc */
+        uint32_t KSTRUCT_OFFSET_FILEDESC_FD_OFILES;
+        uint32_t KSTRUCT_OFFSET_FILEPROC_F_FGLOB;
+        uint32_t KSTRUCT_OFFSET_FILEGLOB_FG_DATA;
 } kernel_offset_array;
 
 kernel_offset_array dynamic_koffsets_ios_14_4(void);
@@ -48,6 +52,7 @@ enum kernel_offset {
         KSTRUCT_OFFSET_PROC_RUID,
         KSTRUCT_OFFSET_PROC_GID,
         KSTRUCT_OFFSET_PROC_UID,
+        KSTRUCT_OFFSET_PROC_P_FD,
     /* struct ipc_port */
         KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT,
     /* struct ucred */
@@ -62,7 +67,13 @@ enum kernel_offset {
     /* struct task */
         KSTRUCT_OFFSET_TASK_TFLAGS,
     /* struct misc */
-        KSTRUCT_OFFSET_SANDBOX_SLOT
+        KSTRUCT_OFFSET_SANDBOX_SLOT,
+    /* kernel */
+        KSTRUCT_OFFSET_KERNEL_MAP,
+    /* misc/desc */
+        KSTRUCT_OFFSET_FILEDESC_FD_OFILES,
+        KSTRUCT_OFFSET_FILEPROC_F_FGLOB,
+        KSTRUCT_OFFSET_FILEGLOB_FG_DATA
 };
 
 uint32_t koffset(enum kernel_offset offset);

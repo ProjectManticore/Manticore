@@ -25,6 +25,6 @@ extern kern_return_t mach_vm_read_overwrite (
 );
 
 uint64_t proc_of_pid(pid_t pid);
-
+kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 
 #endif /* kernel_utils_h */

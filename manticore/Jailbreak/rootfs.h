@@ -14,6 +14,5 @@
 typedef uint64_t kptr_t;
 
 int remount_rootfs(kptr_t proc);
-kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 bool check_root_rw(void);
 #endif /* rootfs_h */

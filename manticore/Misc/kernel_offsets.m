@@ -40,6 +40,7 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
         offset_arr.KSTRUCT_OFFSET_PROC_RUID = 0x38;         // KSTRUCT_OFFSET_PROC_RUID
         offset_arr.KSTRUCT_OFFSET_PROC_GID = 0x34;          // KSTRUCT_OFFSET_PROC_GID
         offset_arr.KSTRUCT_OFFSET_PROC_UID = 0x30;          // KSTRUCT_OFFSET_PROC_UID
+        offset_arr.KSTRUCT_OFFSET_PROC_P_FD = 0x108;
     /* struct ipc_port */
         offset_arr.KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT = 0x68;   // KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT
     /* struct ucred */
@@ -57,6 +58,10 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
         offset_arr.KSTRUCT_OFFSET_SANDBOX_SLOT = 0x10;
     /* kernel */
         offset_arr.KSTRUCT_OFFSET_KERNEL_MAP = 0x6BC918;
+    /* misc/desc */
+        offset_arr.KSTRUCT_OFFSET_FILEDESC_FD_OFILES = 0x0;
+        offset_arr.KSTRUCT_OFFSET_FILEPROC_F_FGLOB = 0x10;  // KSTRUCT_OFFSET_FILEPROC_F_FGLOB
+        offset_arr.KSTRUCT_OFFSET_FILEGLOB_FG_DATA = 0x38;  // KSTRUCT_OFFSET_FILEGLOB_FG_DATA
     return offset_arr;
 }
 
@@ -70,6 +75,7 @@ uint32_t kernel_offsets_14_3[] = {
         0x38,   // KSTRUCT_OFFSET_PROC_RUID
         0x34,   // KSTRUCT_OFFSET_PROC_GID
         0x30,   // KSTRUCT_OFFSET_PROC_UID
+        0x108,  // KSTRUCT_OFFSET_PROC_P_FD
     /* struct ipc_port */
         0x68,   // KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT
     /* struct ucred */
@@ -81,15 +87,16 @@ uint32_t kernel_offsets_14_3[] = {
         0x68,   // KSTRUCT_OFFSET_UCRED_CR_RGID
         0x6C,   // KSTRUCT_OFFSET_UCRED_CR_SVGID
         0x78,   // KSTRUCT_OFFSET_UCRED_CR_LABEL
-    
     /* struct task */
         0x3A0,  // KSTRUCT_OFFSET_TASK_TFLAGS
-    
     /* struct misc */
         0x10,   // KSTRUCT_OFFSET_SANDBOX_SLOT
-    
     /* struct kernel */
-        0x6BC918,
+        0x6BC918,   // KSTRUCT_OFFSET_KERNEL_MAP
+    /* struct misc/desc */
+        0x0,    // KSTRUCT_OFFSET_FILEDESC_FD_OFILES
+        0x10,   // KSTRUCT_OFFSET_FILEPROC_F_FGLOB
+        0x38    // KSTRUCT_OFFSET_FILEGLOB_FG_DATA
 };
 
 uint32_t create_outsize;

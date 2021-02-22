@@ -99,10 +99,19 @@ uint64_t proc_of_pid(pid_t pid) {
     return 0;
 }
 
-//      kptr_t get_address_of_port(kptr_t proc, mach_port_t port){
-//          kptr_t ret = KPTR_NULL;
-//          if(!KERN_POINTER_VALID(proc)) return 0;
-//          if(!MACH_PORT_VALID(port)) return 0;
-//          kptr_t task_addr = read_64(proc + koffset(KSTRUCT_OFFSET_PROC_TASK));
-//          return ret;
-//      }
+kptr_t find_vnode_with_fd(kptr_t proc, int fd) {
+    kptr_t ret = KPTR_NULL;
+    if(fd > 0 || KERN_POINTER_VALID(proc)) return 0;
+    kptr_t fdp = read_64(proc + koffset(KSTRUCT_OFFSET_PROC_P_FD));
+    if(!KERN_POINTER_VALID(fdp)) return 0;
+    kptr_t ofp = read_64(fdp + koffset(KSTRUCT_OFFSET_FILEDESC_FD_OFILES));
+    if(!KERN_POINTER_VALID(ofp)) return 0;
+    kptr_t fpp = read_64(ofp + (fd * sizeof(kptr_t)));
+    if(!KERN_POINTER_VALID(fpp)) return 0;
+    kptr_t fgp = read_64(fpp + koffset(KSTRUCT_OFFSET_FILEPROC_F_FGLOB));
+    if(!KERN_POINTER_VALID(fgp)) return 0;
+    kptr_t vnode = read_64(fgp + koffset(KSTRUCT_OFFSET_FILEGLOB_FG_DATA));
+    if(!KERN_POINTER_VALID(vnode)) return 0;
+    ret = vnode;
+    return ret;
+}

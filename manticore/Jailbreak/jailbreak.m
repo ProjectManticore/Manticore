@@ -16,6 +16,7 @@
 #include "../ViewController.h"
 #include "amfid.h"
 #include "hsp4.h"
+#include "kernel_utils.h"
 #include "rootfs.h"
 #include "utils.h"
 #include "patchfinder64.h"
@@ -150,19 +151,19 @@ int jailbreak(void *init) {
     mach_port_t tfp0;
     kr = host_get_special_port(mach_host_self(), HOST_LOCAL_NODE, 4, &tfp0);
     if (!kr && tfp0 == MACH_PORT_NULL) {
-        printf("Got cached tfp0:\t0x%x\t\t\t\t\t\t(%s)\n", tfp0, tfp0 == 0 ? "success" : "failure");
+        printf("Got cached tfp0:\t0x%x\t\t\t\t\t\t\t\t\t(%s)\n", tfp0, tfp0 == 0 ? "success" : "failure");
         uint64_t kernel_slide = find_kernel_slide(tfp0);
-        printf("KernelSlide:\t\t0x%llx\t\t(%s)\n", kernel_slide, kernel_slide != 0 ? "success" : "failure");
+        printf("KernelSlide:\t\t0x%llx\t\t\t\t\t(%s)\n", kernel_slide, kernel_slide != 0 ? "success" : "failure");
         mach_vm_size_t pagesize = get_page_size(tfp0);
-        printf("PageSize:\t\t\t0x%llx\t\t\t\t\t(%s)\n", pagesize, pagesize != 0 ? "success" : "failure");
+        printf("PageSize:\t\t\t0x%llx\t\t\t\t\t\t\t\t(%s)\n", pagesize, pagesize != 0 ? "success" : "failure");
+        printf("KernelBase:\t\t\t0x%llx\t\t-->\t\t0x%llx\n", (uint64_t)HARDCODED_kernel_base_addr, HARDCODED_kernel_base_addr - kernel_slide);
     } else {
         printf("[-] tfp0 failed\n");
     }
-
     
     printf("[================] End KernelPatches [================]\n");
     perform_amfid_patches(cr_label);
-    // TODO
+
     /*
      *  AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents
