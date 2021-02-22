@@ -135,7 +135,7 @@ int jailbreak(void *init) {
     uint64_t t_flag_mod = t_flags |= 0x400; // add TF_PLATFORM flag, = 0x400
     write_32bits(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), (void*)t_flag_mod);
     uint64_t csflags_tf = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
-    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)(csflags_tf | 0x24004001u)); //patch csflags
+    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)(csflags_tf|0x24004001u)); //patch csflags
     printf("TF_PLATFORM:\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n",
            t_flags,
            (uint64_t)read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)),
