@@ -18,8 +18,6 @@ uint64_t perform_amfid_patches(uint64_t cr_label){
     printf("\n[================] AMFID Patches [================]\n");
     uint32_t uid = getuid();
     if(uid != 0) return 1;
-//    printf("Trying to patch amfid slot...\n");
-//    printf("amfid slot found -> 0x%llx\n", read_64(cr_label + 0x8));
     printf("==> backboardd pid\t\t--->\t%d\n", pid_of_process("/usr/libexec/backboardd"));
     pid_t amfid_pid = pid_of_process("/usr/libexec/amfid");
     printf("==> amfid's pid\t\t\t--->\t%d\n", amfid_pid);

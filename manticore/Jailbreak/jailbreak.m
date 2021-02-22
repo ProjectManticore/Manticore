@@ -144,8 +144,13 @@ int jailbreak(void *init) {
     
     
     printf("[==================] Patches End [==================]\n");
-
-        
+    
+    printf("[==================] KernelPatches [==================]\n");
+    
+    
+    
+    printf("[================] End KernelPatches [================]\n");
+    perform_amfid_patches(cr_label);
     // TODO
     /*
      *  AMFI

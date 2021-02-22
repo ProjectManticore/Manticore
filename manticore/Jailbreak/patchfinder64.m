@@ -33,3 +33,11 @@ uint64_t find_kernel_base(uint64_t proc_pointer) {
     printf("Successfully found kernelBase: %d", 21);
     return 0x10;
 }
+
+uint64_t find_kernel_slide(){
+    mach_port_t host = mach_host_self();
+    if(!MACH_PORT_VALID(host)) return 0;
+    uint64_t host_port;
+    
+    return 1;
+}
