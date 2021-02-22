@@ -16,7 +16,9 @@
 #include "amfid.h"
 #include "rootfs.h"
 #include "utils.h"
+
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
+
 cpu_subtype_t get_cpu_subtype() {
     cpu_subtype_t ret = 0;
     cpu_subtype_t *cpu_subtype = NULL;
@@ -30,12 +32,8 @@ cpu_subtype_t get_cpu_subtype() {
     ret = *cpu_subtype;
     return ret;
 }
-#define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
-static unsigned off_p_uid = KSTRUCT_OFFSET_PROC_UID;               // proc_t::p_uid
-static unsigned off_ucred_cr_uid = 0x18;        // ucred::cr_uid
-static unsigned off_ucred_cr_label = 0x78;      // ucred::cr_label
-static unsigned off_sandbox_slot = 0x10;
+#define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -44,7 +42,6 @@ int jailbreak(void *init) {
         
     uint64_t task_pac = cicuta_virosa();
     [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Task-PAC: 0x%llx", task_pac]];
-        
     printf("\n[==================] Discovery v1 [==================]\n");
         
     /* Before PAC ---> After PAC */
@@ -92,13 +89,12 @@ int jailbreak(void *init) {
     printf("UCRED:\t\t0x%llx\t--->\t0x%llx\n", ucred_pac, ucred);
         
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
-    uint64_t old_uid = read_64(ucred + off_ucred_cr_uid);
-    write_20(ucred + off_ucred_cr_uid, (void*)buffer);
-    write_20(ucred + off_p_uid, (void*)buffer);
-    uint64_t new_uid = read_64(ucred + off_ucred_cr_uid);
+    uint64_t old_uid = read_64(ucred + koffset(KSTRUCT_OFFSET_UCRED_CR_UID));
+    write_20(ucred + koffset(KSTRUCT_OFFSET_UCRED_CR_UID), (void*)buffer);
+    write_20(ucred + koffset(KSTRUCT_OFFSET_PROC_UID), (void*)buffer);
+    uint64_t new_uid = read_64(ucred + koffset(KSTRUCT_OFFSET_UCRED_CR_UID));
     uint32_t uid = getuid();
-//    printf("getuid() returns %u\n", uid);
-    uint64_t cr_label_pac = read_64(ucred + off_ucred_cr_label);
+    uint64_t cr_label_pac = read_64(ucred + koffset(KSTRUCT_OFFSET_UCRED_CR_LABEL));
     uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
     printf("CR_Label:\t0x%llx\t--->\t0x%llx\n", cr_label_pac, cr_label);
         
@@ -110,9 +106,9 @@ int jailbreak(void *init) {
     printf("\n[==================] Patches v1 [==================]\n");
         
     /* Sandbox patches */
-    printf("Sandbox-Slot:\t0x%llx", (cr_label + off_sandbox_slot));
-    write_20(cr_label + off_sandbox_slot, (void*)buffer);
-    printf("\t--->\t0x%llx", read_64(cr_label + off_sandbox_slot));
+    printf("Sandbox-Slot:\t0x%llx", (cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT)));
+    write_20(cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT), (void*)buffer);
+    printf("\t--->\t0x%llx", read_64(cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT)));
     if(check_sandbox_escape() == true) printf("\t\t\t(success)\n");
     else printf("\t\t\t(failed)\n");
         
@@ -125,15 +121,15 @@ int jailbreak(void *init) {
     setgid(0);
     uint32_t gid = getgid();
     printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
-    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
+    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
         
     /* CS Flags */
-    uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
-    uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
-    write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, (void*)csflags_mod);
-    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+//    uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
+//    uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
+//    write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, (void*)csflags_mod);
+//    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
     printf("[==================] Patches End [==================]\n");
-    uint64_t amfid_d = perform_amfid_patches(cr_label);
+   // uint64_t amfid_d = perform_amfid_patches(cr_label);
         
     // TODO
     /*
@@ -145,6 +141,7 @@ int jailbreak(void *init) {
     [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
     return 0;
 }
+
 bool check_sandbox_escape(void){
     [[NSFileManager defaultManager] createFileAtPath:@"/var/mobile/escaped" contents:nil attributes:nil];
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/escaped"]){
@@ -154,15 +151,18 @@ bool check_sandbox_escape(void){
         return false;
     }
 }
+
 int install_bootstrap(void){
     return 0;
 }
+
 int sb_allow_ndefault(void) {
     // Allow SpringBoard to show non-default system apps.
     if(modifyPlist(@"/var/mobile/Library/Preferences/com.apple.springboard.plist", ^(id plist) { plist[@"SBShowNonDefaultSystemApps"] = @YES; }))
         return 1;
     return 0;
 }
+
 bool setup_manticore_filesystem(void){
     NSString *jailbreakDirBasePath  = @"/var/mobile/.manticore/";
     NSString *jailbreakPlistPath    = [NSString stringWithFormat:@"%@jailbreak.plist", jailbreakDirBasePath];
