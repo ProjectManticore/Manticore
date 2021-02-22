@@ -31,23 +31,10 @@ cpu_subtype_t get_cpu_subtype() {
     return ret;
 }
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
-static unsigned off_p_pid = 0x68;               // proc_t::p_pid
-static unsigned off_task = 0x10;                // proc_t::task
-static unsigned off_p_uid = 0x30;               // proc_t::p_uid
-static unsigned off_p_gid = 0x34;               // proc_t::p_uid
-static unsigned off_p_ruid = 0x38;              // proc_t::p_uid
-static unsigned off_p_rgid = 0x3c;              // proc_t::p_uid
-static unsigned off_p_ucred = 0xf0;            // proc_t::p_ucred
-static unsigned off_p_csflags = 0x280;          // proc_t::p_csflags
+
+static unsigned off_p_uid = KSTRUCT_OFFSET_PROC_UID;               // proc_t::p_uid
 static unsigned off_ucred_cr_uid = 0x18;        // ucred::cr_uid
-static unsigned off_ucred_cr_ruid = 0x1c;       // ucred::cr_ruid
-static unsigned off_ucred_cr_svuid = 0x20;      // ucred::cr_svuid
-static unsigned off_ucred_cr_ngroups = 0x24;    // ucred::cr_ngroups
-static unsigned off_ucred_cr_groups = 0x28;     // ucred::cr_groups
-static unsigned off_ucred_cr_rgid = 0x68;       // ucred::cr_rgid
-static unsigned off_ucred_cr_svgid = 0x6c;      // ucred::cr_svgid
 static unsigned off_ucred_cr_label = 0x78;      // ucred::cr_label
-static unsigned off_t_flags = 0x3a0; // task::t_flags
 static unsigned off_sandbox_slot = 0x10;
 
 int jailbreak(void *init) {
@@ -126,19 +113,19 @@ int jailbreak(void *init) {
     printf("Sandbox-Slot:\t0x%llx", (cr_label + off_sandbox_slot));
     write_20(cr_label + off_sandbox_slot, (void*)buffer);
     printf("\t--->\t0x%llx", read_64(cr_label + off_sandbox_slot));
-    if(check_sandbox_escape() == true) printf("\t\t(success)\n");
-    else printf("\t\t(failed)\n");
+    if(check_sandbox_escape() == true) printf("\t\t\t(success)\n");
+    else printf("\t\t\t(failed)\n");
         
     /* Root User patches */
     printf("Root-User:\t\t0x%llx\t\t--->\t0x%llx", old_uid, new_uid);
-    uid == 0 ? printf("\t\t(success)\n") : printf("\t\t(failed)\n");
+    uid == 0 ? printf("\t\t\t(success)\n") : printf("\t\t\t(failed)\n");
         
     /* Setting Group ID to 0 */
     uint32_t old_gid = getgid();
     setgid(0);
     uint32_t gid = getgid();
-    printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
-    printf("whoami:\t\t\t%s\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
+    printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
+    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
         
     /* CS Flags */
     uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
