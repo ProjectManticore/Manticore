@@ -50,8 +50,6 @@ typedef struct {
     uint64_t map;
 } ktask_t;
 
-
-
 bool set_platform_binary(kptr_t proc, bool set) {
     bool ret = false;
     if(!KERN_POINTER_VALID(proc)) return 0;

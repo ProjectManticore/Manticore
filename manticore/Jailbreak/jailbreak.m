@@ -12,6 +12,7 @@
 #include <Foundation/Foundation.h>
 #include <mach/mach.h>
 #include "../Misc/kernel_offsets.h"
+#include "kernel_utils.h"
 #include "../ViewController.h"
 #include "amfid.h"
 #include "hsp4.h"
@@ -111,37 +112,34 @@ int jailbreak(void *init) {
     /* Sandbox patches */
     printf("Sandbox-Slot:\t0x%llx", (cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT)));
     write_20(cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT), (void*)buffer);
-    printf("\t--->\t0x%llx", read_64(cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT)));
-    if(check_sandbox_escape() == true) printf("\t\t\t(success)\n");
-    else printf("\t\t\t(failed)\n");
-        
+    printf("\t--->\t0x%llx\t\t\t(%s)\n", read_64(cr_label + koffset(KSTRUCT_OFFSET_SANDBOX_SLOT)), check_sandbox_escape() == true ? "success" : "failure");
+
     /* Root User patches */
-    printf("Root-User:\t\t0x%llx\t\t--->\t0x%llx", old_uid, new_uid);
-    uid == 0 ? printf("\t\t\t(success)\n") : printf("\t\t\t(failed)\n");
+    printf("Root-User:\t\t0x%llx\t\t--->\t0x%llx\t\t\t(%s)\n", old_uid, new_uid, uid == 0 ? "success" : "failure");
         
     /* Setting Group ID to 0 */
     uint32_t old_gid = getgid();
     setgid(0);
     uint32_t gid = getgid();
-    printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
-    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
+    printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failure");
+    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failure");
         
     /* CS Flags */
     uint64_t csflags = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)csflags_mod);
-    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failure");
     
     /* TF_PLATFORM */
     uint64_t t_flags = read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS));
     uint64_t t_flag_mod = t_flags |= 0x400; // add TF_PLATFORM flag, = 0x400
     write_32bits(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), (void*)t_flag_mod);
     uint64_t csflags_tf = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
-    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), csflags_tf | 0x24004001u); //patch csflags
+    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)(csflags_tf | 0x24004001u)); //patch csflags
     printf("TF_PLATFORM:\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n",
            t_flags,
            (uint64_t)read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)),
-           t_flags != read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)) ? "success" : "failed");
+           t_flags != read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)) ? "success" : "failure");
     
     
     printf("[==================] Patches End [==================]\n");
@@ -151,16 +149,15 @@ int jailbreak(void *init) {
     kern_return_t kr;
     mach_port_t tfp0;
     kr = host_get_special_port(mach_host_self(), HOST_LOCAL_NODE, 4, &tfp0);
-    if (!kr) {
-        printf("Got cached tfp0:\t0x%x\t\t\t(%s)\n", tfp0, tfp0 == 0 ? "success" : "failure");
+    if (!kr && tfp0 == MACH_PORT_NULL) {
+        printf("Got cached tfp0:\t0x%x\t\t\t\t\t\t(%s)\n", tfp0, tfp0 == 0 ? "success" : "failure");
         struct task_dyld_info info;
         mach_msg_type_number_t count = TASK_DYLD_INFO_COUNT;
         task_info(tfp0, TASK_DYLD_INFO, (task_info_t) &info, &count);
         uint64_t kernel_slide = info.all_image_info_size;
-        printf("KernelSlide:\t\t0x%llx\n", kernel_slide);
+        printf("KernelSlide:\t\t0x%llx\t\t(%s)\n", kernel_slide, kernel_slide != 0 ? "success" : "failure");
         kern_return_t ret = KERN_SUCCESS;
         mach_vm_size_t pagesize = 0;
-
         ret = _host_page_size(mach_host_self(), (vm_size_t*)&pagesize);
         printf("PageSize:\t\t\t0x%llx\t\t\t\t\t(%s)\n", pagesize, ret == 0 ? "success" : "failure");
         if (ret != KERN_SUCCESS) {
