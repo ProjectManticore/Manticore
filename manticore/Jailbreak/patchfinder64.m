@@ -73,7 +73,7 @@ uint64_t dump_kernel(mach_port_t tfp0, uint64_t kernel_base, kptr_t task_self_ad
            printf("[+]\tKASLR detected to be 0x%llx\n", search_addr + 0x6060a0 - kernel_base);
            return search_addr;
        } else {
-           search_addr-=0x1000;
+           search_addr -= 0x1000;
        }
    }
 }

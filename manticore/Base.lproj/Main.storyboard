@@ -131,7 +131,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-wX-UeI">
-                                <rect key="frame" x="149.66666666666669" y="364" width="128.66666666666669" height="60.333333333333314"/>
+                                <rect key="frame" x="128.33333333333331" y="364" width="171.33333333333331" height="60.333333333333314"/>
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <state key="normal" title="Jailbreak">
@@ -142,7 +142,7 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="2"/>
+                                        <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
                                         <color key="value" red="0.15294117647058825" green="0.1529521942" blue="0.15291777249999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -153,7 +153,7 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p82-Jv-jUY">
-                                <rect key="frame" x="149.66666666666669" y="439.33333333333331" width="128.66666666666669" height="4"/>
+                                <rect key="frame" x="128.33333333333331" y="439.33333333333331" width="171.33333333333331" height="4"/>
                                 <color key="progressTintColor" systemColor="labelColor"/>
                                 <color key="trackTintColor" red="0.1254752576" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
@@ -166,7 +166,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your iPhone 12 Pro on iOS 14.3 is compatible with Manticore!" textAlignment="center" lineBreakMode="clip" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5h-H3-igh">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!" textAlignment="center" lineBreakMode="clip" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5h-H3-igh">
                                         <rect key="frame" x="78.999999999999986" y="43" width="182.66666666666663" height="99"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <nil key="textColor"/>
@@ -223,7 +223,7 @@
                             <constraint firstItem="mUJ-nK-XHv" firstAttribute="leading" secondItem="gOM-ig-eaM" secondAttribute="leading" id="qmP-kg-drv"/>
                             <constraint firstItem="mUJ-nK-XHv" firstAttribute="top" secondItem="gOM-ig-eaM" secondAttribute="top" constant="46" id="sdx-BI-vV9"/>
                             <constraint firstItem="KZq-oY-Zug" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.8" id="w7T-nC-LMO"/>
-                            <constraint firstItem="B09-wX-UeI" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.3" id="wmq-45-9EI"/>
+                            <constraint firstItem="B09-wX-UeI" firstAttribute="width" secondItem="rlb-Om-voS" secondAttribute="width" multiplier="0.4" id="wmq-45-9EI"/>
                         </constraints>
                     </view>
                     <connections>
