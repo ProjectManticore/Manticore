@@ -9,5 +9,6 @@
 #define patchfinder64_h
 
 uint64_t find_allproc(void);
+uint64_t find_kernel_base(uint64_t proc_pointer);
 
 #endif /* patchfinder64_h */

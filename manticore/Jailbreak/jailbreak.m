@@ -14,9 +14,10 @@
 #include "../Misc/kernel_offsets.h"
 #include "../ViewController.h"
 #include "amfid.h"
-#include "tfp0.h"
+#include "hsp4.h"
 #include "rootfs.h"
 #include "utils.h"
+#include "patchfinder64.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -125,13 +126,25 @@ int jailbreak(void *init) {
     printf("whoami:\t\t\t%s\t\t\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
         
     /* CS Flags */
-//    uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
-//    uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
-//    write_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS, (void*)csflags_mod);
-//    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+    uint64_t csflags = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
+    uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
+    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)csflags_mod);
+    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
+    
+    /* TF_PLATFORM */
+    uint64_t t_flags = read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS));
+    uint64_t t_flag_mod = t_flags |= 0x400; // add TF_PLATFORM flag, = 0x400
+    write_32bits(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), (void*)t_flag_mod);
+    uint64_t csflags_tf = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
+    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), csflags_tf | 0x24004001u); //patch csflags
+    printf("TF_PLATFORM:\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n",
+           t_flags,
+           (uint64_t)read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)),
+           t_flags != read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)) ? "success" : "failed");
+    
+    
     printf("[==================] Patches End [==================]\n");
-   // uint64_t amfid_d = perform_amfid_patches(cr_label);
-    gain_tfp0(task);
+
         
     // TODO
     /*

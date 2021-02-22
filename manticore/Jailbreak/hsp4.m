@@ -9,12 +9,22 @@
 #include <mach/mach.h>
 #include "../Exploit/cicuta_virosa.h"
 #include "../Misc/kernel_offsets.h"
+#include "hsp4.h"
+#include "patchfinder64.h"
 #include <stddef.h>
 #include <mach/thread_status.h>
 #include <pthread/pthread.h>
 #include "../Libraries/IOKit/IOKitLib.h"
+#include "../Libraries/Bazad/IOSurface.h"
+#include <mach/mach.h>
+#include <mach/mach_error.h>
+#include <mach/mach_traps.h>
 
 uint32_t tfp0_port = 0;
+mach_vm_size_t pagesize = 0;
+static mach_port_t kernel_task_port;
+static uint64_t kernel_base;
+
 
 uint64_t KernelLeak_portAddr(uint64_t target_task, uint32_t portname){
     // Leak kernel ipc port stru address of the input port
@@ -46,11 +56,8 @@ mach_port_t patch_retrieve_tfp0(){
     return tfp0_port;
 }
 
-
-
-void gain_tfp0(uint64_t self_task){
-    printf("\n[==================] TFP0 v1 [==================]\n");
-    
-    
-    printf("\n[==================] TFP0 End [=================]\n");
+int set_hsp4(uint64_t self_task){
+    mach_port_t self_mach_port_t = new_mach_port();
+    printf("self_mach_port_t:\t0x%x\n", self_mach_port_t);
+    return 0;
 }
