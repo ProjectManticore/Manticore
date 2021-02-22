@@ -47,6 +47,37 @@ uint64_t get_hardcoded_allproc_ipad(){
     return 0xfffffff0099f3758;
 }
 
+uint64_t find_port_via_kmem_read(mach_port_name_t port, kptr_t task_self_addr) {
+   uint64_t task_port_addr = task_self_addr;
+   uint64_t task_addr = read_64(task_port_addr + koffset(KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT));
+   uint64_t itk_space = read_64(task_addr + 0x308);
+   uint64_t is_table = read_64(itk_space + 0x20);
+
+   uint32_t port_index = port >> 8;
+   const int sizeof_ipc_entry_t = 0x18;
+
+   uint64_t port_addr = read_64(is_table + (port_index * sizeof_ipc_entry_t));
+   return port_addr;
+}
+
+uint64_t dump_kernel(mach_port_t tfp0, uint64_t kernel_base, kptr_t task_self_addr) {
+   mach_port_t self = mach_host_self();
+   uint64_t port_addr = find_port_via_kmem_read(self, task_self_addr);
+   uint64_t search_addr = read_64(port_addr + 0x68); //KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT
+   search_addr &= 0xFFFFFFFFFFFFF000;
+   printf("[+]\tGoing backwards until magic seen....\n");
+   while (1) {
+       if (read_32(search_addr) == 0xfeedfacf) {
+           printf("[+]\tOk, looks like we've found the beginning of the kernel!\n");
+           printf("[+]\tKERNEL IS AT 0x%llx\n", search_addr);
+           printf("[+]\tKASLR detected to be 0x%llx\n", search_addr + 0x6060a0 - kernel_base);
+           return search_addr;
+       } else {
+           search_addr-=0x1000;
+       }
+   }
+}
+
 uint64_t find_kernel_base(uint64_t proc_pointer) {
     io_service_t service = IO_OBJECT_NULL;
     mach_port_t client = MACH_PORT_NULL;
