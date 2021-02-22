@@ -121,7 +121,7 @@ int jailbreak(void *init) {
     setgid(0);
     uint32_t gid = getgid();
     printf("GroupID:\t\t%u\t\t\t\t\t--->\t%u\t\t\t(%s)\n", old_gid, gid, gid==0 ? "success" : "failed");
-    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
+    printf("whoami:\t\t\t%s\t\t\t\t\t\t\t\t\t(%s)\n", uid == 0 ? "root" : "mobile", uid == 0 ? "success" : "failed");
         
     /* CS Flags */
 //    uint64_t csflags = read_32(proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
