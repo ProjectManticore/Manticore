@@ -14,6 +14,7 @@
 #include "../Misc/kernel_offsets.h"
 #include "../ViewController.h"
 #include "amfid.h"
+#include "tfp0.h"
 #include "rootfs.h"
 #include "utils.h"
 
@@ -130,6 +131,7 @@ int jailbreak(void *init) {
 //    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failed");
     printf("[==================] Patches End [==================]\n");
    // uint64_t amfid_d = perform_amfid_patches(cr_label);
+    gain_tfp0(task);
         
     // TODO
     /*

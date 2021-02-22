@@ -10,10 +10,11 @@
 #include "../Exploit/cicuta_virosa.h"
 #include "../Misc/kernel_offsets.h"
 #include <stddef.h>
+#include <mach/thread_status.h>
+#include <pthread/pthread.h>
+#include "../Libraries/IOKit/IOKitLib.h"
 
 uint32_t tfp0_port = 0;
-uint64_t leaked_MIDIServerPort_addr = 0;
-
 
 uint64_t KernelLeak_portAddr(uint64_t target_task, uint32_t portname){
     // Leak kernel ipc port stru address of the input port
@@ -46,3 +47,10 @@ mach_port_t patch_retrieve_tfp0(){
 }
 
 
+
+void gain_tfp0(uint64_t self_task){
+    printf("\n[==================] TFP0 v1 [==================]\n");
+    
+    
+    printf("\n[==================] TFP0 End [=================]\n");
+}

@@ -58,6 +58,8 @@
 		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
 		2302163625DEB41F003E7C5C /* tfp0.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tfp0.m; sourceTree = "<group>"; };
 		2302163925DEB42B003E7C5C /* tfp0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tfp0.h; sourceTree = "<group>"; };
+		23BC8E6925E3BFE1006C6445 /* IOKitKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitKeys.h; sourceTree = "<group>"; };
+		23BC8E6B25E3C00A006C6445 /* OSMessageNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSMessageNotification.h; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* manticore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manticore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C704F425DB2EE80078DC37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23C704F525DB2EE80078DC37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 				2302161125DE9791003E7C5C /* IOReturn.h */,
 				2302161525DE97B8003E7C5C /* IOKit.h */,
 				2302161225DE9791003E7C5C /* IOTypes.h */,
+				23BC8E6925E3BFE1006C6445 /* IOKitKeys.h */,
+				23BC8E6B25E3C00A006C6445 /* OSMessageNotification.h */,
 			);
 			path = IOKit;
 			sourceTree = "<group>";
