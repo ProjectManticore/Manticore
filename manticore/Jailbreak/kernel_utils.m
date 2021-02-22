@@ -11,7 +11,8 @@
 #include <mach/mach_traps.h>
 #include <mach/mach.h>
 #include "kernel_utils.h"
-
+#include "patchfinder64.h"
+#include "../Misc/kernel_offsets.h"
 
 #if 1
 #define MAX_CHUNK 0xff0
@@ -88,4 +89,14 @@ size_t kread(kptr_t where, void* p, size_t size){
     }
     kreads += offset;
     return offset;
+}
+
+uint64_t proc_of_pid(pid_t pid) {
+    uint64_t proc = read_64(find_allproc()), pd;
+    while (proc) { //iterate over all processes till we find the one we're looking for
+        pd = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_PID));
+        if (pd == pid) return proc;
+        proc = read_64(proc);
+    }
+    return 0;
 }
