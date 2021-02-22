@@ -98,3 +98,11 @@ uint64_t proc_of_pid(pid_t pid) {
     }
     return 0;
 }
+
+//      kptr_t get_address_of_port(kptr_t proc, mach_port_t port){
+//          kptr_t ret = KPTR_NULL;
+//          if(!KERN_POINTER_VALID(proc)) return 0;
+//          if(!MACH_PORT_VALID(port)) return 0;
+//          kptr_t task_addr = read_64(proc + koffset(KSTRUCT_OFFSET_PROC_TASK));
+//          return ret;
+//      }

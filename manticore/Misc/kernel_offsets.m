@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #include "kernel_offsets.h"
 
-#define kernel_base_addr 0xFFFFFFF007004000
 //kCFCoreFoundationVersionNumbers for determination of iOS Versions
 #ifndef kCFCoreFoundationVersionNumber_iOS_14_0
 #define kCFCoreFoundationVersionNumber_iOS_14_0 1751.108
@@ -41,6 +40,8 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
         offset_arr.KSTRUCT_OFFSET_PROC_RUID = 0x38;         // KSTRUCT_OFFSET_PROC_RUID
         offset_arr.KSTRUCT_OFFSET_PROC_GID = 0x34;          // KSTRUCT_OFFSET_PROC_GID
         offset_arr.KSTRUCT_OFFSET_PROC_UID = 0x30;          // KSTRUCT_OFFSET_PROC_UID
+    /* struct ipc_port */
+        offset_arr.KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT = 0x68;   // KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT
     /* struct ucred */
         offset_arr.KSTRUCT_OFFSET_UCRED_CR_UID = 0x18;      // KSTRUCT_OFFSET_UCRED_CR_UID
         offset_arr.KSTRUCT_OFFSET_UCRED_CR_RUID = 0x1C;     // KSTRUCT_OFFSET_UCRED_CR_RUID
@@ -60,7 +61,6 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
 }
 
 uint32_t kernel_offsets_14_3[] = {
-
     /* struct proc */
         0x68,   // KSTRUCT_OFFSET_PROC_PID
         0x10,   // KSTRUCT_OFFSET_PROC_TASK
@@ -70,7 +70,8 @@ uint32_t kernel_offsets_14_3[] = {
         0x38,   // KSTRUCT_OFFSET_PROC_RUID
         0x34,   // KSTRUCT_OFFSET_PROC_GID
         0x30,   // KSTRUCT_OFFSET_PROC_UID
-    
+    /* struct ipc_port */
+        0x68,   // KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT
     /* struct ucred */
         0x18,   // KSTRUCT_OFFSET_UCRED_CR_UID
         0x1C,   // KSTRUCT_OFFSET_UCRED_CR_RUID

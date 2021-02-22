@@ -1,6 +1,9 @@
 #ifndef KernelOffsets_h
 #define KernelOffsets_h
 
+#define HARDCODED_kernel_base_addr 0xFFFFFFF007004000
+#define HARDCODED_kernel_map_addr 0xfffffff0076c0918
+
 extern uint32_t* offsets;
 
 typedef struct {
@@ -13,7 +16,8 @@ typedef struct {
         uint32_t KSTRUCT_OFFSET_PROC_RUID;
         uint32_t KSTRUCT_OFFSET_PROC_GID;
         uint32_t KSTRUCT_OFFSET_PROC_UID;
-
+    /* struct ipc_port */
+        uint32_t KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT;
     /* struct ucred */
         uint32_t KSTRUCT_OFFSET_UCRED_CR_UID;
         uint32_t KSTRUCT_OFFSET_UCRED_CR_RUID;
@@ -44,7 +48,8 @@ enum kernel_offset {
         KSTRUCT_OFFSET_PROC_RUID,
         KSTRUCT_OFFSET_PROC_GID,
         KSTRUCT_OFFSET_PROC_UID,
-    
+    /* struct ipc_port */
+        KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT,
     /* struct ucred */
         KSTRUCT_OFFSET_UCRED_CR_UID,
         KSTRUCT_OFFSET_UCRED_CR_RUID,
@@ -54,10 +59,8 @@ enum kernel_offset {
         KSTRUCT_OFFSET_UCRED_CR_RGID,
         KSTRUCT_OFFSET_UCRED_CR_SVGID,
         KSTRUCT_OFFSET_UCRED_CR_LABEL,
-    
     /* struct task */
         KSTRUCT_OFFSET_TASK_TFLAGS,
-    
     /* struct misc */
         KSTRUCT_OFFSET_SANDBOX_SLOT
 };

@@ -15,6 +15,7 @@
 #include "patchfinder64.h"
 #include "../Libraries/IOKit/IOKit.h"
 #include "../Misc/support.h"
+#include "../Misc/kernel_offsets.h"
 #include "../Exploit/cicuta_virosa.h"
 
 
