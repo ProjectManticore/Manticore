@@ -129,6 +129,12 @@
                                         <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="openOptions:" destination="YHF-Wz-R07" eventType="touchUpInside" id="Q1b-Fg-4wQ"/>
+                                    <segue destination="O3y-bd-EBd" kind="popoverPresentation" popoverAnchorView="czz-vo-cHF" id="Cxy-L3-7L7">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-wX-UeI">
                                 <rect key="frame" x="128.33333333333331" y="364" width="171.33333333333331" height="60.333333333333314"/>
@@ -227,13 +233,71 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="compatibilityLabel" destination="o5h-H3-igh" id="TQl-tc-T1t"/>
                         <outlet property="jailbreakButton" destination="B09-wX-UeI" id="ImN-4T-Of0"/>
                         <outlet property="logWindow" destination="oZg-Pf-ew7" id="IBL-q4-F8B"/>
+                        <outlet property="optionsButton" destination="czz-vo-cHF" id="9MP-VW-War"/>
+                        <outlet property="progressView" destination="p82-Jv-jUY" id="scj-UV-Iof"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F9C-Iq-xac" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1028.9719626168223" y="127.64578833693305"/>
+        </scene>
+        <!--Options View Controller-->
+        <scene sceneID="0Tf-8V-6az">
+            <objects>
+                <viewController interfaceStyle="dark" id="O3y-bd-EBd" customClass="OptionsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TIm-dy-Sz0">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N52-LB-Pzv">
+                                <rect key="frame" x="43" y="201" width="343" height="447"/>
+                                <color key="backgroundColor" red="0.1240232579" green="0.1254997253" blue="0.1254997253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3u-Hg-bGR">
+                                <rect key="frame" x="43" y="614" width="342" height="65.666666666666629"/>
+                                <color key="backgroundColor" red="0.1240232579" green="0.1254997253" blue="0.1254997253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Save"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEy-lZ-7dc">
+                                <rect key="frame" x="43" y="201" width="343" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CXZ-5I-AXi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="N52-LB-Pzv" firstAttribute="centerX" secondItem="TIm-dy-Sz0" secondAttribute="centerX" id="DqA-dj-8WY"/>
+                            <constraint firstItem="N52-LB-Pzv" firstAttribute="top" secondItem="CXZ-5I-AXi" secondAttribute="top" constant="157" id="Sxg-NW-loz"/>
+                            <constraint firstItem="N52-LB-Pzv" firstAttribute="leading" secondItem="CXZ-5I-AXi" secondAttribute="leading" constant="43" id="cuE-pB-4YL"/>
+                            <constraint firstItem="b3u-Hg-bGR" firstAttribute="height" secondItem="N52-LB-Pzv" secondAttribute="height" multiplier="0.15" id="hMo-36-wFm"/>
+                            <constraint firstAttribute="bottom" secondItem="N52-LB-Pzv" secondAttribute="bottom" constant="278" id="iKy-Ed-0xy"/>
+                            <constraint firstItem="b3u-Hg-bGR" firstAttribute="top" secondItem="N52-LB-Pzv" secondAttribute="bottom" constant="20" id="p94-7K-Zh9"/>
+                            <constraint firstItem="N52-LB-Pzv" firstAttribute="centerX" secondItem="b3u-Hg-bGR" secondAttribute="centerX" id="pG4-TX-u1I"/>
+                            <constraint firstItem="b3u-Hg-bGR" firstAttribute="width" secondItem="N52-LB-Pzv" secondAttribute="width" id="rtd-r1-XRF"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsc-qa-KQI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2185.5140186915887" y="174.94600431965443"/>
         </scene>
     </scenes>
     <resources>

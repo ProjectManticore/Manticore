@@ -20,6 +20,9 @@
     [super viewDidLoad];
     [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    // TODO
+    //  checkCompatibility();
+    _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is compatible with manticore!", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
     [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak me' to start (Manticore %@)", programVersion]];
     [self sendMessageToLog:[NSString stringWithFormat:@"@RPwnage && PwnedC99"]];
     // Do any additional setup after loading the view.
@@ -40,6 +43,10 @@
 
 - (void)sendMessageToLog:(NSString *)Message {
     [self.logWindow insertText:[NSString stringWithFormat:@"%@\n", Message]];
+}
+
+- (IBAction)openOptions:(id)sender {
+    
 }
 
 @end
