@@ -151,6 +151,24 @@ int jailbreak(void *init) {
         printf("KernelBase:\t\t\t0x%llx\t\t-->\t\t0x%llx\n", (uint64_t)HARDCODED_kernel_base_addr, HARDCODED_kernel_base_addr - kernel_slide);
         // TODO: fix this function
         // dump_kernel(tfp0, HARDCODED_kernel_base_addr, task);
+        // find_kernel_base(proc, tfp0);
+        
+        /*
+            get_all_pids();
+            
+            kptr_t next_task = read_64(task + 0x30);
+            printf("0x%llx\t->\t0x%llx\n", task, next_task);
+            printf("0x%llx\t->\t0x%llx\n", read_64(task), read_64(next_task));
+            kptr_t next_task_proc;
+            if (IS_PAC){
+                next_task_proc = read_64(next_task + 0x3a0);
+            } else {
+                next_task_proc = read_64(next_task + 0x390);
+            }
+            printf("OwnPID:\t0x%d\n", (pid_t)read_64(proc + koffset(KSTRUCT_OFFSET_PROC_PID)));
+            printf("Next task PID:\t0x%llx\t->\t0x%llx\n", read_64(proc + koffset(KSTRUCT_OFFSET_PROC_PID)), read_64(next_task_proc + koffset(KSTRUCT_OFFSET_PROC_PID)));
+         */
+        
     } else {
         printf("[-] tfp0 failed\n");
     }
