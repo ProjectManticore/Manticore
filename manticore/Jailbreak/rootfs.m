@@ -9,7 +9,7 @@
 #include "rootfs.h"
 #include "../Exploit/cicuta_virosa.h"
 
-int remount_rootfs(kptr_t proc) {
+int remount_rootfs(kptr_t proc){
 
     return 0;
 }

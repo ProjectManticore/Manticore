@@ -17,7 +17,7 @@
 #define log_i 4
 
 /* Kernel pointer stuff */
-
+typedef unsigned long long addr_t;
 typedef uint64_t kptr_t;
 #define KPTR_NULL ((kptr_t) 0)
 #define VM_MIN_KERNEL_ADDRESS 0xffffffe000000000ULL

@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <mach-o/fat.h>
+#include "libproc.h"
 #include <mach-o/loader.h>
 #include "patchfinder64.h"
 #include "../Libraries/IOKit/IOKit.h"
@@ -58,6 +59,23 @@ uint64_t find_port_via_kmem_read(mach_port_name_t port, kptr_t task_self_addr) {
 
    uint64_t port_addr = read_64(is_table + (port_index * sizeof_ipc_entry_t));
    return port_addr;
+}
+
+pid_t * get_all_pids(){
+    int pidCount = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0);
+    unsigned long pidsBufSize = sizeof(pid_t) * (unsigned long)pidCount;
+    pid_t * pids = malloc(pidsBufSize);
+    bzero(pids, pidsBufSize);
+    proc_listpids(PROC_ALL_PIDS, 0, pids, (int)pidsBufSize);
+    char pathBuffer[PROC_PIDPATHINFO_MAXSIZE];
+    for (int i=0; i < pidCount; i++) {
+        if(pids[i] != 0){
+            bzero(pathBuffer, PROC_PIDPATHINFO_MAXSIZE);
+            proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
+            printf("pid %d = %s\n", pids[i], pathBuffer);
+        }
+    }
+    return pids;
 }
 
 uint64_t dump_kernel(mach_port_t tfp0, uint64_t kernel_base, kptr_t task_self_addr) {

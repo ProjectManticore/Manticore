@@ -17,6 +17,7 @@
 #include "amfid.h"
 #include "hsp4.h"
 #include "kernel_utils.h"
+#include "libproc.h"
 #include "rootfs.h"
 #include "utils.h"
 #include "patchfinder64.h"
@@ -164,10 +165,17 @@ int jailbreak(void *init) {
     }
     
     printf("[================] End KernelPatches [================]\n");
+    
+    printf("[==================] Rootfs remount [=================]\n");
+    printf("RootFS Remount:\t\trunning...");
+    int fsremount = remount_rootfs(proc);
+    fsremount != 0 ? printf("\rRootFS Remount:\t\tsuccess!\n") : printf("\rRootFS Remount:\t\tfailure!\n");
+    printf("[====================] Remount End [==================]\n");
+
     perform_amfid_patches(cr_label);
 
     /*
-     *  AMFI
+     *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents
      *
      */
