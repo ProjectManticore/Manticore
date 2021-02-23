@@ -157,7 +157,8 @@ int jailbreak(void *init) {
         mach_vm_size_t pagesize = get_page_size(tfp0);
         printf("PageSize:\t\t\t0x%llx\t\t\t\t\t\t\t\t(%s)\n", pagesize, pagesize != 0 ? "success" : "failure");
         printf("KernelBase:\t\t\t0x%llx\t\t-->\t\t0x%llx\n", (uint64_t)HARDCODED_kernel_base_addr, HARDCODED_kernel_base_addr - kernel_slide);
-        dump_kernel(tfp0, HARDCODED_kernel_base_addr, task);
+        // TODO: fix this function
+        // dump_kernel(tfp0, HARDCODED_kernel_base_addr, task);
     } else {
         printf("[-] tfp0 failed\n");
     }
