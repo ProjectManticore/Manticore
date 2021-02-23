@@ -53,7 +53,7 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
         offset_arr.KSTRUCT_OFFSET_UCRED_CR_SVGID = 0x6C;    // KSTRUCT_OFFSET_UCRED_CR_SVGID
         offset_arr.KSTRUCT_OFFSET_UCRED_CR_LABEL = 0x78;    // KSTRUCT_OFFSET_UCRED_CR_LABEL
     /* struct task */
-        offset_arr.KSTRUCT_OFFSET_TASK_TFLAGS = 0x280;
+        offset_arr.KSTRUCT_OFFSET_TASK_TFLAGS = 0x3A0;
     /* sandbox */
         offset_arr.KSTRUCT_OFFSET_SANDBOX_SLOT = 0x10;
     /* kernel */

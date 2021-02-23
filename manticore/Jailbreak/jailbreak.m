@@ -43,11 +43,7 @@ cpu_subtype_t get_cpu_subtype() {
 
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        
-    [apiController sendMessageToLog:@"========================= Stage 1 ========================="];
-        
     uint64_t task_pac = cicuta_virosa();
-    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> Task-PAC: 0x%llx", task_pac]];
     printf("\n[==================] Discovery v1 [==================]\n");
         
     /* Before PAC ---> After PAC */
@@ -64,7 +60,6 @@ int jailbreak(void *init) {
 //        fprintf(stdout, "PAC decrypt: 0x%llx -> 0x%llx\n", proc_uid_pac, proc_uid);
 //    }
         
-    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> PAC-Decrypt: 0x%llx -> 0x%llx", task_pac, task]];
     uint64_t proc_pac;
         
     if (SYSTEM_VERSION_LESS_THAN(@"14.0")){
@@ -103,10 +98,6 @@ int jailbreak(void *init) {
     uint64_t cr_label_pac = read_64(ucred + koffset(KSTRUCT_OFFSET_UCRED_CR_LABEL));
     uint64_t cr_label = cr_label_pac | 0xffffff8000000000;
     printf("CR_Label:\t0x%llx\t--->\t0x%llx\n", cr_label_pac, cr_label);
-        
-    [apiController sendMessageToLog:@"========================= Stage 2 ========================="];
-    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> getuid() returns %u", uid]];
-    [apiController sendMessageToLog:[NSString stringWithFormat:@"==> whoami: %s", uid == 0 ? "root" : "mobile"]];
     printf("[==================] Discovery End [==================]\n");
         
     printf("\n[==================] Patches v1 [==================]\n");
@@ -166,11 +157,7 @@ int jailbreak(void *init) {
     
     printf("[================] End KernelPatches [================]\n");
     
-    printf("[==================] Rootfs remount [=================]\n");
-    printf("RootFS Remount:\t\trunning...");
-    int fsremount = remount_rootfs(proc);
-    fsremount != 0 ? printf("\rRootFS Remount:\t\tsuccess!\n") : printf("\rRootFS Remount:\t\tfailure!\n");
-    printf("[====================] Remount End [==================]\n");
+    printf("\n[==================] Rootfs remount [=================]\n");
 
     perform_amfid_patches(cr_label);
 
@@ -180,7 +167,6 @@ int jailbreak(void *init) {
      *
      */
         
-    [apiController sendMessageToLog:@"========================= Stage 3 ========================="];
     return 0;
 }
 

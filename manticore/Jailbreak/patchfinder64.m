@@ -79,6 +79,7 @@ pid_t * get_all_pids(){
 }
 
 uint64_t dump_kernel(mach_port_t tfp0, uint64_t kernel_base, kptr_t task_self_addr) {
+    printf("[*]\tTrying to dump kernel...\n");
    mach_port_t self = mach_host_self();
    uint64_t port_addr = find_port_via_kmem_read(self, task_self_addr);
    uint64_t search_addr = read_64(port_addr + 0x68); //KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT
