@@ -61,6 +61,22 @@ uint64_t find_port_via_kmem_read(mach_port_name_t port, kptr_t task_self_addr) {
    return port_addr;
 }
 
+void find_task_by_pid(pid_t pid){
+    printf("[*]\ttrying to find process with pid = %d\n", pid);
+    int pidCount = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0);
+    unsigned long pidsBufSize = sizeof(pid_t) * (unsigned long)pidCount;
+    pid_t * pids = malloc(pidsBufSize);
+    bzero(pids, pidsBufSize);
+    proc_listpids(PROC_ALL_PIDS, 0, pids, (int)pidsBufSize);
+    char pathBuffer[PROC_PIDPATHINFO_MAXSIZE];
+    for (int i=0; i < pidCount; i++) {
+        bzero(pathBuffer, PROC_PIDPATHINFO_MAXSIZE);
+        proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
+        if (pids[i] == pid) break;
+    }
+    printf("[*]\tFound process called '%s'\n", pathBuffer);
+}
+
 pid_t * get_all_pids(){
     int pidCount = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0);
     unsigned long pidsBufSize = sizeof(pid_t) * (unsigned long)pidCount;

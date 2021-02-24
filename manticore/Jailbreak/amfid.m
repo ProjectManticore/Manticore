@@ -22,17 +22,6 @@ uint64_t perform_amfid_patches(uint64_t cr_label){
     pid_t amfid_pid = pid_of_process("/usr/libexec/amfid");
     printf("==> amfid's pid\t\t\t--->\t%d\n", amfid_pid);
     printf("==> Getting task_port...\n");
-    mach_port_t amfid_task_port;
-    kern_return_t kr = task_for_pid(mach_task_self(), amfid_pid, &amfid_task_port);
-    if (kr) {
-        printf("==> Failed to get amfid's task :(\n\tError: %s\n", mach_error_string(kr));
-        return -1;
-    }
-    if (!MACH_PORT_VALID(amfid_task_port)) {
-            printf("==> Failed to get amfid's task port!\n");
-            return -1;
-    }
-    printf("==> Got amfid's task port? :) 0x%x\n", amfid_task_port);
-
+    
     return 0;
 }
