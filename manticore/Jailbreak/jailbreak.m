@@ -152,8 +152,6 @@ int jailbreak(void *init) {
         // TODO: fix this function
         // dump_kernel(tfp0, HARDCODED_kernel_base_addr, task);
         // find_kernel_base(proc, tfp0);
-        pid_t test_self_pid = (pid_t)read_64(proc + koffset(KSTRUCT_OFFSET_PROC_PID));
-        find_task_by_pid(test_self_pid);
         /*
             
             get_all_pids();
