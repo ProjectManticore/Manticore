@@ -21,14 +21,13 @@
 
 #define _assert(x)
 
-static void kproc_foreach(bool (^match)(kptr_t, pid_t))
-{
+static void kproc_foreach(bool (^match)(kptr_t, pid_t)) {
     kptr_t proc = g_exp.kernel_proc;
     _assert(KERN_POINTER_VALID(proc));
     while (KERN_POINTER_VALID(proc)) {
         pid_t const pid = kapi_read32(proc + OFFSET(proc, p_pid));
         if (g_exp.debug) {
-            util_info("pid %u", pid);
+           // util_debug("pid %u", pid);
             util_msleep(100);
         }
         if (match(proc, pid)) {
@@ -38,8 +37,8 @@ static void kproc_foreach(bool (^match)(kptr_t, pid_t))
     }
 }
 
-kptr_t kproc_find_by_pid(pid_t pid)
-{
+
+kptr_t kproc_find_by_pid(pid_t pid) {
     __block kptr_t proc = KPTR_NULL;
     bool (^const handler)(kptr_t, pid_t) = ^ bool (kptr_t found_proc, pid_t found_pid) {
         if (found_pid == pid) {

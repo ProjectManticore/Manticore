@@ -60,15 +60,13 @@ int jailbreak(void *init) {
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     // write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)csflags_mod);
-    printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failure");
+    printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
     
-    printf("Patches completed.");
+    printf("Patches completed.\n");
     printf("Trying to find amfid...\n");
     pid_t amfid_pid = look_for_proc_basename("amfid");
-    printf("Amfid found with PID:\t%d\n", amfid_pid);
-    kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
-    printf("Amfid Process at:\t0x%llx\n", amfid_kernel_proc);
-    printf("Trying to fuck amfid...\n");
+    patch_amfid(amfid_pid);
+
     
     /*
      *  TODO: AMFI

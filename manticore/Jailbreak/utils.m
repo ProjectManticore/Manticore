@@ -57,6 +57,17 @@ int perform_root_patches(kptr_t ucred){
     return 0;
 }
 
+
+void patch_amfid(pid_t amfid_pid){
+    kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
+    printf("Patching Amfid (PID/Proc):\t%d\t/\t0x%llx\n", amfid_pid, amfid_kernel_proc);
+    if(setCSFlagsByPID(amfid_pid)){
+        printf("Successfully set Amfid's CSFlags.\n");
+    } else {
+        printf("Unable to set Amfid's csflags.\n");
+    }
+}
+
 bool set_csflags(kptr_t proc, uint32_t flags, bool value) {
     bool ret = false;
     if(!KERN_POINTER_VALID(proc)) return 0;
@@ -249,6 +260,16 @@ int runCommand(const char *cmd, ...) {
     int rv = runCommandv(cmd, argc, argv, unrestrict, true);
     return WEXITSTATUS(rv);
 }
+
+BOOL setCSFlagsByPID(pid_t pid){
+    if(!pid) return NO;
+    kptr_t proc_proc  = kproc_find_by_pid(pid);
+    uint32_t csflags  = kapi_read32(proc_proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
+    uint32_t newflags = (csflags | 0x4000000 | 0x0000008 | 0x0000004 | 0x10000000) & ~(0x0000800 | 0x0000100 | 0x0000200);
+    kapi_write32(proc_proc + KSTRUCT_OFFSET_PROC_CSFLAGS, newflags);
+    return (kapi_read32(proc_proc + KSTRUCT_OFFSET_PROC_CSFLAGS) == newflags) ? YES : NO;
+}
+
 
 int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unrestrict)(pid_t), bool wait) {
     pid_t pid;
