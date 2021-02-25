@@ -10,8 +10,10 @@
 #include "../Misc/support.h"
 #include <UIKit/UIKit.h>
 #include <Foundation/Foundation.h>
+#include "../Exploit/cicuta_virosa.h"
 #include <mach/mach.h>
 #include "../Misc/kernel_offsets.h"
+#include "../Libraries/Bazad/IOSurface.h"
 #include "kernel_utils.h"
 #include "../ViewController.h"
 #include "amfid.h"
@@ -21,7 +23,6 @@
 #include "rootfs.h"
 #include "utils.h"
 #include "patchfinder64.h"
-#include "../Libraries/Bazad/IOSurface.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 

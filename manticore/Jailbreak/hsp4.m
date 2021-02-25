@@ -22,8 +22,6 @@
 
 uint32_t tfp0_port = 0;
 mach_vm_size_t pagesize = 0;
-static mach_port_t kernel_task_port;
-static uint64_t kernel_base;
 
 
 uint64_t KernelLeak_portAddr(uint64_t target_task, uint32_t portname){

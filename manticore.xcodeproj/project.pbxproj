@@ -14,6 +14,7 @@
 		2302161B25DEA254003E7C5C /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.m */; };
 		2302162E25DEA566003E7C5C /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.m */; };
 		2302163725DEB41F003E7C5C /* hsp4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302163625DEB41F003E7C5C /* hsp4.m */; };
+		23652AF725E7AA92004D7F7E /* pattern_f in Resources */ = {isa = PBXBuildFile; fileRef = 23652AF625E7AA92004D7F7E /* pattern_f */; };
 		23BC8E7125E3C2C2006C6445 /* IOSurface.c in Sources */ = {isa = PBXBuildFile; fileRef = 23BC8E7025E3C2C2006C6445 /* IOSurface.c */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
@@ -59,6 +60,7 @@
 		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
 		2302163625DEB41F003E7C5C /* hsp4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hsp4.m; sourceTree = "<group>"; };
 		2302163925DEB42B003E7C5C /* hsp4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsp4.h; sourceTree = "<group>"; };
+		23652AF625E7AA92004D7F7E /* pattern_f */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pattern_f; sourceTree = "<group>"; };
 		23BC8E6925E3BFE1006C6445 /* IOKitKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitKeys.h; sourceTree = "<group>"; };
 		23BC8E6B25E3C00A006C6445 /* OSMessageNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSMessageNotification.h; sourceTree = "<group>"; };
 		23BC8E6F25E3C2C2006C6445 /* IOSurface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSurface.h; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		231D241225DD35A4003C09FB /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				23652AF625E7AA92004D7F7E /* pattern_f */,
 				23BC8E6E25E3C2B3006C6445 /* Bazad */,
 				2302161F25DEA2C4003E7C5C /* System */,
 				2302161025DE9786003E7C5C /* IOKit */,
@@ -335,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23652AF725E7AA92004D7F7E /* pattern_f in Resources */,
 				23C7050725DB2EE90078DC37 /* LaunchScreen.storyboard in Resources */,
 				23C7050425DB2EE90078DC37 /* Assets.xcassets in Resources */,
 				23C7054525DB2F220078DC37 /* README.md in Resources */,
