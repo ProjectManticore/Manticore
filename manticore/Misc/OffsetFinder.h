@@ -13,4 +13,11 @@
 kptr_t calc_kernel_map_from_task(kptr_t kernel_task);
 kptr_t calc_kernel_task_from_map(kptr_t kernel_map);
 
+addr_t find_symbol(const char *symbol);
+kptr_t find_register_value(uint64_t where, int reg);
+kptr_t find_reference(uint64_t to, int n, enum text_bases base);
+kptr_t find_strref(const char *string, int n, enum string_bases string_base, bool full_match, bool ppl_base);
+kptr_t find_str(const char *string, int n, enum string_bases string_base, bool full_match, bool ppl_base);
+
+
 #endif /* OffsetFinder_h */
