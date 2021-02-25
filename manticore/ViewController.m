@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #include "Exploit/cicuta_virosa.h"
 #include "Jailbreak/jailbreak.h"
+#include "Exploit/exploit_main.h"
 #include <objc/runtime.h>
 
 @interface ViewController ()
@@ -35,12 +36,13 @@
     self.jailbreakButton.enabled = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_sync( dispatch_get_main_queue(), ^{
-            int jailbreak_ret = jailbreak(nil);
-            if(jailbreak_ret == 0){
-                [self.jailbreakButton setTitle:@"Jailbroken" forState:UIControlStateNormal];
-            }else {
-                printf("[Error] Jailbreak function returned %d\n", jailbreak_ret);
-            }
+            exploit_main();
+//            int jailbreak_ret = jailbreak(nil);
+//            if(jailbreak_ret == 0){
+//                [self.jailbreakButton setTitle:@"Jailbroken" forState:UIControlStateNormal];
+//            }else {
+//                printf("[Error] Jailbreak function returned %d\n", jailbreak_ret);
+//            }
         });
     });
 }

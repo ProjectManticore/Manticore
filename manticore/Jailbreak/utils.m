@@ -61,7 +61,7 @@ bool set_csflags(kptr_t proc, uint32_t flags, bool value) {
     } else {
         csflags &= ~flags;
     }
-    write_32(proc_csflags_addr, (void*)csflags);
+  //  write_32(proc_csflags_addr, (void*)csflags);
     ret = true;
     return ret;
 }

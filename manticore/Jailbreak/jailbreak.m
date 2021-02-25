@@ -4,21 +4,25 @@
 //
 //  Created by Luca on 15.02.21.
 //
-#include "jailbreak.h"
+
+#include "../ViewController.h"
+#include "../Misc/support.h"
+#include "../Misc/kernel_offsets.h"
+#include <UIKit/UIKit.h>
 #include <sys/sysctl.h>
 #include <sys/snapshot.h>
-#include "../Misc/support.h"
-#include <UIKit/UIKit.h>
-#include <Foundation/Foundation.h>
-#include "../Exploit/cicuta_virosa.h"
 #include <mach/mach.h>
-#include "../Misc/kernel_offsets.h"
+#include <Foundation/Foundation.h>
 #include "../Libraries/Bazad/IOSurface.h"
+#include "../Libraries/pattern_f/kapi.h"
+#include "../Libraries/pattern_f/k_offsets.h"
+#include "../Libraries/pattern_f/mycommon.h"
+#include "../Exploit/cicuta_virosa.h"
 #include "kernel_utils.h"
-#include "../ViewController.h"
 #include "amfid.h"
 #include "hsp4.h"
 #include "kernel_utils.h"
+#include "jailbreak.h"
 #include "libproc.h"
 #include "rootfs.h"
 #include "utils.h"
@@ -44,7 +48,8 @@ cpu_subtype_t get_cpu_subtype() {
 
 int jailbreak(void *init) {
     ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    uint64_t task_pac = cicuta_virosa();
+    uint64_t task_pac = 0x0; // cicuta_virosa();
+
     printf("\n[==================] Discovery v1 [==================]\n");
         
     /* Before PAC ---> After PAC */
@@ -61,6 +66,7 @@ int jailbreak(void *init) {
 //        fprintf(stdout, "PAC decrypt: 0x%llx -> 0x%llx\n", proc_uid_pac, proc_uid);
 //    }
         
+
     uint64_t proc_pac;
         
     if (SYSTEM_VERSION_LESS_THAN(@"14.0")){
@@ -121,15 +127,15 @@ int jailbreak(void *init) {
     /* CS Flags */
     uint64_t csflags = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
-    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)csflags_mod);
+    // write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)csflags_mod);
     printf("CS Flags:\t\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n", csflags, csflags_mod, csflags != csflags_mod ? "success" : "failure");
     
     /* TF_PLATFORM */
     uint64_t t_flags = read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS));
     uint64_t t_flag_mod = t_flags |= 0x400; // add TF_PLATFORM flag, = 0x400
-    write_32bits(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), (void*)t_flag_mod);
+    // write_32bits(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), (void*)t_flag_mod);
     uint64_t csflags_tf = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
-    write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)(csflags_tf|0x24004001u)); //patch csflags
+    // write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)(csflags_tf|0x24004001u)); //patch csflags
     printf("TF_PLATFORM:\t0x%llx\t\t\t--->\t0x%llx\t(%s)\n",
            t_flags,
            (uint64_t)read_32(task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS)),

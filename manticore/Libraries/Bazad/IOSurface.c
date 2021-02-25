@@ -3,7 +3,7 @@
  * Brandon Azad
  */
 #define IOSURFACE_EXTERN
-#include "iosurface.h"
+#include "IOSurface.h"
 
 // ---- Global variables --------------------------------------------------------------------------
 

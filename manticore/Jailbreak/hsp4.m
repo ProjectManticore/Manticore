@@ -45,7 +45,7 @@ uint64_t KernelLeak_portAddr(uint64_t target_task, uint32_t portname){
 void patch_tf_platform(uint64_t target_task){
     uint32_t old_t_flags = read_32(target_task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS));
     old_t_flags |= 0x00000400; // TF_PLATFORM
-    write_32(target_task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), old_t_flags);
+   // write_32(target_task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), old_t_flags);
 }
 
 mach_port_t patch_retrieve_tfp0(){

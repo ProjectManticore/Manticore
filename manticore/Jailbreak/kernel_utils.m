@@ -62,7 +62,7 @@ bool set_platform_binary(kptr_t proc, bool set) {
     } else {
         task_t_flags &= ~(TF_PLATFORM);
     }
-    write_32((task_struct_addr + 0x3a0), (void*)task_t_flags);
+    // write_32((task_struct_addr + 0x3a0), (void*)task_t_flags);
     ret = true;
     return ret;
 }
