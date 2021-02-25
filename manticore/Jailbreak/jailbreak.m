@@ -50,8 +50,6 @@ cpu_subtype_t get_cpu_subtype() {
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
 int jailbreak(void *init) {
-    ViewController *apiController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    exploit_main();
     struct proc_cred *old_cred;
     proc_set_root_cred(g_exp.self_proc, &old_cred);
     util_msleep(100);

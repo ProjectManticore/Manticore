@@ -79,16 +79,16 @@ static void offsets_iPhone12_18A8395() {
 static void offsets_iPhone11_18A373() {
     offsets_base_iOS_14_x();
 
-    kc_kernel_map = 0xFFFFFFF0076DA618;
-    kc_kernel_task = 0xFFFFFFF0076D6998;
-    kc_IOSurfaceClient_vt = 0xFFFFFFF00783CDA8;     // 0xE3D9D0
-    kc_IOSurfaceClient_vt_0 = 0xFFFFFFF00867A778;
+    kc_kernel_map =             0xFFFFFFF0076DA618;
+    kc_kernel_task =            0xFFFFFFF0076D6998;
+    kc_IOSurfaceClient_vt =     0xFFFFFFF00783CDA8;     // 0xE3D9D0
+    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF00867A778;
 }
 
 static void offsets_iPhone12pro_18C66() {
     offsets_base_iOS_14_x();
 
-    kc_kernel_map =             0xFFFFFFF0076C8918;     //      kc_kernel_map - kc_kernel_task = 0x3c98
+    kc_kernel_map =             0xFFFFFFF0076C8918;   //      kc_kernel_map - kc_kernel_task = 0x3c98
     kc_kernel_task =            0xFFFFFFF0076C4C80;     //        1           +   2           = 3
     kc_IOSurfaceClient_vt =     0xFFFFFFF0078262A0;     // 0xE968B4
     kc_IOSurfaceClient_vt_0 =   0xFFFFFFF0086BCB54;
@@ -98,9 +98,9 @@ static void offsets_iPad4air_18C66() {
     offsets_base_iOS_14_x();
 
     kc_kernel_map =             0xFFFFFFF0076C0918;     // 100%
-    kc_kernel_task =            0xFFFFFFF0076C4C80;
+    kc_kernel_task =            0xFFFFFFF0076bCC80;
     kc_IOSurfaceClient_vt =     0xFFFFFFF007898050;     // 100%
-    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF009ad1310;     // guess
+    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF0089433BC;     // 100%
 }
 
 struct device_def {
