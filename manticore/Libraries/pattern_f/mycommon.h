@@ -32,12 +32,16 @@ struct exploit_common_s {
     kptr_t kernel_task;
     kptr_t kernel_map;
     kptr_t kernel_proc;
+    
     kptr_t self_proc;
     kptr_t self_task;
+    kptr_t self_task_pac;
     kptr_t self_ipc_space;
+    
     kptr_t text_slide;
     kptr_t data_slide;
     kptr_t zone_array;
+    
     uint32_t num_zones;
 };
 

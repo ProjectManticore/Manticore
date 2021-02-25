@@ -9,10 +9,9 @@
 #ifndef jailbreak_h
 #define jailbreak_h
 
-#include <Foundation/Foundation.h>
 #include "../Exploit/cicuta_virosa.h"
 
-int jailbreak(void *init);
+int jailbreak();
 bool setup_manticore_filesystem(void);
 uint64_t root_patch(uint64_t task_pac);
 int sb_allow_ndefault(void);

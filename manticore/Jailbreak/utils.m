@@ -16,6 +16,12 @@
 #include "utils.h"
 #import <spawn.h>
 
+#include "../Libraries/pattern_f/mycommon.h"
+#include "../Libraries/pattern_f/utils.h"
+#include "../Libraries/pattern_f/k_utils.h"
+#include "../Libraries/pattern_f/kapi.h"
+#include "../Libraries/pattern_f/k_offsets.h"
+
 extern char **environ;
 NSData *lastSystemOutput=nil;
 
@@ -72,6 +78,94 @@ bool set_cs_platform_binary(kptr_t proc, bool value) {
     if(!set_csflags(proc, 0x4000000, value)) return 0;
     ret = true;
     return ret;
+}
+
+void patch_TF_PLATFORM(kptr_t task) {
+    uint32_t t_flags = kapi_read32(task + OFFSET(task, t_flags));
+    printf("TF-Flags:\t\t%#x", t_flags);
+    t_flags |= 0x00000400; // TF_PLATFORM
+    kapi_write32(task + OFFSET(task, t_flags), t_flags);
+    t_flags = kapi_read32(task + OFFSET(task, t_flags));
+    printf("\t--->\t\t%#x\n", t_flags);
+}
+
+pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want)){
+    pid_t *pids = calloc(1, 3000 * sizeof(pid_t));
+    int procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, 3000);
+    if(procs_cnt > 3000) {
+        pids = realloc(pids, procs_cnt * sizeof(pid_t));
+        procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, procs_cnt);
+    }
+    int len;
+    char pathBuffer[4096];
+    for (int i=(procs_cnt-1); i>=0; i--) {
+        if (pids[i] == 0) {
+            continue;
+        }
+        memset(pathBuffer, 0, sizeof(pathBuffer));
+        len = proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
+        if (len == 0) {
+            continue;
+        }
+        if (match(pathBuffer, name)) {
+            free(pids);
+            return pids[i];
+        }
+    }
+    free(pids);
+    return 0;
+}
+
+pid_t look_for_proc(const char *proc_name){
+    return look_for_proc_internal(proc_name, ^bool (const char *path, const char *want) {
+        if (!strcmp(path, want)) {
+            return true;
+        }
+        return false;
+    });
+}
+
+pid_t look_for_proc_basename(const char *base_name){
+    return look_for_proc_internal(base_name, ^bool (const char *path, const char *want) {
+        const char *base = path;
+        const char *last = strrchr(path, '/');
+        if (last) {
+            base = last + 1;
+        }
+        if (!strcmp(base, want)) {
+            return true;
+        }
+        return false;
+    });
+}
+
+void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred) {
+    *old_cred = NULL;
+    kptr_t p_ucred = kapi_read_kptr(proc + OFFSET(proc, p_ucred));
+    kptr_t cr_posix = p_ucred + OFFSET(ucred, cr_posix);
+
+    size_t cred_size = SIZE(posix_cred);
+    char zero_cred[cred_size];
+    struct proc_cred *cred_label;
+    if(cred_size > sizeof(cred_label->posix_cred)){
+        printf("Error:\tstruct proc_cred should be bigger");
+        exit(0);
+    }
+    cred_label = malloc(sizeof(*cred_label));
+
+    kapi_read(cr_posix, cred_label->posix_cred, cred_size);
+    cred_label->cr_label = kapi_read64(cr_posix + SIZE(posix_cred));
+    cred_label->sandbox_slot = 0;
+
+    if (cred_label->cr_label) {
+        kptr_t cr_label = cred_label->cr_label | 0xffffff8000000000; // untag, 25 bits
+        cred_label->sandbox_slot = kapi_read64(cr_label + 0x10);
+        kapi_write64(cr_label + 0x10, 0x0);
+    }
+
+    memset(zero_cred, 0, cred_size);
+    kapi_write(cr_posix, zero_cred, cred_size);
+    *old_cred = cred_label;
 }
 
 char *get_path_for_pid(pid_t pid) {

@@ -16,6 +16,7 @@ bool set_platform_binary(kptr_t proc, bool set);
 
 
 size_t kread(kptr_t where, void* p, size_t size);
+
 extern kern_return_t mach_vm_read_overwrite (
     vm_map_t target_task,
     mach_vm_address_t address,

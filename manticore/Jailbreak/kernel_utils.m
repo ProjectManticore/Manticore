@@ -7,12 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #include "../Misc/support.h"
+#include "../Misc/kernel_offsets.h"
 #include "../Exploit/cicuta_virosa.h"
 #include <mach/mach_traps.h>
 #include <mach/mach.h>
 #include "kernel_utils.h"
 #include "patchfinder64.h"
-#include "../Misc/kernel_offsets.h"
+
+
+
 
 #if 1
 #define MAX_CHUNK 0xff0
@@ -23,6 +26,8 @@
 mach_port_t tfp0 = MACH_PORT_NULL;
 uint64_t kreads = 0;
 uint64_t kwrites = 0;
+
+
 
 kptr_t get_proc_struct_for_pid(pid_t pid){
     __block kptr_t proc = KPTR_NULL;
@@ -66,6 +71,8 @@ bool set_platform_binary(kptr_t proc, bool set) {
     ret = true;
     return ret;
 }
+
+
 
 size_t kread(kptr_t where, void* p, size_t size){
     int rv;
