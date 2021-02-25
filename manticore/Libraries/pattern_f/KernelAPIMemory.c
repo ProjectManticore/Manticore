@@ -6,8 +6,8 @@
 //  Copyright © 2021 Quote. All rights reserved.
 //
 
-#include "mycommon.h"
-#include "kapi.h"
+#include "Common.h"
+#include "KernelAPI.h"
 
 mach_port_t kernel_task_port;
 

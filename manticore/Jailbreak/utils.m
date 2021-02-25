@@ -16,11 +16,11 @@
 #include "utils.h"
 #import <spawn.h>
 
-#include "../Libraries/pattern_f/mycommon.h"
-#include "../Libraries/pattern_f/utils.h"
-#include "../Libraries/pattern_f/k_utils.h"
-#include "../Libraries/pattern_f/kapi.h"
-#include "../Libraries/pattern_f/k_offsets.h"
+#include "../Libraries/pattern_f/Common.h"
+#include "../Libraries/pattern_f/Utils.h"
+#include "../Libraries/pattern_f/KernelUtils.h"
+#include "../Libraries/pattern_f/KernelAPI.h"
+#include "../Libraries/pattern_f/KernelOffsets.h"
 
 extern char **environ;
 NSData *lastSystemOutput=nil;
@@ -231,35 +231,6 @@ bool restartSpringBoard(void) {
     return true;
 }
 
-int runCommand(const char *cmd, ...) {
-    va_list ap, ap2;
-    int argc = 1;
-
-    va_start(ap, cmd);
-    va_copy(ap2, ap);
-
-    while (va_arg(ap, const char *) != NULL) {
-        argc++;
-    }
-    va_end(ap);
-    
-    const char *argv[argc+1];
-    argv[0] = cmd;
-    for (int i=1; i<argc; i++) {
-        argv[i] = va_arg(ap2, const char *);
-    }
-    va_end(ap2);
-    argv[argc] = NULL;
-
-    void (^unrestrict)(pid_t pid) = NULL;
-    unrestrict = ^(pid_t pid) {
-        kptr_t proc = get_proc_struct_for_pid(pid);
-        set_platform_binary(proc, true);
-        set_cs_platform_binary(proc, true);
-    };
-    int rv = runCommandv(cmd, argc, argv, unrestrict, true);
-    return WEXITSTATUS(rv);
-}
 
 BOOL setCSFlagsByPID(pid_t pid){
     if(!pid) return NO;

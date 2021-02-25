@@ -10,11 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mach/mach_types.h>
-#include "mycommon.h"
-#include "utils.h"
-#include "k_utils.h"
-#include "kapi.h"
-#include "k_offsets.h"
+#include "Common.h"
+#include "Utils.h"
+#include "KernelUtils.h"
+#include "KernelAPI.h"
+#include "KernelOffsets.h"
 
 #define KPTR_NULL ((kptr_t) 0)
 #define KERN_POINTER_VALID(val) ((val) >= 0xffff000000000000 && (val) != 0xffffffffffffffff)

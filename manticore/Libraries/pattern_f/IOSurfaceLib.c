@@ -10,8 +10,8 @@
 
 #include "../IOKit/IOKitLib.h"
 
-#include "mycommon.h"
-#include "utils.h"
+#include "Common.h"
+#include "Utils.h"
 
 enum {
     kOSSerializeDictionary      = 0x01000000,

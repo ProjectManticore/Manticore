@@ -7,6 +7,8 @@
 extern uint32_t* offsets;
 
 typedef struct {
+    /* struct kernel */
+        uint32_t KSTRUCT_OFFSET_KERNTASK_MAP;
     /* struct proc */
         uint32_t KSTRUCT_OFFSET_PROC_PID;
         uint32_t KSTRUCT_OFFSET_PROC_TASK;
@@ -43,6 +45,8 @@ typedef struct {
 kernel_offset_array dynamic_koffsets_ios_14_4(void);
 
 enum kernel_offset {
+    /* struct kernel */
+        KSTRUCT_OFFSET_KERNTASK_MAP,
     /* struct proc */
         KSTRUCT_OFFSET_PROC_PID,
         KSTRUCT_OFFSET_PROC_TASK,

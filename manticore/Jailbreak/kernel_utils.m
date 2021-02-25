@@ -27,20 +27,6 @@ mach_port_t tfp0 = MACH_PORT_NULL;
 uint64_t kreads = 0;
 uint64_t kwrites = 0;
 
-
-
-kptr_t get_proc_struct_for_pid(pid_t pid){
-    __block kptr_t proc = KPTR_NULL;
-    void (^handler)(kptr_t, pid_t, bool *) = ^(kptr_t found_proc, pid_t found_pid, bool *iterate) {
-        if (found_pid == pid) {
-            proc = found_proc;
-            *iterate = false;
-        }
-    };
-    // TODO check if possible (allproc inclusive?)
-    return proc;
-}
-
 typedef struct {
     struct {
         uint64_t data;

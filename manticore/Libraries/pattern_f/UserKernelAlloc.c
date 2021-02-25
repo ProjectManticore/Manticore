@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <mach/mach.h>
-#include "utils.h"
-#include "user_kernel_alloc.h"
+#include "Utils.h"
+#include "UserKernelAlloc.h"
 
 // ---------------------------------------------------------------------------
 // pipe spray

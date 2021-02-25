@@ -31,6 +31,8 @@ uint32_t* offsets = NULL;
 
 kernel_offset_array dynamic_koffsets_ios_14_4(void){
     kernel_offset_array offset_arr;
+    /* struct kernel */
+        offset_arr.KSTRUCT_OFFSET_KERNEL_MAP = 0x3C98;
     /* struct proc */
         offset_arr.KSTRUCT_OFFSET_PROC_PID = 0x68;          // KSTRUCT_OFFSET_PROC_PID
         offset_arr.KSTRUCT_OFFSET_PROC_TASK = 0x10;         // KSTRUCT_OFFSET_PROC_TASK
@@ -66,6 +68,8 @@ kernel_offset_array dynamic_koffsets_ios_14_4(void){
 }
 
 uint32_t kernel_offsets_14_3[] = {
+    /* struct kernel */
+        0x3C98, // KSTRUCT_OFFSET_KERNTASK_MAP
     /* struct proc */
         0x68,   // KSTRUCT_OFFSET_PROC_PID
         0x10,   // KSTRUCT_OFFSET_PROC_TASK

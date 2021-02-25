@@ -14,11 +14,11 @@
 #include <mach/mach.h>
 #include <Foundation/Foundation.h>
 #include "../Libraries/Bazad/IOSurface.h"
-#include "../Libraries/pattern_f/kapi.h"
-#include "../Libraries/pattern_f/k_offsets.h"
-#include "../Libraries/pattern_f/mycommon.h"
-#include "../Libraries/pattern_f/utils.h"
-#include "../Libraries/pattern_f/k_utils.h"
+#include "../Libraries/pattern_f/KernelAPI.h"
+#include "../Libraries/pattern_f/KernelOffsets.h"
+#include "../Libraries/pattern_f/Common.h"
+#include "../Libraries/pattern_f/Utils.h"
+#include "../Libraries/pattern_f/KernelUtils.h"
 #include "../Exploit/cicuta_virosa.h"
 #include "../Exploit/exploit_main.h"
 #include "kernel_utils.h"
@@ -64,6 +64,13 @@ int jailbreak(void *init) {
     
     printf("Patches completed.\n");
     printf("Trying to find amfid...\n");
+    
+    uint32_t data[4] = {};
+    const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0, 2 };
+    kapi_read(g_exp.kernel_base, data, sizeof(mach_header));
+    util_hexprint_width(data, sizeof(data), 4, "_mh_execute_header");
+    
+    
     pid_t amfid_pid = look_for_proc_basename("amfid");
     patch_amfid(amfid_pid);
 
@@ -73,7 +80,7 @@ int jailbreak(void *init) {
      *      - allproc, kernproc, ourcreds, spincred, spinents
      *
      */
-        
+    printf("Goodbye!\n");
     return 0;
 }
 
