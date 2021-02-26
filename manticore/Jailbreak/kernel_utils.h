@@ -13,7 +13,7 @@ typedef unsigned long long addr_t;
 
 kptr_t get_proc_struct_for_pid(pid_t pid);
 bool set_platform_binary(kptr_t proc, bool set);
-
+kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 
 size_t kread(kptr_t where, void* p, size_t size);
 
