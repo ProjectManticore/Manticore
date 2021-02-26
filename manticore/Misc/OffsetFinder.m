@@ -29,8 +29,21 @@ kptr_t calc_kernel_task_from_map(kptr_t kernel_map){
     return 0;
 }
 
-addr_t find_kernel_task(kptr_t kernel_map){
-    kptr_t target_address;
+#pragma mark - Kernel Offsets
+
+kptr_t calc_kernel_map(kptr_t kernel_base){
+    kptr_t target_address = 0x0;
+    printf("Searching for kernel_map...\n");
+    // showing hex of working kernel_map
+    uint32_t data[4] = {};
+    kapi_read(g_exp.kernel_map, data, 4);
+    util_hexprint_width(data, sizeof(data), 4, "_mh_execute_header");
+
+    return target_address;
+}
+
+kptr_t calc_kernel_task(kptr_t kernel_map){
+    kptr_t target_address = 0x0;
     int iteration_count;
     for(target_address = kernel_map, iteration_count = 0; target_address < 0xFFFFFFFFFFFFFFFF; target_address += 4, iteration_count++){
         // TODO: Add memory iteration and find kernel_task/offset (kernel_map?)
@@ -38,8 +51,9 @@ addr_t find_kernel_task(kptr_t kernel_map){
     return 0;
 }
 
+
 kptr_t find_kernel_base(kptr_t start_address){
-    kptr_t target_address;
+    kptr_t target_address = 0x0;
     int iteration_count;
     for(target_address = start_address, iteration_count = 0; target_address < 0xFFFFFFFFFFFFFFFF; target_address += 4, iteration_count++){
         uint32_t data[4] = {};

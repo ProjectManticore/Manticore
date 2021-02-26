@@ -14,6 +14,10 @@ int remount_rootfs(kptr_t proc){
     return 0;
 }
 
+void start_rootfs_remount(void){
+    printf("* ----- RootFS Remount ----- *\n");
+}
+
 bool check_root_rw(void){
     [[NSFileManager defaultManager] createFileAtPath:@"/.manticore_rw" contents:nil attributes:nil];
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/.manticore_rw"]){

@@ -50,9 +50,11 @@ cpu_subtype_t get_cpu_subtype() {
 
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
-int jailbreak(void *init) {
+int jailbreak(void) {
+    // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
-    find_kernel_base(g_exp.kernel_base - 0x50);
+    // find_kernel_base(g_exp.kernel_base - 0x50);
+    // calc_kernel_map(g_exp.kernel_task);
     // TODO: make use of declared methods "OffsetFinder.h"
     printf("* ------- Applying Patches ------- *\n");
     struct proc_cred *old_cred;
@@ -61,22 +63,12 @@ int jailbreak(void *init) {
     int err = setuid(0);
     if (err) perror("setuid");
     patch_TF_PLATFORM(g_exp.self_task);
-    /* CS Flags */
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
-    // write_32bits(proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS), (void*)csflags_mod);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
-    
-    printf("Patches completed.\n");
-    printf("Trying to fuck amfid...\n");
-    
-    
-    
-    
     pid_t amfid_pid = look_for_proc_basename("amfid");
     patch_amfid(amfid_pid);
-
-    
+    start_rootfs_remount();
     /*
      *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents

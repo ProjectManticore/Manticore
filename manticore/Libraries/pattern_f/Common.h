@@ -47,7 +47,7 @@ struct exploit_common_s {
 
 extern struct exploit_common_s g_exp;
 
-uint32_t iosurface_create_fast();
+uint32_t iosurface_create_fast(void);
 uint32_t iosurface_s_get_ycbcrmatrix(void);
 void iosurface_s_set_indexed_timestamp(uint64_t v);
                                        

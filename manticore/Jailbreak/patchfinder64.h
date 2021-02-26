@@ -14,7 +14,7 @@
     // ACTIVE / WORKING
 uint64_t find_kernel_slide(mach_port_t mach_port);
 mach_vm_size_t get_page_size(mach_port_t mach_port);
-pid_t * get_all_pids();
+pid_t * get_all_pids(void);
 void find_task_by_pid(pid_t pid);
     // TODO / WIP
 uint64_t dump_kernel(mach_port_t tfp0, uint64_t kernel_base, kptr_t task_self_addr);

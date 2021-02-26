@@ -11,7 +11,7 @@
 
 #include "../Exploit/cicuta_virosa.h"
 
-int jailbreak();
+int jailbreak(void);
 bool setup_manticore_filesystem(void);
 uint64_t root_patch(uint64_t task_pac);
 int sb_allow_ndefault(void);
