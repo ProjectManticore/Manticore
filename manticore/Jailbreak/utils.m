@@ -93,11 +93,11 @@ bool set_cs_platform_binary(kptr_t proc, bool value) {
 
 void patch_TF_PLATFORM(kptr_t task) {
     uint32_t t_flags = kapi_read32(task + OFFSET(task, t_flags));
-    printf("TF-Flags:\t\t%#x", t_flags);
+    printf("TF-Flags:\t%#x |", t_flags);
     t_flags |= 0x00000400; // TF_PLATFORM
     kapi_write32(task + OFFSET(task, t_flags), t_flags);
     t_flags = kapi_read32(task + OFFSET(task, t_flags));
-    printf("\t--->\t\t%#x\n", t_flags);
+    printf(" %#x\n", t_flags);
 }
 
 pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want)){

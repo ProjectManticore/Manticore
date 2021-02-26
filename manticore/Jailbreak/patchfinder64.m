@@ -111,26 +111,26 @@ uint64_t dump_kernel(mach_port_t tfp0, uint64_t kernel_base, kptr_t task_self_ad
    }
 }
 
-kptr_t find_kernel_base(uint64_t proc_pointer, kptr_t task_addr) {
-    kptr_t itk_space = read_64(task_addr + 0x320);
-    kptr_t is_table = read_64(itk_space + 0x20);
-    const int sizeof_ipc_entry_t = 0x18;
-    
-    for(kptr_t i = 0; i < 10; i++){
-        kptr_t port_addr = read_64(is_table + (i * sizeof_ipc_entry_t));
-        printf("Potential task address:\t0x%llx\t\t(0x%llx)\n", port_addr, is_table + (i * sizeof_ipc_entry_t));
-    }
-
-    // TODO: Choose good method
-    //    io_service_t service = IO_OBJECT_NULL;
-    //    mach_port_t client = MACH_PORT_NULL;
-    //    service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOSurfaceRoot"));
-    //    if(!MACH_PORT_VALID(service)) return 1;
-    //    if(!IOServiceOpen(service, mach_task_self(), 0, &client)) return 2;
-    //    if(!MACH_PORT_VALID(client)) return 3;
-    //    if(!KERN_POINTER_VALID(proc_pointer)) return 4;
-    //    printf("Successfully found kernelBase: %d", 21);
-    //    return 0x10;
-    return 0;
-}
-
+//kptr_t find_kernel_base(uint64_t proc_pointer, kptr_t task_addr) {
+//    kptr_t itk_space = read_64(task_addr + 0x320);
+//    kptr_t is_table = read_64(itk_space + 0x20);
+//    const int sizeof_ipc_entry_t = 0x18;
+//    
+//    for(kptr_t i = 0; i < 10; i++){
+//        kptr_t port_addr = read_64(is_table + (i * sizeof_ipc_entry_t));
+//        printf("Potential task address:\t0x%llx\t\t(0x%llx)\n", port_addr, is_table + (i * sizeof_ipc_entry_t));
+//    }
+//
+//    // TODO: Choose good method
+//    //    io_service_t service = IO_OBJECT_NULL;
+//    //    mach_port_t client = MACH_PORT_NULL;
+//    //    service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOSurfaceRoot"));
+//    //    if(!MACH_PORT_VALID(service)) return 1;
+//    //    if(!IOServiceOpen(service, mach_task_self(), 0, &client)) return 2;
+//    //    if(!MACH_PORT_VALID(client)) return 3;
+//    //    if(!KERN_POINTER_VALID(proc_pointer)) return 4;
+//    //    printf("Successfully found kernelBase: %d", 21);
+//    //    return 0x10;
+//    return 0;
+//}
+//

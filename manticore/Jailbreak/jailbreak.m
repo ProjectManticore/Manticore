@@ -6,8 +6,6 @@
 //
 
 #include "../ViewController.h"
-#include "../Misc/support.h"
-#include "../Misc/kernel_offsets.h"
 #include <UIKit/UIKit.h>
 #include <sys/sysctl.h>
 #include <sys/snapshot.h>
@@ -21,6 +19,9 @@
 #include "../Libraries/pattern_f/KernelUtils.h"
 #include "../Exploit/cicuta_virosa.h"
 #include "../Exploit/exploit_main.h"
+#include "../Misc/support.h"
+#include "../Misc/OffsetFinder.h"
+#include "../Misc/kernel_offsets.h"
 #include "kernel_utils.h"
 #include "amfid.h"
 #include "hsp4.h"
@@ -50,6 +51,10 @@ cpu_subtype_t get_cpu_subtype() {
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
 int jailbreak(void *init) {
+    printf("* ----- Running OffsetFinder ----- *\n");
+    find_kernel_base(g_exp.kernel_base - 0x50);
+    // TODO: make use of declared methods "OffsetFinder.h"
+    printf("* ------- Applying Patches ------- *\n");
     struct proc_cred *old_cred;
     proc_set_root_cred(g_exp.self_proc, &old_cred);
     util_msleep(100);
@@ -63,12 +68,9 @@ int jailbreak(void *init) {
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
     
     printf("Patches completed.\n");
-    printf("Trying to find amfid...\n");
+    printf("Trying to fuck amfid...\n");
     
-    uint32_t data[4] = {};
-    const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0, 2 };
-    kapi_read(g_exp.kernel_base, data, sizeof(mach_header));
-    util_hexprint_width(data, sizeof(data), 4, "_mh_execute_header");
+    
     
     
     pid_t amfid_pid = look_for_proc_basename("amfid");

@@ -25,6 +25,6 @@ uint64_t find_kernel_task(uint64_t region, uint8_t* kdata, size_t ksize);
 
     // INCOMPLETE / BROKEN
 uint64_t find_allproc(void);
-kptr_t find_kernel_base(uint64_t proc_pointer, kptr_t task_addr);
+//kptr_t find_kernel_base(uint64_t proc_pointer, kptr_t task_addr);
 
 #endif /* patchfinder64_h */
