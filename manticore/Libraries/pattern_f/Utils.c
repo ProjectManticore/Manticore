@@ -127,7 +127,6 @@ _Noreturn void fail_info(const char *info)
     while (1) {
         util_msleep(1000);
     }
-    exit(1);
 }
 
 void (*log_UI)(const char *text) = NULL;
