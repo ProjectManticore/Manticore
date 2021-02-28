@@ -14,6 +14,8 @@
 
 #define arrayn(array) (sizeof(array)/sizeof((array)[0]))
 
+#define sterr(format, ...) fprintf (stderr, format"\n", ##__VA_ARGS__)
+
 typedef uint64_t kptr_t; // 64 bit CPU only
 
 struct exploit_common_s {

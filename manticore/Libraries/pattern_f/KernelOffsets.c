@@ -103,6 +103,15 @@ static void offsets_iPad4air_18C66() {
     kc_IOSurfaceClient_vt_0 =   0xFFFFFFF0089433BC;             //          0x10AB36C
 }
 
+static void offsets_iPad8_18B92() {
+    offsets_base_iOS_14_x();
+
+    kc_kernel_map =             0xFFFFFFF0076a8908;             //          0x3C88
+    kc_kernel_task =            0xFFFFFFF0076a4c80;             //          0x3C88
+    kc_IOSurfaceClient_vt =     0xFFFFFFF0077f9b10;             //          0x10AB36C
+    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF008620f74;             //          0x10AB36C
+}
+
 struct device_def {
     const char *name;
     const char *model;
@@ -116,6 +125,7 @@ static struct device_def devices[] = {
     { "iPhone 11", "N104AP", "18A373", offsets_iPhone11_18A373 },
     { "iPhone 12", "D53GAP", "18A8395", offsets_iPhone12_18A8395 },
     { "iPhone 12 pro", "D53pAP", "18C66", offsets_iPhone12pro_18C66 },
+    { "iPad 8", "J171aAP", "18B92", offsets_iPad8_18B92 },
 };
 
 void kernel_offsets_init(void)
@@ -127,5 +137,6 @@ void kernel_offsets_init(void)
             return;
         }
     }
+    sterr("g_exp.model: %s", g_exp.model);
     fail_info(("no device defination"));
 }
