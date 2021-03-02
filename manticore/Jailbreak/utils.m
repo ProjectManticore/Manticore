@@ -22,6 +22,16 @@
 #include "../Libraries/pattern_f/KernelAPI.h"
 #include "../Libraries/pattern_f/KernelOffsets.h"
 
+#include <mach/mach_traps.h>
+#include <mach/mach.h>
+
+#include <mach/thread_status.h>
+#include <pthread/pthread.h>
+
+//#include <mach/thread_act.h>
+//#include <mach/semaphore.h>
+//#include <mach/thread_status.h>
+
 extern char **environ;
 NSData *lastSystemOutput=nil;
 
@@ -52,15 +62,55 @@ int perform_root_patches(kptr_t ucred){
 //    uint64_t new_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
 //    if(old_svuid == new_svuid) return 1;
     
-    
-    
     return 0;
 }
 
 
+
+mach_port_t amfid_exception_port = MACH_PORT_NULL;
+uint64_t amfid_base = 0;
+
+pthread_attr_t pth_commAttr = {0};
+void pth_commAttr_init(){
+    pthread_attr_init(&pth_commAttr);
+    pthread_attr_setdetachstate(&pth_commAttr, PTHREAD_CREATE_DETACHED);
+}
+
+void set_exception_handler(mach_port_t amfid_task_port){
+    // allocate a port to receive exceptions on:
+    mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port);
+    mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND);
+    
+    kern_return_t err = task_set_exception_ports(amfid_task_port,
+                                                 EXC_MASK_ALL,
+                                                 amfid_exception_port,
+                                                 EXCEPTION_DEFAULT | MACH_EXCEPTION_CODES,  // we want to receive a catch_exception_raise message with the thread port for the crashing thread
+                                                 ARM_THREAD_STATE64);
+    
+    if (err != KERN_SUCCESS){
+        (printf)("error setting amfid exception port: %s\n", mach_error_string(err));
+    } else {
+        (printf)("set amfid exception port: succeed!\n");
+    }
+    
+    // spin up a thread to handle exceptions:
+    pthread_t exception_thread;
+    //pthread_create(&exception_thread, &pth_commAttr, amfid_exception_handler, NULL);
+}
+
 void patch_amfid(pid_t amfid_pid){
     printf("* ------ AMFID Bypass ------ *\n");
+    
     kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
+    
+    //uint32_t amfid_task = 0;
+    mach_port_t amfid_task;
+    task_for_pid(mach_task_self(), amfid_pid, &amfid_task);
+    fprintf(stdout, "amfid_task: 0x%x\n", amfid_task);
+    
+    amfid_base = binary_load_address(amfid_task);
+    fprintf(stdout, "amfid_base: 0x%llx\n", amfid_base);
+    
     printf("Patching Amfid (PID/Proc):\t%d\t/\t0x%llx\n", amfid_pid, amfid_kernel_proc);
     if(setCSFlagsByPID(amfid_pid)){
         printf("Successfully set Amfid's CSFlags.\n");
@@ -333,4 +383,39 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
         close(out_pipe[0]);
     }
     return rv;
+}
+
+uint64_t binary_load_address(mach_port_t tp) {
+    kern_return_t err;
+    mach_msg_type_number_t region_count = VM_REGION_BASIC_INFO_COUNT_64;
+    memory_object_name_t object_name = MACH_PORT_NULL; /* unused */
+    mach_vm_size_t target_first_size = 0x1000;
+    mach_vm_address_t target_first_addr = 0x0;
+    struct vm_region_basic_info_64 region = {0};
+    //printf("about to call mach_vm_region\n");
+    extern kern_return_t mach_vm_region
+    (
+     vm_map_t target_task,
+     mach_vm_address_t *address,
+     mach_vm_size_t *size,
+     vm_region_flavor_t flavor,
+     vm_region_info_t info,
+     mach_msg_type_number_t *infoCnt,
+     mach_port_t *object_name
+     );
+    err = mach_vm_region(tp,
+                         &target_first_addr,
+                         &target_first_size,
+                         VM_REGION_BASIC_INFO_64,
+                         (vm_region_info_t)&region,
+                         &region_count,
+                         &object_name);
+    
+    if (err != KERN_SUCCESS) {
+        //printf("failed to get the region err: %d\n", err);
+        return 0;
+    }
+    //printf("got base address\n");
+    
+    return target_first_addr;
 }

@@ -51,23 +51,47 @@ cpu_subtype_t get_cpu_subtype() {
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
 int jailbreak(void) {
+    
+#ifdef __arm64e__
+    const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0xc0000002, 2 };
+#else
+    const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0, 2 };
+#endif
+
+    uint32_t data[4] = {};
+    uint64_t self_task = g_exp.self_task | 0xffffff8000000000;
+    uint64_t task_base = binary_load_address((mach_port_t)*task_port_ptr);
+    
+    kapi_read(task_base, data, sizeof(mach_header));
+    util_hexprint_width(data, sizeof(data), 4, "self_mach_header");
+    
+    
     // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
     // find_kernel_base(g_exp.kernel_base - 0x50);
     // calc_kernel_map(g_exp.kernel_task);
     // TODO: make use of declared methods "OffsetFinder.h"
     printf("* ------- Applying Patches ------- *\n");
+    
+    //setting root
     struct proc_cred *old_cred;
     proc_set_root_cred(g_exp.self_proc, &old_cred);
     util_msleep(100);
     int err = setuid(0);
     if (err) perror("setuid");
+    
+    //TF_Platfrom patch
     patch_TF_PLATFORM(g_exp.self_task);
+    
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
+    
+    //amfid patch
     pid_t amfid_pid = look_for_proc_basename("amfid");
     patch_amfid(amfid_pid);
+    
+    //remount rootfs
     start_rootfs_remount();
     /*
      *  TODO: AMFI

@@ -107,10 +107,10 @@ uint32_t create_outsize;
 uint32_t koffset(enum kernel_offset offset) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_14_3) {
+        if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_14_2) {
             // fprintf(stdout, "kCFCoreFoundation: %f\n", kCFCoreFoundationVersionNumber_iOS_14_3);
             offsets = kernel_offsets_14_3;
-        } else if (kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_14_3) {
+        } else if (kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_14_2) {
             fprintf(stdout, "Jailbreak not supported; kCFCoreFoundation: %f\n", kCFCoreFoundationVersionNumber);
             offsets = NULL;
         }

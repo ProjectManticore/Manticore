@@ -31,4 +31,6 @@ kern_return_t mach_vm_region_recurse
 
 int set_hsp4(uint64_t self_task);
 
+mach_port_t task_for_pid_workaround(int Pid);
+
 #endif /* tfp0_h */
