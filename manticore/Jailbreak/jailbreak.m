@@ -60,10 +60,9 @@ int jailbreak(void) {
 
     uint32_t data[4] = {};
     uint64_t self_task = g_exp.self_task | 0xffffff8000000000;
-    uint64_t task_base = binary_load_address((mach_port_t)*task_port_ptr);
-    
-    kapi_read(task_base, data, sizeof(mach_header));
-    util_hexprint_width(data, sizeof(data), 4, "self_mach_header");
+    uint64_t task_base = binary_load_address((mach_port_t)NULL); // task adress needed.
+//    kapi_read(task_base, data, sizeof(mach_header));
+//    util_hexprint_width(data, sizeof(data), 4, "self_mach_header");
     
     
     // OffsetFinder Test Methods
