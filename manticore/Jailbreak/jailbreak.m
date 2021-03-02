@@ -22,6 +22,7 @@
 #include "../Misc/support.h"
 #include "../Misc/OffsetFinder.h"
 #include "../Misc/kernel_offsets.h"
+#include "task_finder.h"
 #include "kernel_utils.h"
 #include "amfid.h"
 #include "hsp4.h"
@@ -58,12 +59,13 @@ int jailbreak(void) {
     const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0, 2 };
 #endif
 
-    uint32_t data[4] = {};
+    uint32_t data[8] = {};
     uint64_t self_task = g_exp.self_task | 0xffffff8000000000;
     uint64_t task_base = binary_load_address((mach_port_t)NULL); // task adress needed.
 //    kapi_read(task_base, data, sizeof(mach_header));
 //    util_hexprint_width(data, sizeof(data), 4, "self_mach_header");
     
+    fprintf(stdout, "%llu\n", read_64(get_kernel_task(kernel_base_ptr, 0x0000000003000000))); //does not work! crashes device
     
     // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
@@ -89,7 +91,7 @@ int jailbreak(void) {
     //amfid patch
     pid_t amfid_pid = look_for_proc_basename("amfid");
     patch_amfid(amfid_pid);
-    
+        
     //remount rootfs
     start_rootfs_remount();
     /*

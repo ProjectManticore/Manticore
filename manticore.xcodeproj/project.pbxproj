@@ -42,6 +42,8 @@
 		23C7055C25DB30240078DC37 /* support.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C7055B25DB30240078DC37 /* support.m */; };
 		EF073FA225E144180025FCCF /* patchfinder64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF073FA125E144180025FCCF /* patchfinder64.m */; };
 		EF073FB025E148610025FCCF /* kernel_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = EF073FAF25E148610025FCCF /* kernel_offsets.m */; };
+		EFCD605325EEEFDE00B122CA /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCD605225EEEFDE00B122CA /* HealthKit.framework */; };
+		EFD6666525EEF208007C550D /* task_finder.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD6666425EEF208007C550D /* task_finder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,7 +122,10 @@
 		EF073FA425E144420025FCCF /* patchfinder64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		EF073FAF25E148610025FCCF /* kernel_offsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kernel_offsets.m; sourceTree = "<group>"; };
 		EF073FB225E1486E0025FCCF /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
-		EF10BF8225EB2B570034BF74 /* manticore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = manticore.entitlements; sourceTree = "<group>"; };
+		EFCD605225EEEFDE00B122CA /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		EFD6666325EEF064007C550D /* manticore.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = manticore.entitlements; sourceTree = "<group>"; };
+		EFD6666425EEF208007C550D /* task_finder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = task_finder.m; sourceTree = "<group>"; };
+		EFD6666825EEF214007C550D /* task_finder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = task_finder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */,
+				EFCD605325EEEFDE00B122CA /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +193,7 @@
 		231D23F325DD2CE8003C09FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFCD605225EEEFDE00B122CA /* HealthKit.framework */,
 				2302160625DE93D6003E7C5C /* IOKit.framework */,
 				2302160C25DE965B003E7C5C /* IOKit.framework */,
 			);
@@ -245,7 +252,6 @@
 		23C704F325DB2EE80078DC37 /* manticore */ = {
 			isa = PBXGroup;
 			children = (
-				EF10BF8225EB2B570034BF74 /* manticore.entitlements */,
 				231D241225DD35A4003C09FB /* Libraries */,
 				23C7055625DB2FD60078DC37 /* Misc */,
 				23C7053025DB2F130078DC37 /* Jailbreak */,
@@ -254,6 +260,7 @@
 				23C704F525DB2EE80078DC37 /* AppDelegate.m */,
 				23C704FA25DB2EE80078DC37 /* ViewController.h */,
 				23C704FB25DB2EE80078DC37 /* ViewController.m */,
+				EFD6666325EEF064007C550D /* manticore.entitlements */,
 				23C704FD25DB2EE80078DC37 /* Main.storyboard */,
 				23C7050325DB2EE90078DC37 /* Assets.xcassets */,
 				23C7050525DB2EE90078DC37 /* LaunchScreen.storyboard */,
@@ -302,6 +309,8 @@
 				2302163025DEA571003E7C5C /* kernel_utils.h */,
 				2302163625DEB41F003E7C5C /* hsp4.m */,
 				2302163925DEB42B003E7C5C /* hsp4.h */,
+				EFD6666425EEF208007C550D /* task_finder.m */,
+				EFD6666825EEF214007C550D /* task_finder.h */,
 				EF073FA125E144180025FCCF /* patchfinder64.m */,
 				EF073FA425E144420025FCCF /* patchfinder64.h */,
 			);
@@ -402,6 +411,7 @@
 				23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */,
 				23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */,
 				EF073FA225E144180025FCCF /* patchfinder64.m in Sources */,
+				EFD6666525EEF208007C550D /* task_finder.m in Sources */,
 				23C7050225DB2EE80078DC37 /* reton.xcdatamodeld in Sources */,
 				23652B1A25E7AFEA004D7F7E /* exploit_main.c in Sources */,
 				23652B1425E7ADA9004D7F7E /* KernelOffsets.c in Sources */,

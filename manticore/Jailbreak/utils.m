@@ -100,11 +100,9 @@ void set_exception_handler(mach_port_t amfid_task_port){
 
 void patch_amfid(pid_t amfid_pid){
     printf("* ------ AMFID Bypass ------ *\n");
-    
     kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
+    uint32_t amfid_task = 0;
     
-    //uint32_t amfid_task = 0;
-    mach_port_t amfid_task;
     task_for_pid(mach_task_self(), amfid_pid, &amfid_task);
     fprintf(stdout, "amfid_task: 0x%x\n", amfid_task);
     
