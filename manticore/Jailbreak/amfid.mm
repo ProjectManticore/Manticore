@@ -16,12 +16,10 @@
 
 uint64_t perform_amfid_patches(uint64_t cr_label){
     printf("\n[================] AMFID Patches [================]\n");
-    uint32_t uid = getuid();
-    if(uid != 0) return 1;
-    printf("==> backboardd pid\t\t--->\t%d\n", pid_of_process("/usr/libexec/backboardd"));
+    if(getuid() != 0) return 1;
     pid_t amfid_pid = pid_of_process("/usr/libexec/amfid");
     printf("==> amfid's pid\t\t\t--->\t%d\n", amfid_pid);
-    printf("==> Getting task_port...\n");
+    printf("==> Getting amfid's task_port...\n");
     
     return 0;
 }

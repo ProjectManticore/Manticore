@@ -68,7 +68,7 @@ extern "C" int jailbreak() {
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
     pid_t amfid_pid = look_for_proc_basename("amfid");
-    patch_amfid(amfid_pid);
+    // patch_amfid(amfid_pid);
     start_rootfs_remount();
     /*
      *  TODO: AMFI
