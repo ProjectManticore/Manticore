@@ -14,7 +14,6 @@
 		2302161B25DEA254003E7C5C /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.mm */; };
 		2302162E25DEA566003E7C5C /* kernel_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.mm */; };
 		2302163725DEB41F003E7C5C /* hsp4.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302163625DEB41F003E7C5C /* hsp4.mm */; };
-		2360EA5725E80C2C004CD087 /* OffsetFinder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2360EA5625E80C2C004CD087 /* OffsetFinder.mm */; };
 		23652AFD25E7ABE4004D7F7E /* iosurface.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652AFC25E7ABE3004D7F7E /* iosurface.c */; };
 		23652B0225E7AC37004D7F7E /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B0125E7AC37004D7F7E /* utils.c */; };
 		23652B0925E7ACEB004D7F7E /* sys_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B0825E7ACEB004D7F7E /* sys_darwin.c */; };
@@ -39,6 +38,7 @@
 		23C7054525DB2F220078DC37 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053D25DB2F220078DC37 /* README.md */; };
 		23C7054625DB2F220078DC37 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053E25DB2F220078DC37 /* LICENSE */; };
 		23C7054E25DB2F790078DC37 /* jailbreak.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C7054D25DB2F790078DC37 /* jailbreak.mm */; };
+		847FD25A25F5911C007ED933 /* offset_finder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 847FD25925F5911C007ED933 /* offset_finder.mm */; };
 		848C426825F461DB00842110 /* log.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C426725F461DB00842110 /* log.mm */; };
 		848C427825F47DC800842110 /* plistutils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427725F47DC800842110 /* plistutils.mm */; };
 		848C427B25F47FF700842110 /* util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427A25F47FF700842110 /* util.mm */; };
@@ -68,8 +68,6 @@
 		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
 		2302163625DEB41F003E7C5C /* hsp4.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = hsp4.mm; sourceTree = "<group>"; };
 		2302163925DEB42B003E7C5C /* hsp4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsp4.h; sourceTree = "<group>"; };
-		2360EA5625E80C2C004CD087 /* OffsetFinder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OffsetFinder.mm; sourceTree = "<group>"; };
-		2360EA5925E80C33004CD087 /* OffsetFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetFinder.h; sourceTree = "<group>"; };
 		23652AFC25E7ABE3004D7F7E /* iosurface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iosurface.c; sourceTree = "<group>"; };
 		23652AFF25E7AC30004D7F7E /* tq_common_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tq_common_p.h; sourceTree = "<group>"; };
 		23652B0125E7AC37004D7F7E /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
@@ -120,6 +118,8 @@
 		8419843925F486C2001DA7FE /* alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
 		8419843B25F48731001DA7FE /* file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
 		8419843C25F48892001DA7FE /* kutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kutils.h; sourceTree = "<group>"; };
+		847FD25925F5911C007ED933 /* offset_finder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = offset_finder.mm; sourceTree = "<group>"; };
+		847FD26625F5982E007ED933 /* offset_finder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = offset_finder.h; sourceTree = "<group>"; };
 		848C426725F461DB00842110 /* log.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = log.mm; sourceTree = "<group>"; };
 		848C426B25F4620400842110 /* log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = log.hpp; sourceTree = "<group>"; };
 		848C427525F4722100842110 /* error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = error.hpp; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 				848C424425F458F000842110 /* include */,
 				231D241225DD35A4003C09FB /* lib */,
 				848C426525F4613500842110 /* util */,
-				23C7055625DB2FD60078DC37 /* misc */,
+				23C7055625DB2FD60078DC37 /* offset_finder */,
 				23C7053025DB2F130078DC37 /* jailbreak */,
 				23C7052F25DB2F0D0078DC37 /* exploit */,
 				23C704F425DB2EE80078DC37 /* AppDelegate.h */,
@@ -262,13 +262,13 @@
 			path = jailbreak;
 			sourceTree = "<group>";
 		};
-		23C7055625DB2FD60078DC37 /* misc */ = {
+		23C7055625DB2FD60078DC37 /* offset_finder */ = {
 			isa = PBXGroup;
 			children = (
 				EF073FAF25E148610025FCCF /* kernel_offsets.mm */,
-				2360EA5625E80C2C004CD087 /* OffsetFinder.mm */,
+				847FD25925F5911C007ED933 /* offset_finder.mm */,
 			);
-			path = misc;
+			path = offset_finder;
 			sourceTree = "<group>";
 		};
 		8413C62425F48FA500A9A70A /* jelbrekLib */ = {
@@ -283,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				EF073FB225E1486E0025FCCF /* kernel_offsets.h */,
-				2360EA5925E80C33004CD087 /* OffsetFinder.h */,
+				847FD26625F5982E007ED933 /* offset_finder.h */,
 			);
 			path = offset_finder;
 			sourceTree = "<group>";
@@ -555,6 +555,7 @@
 				23C7054225DB2F220078DC37 /* voucher_utils.c in Sources */,
 				23C7054E25DB2F790078DC37 /* jailbreak.mm in Sources */,
 				23652AFD25E7ABE4004D7F7E /* iosurface.c in Sources */,
+				847FD25A25F5911C007ED933 /* offset_finder.mm in Sources */,
 				23C7054325DB2F220078DC37 /* fake_element_spray.c in Sources */,
 				23C7050A25DB2EE90078DC37 /* main.m in Sources */,
 				23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */,
@@ -569,7 +570,6 @@
 				848C427825F47DC800842110 /* plistutils.mm in Sources */,
 				848C426825F461DB00842110 /* log.mm in Sources */,
 				230215FB25DE8E8F003E7C5C /* rootfs.mm in Sources */,
-				2360EA5725E80C2C004CD087 /* OffsetFinder.mm in Sources */,
 				23652B0925E7ACEB004D7F7E /* sys_darwin.c in Sources */,
 				2302163725DEB41F003E7C5C /* hsp4.mm in Sources */,
 				EF073FB025E148610025FCCF /* kernel_offsets.mm in Sources */,
