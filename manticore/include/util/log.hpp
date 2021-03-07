@@ -126,10 +126,10 @@ void manticore_info(const char *fmt, ...);
 void manticore_debug(const char *fmt, ...);
 
 /* when calling from C, only 4 arg variant is available */
-void manticore_register_dump_var_type_v_len_name(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v, len, pretty_name); }
-void manticore_register_dump_var_type_v(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v); }
-void manticore_register_dump_var_type_v_name(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v, pretty_name); }
-void manticore_register_dump_var_type_v_len(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v, len); }
+void manticore_register_dump_var_type_v_len_name(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name);
+void manticore_register_dump_var_type_v(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name);
+void manticore_register_dump_var_type_v_name(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name);
+void manticore_register_dump_var_type_v_len(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name);
 
 #ifdef __cplusplus
 }

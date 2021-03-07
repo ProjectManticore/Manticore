@@ -238,6 +238,34 @@ _manticore_output_dump_var(@"\b\b}\n");
 }
 
 #pragma mark -- public functions
+
+/* C bindings */
+void manticore_register_dump_var_type_v_len_name(enum manticore_var_dump_type type,
+                                                 void *v,
+                                                 unsigned long long len,
+                                                 const char *pretty_name) {
+    manticore_register_dump_var(type, v, len, pretty_name);
+}
+void manticore_register_dump_var_type_v(enum manticore_var_dump_type type,
+                                        void *v,
+                                        unsigned long long len,
+                                        const char *pretty_name) {
+    manticore_register_dump_var(type, v);
+}
+void manticore_register_dump_var_type_v_name(enum manticore_var_dump_type type,
+                                             void *v,
+                                             unsigned long long len,
+                                             const char *pretty_name) {
+    manticore_register_dump_var(type, v, pretty_name);
+}
+void manticore_register_dump_var_type_v_len(enum manticore_var_dump_type type,
+                                            void *v,
+                                            unsigned long long len,
+                                            const char *pretty_name) {
+    manticore_register_dump_var(type, v, len);
+}
+
+
 bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v) {
     return manticore_register_dump_var(type, v, 1, NULL);
 }

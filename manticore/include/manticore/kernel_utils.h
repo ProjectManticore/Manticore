@@ -17,6 +17,14 @@ typedef unsigned long long addr_t;
 extern "C" {
 #endif
 
+extern kern_return_t mach_vm_read_overwrite (
+    vm_map_t target_task,
+    mach_vm_address_t address,
+    mach_vm_size_t size,
+    mach_vm_address_t data,
+    mach_vm_size_t *outsize
+);
+
 kptr_t get_proc_struct_for_pid(pid_t pid);
 bool set_platform_binary(kptr_t proc, bool set);
 kptr_t find_vnode_with_fd(kptr_t proc, int fd);
@@ -29,13 +37,5 @@ kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 #ifdef __cplusplus
 }
 #endif
-
-extern kern_return_t mach_vm_read_overwrite (
-    vm_map_t target_task,
-    mach_vm_address_t address,
-    mach_vm_size_t size,
-    mach_vm_address_t data,
-    mach_vm_size_t *outsize
-);
 
 #endif /* kernel_utils_h */

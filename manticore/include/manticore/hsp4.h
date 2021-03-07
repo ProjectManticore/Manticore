@@ -8,15 +8,11 @@
 #ifndef tfp0_h
 #define tfp0_h
 
-extern
-kern_return_t mach_vm_read_overwrite
-(
-    vm_map_t target_task,
-    mach_vm_address_t address,
-    mach_vm_size_t size,
-    mach_vm_address_t data,
-    mach_vm_size_t *outsize
-);
+#include "manticore/kernel_utils.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern
 kern_return_t mach_vm_region_recurse
@@ -28,10 +24,6 @@ kern_return_t mach_vm_region_recurse
     vm_region_recurse_info_t info,
     mach_msg_type_number_t *infoCnt
 );
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 int set_hsp4(uint64_t self_task);
 
