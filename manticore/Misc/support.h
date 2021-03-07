@@ -41,8 +41,7 @@ NSString *programVersion(void);
 
 
 /* Property List Support functions */
-bool modifyPlist(NSString *filename, void (^function)(id));
-NSDictionary *readPlist(NSString *filename);
+
 
 // TODO
 bool createEmptyPlist(NSString *path);
