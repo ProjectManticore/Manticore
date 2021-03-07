@@ -1,1 +1,4 @@
 project.pbxproj
+*.DS_Store
+*.xcuserdatad
+build/
