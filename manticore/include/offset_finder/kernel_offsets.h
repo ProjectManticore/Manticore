@@ -80,6 +80,14 @@ enum kernel_offset {
         KSTRUCT_OFFSET_FILEGLOB_FG_DATA
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 uint32_t koffset(enum kernel_offset offset);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

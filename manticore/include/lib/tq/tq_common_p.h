@@ -47,11 +47,19 @@ struct exploit_common_s {
 
 extern struct exploit_common_s g_exp;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 uint32_t iosurface_create_fast(void);
 uint32_t iosurface_s_get_ycbcrmatrix(void);
 void iosurface_s_set_indexed_timestamp(uint64_t v);
                                        
 void sys_init(void);
 void print_os_details(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* mycommon_h */

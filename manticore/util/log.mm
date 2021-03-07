@@ -145,7 +145,7 @@ bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v) {
     return manticore_register_dump_var(type, v, 1);
 }
 
-bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, char *pretty_name) {
+bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, const char *pretty_name) {
     return manticore_register_dump_var(type, v, 1, pretty_name);
 }
 

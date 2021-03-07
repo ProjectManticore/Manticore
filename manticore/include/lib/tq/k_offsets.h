@@ -72,6 +72,14 @@ qexternal kptr_t kc_IOSurfaceClient_vt_0;
 
 #undef qexternal
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void kernel_offsets_init(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* k_offsets_h */

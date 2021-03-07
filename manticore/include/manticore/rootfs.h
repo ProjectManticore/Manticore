@@ -10,7 +10,16 @@
 
 #include "util/kutils.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void start_rootfs_remount(void);
 int remount_rootfs(kptr_t proc);
 bool check_root_rw(void);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* rootfs_h */

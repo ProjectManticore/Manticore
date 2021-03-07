@@ -29,6 +29,14 @@ kern_return_t mach_vm_region_recurse
     mach_msg_type_number_t *infoCnt
 );
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int set_hsp4(uint64_t self_task);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* tfp0_h */

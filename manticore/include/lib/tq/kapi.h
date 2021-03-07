@@ -18,6 +18,10 @@ __BEGIN_DECLS
 
 extern mach_port_t kernel_task_port;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern void (^stage0_read)(kptr_t addr, void *data, size_t len);
 extern uint32_t (^stage0_read32)(kptr_t addr);
 extern uint64_t (^stage0_read64)(kptr_t addr);
@@ -34,6 +38,10 @@ kptr_t kapi_read_kptr(kptr_t addr);
 void kapi_write(kptr_t addr, void *data, size_t len);
 bool kapi_write32(kptr_t addr, uint32_t value);
 bool kapi_write64(kptr_t addr, uint64_t value);
+
+#ifdef __cplusplus
+}
+#endif
 
 __END_DECLS
 

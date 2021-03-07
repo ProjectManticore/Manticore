@@ -10,10 +10,18 @@
 #define k_utils_h
 typedef uint64_t kptr_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 kptr_t kproc_find_by_pid(pid_t pid);
 kptr_t ipc_entry_lookup(mach_port_t port_name);
 void debug_dump_ipc_port(mach_port_t port_name, kptr_t *kobj);
 
 void debug_dump_proc_cred(kptr_t proc);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* k_utils_h */

@@ -12,6 +12,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void util_hexprint(void *data, size_t len, const char *desc);
 void util_hexprint_width(void *data, size_t len, int width, const char *desc);
 void util_nanosleep(uint64_t nanosecs);
@@ -29,5 +33,9 @@ void util_printf(const char *fmt, ...) __printflike(1, 2);
 int util_runCommand(const char *cmd, ...);
 
 void post_exploit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* utils_h */

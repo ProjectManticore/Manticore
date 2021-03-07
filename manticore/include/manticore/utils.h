@@ -14,6 +14,10 @@ struct proc_cred {
     kptr_t sandbox_slot;
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void patch_TF_PLATFORM(kptr_t task);
 void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred);
 int perform_root_patches(kptr_t ucred);
@@ -25,3 +29,7 @@ pid_t look_for_proc(const char *proc_name);
 pid_t look_for_proc_basename(const char *base_name);
 void patch_amfid(pid_t amfid_pid);
 bool setCSFlagsByPID(pid_t pid);
+
+#ifdef __cplusplus
+}
+#endif

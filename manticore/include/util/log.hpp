@@ -70,6 +70,36 @@ enum manticore_var_dump_type {
 };
 
 /*!
+ @function manticore_register_dump_var
+ Registers a variable that will be dumped on a non recoverable exception
+ 
+ @param type
+ The type of variable to be added.
+ For char: MANTICORE_DUMP_C
+ For 32 bit signed int: MANTICORE_DUMP_I32
+ For 128 bit IEEE754: MANTICORE_DUMP_F128
+ etc
+ For arrays, append the _ARR suffix to the type
+ 
+ @param v
+ A pointer to the variable to be registered
+ 
+ @param len
+ If this variable is an array, set this to the length of the array, else set this to 1
+ 
+ @param pretty_name
+ When dumping the state, if a pretty name is supplied then the pretty name will be printed alongside the variable
+*/
+bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name);
+bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v);
+bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, const char *pretty_name);
+bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, unsigned long long len);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*!
  @function manticore_throw
  Throws a non catchable error, will not return
  
@@ -95,30 +125,14 @@ void manticore_warn(const char *fmt, ...);
 void manticore_info(const char *fmt, ...);
 void manticore_debug(const char *fmt, ...);
 
-bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v);
-bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, char *pretty_name);
-bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, unsigned long long len);
-/*!
- @function manticore_register_dump_var
- Throws a non catchable error, will not return
- 
- @param type
- The type of variable to be added.
- For char: MANTICORE_DUMP_C
- For 32 bit signed int: MANTICORE_DUMP_I32
- For 128 bit IEEE754: MANTICORE_DUMP_F128
- etc
- For arrays, append the _ARR suffix to the type
- 
- @param v
- A pointer to the variable to be registered
- 
- @param len
- If this variable is an array, set this to the length of the array, else set this to 1
- 
- @param pretty_name
- When dumping the state, if a pretty name is supplied then the pretty name will be printed alongside the variable
-*/
-bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name);
+/* when calling from C, only 4 arg variant is available */
+void manticore_register_dump_var_type_v_len_name(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v, len, pretty_name); }
+void manticore_register_dump_var_type_v(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v); }
+void manticore_register_dump_var_type_v_name(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v, pretty_name); }
+void manticore_register_dump_var_type_v_len(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) { manticore_register_dump_var(type, v, len); }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* log_h */

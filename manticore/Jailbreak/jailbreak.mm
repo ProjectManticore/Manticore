@@ -21,15 +21,17 @@
 #include "exploit/cicuta/exploit_main.h"
 #include "offset_finder/OffsetFinder.h"
 #include "offset_finder/kernel_offsets.h"
-#include "kernel_utils.h"
-#include "amfid.h"
-#include "hsp4.h"
-#include "kernel_utils.h"
-#include "jailbreak.h"
-#include "libproc.h"
-#include "rootfs.h"
-#include "utils.h"
+#include "manticore/amfid.h"
+#include "manticore/hsp4.h"
+#include "manticore/kernel_utils.h"
+#include "manticore/jailbreak.h"
+#include "manticore/rootfs.h"
+#include "manticore/utils.h"
+
 #include "util/plistutils.h"
+
+#include "xnu/libsyscall/wrappers/libproc/libproc.h"
+
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -49,7 +51,7 @@ cpu_subtype_t get_cpu_subtype() {
 
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
-int jailbreak(void) {
+extern "C" int jailbreak() {
     // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
     // find_kernel_base(g_exp.kernel_base - 0x50);

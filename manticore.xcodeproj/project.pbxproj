@@ -39,7 +39,6 @@
 		23C7054525DB2F220078DC37 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053D25DB2F220078DC37 /* README.md */; };
 		23C7054625DB2F220078DC37 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053E25DB2F220078DC37 /* LICENSE */; };
 		23C7054E25DB2F790078DC37 /* jailbreak.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C7054D25DB2F790078DC37 /* jailbreak.mm */; };
-		8413C62625F48FAF00A9A70A /* jelbrekLib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8413C62525F48FAF00A9A70A /* jelbrekLib.dylib */; };
 		848C426825F461DB00842110 /* log.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C426725F461DB00842110 /* log.mm */; };
 		848C427825F47DC800842110 /* plistutils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427725F47DC800842110 /* plistutils.mm */; };
 		848C427B25F47FF700842110 /* util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427A25F47FF700842110 /* util.mm */; };
@@ -116,7 +115,6 @@
 		23C7053E25DB2F220078DC37 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		23C7054D25DB2F790078DC37 /* jailbreak.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = jailbreak.mm; sourceTree = "<group>"; };
 		23C7055225DB2F820078DC37 /* jailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jailbreak.h; sourceTree = "<group>"; };
-		8413C62525F48FAF00A9A70A /* jelbrekLib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = jelbrekLib.dylib; path = ../../../../../../Downloads/jelbrekLib.dylib; sourceTree = "<group>"; };
 		8413C62725F48FBA00A9A70A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8419843825F4868B001DA7FE /* sys_vers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sys_vers.h; sourceTree = "<group>"; };
 		8419843925F486C2001DA7FE /* alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8413C62625F48FAF00A9A70A /* jelbrekLib.dylib in Frameworks */,
 				2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,6 +180,7 @@
 		231D241225DD35A4003C09FB /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				8413C62425F48FA500A9A70A /* jelbrekLib */,
 				23652AFB25E7ABCF004D7F7E /* pattern_f */,
 				230215FF25DE93AD003E7C5C /* snappy */,
 			);
@@ -276,7 +274,6 @@
 		8413C62425F48FA500A9A70A /* jelbrekLib */ = {
 			isa = PBXGroup;
 			children = (
-				8413C62525F48FAF00A9A70A /* jelbrekLib.dylib */,
 				8413C62725F48FBA00A9A70A /* README.md */,
 			);
 			path = jelbrekLib;
@@ -346,7 +343,6 @@
 		848C425025F459CC00842110 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				8413C62425F48FA500A9A70A /* jelbrekLib */,
 				848C426225F45FA000842110 /* snappy */,
 				848C425125F459EB00842110 /* tq */,
 			);
@@ -731,7 +727,10 @@
 				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/manticore/include";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/manticore/include",
+					"$(SRCROOT)/manticore",
+				);
 				INFOPLIST_FILE = manticore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -740,7 +739,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/manticore/Libraries",
+					"$(PROJECT_DIR)/manticore/lib",
+					"$(SRCROOT)/manticore/lib/jelbrekLib",
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
@@ -758,7 +758,10 @@
 				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/manticore/include";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/manticore/include",
+					"$(SRCROOT)/manticore",
+				);
 				INFOPLIST_FILE = manticore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -767,7 +770,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/manticore/Libraries",
+					"$(PROJECT_DIR)/manticore/lib",
+					"$(SRCROOT)/manticore/lib/jelbrekLib",
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwn.manticore;
