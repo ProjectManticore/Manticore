@@ -7,20 +7,21 @@
 
 #import <Foundation/Foundation.h>
 #include <mach/error.h>
-#include "../Libraries/System/sys/proc_info.h"
-#include "../Libraries/System/libproc.h"
-#include "../Misc/support.h"
-#include "../Exploit/cicuta_virosa.h"
-#include "../Misc/kernel_offsets.h"
+#include "xnu/bsd/sys/proc_info.h"
+#include "xnu/libsyscall/wrappers/libproc/libproc.h"
+#include "exploit/cicuta/cicuta_virosa.h"
+#include "offset_finder/kernel_offsets.h"
 #include "kernel_utils.h"
 #include "utils.h"
 #import <spawn.h>
 
-#include "../Libraries/pattern_f/Common.h"
-#include "../Libraries/pattern_f/Utils.h"
-#include "../Libraries/pattern_f/KernelUtils.h"
-#include "../Libraries/pattern_f/KernelAPI.h"
-#include "../Libraries/pattern_f/KernelOffsets.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
+#include "lib/tq/k_utils.h"
+#include "lib/tq/kapi.h"
+#include "lib/tq/k_offsets.h"
+
+#include "util/alloc.h"
 
 extern char **environ;
 NSData *lastSystemOutput=nil;
@@ -102,10 +103,10 @@ void patch_TF_PLATFORM(kptr_t task) {
 }
 
 pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want)){
-    pid_t *pids = calloc(1, 3000 * sizeof(pid_t));
+    pid_t *pids = (pid_t *)calloc(1, 3000 * sizeof(pid_t));
     int procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, 3000);
     if(procs_cnt > 3000) {
-        pids = realloc(pids, procs_cnt * sizeof(pid_t));
+        pids = (pid_t *)realloc(pids, procs_cnt * sizeof(pid_t));
         procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, procs_cnt);
     }
     int len;
@@ -163,7 +164,7 @@ void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred) {
         printf("Error:\tstruct proc_cred should be bigger");
         exit(0);
     }
-    cred_label = malloc(sizeof(*cred_label));
+    cred_label = (struct proc_cred *)malloc(sizeof(*cred_label));
 
     kapi_read(cr_posix, cred_label->posix_cred, cred_size);
     cred_label->cr_label = kapi_read64(cr_posix + SIZE(posix_cred));
@@ -183,7 +184,7 @@ void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred) {
 char *get_path_for_pid(pid_t pid) {
     char *ret = NULL;
     uint32_t path_size = PROC_PIDPATHINFO_MAXSIZE;
-    char *path = malloc(path_size);
+    char *path = (char *)malloc(path_size);
     if (path != NULL) {
         if (proc_pidpath(pid, path, path_size) >= 0) {
             ret = strdup(path);

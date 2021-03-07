@@ -9,8 +9,8 @@
 #include <sys/sysctl.h>
 #include <string.h>
 #include <assert.h>
-#include "Common.h"
-#include "Utils.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
 
 struct exploit_common_s g_exp;
 

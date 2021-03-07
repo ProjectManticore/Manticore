@@ -41,7 +41,8 @@
 #include <mach/vm_types.h>
 #endif
 
-#include <IOKit/IOReturn.h>
+#include "xnu/iokit/IOKit/IOReturn.h"
+#include <MacTypes.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,7 +68,7 @@ extern "C" {
  * Simple data types.
  */
 #include <stdbool.h>
-#include <libkern/OSTypes.h>
+//#include <libkern/OSTypes.h>
 
 #if KERNEL
 #include <libkern/OSBase.h>

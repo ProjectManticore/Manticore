@@ -12,10 +12,9 @@
 */
 
 #import <Foundation/Foundation.h>
-#include "support.h"
-#include "Common.h"
-#include "../Libraries/pattern_f/KernelAPI.h"
-#include "Utils.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/kapi.h"
+#include "lib/tq/utils.h"
 
 typedef uint64_t kptr_t;
 

@@ -46,10 +46,10 @@
 #include <CoreFoundation/CFDictionary.h>
 #include <CoreFoundation/CFRunLoop.h>
 
-#include <IOKit/IOTypes.h>
-#include <IOKit/IOKitKeys.h>
+#include "xnu/iokit/IOKit/IOTypes.h"
+#include "xnu/iokit/IOKit/IOKitKeys.h"
 
-#include <IOKit/OSMessageNotification.h>
+#include "xnu/iokit/IOKit/OSMessageNotification.h"
 
 #include <AvailabilityMacros.h>
 

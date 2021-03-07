@@ -36,10 +36,12 @@
 #include <sys/mount.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <sys/kern_control.h>
+//#include <sys/kern_control.h>
+#define MAX_KCTL_NAME    96 // from sys/kern_control.h
+
 #include <sys/event.h>
 #include <net/if.h>
-#include <net/route.h>
+//#include <net/route.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <mach/machine.h>

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "../Exploit/cicuta_virosa.h"
+#include "exploit/cicuta/cicuta_virosa.h"
 #include "utils.h"
 #include <mach/mach_traps.h>
 #include <mach/mach_init.h>

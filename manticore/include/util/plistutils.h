@@ -2,7 +2,7 @@
 //  plistutils.h
 //  manticore
 //
-//  Created by admin on 7/3/21.
+//  Created by fugiefire on 7/3/21.
 //
 
 #ifndef plistutils_h

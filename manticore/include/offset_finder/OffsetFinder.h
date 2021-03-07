@@ -8,7 +8,7 @@
 #ifndef OffsetFinder_h
 #define OffsetFinder_h
 
-#include "support.h"
+#include "util/kutils.h"
 
 kptr_t calc_kernel_map(kptr_t kernel_task);
 kptr_t calc_kernel_task(kptr_t kernel_map);

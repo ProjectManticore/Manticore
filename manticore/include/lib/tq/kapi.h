@@ -12,7 +12,7 @@
 #include <sys/cdefs.h>
 #include <stdint.h>
 
-typedef uint64_t kptr_t;
+#include "util/kutils.h"
 
 __BEGIN_DECLS
 

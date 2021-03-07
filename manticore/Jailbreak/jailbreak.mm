@@ -5,23 +5,22 @@
 //  Created by Luca on 15.02.21.
 //
 
-#include "../ViewController.h"
+#include "ViewController.h"
 #include <UIKit/UIKit.h>
 #include <sys/sysctl.h>
 #include <sys/snapshot.h>
 #include <mach/mach.h>
 #include <Foundation/Foundation.h>
-#include "../Libraries/Bazad/IOSurface.h"
-#include "../Libraries/pattern_f/KernelAPI.h"
-#include "../Libraries/pattern_f/KernelOffsets.h"
-#include "../Libraries/pattern_f/Common.h"
-#include "../Libraries/pattern_f/Utils.h"
-#include "../Libraries/pattern_f/KernelUtils.h"
-#include "../Exploit/cicuta_virosa.h"
-#include "../Exploit/exploit_main.h"
-#include "../Misc/support.h"
-#include "../Misc/OffsetFinder.h"
-#include "../Misc/kernel_offsets.h"
+#include "lib/tq/iosurface.h"
+#include "lib/tq/kapi.h"
+#include "lib/tq/k_offsets.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
+#include "lib/tq/k_utils.h"
+#include "exploit/cicuta/cicuta_virosa.h"
+#include "exploit/cicuta/exploit_main.h"
+#include "offset_finder/OffsetFinder.h"
+#include "offset_finder/kernel_offsets.h"
 #include "kernel_utils.h"
 #include "amfid.h"
 #include "hsp4.h"
@@ -30,7 +29,7 @@
 #include "libproc.h"
 #include "rootfs.h"
 #include "utils.h"
-#include "patchfinder64.h"
+#include "util/plistutils.h"
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 

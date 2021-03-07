@@ -8,10 +8,10 @@
 
 #include <string.h>
 #include <stdio.h>
-#include "Common.h"
-#include "Utils.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
 #define Q_INTERNAL
-#include "KernelOffsets.h"
+#include "lib/tq/k_offsets.h"
 
 static void offsets_base_iOS_14_x()
 {

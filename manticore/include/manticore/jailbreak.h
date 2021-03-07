@@ -9,7 +9,7 @@
 #ifndef jailbreak_h
 #define jailbreak_h
 
-#include "../Exploit/cicuta_virosa.h"
+#include "exploit/cicuta/cicuta_virosa.h"
 
 int jailbreak(void);
 bool setup_manticore_filesystem(void);

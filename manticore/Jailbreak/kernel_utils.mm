@@ -6,16 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "../Misc/support.h"
-#include "../Misc/kernel_offsets.h"
-#include "../Exploit/cicuta_virosa.h"
+#include "offset_finder/kernel_offsets.h"
+#include "exploit/cicuta/cicuta_virosa.h"
 #include <mach/mach_traps.h>
 #include <mach/mach.h>
 #include "kernel_utils.h"
-#include "patchfinder64.h"
-
-
-
 
 #if 1
 #define MAX_CHUNK 0xff0
@@ -83,12 +78,12 @@ size_t kread(kptr_t where, void* p, size_t size){
 }
 
 uint64_t proc_of_pid(pid_t pid) {
-    uint64_t proc = read_64(find_allproc()), pd;
-    while (proc) { //iterate over all processes till we find the one we're looking for
-        pd = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_PID));
-        if (pd == pid) return proc;
-        proc = read_64(proc);
-    }
+    //uint64_t proc = read_64(find_allproc()), pd;
+    //while (proc) { //iterate over all processes till we find the one we're looking for
+    //    pd = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_PID));
+    //    if (pd == pid) return proc;
+    //    proc = read_64(proc);
+    //}
     return 0;
 }
 

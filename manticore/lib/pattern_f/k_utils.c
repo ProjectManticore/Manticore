@@ -10,15 +10,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mach/mach_types.h>
-#include "Common.h"
-#include "Utils.h"
-#include "KernelUtils.h"
-#include "KernelAPI.h"
-#include "KernelOffsets.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
+#include "lib/tq/k_utils.h"
+#include "lib/tq/kapi.h"
+#include "lib/tq/k_offsets.h"
 
 #define KPTR_NULL ((kptr_t) 0)
-#define KERN_POINTER_VALID(val) ((val) >= 0xffff000000000000 && (val) != 0xffffffffffffffff)
-
 #define _assert(x)
 
 static void kproc_foreach(bool (^match)(kptr_t, pid_t)) {

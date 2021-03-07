@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "../Libraries/pattern_f/KernelAPI.h"
-#include "../Libraries/pattern_f/Common.h"
-#include "../Libraries/pattern_f/Utils.h"
-#include "../Libraries/snappy/snappy.h"
-#include "../Exploit/cicuta_virosa.h"
+#include "lib/tq/kapi.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
+#include "lib/snappy/snappy.h"
+#include "exploit/cicuta/cicuta_virosa.h"
 #include "rootfs.h"
 #include "kernel_utils.h"
 

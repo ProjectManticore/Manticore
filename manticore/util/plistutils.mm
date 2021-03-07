@@ -12,7 +12,7 @@
 bool modifyPlist(NSString *filename, void (^function)(id)) {
     NSData *data = [NSData dataWithContentsOfFile:filename];
     if (data == nil) return false;
-    NSPropertyListFormat format = 0;
+    NSPropertyListFormat format;
     NSError *error = nil;
     id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
     if (plist == nil) return false;

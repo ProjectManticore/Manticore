@@ -7,21 +7,7 @@
 #include <strings.h>
 #include <getopt.h>
 #import <CoreFoundation/CoreFoundation.h>
-#if __has_include(<IOKit/IOKit.h>)
-#include "../IOKit/IOKit.h"
-#else
-#include <mach/error.h>
-typedef mach_port_t     io_object_t;
-typedef io_object_t     io_registry_entry_t;
-typedef char            io_string_t[512];
-typedef UInt32          IOOptionBits;
-
-extern const mach_port_t kIOMasterPortDefault;
-
-io_registry_entry_t IORegistryEntryFromPath(mach_port_t masterPort, const io_string_t path);
-CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
-kern_return_t IOObjectRelease(io_object_t object );
-#endif
+#include "lib/snappy/IOKit.h"
 #include "lib/snappy/snappy.h"
 
 static char *copyBootHash(void);

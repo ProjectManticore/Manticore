@@ -7,15 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #include <mach/mach.h>
-#include "../Exploit/cicuta_virosa.h"
-#include "../Misc/kernel_offsets.h"
+#include "exploit/cicuta/cicuta_virosa.h"
+#include "exploit/cicuta/exploit_utilities.h"
+#include "offset_finder/kernel_offsets.h"
 #include "hsp4.h"
-#include "patchfinder64.h"
 #include <stddef.h>
 #include <mach/thread_status.h>
 #include <pthread/pthread.h>
-#include "../Libraries/IOKit/IOKitLib.h"
-#include "../Libraries/Bazad/IOSurface.h"
+#include "IOKitUser/IOKitLib.h"
+#include "lib/tq/iosurface.h"
 #include <mach/mach.h>
 #include <mach/mach_error.h>
 #include <mach/mach_traps.h>
