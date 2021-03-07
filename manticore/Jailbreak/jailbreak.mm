@@ -19,7 +19,6 @@
 #include "lib/tq/k_utils.h"
 #include "exploit/cicuta/cicuta_virosa.h"
 #include "exploit/cicuta/exploit_main.h"
-#include "offset_finder/OffsetFinder.h"
 #include "offset_finder/kernel_offsets.h"
 #include "manticore/amfid.h"
 #include "manticore/hsp4.h"
