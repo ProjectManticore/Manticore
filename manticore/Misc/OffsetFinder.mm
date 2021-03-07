@@ -71,7 +71,7 @@ addr_t find_symbol(const char *symbol_identifier){
     return 0;
 }
 
-kptr_t find_string_reference(const char *string, ...) {
+kptr_t find_string_reference(const char *string, ...) {
     return 0x0;
 }
 

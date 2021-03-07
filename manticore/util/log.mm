@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
 #import <Foundation/Foundation.h>
 
@@ -140,9 +141,105 @@ void _manticore_dump_init() {
     _manticore_dump_list->_head = _manticore_dump_list->_tail = NULL;
 }
 
+void _manticore_output_dump_var(NSString *fmt, ...) {
+    /* we need a way to have NSLog but without newlines at the end */
+    va_list l;
+    va_start(l, fmt);
+    NSString *string;
+    string = [[NSString alloc] initWithFormat:fmt arguments:l];
+    va_end(l);
+    printf("%s", [string UTF8String]);
+}
+
+void _manticore_output_dump_var_entry(_manticore_var_dump_entry_t *entry) {
+    if (entry == NULL) {
+        NSLog(@"<NULL ENTRY>\n");
+        return;
+    }
+        
+#define _MANTICORE_OUTPUT_ARRAY(fmt, a){\
+NSDateComponents *datecomp = [[NSCalendar currentCalendar] components:NSCalendarUnitNanosecond|NSCalendarUnitSecond|NSCalendarUnitMinute|NSCalendarUnitHour|NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:[NSDate date]];\
+/* this incantation should give Y-M-D h:m:s:n+a 4 digit number for time offset */\
+_manticore_output_dump_var(@"%d-%d-%d %d:%d:%d:%d+%d%d ", [datecomp year], [datecomp month], [datecomp day], [datecomp hour], [datecomp minute], [datecomp second], [datecomp nanosecond], [[NSTimeZone localTimeZone] secondsFromGMT] / 3600, ([[NSTimeZone localTimeZone] secondsFromGMT] / 3600.0 - ([[NSTimeZone localTimeZone] secondsFromGMT] / 3600)) * 100 / 5 * 3);\
+_manticore_output_dump_var(@"%s[%d:%lu]", [[NSProcessInfo processInfo] processName], [[NSProcessInfo processInfo] processIdentifier], pthread_mach_thread_np(pthread_self()));\
+_manticore_output_dump_var(@"Array<char>[%llu]: {", entry->len);\
+for (int i = 0; i < entry->len; i++) {\
+NSLog(fmt, a[i]);\
+}}\
+_manticore_output_dump_var(@"\b\b}\n");
+    
+    if (entry->pretty_name != NULL) {
+        switch (entry->type) {
+            case MANTICORE_DUMP_C: NSLog(@"%c {%02x} (%s)", entry->c, entry->c, entry->pretty_name); break;
+            case MANTICORE_DUMP_I8: NSLog(@"%hhi {%02hhx} (%s)", entry->i8, entry->i8, entry->pretty_name); break;
+            case MANTICORE_DUMP_U8: NSLog(@"%hhu {%02hhx} (%s)", entry->u8, entry->u8, entry->pretty_name); break;
+            case MANTICORE_DUMP_I16: NSLog(@"%hi {%04hx} (%s)", entry->i16, entry->i16, entry->pretty_name); break;
+            case MANTICORE_DUMP_U16: NSLog(@"%hu {%04hx} (%s)", entry->u16, entry->u16, entry->pretty_name); break;
+            case MANTICORE_DUMP_I32: NSLog(@"%li {%08lx} (%s)", entry->i32, entry->i32, entry->pretty_name); break;
+            case MANTICORE_DUMP_U32: NSLog(@"%lu {%08lx} (%s)", entry->u32, entry->u32, entry->pretty_name); break;
+            case MANTICORE_DUMP_I64: NSLog(@"%lli {%016llx} (%s)", entry->i64, entry->i64, entry->pretty_name); break;
+            case MANTICORE_DUMP_U64: NSLog(@"%llu {%016llx} (%s)", entry->u64, entry->u64, entry->pretty_name); break;
+            case MANTICORE_DUMP_F32: NSLog(@"%f (%s)", entry->f32, entry->pretty_name); break;
+            case MANTICORE_DUMP_F64: NSLog(@"%lf (%s)", entry->f64, entry->pretty_name); break;
+            case MANTICORE_DUMP_F128: NSLog(@"%Lf (%s)", entry->f128, entry->pretty_name); break;
+            case MANTICORE_DUMP_PTR: NSLog(@"%p (%s)", entry->ptr, entry->pretty_name); break;
+            case MANTICORE_DUMP_C_ARR: _MANTICORE_OUTPUT_ARRAY(@"%c, ", entry->c_arr); break;
+            case MANTICORE_DUMP_I8_ARR: _MANTICORE_OUTPUT_ARRAY(@"%02hhx, ", entry->i8_arr); break;
+            case MANTICORE_DUMP_U8_ARR: _MANTICORE_OUTPUT_ARRAY(@"%02hhx, ", entry->u8_arr); break;
+            case MANTICORE_DUMP_I16_ARR: _MANTICORE_OUTPUT_ARRAY(@"%04hx, ", entry->i16_arr); break;
+            case MANTICORE_DUMP_U16_ARR: _MANTICORE_OUTPUT_ARRAY(@"%04hx, ", entry->u16_arr); break;
+            case MANTICORE_DUMP_I32_ARR: _MANTICORE_OUTPUT_ARRAY(@"%08lx, ", entry->i32_arr); break;
+            case MANTICORE_DUMP_U32_ARR: _MANTICORE_OUTPUT_ARRAY(@"%08lx, ", entry->u32_arr); break;
+            case MANTICORE_DUMP_I64_ARR: _MANTICORE_OUTPUT_ARRAY(@"%016llx, ", entry->i64_arr); break;
+            case MANTICORE_DUMP_U64_ARR: _MANTICORE_OUTPUT_ARRAY(@"%016llx, ", entry->u64_arr); break;
+            case MANTICORE_DUMP_F32_ARR: _MANTICORE_OUTPUT_ARRAY(@"%f, ", entry->f32_arr); break;
+            case MANTICORE_DUMP_F64_ARR: _MANTICORE_OUTPUT_ARRAY(@"%lf, ", entry->f64_arr); break;
+            case MANTICORE_DUMP_F128_ARR: _MANTICORE_OUTPUT_ARRAY(@"%Lf, ", entry->f128_arr); break;
+            case MANTICORE_DUMP_PTR_ARR: _MANTICORE_OUTPUT_ARRAY(@"%p, ", entry->ptr_arr); break;
+            case MANTICORE_DUMP_STR: NSLog(@"%s", entry->str);
+            default:
+                NSLog(@"<UNKNOWN ENTRY TYPE>");
+                return;
+        }
+    } else {
+        switch (entry->type) {
+            case MANTICORE_DUMP_C: NSLog(@"%c {%02x}", entry->c, entry->c);
+            case MANTICORE_DUMP_I8: NSLog(@"%hhi {%02hhx}", entry->i8, entry->i8);
+            case MANTICORE_DUMP_U8: NSLog(@"%hhu {%02hhx}", entry->u8, entry->u8);
+            case MANTICORE_DUMP_I16: NSLog(@"%hi {%04hx}", entry->i16, entry->i16);
+            case MANTICORE_DUMP_U16: NSLog(@"%hu {%04hx}", entry->u16, entry->u16);
+            case MANTICORE_DUMP_I32: NSLog(@"%li {%08lx}", entry->i32, entry->i32);
+            case MANTICORE_DUMP_U32: NSLog(@"%lu {%08lx}", entry->u32, entry->u32);
+            case MANTICORE_DUMP_I64: NSLog(@"%lli {%016llx}", entry->i64, entry->i64);
+            case MANTICORE_DUMP_U64: NSLog(@"%llu {%016llx}", entry->u64, entry->u64);
+            case MANTICORE_DUMP_F32: NSLog(@"%f", entry->f32);
+            case MANTICORE_DUMP_F64: NSLog(@"%lf", entry->f64);
+            case MANTICORE_DUMP_F128: NSLog(@"%Lf", entry->f128);
+            case MANTICORE_DUMP_PTR: NSLog(@"%p", entry->ptr);
+            case MANTICORE_DUMP_C_ARR: _MANTICORE_OUTPUT_ARRAY(@"%c, ", entry->c_arr); break;
+            case MANTICORE_DUMP_I8_ARR: _MANTICORE_OUTPUT_ARRAY(@"%02hhx, ", entry->i8_arr); break;
+            case MANTICORE_DUMP_U8_ARR: _MANTICORE_OUTPUT_ARRAY(@"%02hhx, ", entry->u8_arr); break;
+            case MANTICORE_DUMP_I16_ARR: _MANTICORE_OUTPUT_ARRAY(@"%04hx, ", entry->i16_arr); break;
+            case MANTICORE_DUMP_U16_ARR: _MANTICORE_OUTPUT_ARRAY(@"%04hx, ", entry->u16_arr); break;
+            case MANTICORE_DUMP_I32_ARR: _MANTICORE_OUTPUT_ARRAY(@"%08lx, ", entry->i32_arr); break;
+            case MANTICORE_DUMP_U32_ARR: _MANTICORE_OUTPUT_ARRAY(@"%08lx, ", entry->u32_arr); break;
+            case MANTICORE_DUMP_I64_ARR: _MANTICORE_OUTPUT_ARRAY(@"%016llx, ", entry->i64_arr); break;
+            case MANTICORE_DUMP_U64_ARR: _MANTICORE_OUTPUT_ARRAY(@"%016llx, ", entry->u64_arr); break;
+            case MANTICORE_DUMP_F32_ARR: _MANTICORE_OUTPUT_ARRAY(@"%f, ", entry->f32_arr); break;
+            case MANTICORE_DUMP_F64_ARR: _MANTICORE_OUTPUT_ARRAY(@"%lf, ", entry->f64_arr); break;
+            case MANTICORE_DUMP_F128_ARR: _MANTICORE_OUTPUT_ARRAY(@"%Lf, ", entry->f128_arr); break;
+            case MANTICORE_DUMP_PTR_ARR: _MANTICORE_OUTPUT_ARRAY(@"%p, ", entry->ptr_arr); break;
+            case MANTICORE_DUMP_STR: NSLog(@"%s", entry->str);
+            default:
+                NSLog(@"<UNKNOWN ENTRY TYPE>");
+                return;
+        }
+    }
+}
+
 #pragma mark -- public functions
 bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v) {
-    return manticore_register_dump_var(type, v, 1);
+    return manticore_register_dump_var(type, v, 1, NULL);
 }
 
 bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, const char *pretty_name) {
@@ -150,13 +247,12 @@ bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, con
 }
 
 bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, unsigned long long len) {
-    return manticore_register_dump_var(type, v, len, "(unknown)");
+    return manticore_register_dump_var(type, v, len, NULL);
 }
 
 bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, unsigned long long len, const char *pretty_name) {
     /* sanity check */
     if (v == NULL) return false;
-    if (pretty_name == NULL) return false;
     if (len == 0) return false;
     if (type > _MANTICORE_DUMP_END || type < _MANTICORE_DUMP_START) return false;
     
@@ -164,8 +260,12 @@ bool manticore_register_dump_var(enum manticore_var_dump_type type, void *v, uns
     _manticore_var_dump_entry_t *entry = _manticore_dump_list->_tail;
     entry->type = type;
     entry->len = len;
-    entry->pretty_name = (char *)malloc(strlen(pretty_name) + 1);
-    memcpy(entry->pretty_name, pretty_name, strlen(pretty_name) + 1);
+    if (pretty_name) {
+        entry->pretty_name = (char *)malloc(strlen(pretty_name) + 1);
+        memcpy(entry->pretty_name, pretty_name, strlen(pretty_name) + 1);
+    } else {
+        entry->pretty_name = NULL;
+    }
     
     switch (type) {
         case MANTICORE_DUMP_C: entry->c = *(char *)v; break;
@@ -218,7 +318,18 @@ va_end(l);
 __attribute__((noreturn)) void manticore_throw(const char *fmt, ...) {
     _MANTICORE_LOG_COMMON(LOG_FATAL, fmt);
     
-    /* todo: register/dump vars */
+    _manticore_var_dump_entry_t *cur = NULL;
+    if (_manticore_dump_list != NULL) {
+        cur = _manticore_dump_list->_head;
+    }
+    
+    NSLog(@"====== BEGIN VAR DUMP ======");
+    while (cur != NULL) {
+        _manticore_output_dump_var_entry(cur);
+        cur = cur->_next;
+    }
+    NSLog(@"====== END VAR DUMP ======");
+    
     exit(EXIT_FAILURE);
 }
 
