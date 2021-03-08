@@ -78,6 +78,7 @@ enum aarch64_insn_type get_insn_type(aarch64_insn_t insn) {
 }
 
 long long _extract_adrp_imm(u64 off, aarch64_insn_t insn, int print) {
+    if (get_insn_type(insn) != ADRP) return 0;
     /* extract immhi:immlo from adrp */
     u32 immhi = insn & 0xFFFFE0;
     immhi <<= 8;
@@ -99,6 +100,7 @@ long long _extract_adrp_imm(u64 off, aarch64_insn_t insn, int print) {
 }
 
 u32 _extract_add_imm(aarch64_insn_t insn) {
+    if (get_insn_type(insn) != ADD) return 0;
     u32 imm = insn & 0x3FFC00;
     imm >>= 10;
     switch ((insn >> 22) & 0b11) { // check if shift is set
