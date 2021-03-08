@@ -27,13 +27,17 @@
 #include <stdlib.h>
 #include <pthread/pthread.h>
 
-mach_port_t amfid_exception_port = MACH_PORT_NULL;
 pthread_attr_t pth_commAttr = {0};
 
 void pth_commAttr_init(){
     pthread_attr_init(&pth_commAttr);
     pthread_attr_setdetachstate(&pth_commAttr, PTHREAD_CREATE_DETACHED);
 }
+
+/**
+	binary_load_address(mach_port_t target_port) ---> returns kptr_t object/addresss
+		 Function to find the binary load address of amfid in memory.
+**/
 
 kptr_t binary_load_address(mach_port_t target_port){
     // TODO: fix this shit
@@ -47,7 +51,7 @@ void* amfid_exception_handler(void* arg){
 
 void set_exception_handler(mach_port_t amfid_task_port){
     // allocate a port to receive exceptions on:
-    amfid_exception_port = cv_new_mach_port();
+    mach_port_t amfid_exception_port = cv_new_mach_port();
     kern_return_t err = task_set_exception_ports(amfid_task_port,
                                                  EXC_MASK_ALL,
                                                  amfid_exception_port,
@@ -64,6 +68,32 @@ void set_exception_handler(mach_port_t amfid_task_port){
     pthread_create(&exception_thread, &pth_commAttr, amfid_exception_handler, NULL);
 }
 
+/***
+ Replace the Original Amfid task port with a custom one, created by us. (https://github.com/bazad/blanket/blob/22d670d25b8ab5ad569c3f8f4de108ae8e0b6e0a/amfidupe/amfidupe.c#L93)
+ */
+
+bool replace_amfid_port(){
+	mach_port_t real_amfid_port, fake_amfid_port;
+	mach_port_t host = mach_host_self();
+	kern_return_t kr = host_get_amfid_port(host, &real_amfid_port);
+	if (kr != KERN_SUCCESS) {
+		manticore_error("Could not get amfid's service port!\n");
+		return false;
+	}
+	mach_port_options_t options = { .flags = MPO_INSERT_SEND_RIGHT };
+	kr = mach_port_construct(mach_task_self(), &options, 0, &fake_amfid_port);
+	if (kr != KERN_SUCCESS) {
+		manticore_error("Could not create fake amfid port!\n");
+		return false;
+	}
+	kr = host_set_amfid_port(host, fake_amfid_port);
+	if (kr != KERN_SUCCESS) {
+		manticore_error("Could not register fake amfid port: error %d\n", kr);
+		return false;
+	}
+	manticore_info("Registered new amfid port: 0x%x\n", fake_amfid_port);
+	return true;
+}
 
 kptr_t perform_amfid_patches(){
     printf("* ------- AMFID Patches -------- *\n");
@@ -75,7 +105,6 @@ kptr_t perform_amfid_patches(){
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
         printf("amfid base:\t0x%llx\n", amfid_base);
-        
-    }
+	} else manticore_error("Could not get amfid's service port!\n");
     return 0;
 }
