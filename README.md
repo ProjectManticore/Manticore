@@ -13,5 +13,6 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [ ] offset finder
 - [x] offset finder -> kernel_task
 - [ ] amfid bypass/patch
+- [x] amfid -> getting task port address 
 - [ ] rootfs remount
 - [ ] bootstrap/package manager installation
