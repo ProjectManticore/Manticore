@@ -114,6 +114,7 @@
 		23C7054D25DB2F790078DC37 /* jailbreak.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = jailbreak.mm; sourceTree = "<group>"; };
 		23C7055225DB2F820078DC37 /* jailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jailbreak.h; sourceTree = "<group>"; };
 		8112CA2325F6C681001A3D83 /* manticore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = manticore.entitlements; sourceTree = "<group>"; };
+		8112CA2525F6C8B8001A3D83 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = ../../../../System/Library/Frameworks/Kernel.framework; sourceTree = "<group>"; };
 		8413C62725F48FBA00A9A70A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8419843825F4868B001DA7FE /* sys_vers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sys_vers.h; sourceTree = "<group>"; };
 		8419843925F486C2001DA7FE /* alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 		231D23F325DD2CE8003C09FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8112CA2525F6C8B8001A3D83 /* Kernel.framework */,
 				2302160625DE93D6003E7C5C /* IOKit.framework */,
 				2302160C25DE965B003E7C5C /* IOKit.framework */,
 			);
