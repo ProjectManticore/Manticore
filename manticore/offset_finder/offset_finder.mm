@@ -31,8 +31,10 @@ void _bmh_table_gen(unsigned char const *needle, const size_t needle_len,
     manticore_info("<BMH: TABLE GEN>: needle@%p  table@%p  needle_len ==> %zu", needle, table, needle_len);
     for (int i = 0; i <= UCHAR_MAX; i++)
         table[i] = needle_len;
-    for (int i = 0; i < needle_len - 1; i++)
+    for (int i = 0; i < needle_len - 1; i++){
+        manticore_info("table: %p | table[needle[i]]: %p | needle[i]: %hhx | needle_len - 1 - i: %zu", table, &table[needle[i]], needle[i], needle_len - 1 - i);
         table[needle[i]] = needle_len - 1 - i;
+    }
 }
 
 void *bmh_search(unsigned char const *needle, const size_t needle_len,
@@ -43,9 +45,9 @@ void *bmh_search(unsigned char const *needle, const size_t needle_len,
     _bmh_table_gen(needle, needle_len, table);
 
     while (haystack_len >= needle_len) {
+        fflush(stdout);
         for (size_t i = needle_len - 1; (unsigned char)_kread_32((void *)&haystack[i]) == needle[i]; i--)
             if (i == 0) return (void *)haystack;
-
         haystack_len -= table[(unsigned char)_kread_32(&haystack[needle_len - 1])];
         haystack += table[(unsigned char)_kread_32(&haystack[needle_len - 1])];
     }
@@ -197,7 +199,6 @@ kptr_t find_kernel_task(void *kbase, size_t ksize) {
      * ADD      X8, X8, #_kernel_task@PAGEOFF */
     aarch64_insn_t adrp_ktask = (aarch64_insn_t) _kread_64((void *) (func_iogpuresource + 0xD0));
     aarch64_insn_t add_ktask = (aarch64_insn_t) _kread_64((void *) (func_iogpuresource + 0xD4));
-
     printf("adrp_ktask: %p\nadd_ktask:  %p\n", (void *)((size_t)adrp_ktask), (void *)((size_t)add_ktask));
     
     kptr_t kernel_task = _extract_adrp_imm(func_iogpuresource + 0xD0, adrp_ktask, 1) | _extract_add_imm(add_ktask);
