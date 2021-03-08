@@ -9,6 +9,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <limits.h>
+#include "kernel_offsets.h"
+#include "log.hpp"
 #include "../include/lib/tq/kapi.h"
 
 /* define this to 0 when reading from live mem, 1 when testing on a decompressed kcache */
@@ -164,6 +166,28 @@ void *find_xref_to(void *ref, void *haystack, void *from, void *to) {
     return NULL;
 }
 
+
+/** kernel_cred / kernel_vm_map finder **/
+
+kptr_t get_kernel_cred_addr(kptr_t kernel_proc){
+    kptr_t ret = KPTR_NULL;
+    kptr_t kernel_proc_struct_addr = kernel_proc;
+    if(KERN_POINTER_VALID(kernel_proc_struct_addr)){
+        kptr_t kernel_ucred_struct_addr = kapi_read_kptr(kernel_proc_struct_addr + koffset(KSTRUCT_OFFSET_PROC_UCRED));
+        if(KERN_POINTER_VALID(kernel_ucred_struct_addr)){
+            ret = kernel_ucred_struct_addr;
+        } else manticore_warn("Invalid kernel_ucred_struct_addr.\t\t(0x%llx)\n", kernel_ucred_struct_addr);
+    } else manticore_warn("Invalid kernel_proc_struct_addr.\t\t(0x%llx)\n", kernel_proc_struct_addr);
+    return ret;
+}
+
+kptr_t get_kernel_vm_map(kptr_t kernel_task){
+    kptr_t ret = kapi_read_kptr(kernel_task + 0x28);;
+    if(!KERN_POINTER_VALID(ret)) manticore_warn("Pointer invalid; kernel_vm_map!\t\t(0x%llx)\n", (kernel_task + 0x28));
+    return ret;
+}
+
+
 /****** kernel_task finder ******/
 
 // string to match
@@ -173,6 +197,8 @@ kptr_t p_IOGPUResource = 0;
 
 kptr_t p_kernel_base = KBASE;
 size_t v_kernel_size = KSIZE; // this is almost guaranteed to go beyond end of kernel
+
+
 
 kptr_t find_kernel_task(void *kbase, size_t ksize) {
     // p_kernel_base should be fine, but i'm not 100% sure
