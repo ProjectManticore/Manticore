@@ -11,6 +11,7 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [x] Sandbox escape
 - [x] Privilege escalation
 - [ ] offset finder
+- [x] offset finder -> kernel_task
 - [ ] amfid bypass/patch
 - [ ] rootfs remount
 - [ ] bootstrap/package manager installation
