@@ -53,11 +53,14 @@ cpu_subtype_t get_cpu_subtype() {
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
 int jailbreak() {
-    // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
-    // find_kernel_base(g_exp.kernel_base - 0x50);
-    // calc_kernel_map(g_exp.kernel_task);
-    // TODO: make use of declared methods "OffsetFinder.h"
+    
+    /* Finding kernel_task using offset_finder.c */
+    
+    kptr_t kern_task = find_kernel_task((void *)g_exp.kernel_base, 0x3000000);
+    NSLog(@"KTASK: 0x%llx\t\t0x%llx", kapi_read_kptr(kern_task), g_exp.kernel_task);
+    
+    
     printf("* ------- Applying Patches ------- *\n");
     struct proc_cred *old_cred;
     proc_set_root_cred(g_exp.self_proc, &old_cred);
@@ -68,14 +71,6 @@ int jailbreak() {
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
-
-    kptr_t kern_task = find_kernel_task((void *)g_exp.kernel_base, 0x3000000);
-    NSLog(@"KTASK: 0x%llx\t\t0x%llx", kapi_read_kptr(kern_task), g_exp.kernel_task);
-    /*
-     *  TODO: AMFI
-     *      - allproc, kernproc, ourcreds, spincred, spinents
-     *
-     */
     printf("Goodbye!\n");
     return 0;
 }
