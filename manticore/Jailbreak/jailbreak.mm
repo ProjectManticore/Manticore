@@ -72,6 +72,8 @@ int jailbreak() {
     patch_amfid(amfid_pid);
     //start_rootfs_remount();
     init_offset_finder();
+    kptr_t kern_task = find_kernel_task((void *)g_exp.kernel_base, 0x3000000);
+    NSLog(@"KTASK: %p", (void *)kern_task);
     /*
      *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents
