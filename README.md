@@ -16,3 +16,10 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [x] amfid -> getting task port address 
 - [ ] rootfs remount
 - [ ] bootstrap/package manager installation
+
+### Credits
+* [RPwnage](https://twitter.com/rpwnage)
+* [fugiefire](https://twitter.com/fugiefire)
+* [PwnedC99](https://twitter.com/pwnedc99)
+* [Pattern-F](https://twitter.com/pattern_f_) (Exploit and Stable Primitives)
+* [XerusDesign](https://twitter.com/xerusdesign) (UI Design/Concept)
