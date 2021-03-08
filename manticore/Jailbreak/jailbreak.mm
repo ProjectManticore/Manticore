@@ -31,6 +31,8 @@
 
 #include "xnu/libsyscall/wrappers/libproc/libproc.h"
 
+#include "offset_finder/offset_finder.h"
+
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
@@ -50,7 +52,7 @@ cpu_subtype_t get_cpu_subtype() {
 
 #define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
-extern "C" int jailbreak() {
+int jailbreak() {
     // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
     // find_kernel_base(g_exp.kernel_base - 0x50);
@@ -68,7 +70,8 @@ extern "C" int jailbreak() {
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
     pid_t amfid_pid = look_for_proc_basename("amfid");
     patch_amfid(amfid_pid);
-    start_rootfs_remount();
+    //start_rootfs_remount();
+    init_offset_finder();
     /*
      *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents

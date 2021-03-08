@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <limits.h>
 
+#include "util/log.hpp"
+
 /* define this to 0 when reading from live mem, 1 when testing on a decompressed kcache */
 #define TESTENV 1
 #define KBASE 0xFFFFFFF007004000
@@ -37,6 +39,7 @@ uint64_t    _kread_64(void *p)                  { return kapi_read64((kptr_t)p);
 
 void _bmh_table_gen(unsigned char const *needle, const size_t needle_len,
                     size_t table[]) {
+    manticore_info("<BMH: TABLE GEN>: needle@%p  table@%p  needle_len ==> %zu", needle, table, needle_len);
     for (int i = 0; i <= UCHAR_MAX; i++)
         table[i] = needle_len;
     for (int i = 0; i < needle_len - 1; i++)
@@ -45,6 +48,8 @@ void _bmh_table_gen(unsigned char const *needle, const size_t needle_len,
 
 void *bmh_search(unsigned char const *needle, const size_t needle_len,
                 unsigned char *haystack, size_t haystack_len) {
+    manticore_info("<BMH: SEARCH>: needle@%p  haystack@%p  needle_len ==> %zu  haystack_len ==> %zu", needle, haystack, needle_len, haystack_len);
+    
     size_t table[UCHAR_MAX + 1] = {0};
     _bmh_table_gen(needle, needle_len, table);
 
