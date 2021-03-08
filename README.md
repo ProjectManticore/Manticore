@@ -10,6 +10,7 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [x] Stable Exploit Primitives
 - [x] Sandbox escape
 - [x] Privilege escalation
+- [ ] offset finder
 - [ ] amfid bypass/patch
 - [ ] rootfs remount
 - [ ] bootstrap/package manager installation
