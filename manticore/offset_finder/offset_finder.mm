@@ -11,23 +11,12 @@
 #include <limits.h>
 
 #include "util/log.hpp"
+#include "lib/tq/kapi.h"
 
-/* define this to 0 when reading from live mem, 1 when testing on a decompressed kcache */
-#define TESTENV 1
 #define KBASE 0xFFFFFFF007004000
 #define KSIZE 0x0000000003000000
 
 typedef uint64_t kptr_t;
-
-#if TESTENV
-void kapi_read(kptr_t addr, void *data, size_t len) { memcpy(data, (void*)addr, len); }
-uint32_t kapi_read32(kptr_t addr) { return *(uint32_t *)addr; }
-uint64_t kapi_read64(kptr_t addr) { return *(uint64_t *)addr; }
-#else
-extern void kapi_read(kptr_t addr, void *data, size_t len);
-extern uint32_t kapi_read32(kptr_t addr);
-extern uint64_t kapi_read64(kptr_t addr);
-#endif
 
 /* wrappers for future proofing */
 void        _kread(void *p, char *r, size_t n)  { return kapi_read((kptr_t)p, (void *)r, n); }
@@ -195,11 +184,6 @@ kptr_t find_kernel_task(void *kbase, size_t ksize) {
                         _IOGPUResource, strlen((const char *)_IOGPUResource),
                         (unsigned char *)kbase, ksize);
 
-#if TESTENV
-    p_IOGPUResource -= (kptr_t) kbase;
-    p_IOGPUResource += p_kernel_base;
-#endif
-
     /* IOGPUResource::newResourceWithOptions */
     /* that same function has kernel_task at +D0 */
     kptr_t func_iogpuresource = (kptr_t)find_xref_to((void *)p_IOGPUResource, kbase, 0, (void *)ksize);
@@ -213,9 +197,8 @@ kptr_t find_kernel_task(void *kbase, size_t ksize) {
      * ADD      X8, X8, #_kernel_task@PAGEOFF */
     aarch64_insn_t adrp_ktask = *((aarch64_insn_t *) (func_iogpuresource + 0xD0));
     aarch64_insn_t add_ktask = *((aarch64_insn_t *) (func_iogpuresource + 0xD4));
-#if TESTENV
+
     printf("adrp_ktask: %p\nadd_ktask:  %p\n", (void *)((size_t)adrp_ktask), (void *)((size_t)add_ktask));
-#endif
     
     kptr_t kernel_task = _extract_adrp_imm(func_iogpuresource + 0xD0, adrp_ktask, 1) | _extract_add_imm(add_ktask);
     return kernel_task;
