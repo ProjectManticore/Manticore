@@ -68,12 +68,9 @@ int jailbreak() {
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
-    pid_t amfid_pid = look_for_proc_basename("amfid");
-    patch_amfid(amfid_pid);
-    //start_rootfs_remount();
-    init_offset_finder();
+
     kptr_t kern_task = find_kernel_task((void *)g_exp.kernel_base, 0x3000000);
-    NSLog(@"KTASK: %p", (void *)kern_task);
+    NSLog(@"KTASK: 0x%llx\t\t0x%llx", kapi_read_kptr(kern_task), g_exp.kernel_task);
     /*
      *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents
