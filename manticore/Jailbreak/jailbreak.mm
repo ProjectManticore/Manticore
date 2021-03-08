@@ -71,9 +71,10 @@ extern "C" int jailbreak() {
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
     
+
+    
     // AMFID PATCHES
-    pid_t amfid_pid = look_for_proc_basename("amfid");
-    patch_amfid(amfid_pid);
+    perform_amfid_patches();
     // start_rootfs_remount();
     //    init_offset_finder(g_exp.kernel_base);
     //    kptr_t kern_calced_task = find_kernel_task(&g_exp.kernel_base, 0x0000000003000000);
