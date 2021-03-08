@@ -8,15 +8,7 @@
 #ifndef offset_finder_h
 #define offset_finder_h
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-kptr_t find_kernel_task(void *kbase, size_t ksize)
-void init_offset_finder()
-
-#ifdef __cplusplus
-}
-#endif
+kptr_t find_kernel_task(void *kbase, size_t ksize);
+void init_offset_finder(kptr_t kernel_base);
 
 #endif /* offset_finder_h */

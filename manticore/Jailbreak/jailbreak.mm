@@ -20,6 +20,7 @@
 #include "exploit/cicuta/cicuta_virosa.h"
 #include "exploit/cicuta/exploit_main.h"
 #include "offset_finder/kernel_offsets.h"
+#include "offset_finder.h"
 #include "manticore/amfid.h"
 #include "manticore/hsp4.h"
 #include "manticore/kernel_utils.h"
@@ -52,7 +53,7 @@ cpu_subtype_t get_cpu_subtype() {
 
 extern "C" int jailbreak() {
     // OffsetFinder Test Methods
-    printf("* ----- Running OffsetFinder ----- *\n");
+    // printf("* ----- Running OffsetFinder ----- *\n");
     // find_kernel_base(g_exp.kernel_base - 0x50);
     // calc_kernel_map(g_exp.kernel_task);
     // TODO: make use of declared methods "OffsetFinder.h"
@@ -66,9 +67,14 @@ extern "C" int jailbreak() {
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
-    pid_t amfid_pid = look_for_proc_basename("amfid");
-    // patch_amfid(amfid_pid);
+    printf("Kernel_task: 0x%llx\n", g_exp.kernel_task);
+    printf("Kernel_base: 0x%llx\n", g_exp.kernel_base);
+    //      pid_t amfid_pid = look_for_proc_basename("amfid");
+    //      patch_amfid(amfid_pid);
     start_rootfs_remount();
+    //    init_offset_finder(g_exp.kernel_base);
+    //    kptr_t kern_calced_task = find_kernel_task(&g_exp.kernel_base, 0x0000000003000000);
+    //    printf("Calculated Kernel Task: 0x%llx\n", kern_calced_task);
     /*
      *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents

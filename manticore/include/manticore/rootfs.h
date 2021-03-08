@@ -17,6 +17,7 @@ extern "C" {
 void start_rootfs_remount(void);
 int remount_rootfs(kptr_t proc);
 bool check_root_rw(void);
+bool check_root_read(void);
 
 #ifdef __cplusplus
 }

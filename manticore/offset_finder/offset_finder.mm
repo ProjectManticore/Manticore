@@ -9,9 +9,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <limits.h>
+#include "../include/lib/tq/kapi.h"
 
 /* define this to 0 when reading from live mem, 1 when testing on a decompressed kcache */
-#define TESTENV 1
+#define TESTENV 0
 #define KBASE 0xFFFFFFF007004000
 #define KSIZE 0x0000000003000000
 
@@ -216,9 +217,9 @@ kptr_t find_kernel_task(void *kbase, size_t ksize) {
     return kernel_task;
 }
 
-void init_offset_finder() {
+void init_offset_finder(kptr_t kernel_base) {
     /* calculate kbase */
-    kptr_t start = KBASE;
+    kptr_t start = kernel_base;
     unsigned char macho_header[] = {
         0xCF, 0xFA, 0xED, 0xFE, /* 0xFEEDFACF */
         0x0C, 0x00, 0x00, 0x01, /* 0x0100000C */
