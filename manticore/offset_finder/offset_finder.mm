@@ -48,8 +48,8 @@ void *bmh_search(unsigned char const *needle, const size_t needle_len,
 
         haystack_len -= table[haystack[needle_len - 1]];
         haystack += table[haystack[needle_len - 1]];
-
-        fflush(stdout);
+        
+        manticore_info("haystack@:%p", haystack);
     }
 
     return NULL;
@@ -207,16 +207,17 @@ kptr_t find_kernel_task(void *kbase, size_t ksize) {
 void init_offset_finder() {
     /* calculate kbase */
     kptr_t start = KBASE;
-    unsigned char macho_header[] = {
-        0xCF, 0xFA, 0xED, 0xFE, /* 0xFEEDFACF */
-        0x0C, 0x00, 0x00, 0x01, /* 0x0100000C */
-#ifdef __arm64e__ /* switch on cpu subtype */
-        0x02, 0x00, 0x00, 0xc0, /* 0xC0000002 */
+    
+    const uint32_t macho_header[] = {
+        0xfeedfacf,
+        0x0100000c,
+#ifdef __arm64e__
+        0xc0000002,
 #else
-        0x00, 0x00, 0x00, 0x00, /* 0x00000000 */
+        0,
 #endif
-        0x02, 0x00, 0x00, 0x00  /* 0x00000002 */
+        2
     };
     
-    p_kernel_base = (kptr_t) bmh_search(macho_header, sizeof(macho_header), (unsigned char *)start, v_kernel_size);
+    p_kernel_base = (kptr_t) bmh_search((unsigned char *)macho_header, sizeof(macho_header), (unsigned char *)start, v_kernel_size);
 }
