@@ -7,10 +7,23 @@
 
 #import <Foundation/Foundation.h>
 #include "offset_finder/kernel_offsets.h"
+#include "../include/lib/tq/kapi.h"
 #include "exploit/cicuta/cicuta_virosa.h"
+
+#include "log.hpp"
+#include "kernel_utils.h"
+#include "utils.h"
+
 #include <mach/mach_traps.h>
 #include <mach/mach.h>
-#include "kernel_utils.h"
+
+
+#include "lib/tq/iosurface.h"
+#include "lib/tq/kapi.h"
+#include "lib/tq/k_offsets.h"
+#include "lib/tq/tq_common_p.h"
+#include "lib/tq/utils.h"
+#include "lib/tq/k_utils.h"
 
 #if 1
 #define MAX_CHUNK 0xff0
@@ -53,7 +66,49 @@ bool set_platform_binary(kptr_t proc, bool set) {
     return ret;
 }
 
+kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t cred_addr){
+    kptr_t ret = KPTR_NULL;
+    if(KERN_POINTER_VALID(proc) && KERN_POINTER_VALID(cred_addr)){
+        kptr_t proc_cred_addr       = proc + koffset(KSTRUCT_OFFSET_PROC_UCRED);
+        kptr_t current_cred_addr    = kapi_read64(proc_cred_addr);
+        if(KERN_POINTER_VALID(current_cred_addr)){
+            kapi_write64(proc_cred_addr, cred_addr);
+            ret = current_cred_addr;
+        } else manticore_warn("Invalid current_cred_addr!\t\t(0x%llx)\n", current_cred_addr);
+    } else manticore_warn("Invalid proc_addr/cred_drr!\t\t(0x%llx - 0x%llx)\n", proc, cred_addr);
+    return ret;
+}
 
+bool execute_with_credentials(kptr_t proc, kptr_t credentials, void (^function)(void)){
+    bool ret = KPTR_NULL;
+    if(KERN_POINTER_VALID(proc) && KERN_POINTER_VALID(credentials) && function != NULL){
+        kptr_t saved_creds = give_creds_to_proc_at_addr(proc, credentials);
+        if(KERN_POINTER_VALID(saved_creds)){
+            function();
+            ret = give_creds_to_proc_at_addr(proc, saved_creds);
+        } else manticore_warn("Invalid saved_creds!\t\t(0x%llx)\n", saved_creds);
+    } else manticore_warn("Invalid proc/credentials!\t\t(0x%llx - 0x%llx)\n", proc, credentials);
+    return ret;
+}
+
+bool execute_with_kernel_credentials(void (^function)(void)){
+    if(execute_with_credentials(g_exp.self_proc, 0x0, function) != true){
+        manticore_warn("Execution as kernel failed.");
+        return false;
+    } else return true;
+}
+
+
+void patch_codesign(){
+    printf("* ------- Codesign Patches ------- *\n");
+    
+    if(look_for_proc_basename("amfid_patched")){
+        printf("amfid_patched already running.\n");
+        return;
+    }
+    
+    
+}
 
 size_t kread(kptr_t where, void* p, size_t size){
     int rv;

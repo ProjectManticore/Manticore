@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "kernel_offsets.h"
+#include "offset_finder/kernel_offsets.h"
 
 //kCFCoreFoundationVersionNumbers for determination of iOS Versions
 #ifndef kCFCoreFoundationVersionNumber_iOS_14_0

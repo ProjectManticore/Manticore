@@ -19,8 +19,8 @@
 #include "lib/tq/k_utils.h"
 #include "exploit/cicuta/cicuta_virosa.h"
 #include "exploit/cicuta/exploit_main.h"
-#include "offset_finder/OffsetFinder.h"
 #include "offset_finder/kernel_offsets.h"
+#include "offset_finder.h"
 #include "manticore/amfid.h"
 #include "manticore/hsp4.h"
 #include "manticore/kernel_utils.h"
@@ -54,9 +54,12 @@ cpu_subtype_t get_cpu_subtype() {
 extern "C" int jailbreak() {
     // OffsetFinder Test Methods
     printf("* ----- Running OffsetFinder ----- *\n");
-    // find_kernel_base(g_exp.kernel_base - 0x50);
-    // calc_kernel_map(g_exp.kernel_task);
-    // TODO: make use of declared methods "OffsetFinder.h"
+    printf("Kernel_task:\t0x%llx\n", g_exp.kernel_task);
+    printf("Kernel_base:\t0x%llx\n", g_exp.kernel_base);
+    kptr_t kernel_cred_addr = get_kernel_cred_addr(g_exp.kernel_proc);
+    printf("Kernel_cred:\t0x%llx\n", kernel_cred_addr);
+    kptr_t kernel_vm_map = get_kernel_vm_map(g_exp.kernel_task);
+    printf("Kernel_vm_map:\t0x%llx\n", kernel_vm_map);
     printf("* ------- Applying Patches ------- *\n");
     struct proc_cred *old_cred;
     proc_set_root_cred(g_exp.self_proc, &old_cred);
@@ -67,9 +70,15 @@ extern "C" int jailbreak() {
     uint64_t csflags = read_32(g_exp.self_proc + koffset(KSTRUCT_OFFSET_PROC_CSFLAGS));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
-    pid_t amfid_pid = look_for_proc_basename("amfid");
-    patch_amfid(amfid_pid);
-    start_rootfs_remount();
+    
+
+    
+    // AMFID PATCHES
+    perform_amfid_patches();
+    // start_rootfs_remount();
+    //    init_offset_finder(g_exp.kernel_base);
+    //    kptr_t kern_calced_task = find_kernel_task(&g_exp.kernel_base, 0x0000000003000000);
+    //    printf("Calculated Kernel Task: 0x%llx\n", kern_calced_task);
     /*
      *  TODO: AMFI
      *      - allproc, kernproc, ourcreds, spincred, spinents

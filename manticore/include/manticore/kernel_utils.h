@@ -29,6 +29,10 @@ kptr_t get_proc_struct_for_pid(pid_t pid);
 bool set_platform_binary(kptr_t proc, bool set);
 kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 
+kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t cred_addr);
+bool execute_with_credentials(kptr_t proc, kptr_t credentials, void (^function)(void));
+
+
 size_t kread(kptr_t where, void* p, size_t size);
 
 uint64_t proc_of_pid(pid_t pid);
