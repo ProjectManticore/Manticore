@@ -47,8 +47,8 @@ void *bmh_search(unsigned char const *needle, const size_t needle_len,
         for (size_t i = needle_len - 1; (unsigned char)_kread_32((void *)&haystack[i]) == needle[i]; i--)
             if (i == 0) return (void *)haystack;
 
-        haystack_len -= table[haystack[needle_len - 1]];
-        haystack += table[haystack[needle_len - 1]];
+        haystack_len -= table[(unsigned char)_kread_32(&haystack[needle_len - 1])];
+        haystack += table[(unsigned char)_kread_32(&haystack[needle_len - 1])];
         
         manticore_info("haystack@:%p", haystack);
     }
