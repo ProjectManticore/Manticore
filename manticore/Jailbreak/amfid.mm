@@ -15,6 +15,7 @@
 #include "kapi.h"
 
 #include "log.hpp"
+#include "../include/util/mach_vm.h"
 
 #include <mach/mach_traps.h>
 #include <mach/mach_init.h>
@@ -24,11 +25,45 @@
 #include <mach/mach.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread/pthread.h>
 
+mach_port_t amfid_exception_port = MACH_PORT_NULL;
+pthread_attr_t pth_commAttr = {0};
+
+void pth_commAttr_init(){
+    pthread_attr_init(&pth_commAttr);
+    pthread_attr_setdetachstate(&pth_commAttr, PTHREAD_CREATE_DETACHED);
+}
 
 kptr_t binary_load_address(mach_port_t target_port){
+    // TODO: fix this shit
     return KPTR_NULL;
 }
+
+
+void* amfid_exception_handler(void* arg){
+    return NULL;
+}
+
+void set_exception_handler(mach_port_t amfid_task_port){
+    // allocate a port to receive exceptions on:
+    amfid_exception_port = cv_new_mach_port();
+    kern_return_t err = task_set_exception_ports(amfid_task_port,
+                                                 EXC_MASK_ALL,
+                                                 amfid_exception_port,
+                                                 EXCEPTION_DEFAULT | MACH_EXCEPTION_CODES,  // we want to receive a catch_exception_raise message with the thread port for the crashing thread
+                                                 6);
+    
+    if (err != KERN_SUCCESS){
+        (printf)("error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
+    } else {
+        (printf)("set amfid exception port: succeed!\n");
+    }
+    
+    pthread_t exception_thread;
+    pthread_create(&exception_thread, &pth_commAttr, amfid_exception_handler, NULL);
+}
+
 
 kptr_t perform_amfid_patches(){
     printf("* ------- AMFID Patches -------- *\n");
@@ -37,9 +72,10 @@ kptr_t perform_amfid_patches(){
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
         printf("amfid port:\t0x%x\n", amfid_task_port);
+        set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
         printf("amfid base:\t0x%llx\n", amfid_base);
-
+        
     }
     return 0;
 }
