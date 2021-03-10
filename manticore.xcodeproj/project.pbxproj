@@ -42,7 +42,6 @@
 		848C426825F461DB00842110 /* log.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C426725F461DB00842110 /* log.mm */; };
 		848C427825F47DC800842110 /* plistutils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427725F47DC800842110 /* plistutils.mm */; };
 		848C427B25F47FF700842110 /* util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427A25F47FF700842110 /* util.mm */; };
-		EF073FB025E148610025FCCF /* kernel_offsets.mm in Sources */ = {isa = PBXBuildFile; fileRef = EF073FAF25E148610025FCCF /* kernel_offsets.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,8 +128,6 @@
 		848C427A25F47FF700842110 /* util.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = util.mm; sourceTree = "<group>"; };
 		848C427D25F4800700842110 /* plistutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plistutils.h; sourceTree = "<group>"; };
 		848C427E25F4801100842110 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
-		EF073FAF25E148610025FCCF /* kernel_offsets.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = kernel_offsets.mm; sourceTree = "<group>"; };
-		EF073FB225E1486E0025FCCF /* kernel_offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_offsets.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,7 +266,6 @@
 		23C7055625DB2FD60078DC37 /* offset_finder */ = {
 			isa = PBXGroup;
 			children = (
-				EF073FAF25E148610025FCCF /* kernel_offsets.mm */,
 				847FD25925F5911C007ED933 /* offset_finder.mm */,
 			);
 			path = offset_finder;
@@ -286,7 +282,6 @@
 		8419843E25F48984001DA7FE /* offset_finder */ = {
 			isa = PBXGroup;
 			children = (
-				EF073FB225E1486E0025FCCF /* kernel_offsets.h */,
 				847FD26625F5982E007ED933 /* offset_finder.h */,
 			);
 			path = offset_finder;
@@ -576,7 +571,6 @@
 				230215FB25DE8E8F003E7C5C /* rootfs.mm in Sources */,
 				23652B0925E7ACEB004D7F7E /* sys_darwin.c in Sources */,
 				2302163725DEB41F003E7C5C /* hsp4.mm in Sources */,
-				EF073FB025E148610025FCCF /* kernel_offsets.mm in Sources */,
 				23652B0225E7AC37004D7F7E /* utils.c in Sources */,
 				23652B0D25E7AD96004D7F7E /* kapi_mem.c in Sources */,
 				2302162E25DEA566003E7C5C /* kernel_utils.mm in Sources */,
