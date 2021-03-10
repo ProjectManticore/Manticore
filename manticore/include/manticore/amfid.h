@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+#include <mach/vm_types.h>
+
 kern_return_t mach_vm_region (vm_map_t target_task,
                                         mach_vm_address_t *address,
                                         mach_vm_size_t *size,
