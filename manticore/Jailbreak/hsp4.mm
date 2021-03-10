@@ -16,6 +16,7 @@
 #include <pthread/pthread.h>
 #include "IOKitUser/IOKitLib.h"
 #include "lib/tq/iosurface.h"
+#include "k_offsets.h"
 #include <mach/mach.h>
 #include <mach/mach_error.h>
 #include <mach/mach_traps.h>
@@ -43,9 +44,8 @@ uint64_t KernelLeak_portAddr(uint64_t target_task, uint32_t portname){
 }
 
 void patch_tf_platform(uint64_t target_task){
-    uint32_t old_t_flags = read_32(target_task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS));
+    uint32_t old_t_flags = read_32(target_task + OFFSET(task, t_flags));
     old_t_flags |= 0x00000400; // TF_PLATFORM
-   // write_32(target_task + koffset(KSTRUCT_OFFSET_TASK_TFLAGS), old_t_flags);
 }
 
 mach_port_t patch_retrieve_tfp0(){

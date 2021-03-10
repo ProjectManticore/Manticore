@@ -10,15 +10,15 @@ typedef struct {
     /* struct kernel */
         uint32_t KSTRUCT_OFFSET_KERNTASK_MAP;
     /* struct proc */
-        uint32_t KSTRUCT_OFFSET_PROC_PID;
-        uint32_t KSTRUCT_OFFSET_PROC_TASK;
-        uint32_t KSTRUCT_OFFSET_PROC_UCRED;
-        uint32_t KSTRUCT_OFFSET_PROC_CSFLAGS;
-        uint32_t KSTRUCT_OFFSET_PROC_RGID;
-        uint32_t KSTRUCT_OFFSET_PROC_RUID;
-        uint32_t KSTRUCT_OFFSET_PROC_GID;
-        uint32_t KSTRUCT_OFFSET_PROC_UID;
-        uint32_t KSTRUCT_OFFSET_PROC_P_FD;
+         uint32_t KSTRUCT_OFFSET_PROC_PID;
+         uint32_t KSTRUCT_OFFSET_PROC_TASK;
+         uint32_t KSTRUCT_OFFSET_PROC_UCRED;
+         uint32_t KSTRUCT_OFFSET_PROC_CSFLAGS;
+         uint32_t KSTRUCT_OFFSET_PROC_RGID;
+         uint32_t KSTRUCT_OFFSET_PROC_RUID;
+         uint32_t KSTRUCT_OFFSET_PROC_GID;
+         uint32_t KSTRUCT_OFFSET_PROC_UID;
+         uint32_t KSTRUCT_OFFSET_PROC_P_FD;
     /* struct ipc_port */
         uint32_t KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT;
     /* struct ucred */

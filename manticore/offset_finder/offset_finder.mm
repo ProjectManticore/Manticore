@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <limits.h>
-#include "kernel_offsets.h"
+#include "k_offsets.h"
 #include "log.hpp"
 #include "../include/lib/tq/kapi.h"
 
@@ -173,7 +173,7 @@ kptr_t get_kernel_cred_addr(kptr_t kernel_proc){
     kptr_t ret = KPTR_NULL;
     kptr_t kernel_proc_struct_addr = kernel_proc;
     if(KERN_POINTER_VALID(kernel_proc_struct_addr)){
-        kptr_t kernel_ucred_struct_addr = kapi_read_kptr(kernel_proc_struct_addr + koffset(KSTRUCT_OFFSET_PROC_UCRED));
+        kptr_t kernel_ucred_struct_addr = kapi_read_kptr(kernel_proc_struct_addr + OFFSET(proc, p_ucred));
         if(KERN_POINTER_VALID(kernel_ucred_struct_addr)){
             ret = kernel_ucred_struct_addr;
         } else manticore_warn("Invalid kernel_ucred_struct_addr.\t\t(0x%llx)\n", kernel_ucred_struct_addr);

@@ -63,7 +63,7 @@ void patch_amfid(pid_t amfid_pid){
     printf("* ------ AMFID Bypass ------ *\n");
     kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
     printf("amfid proc:\t%d\t->\t0x%llx\n", amfid_pid, amfid_kernel_proc);
-    printf("amfid task:\t0x%llx\n", amfid_kernel_proc + koffset(KSTRUCT_OFFSET_PROC_TASK));
+    printf("amfid task:\t0x%llx\n", amfid_kernel_proc + OFFSET(proc, task));
     if(setCSFlagsByPID(amfid_pid)){
         printf("Successfully set Amfid's CSFlags.\n");
     } else {

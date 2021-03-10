@@ -32,21 +32,32 @@ static void offsets_base_iOS_14_x()
     OFFSET(task, bsd_info) = 0x3a0;
     OFFSET(task, t_flags) = 0x3f4;
 
-
     OFFSET(proc, le_next) = 0x00;
     OFFSET(proc, le_prev) = 0x08;
     OFFSET(proc, task) = 0x10;
     OFFSET(proc, p_pid) = 0x68;
     OFFSET(proc, p_ucred) = 0xf0;
     OFFSET(proc, p_fd) = 0xf8;
-
+    OFFSET(proc, csflags) = 0x280;
+    OFFSET(proc, gid) = 0x34;
+    OFFSET(proc, rgid) = 0x3c;
+    OFFSET(proc, uid) = 0x30;
+    OFFSET(proc, ruid) = 0x38;
+    
     OFFSET(filedesc, fd_ofiles) = 0x00;
     OFFSET(fileproc, fp_glob) = 0x10;
     OFFSET(fileglob, fg_data) = 0x38;
     OFFSET(pipe, buffer) = 0x10;
-
+    
     OFFSET(ucred, cr_posix) = 0x18;
-
+    OFFSET(ucred, cr_uid) = 0x18;
+    OFFSET(ucred, cr_svuid) = 0x20;
+    OFFSET(ucred, cr_ngroups) = 0x24;
+    OFFSET(ucred, cr_groups) = 0x28;
+    OFFSET(ucred, cr_svgid) = 0x6c;
+    OFFSET(ucred, cr_rgid) = 0x68;
+    OFFSET(ucred, cr_label) = 0x78;
+    
     SIZE(posix_cred) = 0x60;
 
     OFFSET(OSDictionary, count)      = 0x14;

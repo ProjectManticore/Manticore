@@ -69,7 +69,7 @@ bool set_platform_binary(kptr_t proc, bool set) {
 kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t cred_addr){
     kptr_t ret = KPTR_NULL;
     if(KERN_POINTER_VALID(proc) && KERN_POINTER_VALID(cred_addr)){
-        kptr_t proc_cred_addr       = proc + koffset(KSTRUCT_OFFSET_PROC_UCRED);
+        kptr_t proc_cred_addr       = proc + OFFSET(proc, p_ucred);
         kptr_t current_cred_addr    = kapi_read64(proc_cred_addr);
         if(KERN_POINTER_VALID(current_cred_addr)){
             kapi_write64(proc_cred_addr, cred_addr);
