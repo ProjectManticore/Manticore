@@ -294,9 +294,8 @@ kptr_t perform_amfid_patches(){
     /** Finding Amfid related offsets */
     kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
     printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
-    // Todo: fix this
-    // kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
-    // printf("\t--> Gadget:\t0x%llx\n", amfid_OFFSET_gadget);
+    kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
+    printf("----> Gadget:\t0x%llx\n", amfid_OFFSET_gadget);
     /** Map amfid to local memory */
     munmap(amfid_fdata, amfid_fsize);
     safepatch_swap_spindump_cred(g_exp.self_proc);

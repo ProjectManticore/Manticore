@@ -97,11 +97,11 @@ bool set_cs_platform_binary(kptr_t proc, bool value) {
 void patch_TF_PLATFORM(kptr_t task) {
     if(KERN_POINTER_VALID(task)){
         uint32_t t_flags = kapi_read32(task + OFFSET(task, t_flags));
-        printf("TF-Flags:\t%#x |", t_flags);
+        manticore_debug("TF-Flags:\t%#x |", t_flags);
         t_flags |= 0x00000400;
         kapi_write32(task + OFFSET(task, t_flags), t_flags);
         t_flags = kapi_read32(task + OFFSET(task, t_flags));
-        printf(" %#x\n", t_flags);
+        manticore_debug(" %#x\n", t_flags);
     } else printf("Can't patch tf_platform of invalid task/kernel_pointer!\n");
 }
 
