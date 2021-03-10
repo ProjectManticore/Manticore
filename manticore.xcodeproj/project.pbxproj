@@ -42,6 +42,7 @@
 		848C426825F461DB00842110 /* log.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C426725F461DB00842110 /* log.mm */; };
 		848C427825F47DC800842110 /* plistutils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427725F47DC800842110 /* plistutils.mm */; };
 		848C427B25F47FF700842110 /* util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427A25F47FF700842110 /* util.mm */; };
+		EFC57B5C25F8DD5F004184DA /* arm64.m in Sources */ = {isa = PBXBuildFile; fileRef = EFC57B5B25F8DD5F004184DA /* arm64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,8 @@
 		848C427A25F47FF700842110 /* util.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = util.mm; sourceTree = "<group>"; };
 		848C427D25F4800700842110 /* plistutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plistutils.h; sourceTree = "<group>"; };
 		848C427E25F4801100842110 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		EFC57B5B25F8DD5F004184DA /* arm64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = arm64.m; path = "../../../../Downloads/manticore-main/manticore/util/arm64.m"; sourceTree = "<group>"; };
+		EFC57B5E25F8DD72004184DA /* arm64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arm64.h; path = "../../../../../Downloads/manticore-main/manticore/include/util/arm64.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -457,6 +460,7 @@
 		848C426525F4613500842110 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				EFC57B5B25F8DD5F004184DA /* arm64.m */,
 				848C426725F461DB00842110 /* log.mm */,
 				848C427725F47DC800842110 /* plistutils.mm */,
 				848C427A25F47FF700842110 /* util.mm */,
@@ -467,6 +471,7 @@
 		848C426A25F461FC00842110 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				EFC57B5E25F8DD72004184DA /* arm64.h */,
 				848C426B25F4620400842110 /* log.hpp */,
 				848C427525F4722100842110 /* error.hpp */,
 				848C427D25F4800700842110 /* plistutils.h */,
@@ -574,6 +579,7 @@
 				23652B0225E7AC37004D7F7E /* utils.c in Sources */,
 				23652B0D25E7AD96004D7F7E /* kapi_mem.c in Sources */,
 				2302162E25DEA566003E7C5C /* kernel_utils.mm in Sources */,
+				EFC57B5C25F8DD5F004184DA /* arm64.m in Sources */,
 				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
 				848C427B25F47FF700842110 /* util.mm in Sources */,
 				23652B1E25E7B04F004D7F7E /* user_kernel_alloc.c in Sources */,
