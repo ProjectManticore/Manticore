@@ -143,7 +143,7 @@ static void log_vprintf(int type, const char *fmt, va_list ap)
         case 'E': type = '-'; break;
     }
     fprintf(stdout, "[%c] %s\n", type, message);
-    if (0) {
+    if (/* DISABLES CODE */ (0)) {
         CF_EXPORT void CFLog(int32_t level, CFStringRef format, ...);
         CFLog(6, CFSTR("[%c] %s\n"), type, message);
     }
