@@ -27,27 +27,7 @@
 #include "manticore/utils.h"
 
 #include "util/plistutils.h"
-
 #include "xnu/libsyscall/wrappers/libproc/libproc.h"
-
-
-#define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
-
-cpu_subtype_t get_cpu_subtype() {
-    cpu_subtype_t ret = 0;
-    cpu_subtype_t *cpu_subtype = NULL;
-    size_t *cpu_subtype_size = NULL;
-    cpu_subtype = (cpu_subtype_t *)malloc(sizeof(cpu_subtype_t));
-    bzero(cpu_subtype, sizeof(cpu_subtype_t));
-    cpu_subtype_size = (size_t *)malloc(sizeof(size_t));
-    bzero(cpu_subtype_size, sizeof(size_t));
-    *cpu_subtype_size = sizeof(cpu_subtype_size);
-    if (sysctlbyname("hw.cpusubtype", cpu_subtype, cpu_subtype_size, NULL, 0) != 0) return 0;
-    ret = *cpu_subtype;
-    return ret;
-}
-
-#define IS_PAC (get_cpu_subtype() == CPU_SUBTYPE_ARM64E)
 
 extern "C" int jailbreak() {
     printf("* ------- Applying Patches ------- *\n");

