@@ -18,6 +18,9 @@
 #include "../include/util/mach_vm.h"
 
 #include <mach/mach_traps.h>
+#include <mach/vm_region.h>
+#include <mach/vm_map.h>
+#include <mach-o/loader.h>
 #include <mach/mach_init.h>
 #include <mach/host_special_ports.h>
 #include <mach/mach_error.h>
@@ -39,8 +42,29 @@ void pth_commAttr_init(){
 		 Function to find the binary load address of amfid in memory.
 **/
 
+
 kptr_t binary_load_address(mach_port_t target_port){
-    // TODO: fix this shit
+    kern_return_t err;
+    mach_msg_type_number_t region_count = VM_REGION_BASIC_INFO_COUNT_64;
+    memory_object_name_t object_name = MACH_PORT_NULL;
+    mach_vm_size_t target_first_size = 0x1000;
+    mach_vm_address_t target_first_addr = 0x0;
+    struct vm_region_basic_info_64 region = {0};
+    
+    extern kern_return_t mach_vm_region (vm_map_t target_task,
+                                            mach_vm_address_t *address,
+                                            mach_vm_size_t *size,
+                                            vm_region_flavor_t flavor,
+                                            vm_region_info_t info,
+                                            mach_msg_type_number_t *infoCnt,
+                                            mach_port_t *object_name);
+    err = mach_vm_region(target_port,
+                         &target_first_addr,
+                         &target_first_size,
+                         VM_REGION_BASIC_INFO_64,
+                         (vm_region_info_t)&region,
+                         &region_count,
+                         &object_name);
     return KPTR_NULL;
 }
 
