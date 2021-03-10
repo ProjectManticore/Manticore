@@ -31,12 +31,91 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread/pthread.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <mach-o/nlist.h>
+#include <mach-o/getsect.h>
 
 pthread_attr_t pth_commAttr = {0};
+size_t amfid_fsize = 0;
 
 void pth_commAttr_init(){
     pthread_attr_init(&pth_commAttr);
     pthread_attr_setdetachstate(&pth_commAttr, PTHREAD_CREATE_DETACHED);
+}
+
+uint8_t *map_file_to_mem(const char *path){
+    struct stat fstat = {0};
+    stat(path, &fstat);
+    amfid_fsize = fstat.st_size;
+    
+    int fd = open(path, O_RDONLY);
+    uint8_t *mapping_mem = (uint8_t*)mmap(NULL, mach_vm_round_page(amfid_fsize), PROT_READ, MAP_SHARED, fd, 0);
+    if((uintptr_t)mapping_mem == -1){
+        printf("Error in map_file_to_mem(): mmap() == -1\n");
+        exit(1);
+    }
+    return mapping_mem;
+}
+
+uint64_t find_amfid_OFFSET_MISValidate_symbol(uint8_t *amfid_macho){
+    
+    uint32_t MISValidate_symIndex = 0;
+    struct mach_header_64 *mh = (struct mach_header_64*)amfid_macho;
+    const uint32_t cmd_count = mh->ncmds;
+    struct load_command *cmds = (struct load_command*)(mh + 1);
+    struct load_command* cmd = cmds;
+    for (uint32_t i = 0; i < cmd_count; ++i){
+        switch (cmd->cmd) {
+            case LC_SYMTAB:{
+                struct symtab_command *sym_cmd = (struct symtab_command*)cmd;
+                uint32_t symoff = sym_cmd->symoff;
+                uint32_t nsyms = sym_cmd->nsyms;
+                uint32_t stroff = sym_cmd->stroff;
+                
+                for(int i =0;i<nsyms;i++){
+                    struct nlist_64 *nn = (nlist_64*)((char*)mh+symoff+i*sizeof(struct nlist_64));
+                    char *def_str = NULL;
+                    if(nn->n_type==0x1){
+                        // 0x1 indicates external function
+                        def_str = (char*)mh+(uint32_t)nn->n_un.n_strx + stroff;
+                        if(!strcmp(def_str, "_MISValidateSignatureAndCopyInfo")){
+                            break;
+                        }
+                    }
+                    if(i!=0 && i!=1){ // Two at beginning are local symbols, they don't count
+                        MISValidate_symIndex++;
+                    }
+                }
+            }
+                break;
+        }
+        cmd = (struct load_command*)((char*)cmd + cmd->cmdsize);
+    }
+    
+    if(MISValidate_symIndex == 0){
+        printf("Error in find_amfid_OFFSET_MISValidate_symbol(): MISValidate_symIndex == 0\n");
+        exit(1);
+    }
+    
+    const struct section_64 *sect_info = NULL;
+    if(g_exp.has_PAC){
+        const char *_segment = "__DATA_CONST", *_segment2 = "__DATA", *_section = "__auth_got";
+        // _segment for iOS 13, _segment2 for <= iOS 12
+        sect_info = getsectbynamefromheader_64((const struct mach_header_64 *)amfid_macho, _segment, _section);
+        if(!sect_info)
+            sect_info = getsectbynamefromheader_64((const struct mach_header_64 *)amfid_macho, _segment2, _section);
+    }else{
+        const char *_segment = "__DATA", *_section = "__la_symbol_ptr";
+        sect_info = getsectbynamefromheader_64((const struct mach_header_64 *)amfid_macho, _segment, _section);
+    }
+    
+    if(!sect_info){
+        printf("Error in find_amfid_OFFSET_MISValidate_symbol(): if(!sect_info)\n");
+        exit(1);
+    }
+    
+    return sect_info->offset + (MISValidate_symIndex * 0x8);
 }
 
 /**
@@ -60,7 +139,13 @@ kptr_t binary_load_address(mach_port_t target_port){
                          (vm_region_info_t)&region,
                          &region_count,
                          &object_name);
-    return KPTR_NULL;
+    
+    if (err != KERN_SUCCESS) {
+        printf("failed to get the region err: %d\t(%s)\n", err, mach_error_string(err));
+        return 0;
+    }
+    
+    return target_first_addr;
 }
 
 
@@ -70,7 +155,9 @@ void* amfid_exception_handler(void* arg){
 
 void set_exception_handler(mach_port_t amfid_task_port){
     // allocate a port to receive exceptions on:
-    mach_port_t amfid_exception_port = cv_new_mach_port();
+    mach_port_t amfid_exception_port = MACH_PORT_NULL;
+    mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port);
+    mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND);
     kern_return_t err = task_set_exception_ports(amfid_task_port,
                                                  EXC_MASK_ALL,
                                                  amfid_exception_port,
@@ -116,6 +203,10 @@ bool replace_amfid_port(){
 
 kptr_t perform_amfid_patches(){
     printf("* ------- AMFID Patches -------- *\n");
+    uint8_t *amfid_fdata = map_file_to_mem("/usr/libexec/amfid");
+    kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
+    printf("amfid_OFFSET_MISValidate_symbol:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
+    
     if(getuid() != 0) return 1;
     mach_port_t amfid_task_port = MACH_PORT_NULL;
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
