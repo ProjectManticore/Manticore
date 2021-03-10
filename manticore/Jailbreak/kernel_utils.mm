@@ -69,7 +69,7 @@ kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t cred_addr){
     kptr_t ret = KPTR_NULL;
     if(KERN_POINTER_VALID(proc) && KERN_POINTER_VALID(cred_addr)){
         kptr_t proc_cred_addr       = proc + OFFSET(proc, p_ucred);
-        kptr_t current_cred_addr    = kapi_read64(proc_cred_addr);
+        kptr_t current_cred_addr    = kapi_read_kptr(proc_cred_addr);
         if(KERN_POINTER_VALID(current_cred_addr)){
             kapi_write64(proc_cred_addr, cred_addr);
             ret = current_cred_addr;
@@ -90,8 +90,21 @@ bool execute_with_credentials(kptr_t proc, kptr_t credentials, void (^function)(
     return ret;
 }
 
+kptr_t get_kernel_cred_addr(){
+    kptr_t ret = KPTR_NULL;
+    kptr_t kernel_proc_struct_addr = g_exp.kernel_proc;
+    if(KERN_POINTER_VALID(kernel_proc_struct_addr)){
+        kptr_t kernel_ucred_struct_addr = kapi_read_kptr(kernel_proc_struct_addr + OFFSET(proc, p_ucred));
+        if(KERN_POINTER_VALID(kernel_ucred_struct_addr)){
+            ret = kernel_ucred_struct_addr;
+        } else manticore_warn("Invalid Kernel ucred struct pointer!\n");
+    } else manticore_warn("Invalid kernel process struct pointer!\n");
+    return ret;
+}
+
 bool execute_with_kernel_credentials(void (^function)(void)){
-    if(execute_with_credentials(g_exp.self_proc, 0x0, function) != true){
+    kptr_t kernel_credentials = get_kernel_cred_addr();
+    if(execute_with_credentials(g_exp.self_proc, kernel_credentials, function) != true){
         manticore_warn("Execution as kernel failed.");
         return false;
     } else return true;
@@ -109,27 +122,6 @@ void patch_codesign(){
     
 }
 
-size_t kread(kptr_t where, void* p, size_t size){
-    int rv;
-    size_t offset = 0;
-    while (offset < size) {
-        mach_vm_size_t sz, chunk = MAX_CHUNK;
-        if (chunk > size - offset) {
-            chunk = size - offset;
-        }
-        rv = mach_vm_read_overwrite(tfp0,
-            where + offset,
-            chunk,
-            (mach_vm_address_t)p + offset,
-            &sz);
-        if (rv || sz == 0) {
-            break;
-        }
-        offset += sz;
-    }
-    kreads += offset;
-    return offset;
-}
 
 uint64_t proc_of_pid(pid_t pid) {
     //uint64_t proc = read_64(find_allproc()), pd;

@@ -105,6 +105,7 @@ void patch_TF_PLATFORM(kptr_t task) {
     } else printf("Can't patch tf_platform of invalid task/kernel_pointer!\n");
 }
 
+
 pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want)){
     pid_t *pids = (pid_t *)calloc(1, 3000 * sizeof(pid_t));
     int procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, 3000);

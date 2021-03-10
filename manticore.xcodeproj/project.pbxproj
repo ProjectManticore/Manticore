@@ -67,6 +67,7 @@
 		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
 		2302163625DEB41F003E7C5C /* hsp4.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = hsp4.mm; sourceTree = "<group>"; };
 		2302163925DEB42B003E7C5C /* hsp4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsp4.h; sourceTree = "<group>"; };
+		23467B3525F916220083FCAE /* mach_vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mach_vm.h; path = manticore/include/xnu/mach_vm.h; sourceTree = SOURCE_ROOT; };
 		23652AFC25E7ABE3004D7F7E /* iosurface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iosurface.c; sourceTree = "<group>"; };
 		23652AFF25E7AC30004D7F7E /* tq_common_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tq_common_p.h; sourceTree = "<group>"; };
 		23652B0125E7AC37004D7F7E /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
@@ -180,11 +181,19 @@
 		231D241225DD35A4003C09FB /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				23467B3B25F91D220083FCAE /* manticore */,
 				8413C62425F48FA500A9A70A /* jelbrekLib */,
 				23652AFB25E7ABCF004D7F7E /* pattern_f */,
 				230215FF25DE93AD003E7C5C /* snappy */,
 			);
 			path = lib;
+			sourceTree = "<group>";
+		};
+		23467B3B25F91D220083FCAE /* manticore */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = manticore;
 			sourceTree = "<group>";
 		};
 		23652AFB25E7ABCF004D7F7E /* pattern_f */ = {
@@ -365,6 +374,7 @@
 		848C425825F45BE000842110 /* xnu */ = {
 			isa = PBXGroup;
 			children = (
+				23467B3525F916220083FCAE /* mach_vm.h */,
 				848C425F25F45D7400842110 /* iokit */,
 				848C425C25F45C7700842110 /* bsd */,
 				848C425925F45C6000842110 /* libsyscall */,
@@ -740,6 +750,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/manticore/lib",
 					"$(SRCROOT)/manticore/lib/jelbrekLib",
+					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
@@ -772,6 +783,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/manticore/lib",
 					"$(SRCROOT)/manticore/lib/jelbrekLib",
+					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;

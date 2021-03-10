@@ -34,33 +34,36 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <mach-o/nlist.h>
+#include <errno.h>
 #include <mach-o/getsect.h>
 #include "k_offsets.h"
 #include "kapi.h"
+#include "kernel_utils.h"
 #include "kutils.h"
+#include "../include/lib/tq/utils.h"
 
 pthread_attr_t pth_commAttr = {0};
 size_t amfid_fsize = 0;
 uint64_t myold_cred2 = 0;
 
+
+pid_t spindump_pid = 0;
+uint64_t spindump_proc_cred = 0;
 void safepatch_swap_spindump_cred(uint64_t target_proc){
-    pid_t spindump_pid = 0;
-    kptr_t spindump_proc_cred = KPTR_NULL;
-    printf("Swapping spindump credentials with 0x%llx...\n", target_proc);
-    printf("-> Spindump:\t%d\n", look_for_proc("/usr/sbin/spindump"));
     if(spindump_proc_cred == 0){
         spindump_pid = 0;
         if(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
-            printf("-> Spindump not running at the moment. Waiting for child process to spawn...\n");
+            // if spindump is not running at moment
             if(fork() == 0){
                 daemon(1, 1);
                 close(STDIN_FILENO);
                 close(STDOUT_FILENO);
                 close(STDERR_FILENO);
-                printf("-> Spawning child process... (%d)\n", execvp("/usr/sbin/spindump", NULL));
+                execvp("/usr/sbin/spindump", NULL);
                 exit(1);
-            } while(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
-                // While Spindump is not running...
+            } else printf("%s\n", strerror(errno));
+            while(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
+                printf("Waiting for spindump to spawn... (%d)\n", look_for_proc("/usr/sbin/spindump"));
             }
         }
         printf("-> Pausing spindump process...\n");
@@ -110,33 +113,38 @@ uint64_t find_amfid_OFFSET_gadget(uint8_t *amfid_macho){
     uint64_t sect_data = (uint64_t)getsectiondata((const struct mach_header_64 *)amfid_macho, _segment, _section, &sect_size);
     
     uint64_t _bytes_gadget[] = {
-        0x08, 0x29, 0x09, 0x9B, // madd    x8, x8, x9, x10
-        0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
+        0x08, 0x29, 0x09, 0x9B, // madd        x8, x8, x9, x10
+        0x00, 0x15, 0x40, 0xF9, // ldr         x0, [x8, #0x28]
         0xC0, 0x03, 0x5F, 0xD6, // ret
     };
     
     uint64_t _bytes_gadget2[] = {
-        0x08, 0x25, 0x2A, 0x9B, // smaddl    x8, w8, w10, x9
-        0x00, 0x15, 0x40, 0xF9, // ldr     x0, [x8, #0x28]
+        0x08, 0x25, 0x2A, 0x9B, // smaddl      x8, w8, w10, x9
+        0x00, 0x15, 0x40, 0xF9, // ldr         x0, [x8, #0x28]
         0xC0, 0x03, 0x5F, 0xD6, // ret
     };
     
     uint64_t _bytes_gadget3[] = {
-        0x08, 0xBD, 0x48, 0xCA, // eor        x8, x8, x8, lsr #47
-        0x00, 0x7D, 0x09, 0x9B, // mul        x0, x8, x9
-        0xC0, 0x03, 0x5F, 0xD6, // ret
+        0x08, 0xbd, 0x48, 0xca, // eor        x8, x8, x8, lsr #47
+        0x00, 0x7d, 0x00, 0x9b, // mul        x0, x8, x9
+        0xc0, 0x03, 0x5f, 0xd6, // ret
+        0x68, 0x4e, 0x9e, 0xd2,
     };
     
-    printf("-> Looking for needle #1...\n");
+    printf("-> Looking for needle #1");
     uint64_t find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget, sizeof(_bytes_gadget));
-    if(!find_gadget)
-        printf("-> Looking for needle #2...\n");
+    // util_hexprint((void*)sect_data, sect_size, "Amfid shitcache");
+    printf("\t--->\t0x%llx\n", find_gadget);
+    if(find_gadget == 0){
+        printf("-> Looking for needle #2");
         find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget2, sizeof(_bytes_gadget2));
-    if(!find_gadget)
-        printf("-> Looking for needle #3...\n");
-        find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget3, sizeof(_bytes_gadget2));
-    if(!find_gadget){
-        printf("Error in find_amfid_OFFSET_gadget(): if(!find_gadget)\n");
+        printf("\t--->\t0x%llx\n", find_gadget);
+    } if(find_gadget == 0){
+        printf("-> Looking for needle #3");
+        find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget3, sizeof(_bytes_gadget3));
+        printf("\t--->\t0x%llx\n", find_gadget);
+    } if(find_gadget == 0){
+        printf("--> Could not find the needle with the given gadget!\n");
     }
     
     return (find_gadget - sect_data) + sect_info->offset;
@@ -239,24 +247,36 @@ void* amfid_exception_handler(void* arg){
 }
 
 void set_exception_handler(mach_port_t amfid_task_port){
+    if(!MACH_PORT_VALID(amfid_task_port)){
+        printf("Invalid amfid task port!\n");
+        return;
+    }
+    printf("Attempting to set exception handler...\t(0x%x)\n", amfid_task_port);
     // allocate a port to receive exceptions on:
     mach_port_t amfid_exception_port = MACH_PORT_NULL;
     mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port);
     mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND);
+    
+    if(!MACH_PORT_VALID(amfid_exception_port)){
+        printf("Invalid amfid exception handler port!\n");
+        return;
+    }
+    
+    
+    
     kern_return_t err = task_set_exception_ports(amfid_task_port,
                                                  EXC_MASK_ALL,
                                                  amfid_exception_port,
                                                  EXCEPTION_DEFAULT | MACH_EXCEPTION_CODES,  // we want to receive a catch_exception_raise message with the thread port for the crashing thread
-                                                 6);
+                                                 ARM_THREAD_STATE64);
     
     if (err != KERN_SUCCESS){
         (printf)("error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
     } else {
         (printf)("set amfid exception port: succeed!\n");
+        pthread_t exception_thread;
+        pthread_create(&exception_thread, &pth_commAttr, amfid_exception_handler, NULL);
     }
-    
-    pthread_t exception_thread;
-    pthread_create(&exception_thread, &pth_commAttr, amfid_exception_handler, NULL);
 }
 
 /***
@@ -293,17 +313,29 @@ kptr_t perform_amfid_patches(){
     
     /** Finding Amfid related offsets */
     kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
-    printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
+    printf("\n----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
     kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
-    printf("----> Gadget:\t0x%llx\n", amfid_OFFSET_gadget);
+    printf("----> Gadget:\t\t0x%llx\n", amfid_OFFSET_gadget);
+    
     /** Map amfid to local memory */
-    munmap(amfid_fdata, amfid_fsize);
-    safepatch_swap_spindump_cred(g_exp.self_proc);
-    if(getuid() != 0) return 1;
     mach_port_t amfid_task_port = MACH_PORT_NULL;
+    pid_t amfid_pid = look_for_proc("/usr/libexec/amfid");
+    munmap(amfid_fdata, amfid_fsize);
+    
+    /** Swap Spindump creds with local ones */
+    // safepatch_swap_spindump_cred(g_exp.self_proc);
+    if(getuid() != 0) return 1;
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
+        kptr_t amfid_ipc_entry = ipc_entry_lookup(amfid_task_port);
+        printf("\namfid task:\t0x%llx\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
+        printf("ipc entry: 0x%llx\n", amfid_ipc_entry);
+        printf("ip_kobject : 0x%llx\n", port_name_to_ipc_port(amfid_task_port));
+        debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
         printf("amfid port:\t0x%x\n", amfid_task_port);
+        execute_with_kernel_credentials(^{
+            set_exception_handler(amfid_task_port);
+        });
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
         printf("amfid base:\t0x%llx\n", amfid_base);

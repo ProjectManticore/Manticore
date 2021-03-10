@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include <mach/mach_types.h>
 #include "lib/tq/tq_common_p.h"
 #include "lib/tq/utils.h"
@@ -128,8 +129,8 @@ void debug_dump_ipc_port(mach_port_t port_name, kptr_t *kobj) {
     uint32_t ip_bits = kapi_read32(object + OFFSET(ipc_port, ip_bits));
     uint32_t ip_refs = kapi_read32(object + OFFSET(ipc_port, ip_references));
     kptr_t kobject = kapi_read_kptr(object + OFFSET(ipc_port, ip_kobject));
-    util_info("ipc_port: ip_bits %#x, ip_refs %#x", ip_bits, ip_refs);
-    util_info("ip_kobject: %#llx", kobject);
+    printf("ipc_port: ip_bits %#x, ip_refs %#x\n", ip_bits, ip_refs);
+    printf("ip_kobject: %#llx\n", kobject);
     if (kobj) {
         *kobj = kobject;
     }
