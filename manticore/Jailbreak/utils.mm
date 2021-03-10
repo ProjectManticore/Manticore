@@ -102,7 +102,7 @@ void patch_TF_PLATFORM(kptr_t task) {
         kapi_write32(task + OFFSET(task, t_flags), t_flags);
         t_flags = kapi_read32(task + OFFSET(task, t_flags));
         printf(" %#x\n", t_flags);
-    } printf("Can't patch tf_platform of invalid task/kernel_pointer!\n");
+    } else printf("Can't patch tf_platform of invalid task/kernel_pointer!\n");
 }
 
 pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want)){
