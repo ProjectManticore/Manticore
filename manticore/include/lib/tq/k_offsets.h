@@ -14,7 +14,7 @@
 
 // Generate the name for the size of an object.
 #define SIZE(object_)               _##object_##__size_
-
+typedef uint64_t kptr_t;
 #ifdef Q_INTERNAL
 #define qexternal
 #else
@@ -35,21 +35,38 @@ qexternal size_t OFFSET(ipc_space, is_table_size);
 qexternal size_t OFFSET(ipc_space, is_table);
 
 // Parameters for struct task.
+qexternal size_t OFFSET(task, map);
 qexternal size_t OFFSET(task, itk_space);
 qexternal size_t OFFSET(task, bsd_info);
 qexternal size_t OFFSET(task, t_flags);
 
+// Parameters for proc
+qexternal size_t OFFSET(proc, le_next);
+qexternal size_t OFFSET(proc, le_prev);
 qexternal size_t OFFSET(proc, task);
 qexternal size_t OFFSET(proc, p_ucred);
 qexternal size_t OFFSET(proc, p_pid);
 qexternal size_t OFFSET(proc, p_fd);
+qexternal size_t OFFSET(proc, csflags);
+qexternal size_t OFFSET(proc, gid);
+qexternal size_t OFFSET(proc, rgid);
+qexternal size_t OFFSET(proc, uid);
+qexternal size_t OFFSET(proc, ruid);
 
 qexternal size_t OFFSET(filedesc, fd_ofiles);
 qexternal size_t OFFSET(fileproc, fp_glob);
 qexternal size_t OFFSET(fileglob, fg_data);
 qexternal size_t OFFSET(pipe, buffer);
 
+// Parameters for ucred
 qexternal size_t OFFSET(ucred, cr_posix);
+qexternal size_t OFFSET(ucred, cr_uid);
+qexternal size_t OFFSET(ucred, cr_svuid);
+qexternal size_t OFFSET(ucred, cr_ngroups);
+qexternal size_t OFFSET(ucred, cr_groups);
+qexternal size_t OFFSET(ucred, cr_svgid);
+qexternal size_t OFFSET(ucred, cr_rgid);
+qexternal size_t OFFSET(ucred, cr_label);
 
 qexternal size_t SIZE(posix_cred);
 

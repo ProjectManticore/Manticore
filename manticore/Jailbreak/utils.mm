@@ -10,7 +10,6 @@
 #include "xnu/bsd/sys/proc_info.h"
 #include "xnu/libsyscall/wrappers/libproc/libproc.h"
 #include "exploit/cicuta/cicuta_virosa.h"
-#include "offset_finder/kernel_offsets.h"
 #include "kernel_utils.h"
 #include "utils.h"
 #import <spawn.h>
@@ -21,6 +20,7 @@
 #include "lib/tq/kapi.h"
 #include "lib/tq/k_offsets.h"
 
+#include "k_offsets.h"
 #include "util/alloc.h"
 
 extern char **environ;
@@ -30,9 +30,9 @@ int perform_root_patches(kptr_t ucred){
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
     
     /* CR_UID */
-    uint64_t old_uid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_UID);
-    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_UID, (void*)buffer);
-    uint64_t new_uid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_UID);
+    uint64_t old_uid = read_64(ucred + OFFSET(ucred, cr_uid));
+    write_20(ucred + OFFSET(ucred, cr_uid), (void*)buffer);
+    uint64_t new_uid = read_64(ucred + OFFSET(ucred, cr_uid));
     if(old_uid == new_uid) return 1;
 //
 //    /* CR_RUID */
@@ -63,7 +63,7 @@ void patch_amfid(pid_t amfid_pid){
     printf("* ------ AMFID Bypass ------ *\n");
     kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
     printf("amfid proc:\t%d\t->\t0x%llx\n", amfid_pid, amfid_kernel_proc);
-    printf("amfid task:\t0x%llx\n", amfid_kernel_proc + koffset(KSTRUCT_OFFSET_PROC_TASK));
+    printf("amfid task:\t0x%llx\n", amfid_kernel_proc + OFFSET(proc, task));
     if(setCSFlagsByPID(amfid_pid)){
         printf("Successfully set Amfid's CSFlags.\n");
     } else {
@@ -238,10 +238,10 @@ bool restartSpringBoard(void) {
 BOOL setCSFlagsByPID(pid_t pid){
     if(!pid) return NO;
     kptr_t proc_proc  = kproc_find_by_pid(pid);
-    uint32_t csflags  = kapi_read32(proc_proc + KSTRUCT_OFFSET_PROC_CSFLAGS);
+    uint32_t csflags  = kapi_read32(proc_proc + OFFSET(proc, csflags));
     uint32_t newflags = (csflags | 0x4000000 | 0x0000008 | 0x0000004 | 0x10000000) & ~(0x0000800 | 0x0000100 | 0x0000200);
-    kapi_write32(proc_proc + KSTRUCT_OFFSET_PROC_CSFLAGS, newflags);
-    return (kapi_read32(proc_proc + KSTRUCT_OFFSET_PROC_CSFLAGS) == newflags) ? YES : NO;
+    kapi_write32(proc_proc + OFFSET(proc, csflags), newflags);
+    return (kapi_read32(proc_proc + OFFSET(proc, csflags)) == newflags) ? YES : NO;
 }
 
 

@@ -27,22 +27,37 @@ static void offsets_base_iOS_14_x()
     OFFSET(ipc_space, is_table_size) = 0x14;
     OFFSET(ipc_space, is_table)      = 0x20;
 
+    OFFSET(task, map) = 0x28;
     OFFSET(task, itk_space) = 0x330;
     OFFSET(task, bsd_info) = 0x3a0;
     OFFSET(task, t_flags) = 0x3f4;
 
+    OFFSET(proc, le_next) = 0x00;
+    OFFSET(proc, le_prev) = 0x08;
     OFFSET(proc, task) = 0x10;
     OFFSET(proc, p_pid) = 0x68;
     OFFSET(proc, p_ucred) = 0xf0;
     OFFSET(proc, p_fd) = 0xf8;
-
+    OFFSET(proc, csflags) = 0x280;
+    OFFSET(proc, gid) = 0x34;
+    OFFSET(proc, rgid) = 0x3c;
+    OFFSET(proc, uid) = 0x30;
+    OFFSET(proc, ruid) = 0x38;
+    
     OFFSET(filedesc, fd_ofiles) = 0x00;
     OFFSET(fileproc, fp_glob) = 0x10;
     OFFSET(fileglob, fg_data) = 0x38;
     OFFSET(pipe, buffer) = 0x10;
-
+    
     OFFSET(ucred, cr_posix) = 0x18;
-
+    OFFSET(ucred, cr_uid) = 0x18;
+    OFFSET(ucred, cr_svuid) = 0x20;
+    OFFSET(ucred, cr_ngroups) = 0x24;
+    OFFSET(ucred, cr_groups) = 0x28;
+    OFFSET(ucred, cr_svgid) = 0x6c;
+    OFFSET(ucred, cr_rgid) = 0x68;
+    OFFSET(ucred, cr_label) = 0x78;
+    
     SIZE(posix_cred) = 0x60;
 
     OFFSET(OSDictionary, count)      = 0x14;
@@ -116,16 +131,21 @@ static struct device_def devices[] = {
     { "iPhone 11", "N104AP", "18A373", offsets_iPhone11_18A373 },
     { "iPhone 12", "D53GAP", "18A8395", offsets_iPhone12_18A8395 },
     { "iPhone 12 pro", "D53pAP", "18C66", offsets_iPhone12pro_18C66 },
+    { "iPhone ?", "?", "*", offsets_base_iOS_14_x },
 };
 
-void kernel_offsets_init(void)
-{
+void kernel_offsets_init(void){
     for (int i = 0; i < arrayn(devices); i++) {
         struct device_def *dev = &devices[i];
         if (!strcmp(g_exp.model, dev->model) && !strcmp(g_exp.osversion, dev->build)) {
             dev->init();
             return;
         }
+        if (!strcmp(dev->build, "*")) {
+            util_warning("fallback to default iOS 14.x offsets");
+            dev->init();
+            return;
+        }
     }
-    fail_info(("no device defination"));
+    fail_info("no device defination");
 }
