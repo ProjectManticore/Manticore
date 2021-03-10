@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "offset_finder/kernel_offsets.h"
 #include "../include/lib/tq/kapi.h"
 #include "exploit/cicuta/cicuta_virosa.h"
 

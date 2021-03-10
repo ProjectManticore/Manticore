@@ -9,7 +9,6 @@
 #include <mach/mach.h>
 #include "exploit/cicuta/cicuta_virosa.h"
 #include "exploit/cicuta/exploit_utilities.h"
-#include "offset_finder/kernel_offsets.h"
 #include "hsp4.h"
 #include <stddef.h>
 #include <mach/thread_status.h>
