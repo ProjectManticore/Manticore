@@ -7,12 +7,13 @@
 
 #import <Foundation/Foundation.h>
 #include <mach/error.h>
+#import <spawn.h>
+
 #include "xnu/bsd/sys/proc_info.h"
 #include "xnu/libsyscall/wrappers/libproc/libproc.h"
 #include "exploit/cicuta/cicuta_virosa.h"
-#include "kernel_utils.h"
-#include "utils.h"
-#import <spawn.h>
+#include "include/manticore/kernel_utils.h"
+#include "include/manticore/utils.h"
 
 #include "lib/tq/tq_common_p.h"
 #include "lib/tq/utils.h"
@@ -20,8 +21,8 @@
 #include "lib/tq/kapi.h"
 #include "lib/tq/k_offsets.h"
 
-#include "k_offsets.h"
-#include "util/alloc.h"
+#include "include/lib/tq/k_offsets.h"
+#include "include/util/alloc.h"
 
 extern char **environ;
 NSData *lastSystemOutput=nil;
