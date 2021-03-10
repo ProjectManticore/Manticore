@@ -10,8 +10,7 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [x] Stable Exploit Primitives
 - [x] Sandbox escape
 - [x] Privilege escalation
-- [ ] offset finder
-- [x] offset finder -> kernel_task
+- [x] offset finder/dynamic offsets
 - [ ] amfid bypass/patch
 - [x] amfid -> getting task port address 
 - [ ] rootfs remount
