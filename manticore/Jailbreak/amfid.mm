@@ -15,7 +15,9 @@
 #include "kapi.h"
 
 #include "log.hpp"
-#include "../include/util/mach_vm.h"
+#include "util/mach_vm.h"
+
+#include "manticore/amfid.h"
 
 #include <mach/mach_traps.h>
 #include <mach/vm_region.h>
@@ -51,13 +53,6 @@ kptr_t binary_load_address(mach_port_t target_port){
     mach_vm_address_t target_first_addr = 0x0;
     struct vm_region_basic_info_64 region = {0};
     
-    extern kern_return_t mach_vm_region (vm_map_t target_task,
-                                            mach_vm_address_t *address,
-                                            mach_vm_size_t *size,
-                                            vm_region_flavor_t flavor,
-                                            vm_region_info_t info,
-                                            mach_msg_type_number_t *infoCnt,
-                                            mach_port_t *object_name);
     err = mach_vm_region(target_port,
                          &target_first_addr,
                          &target_first_size,

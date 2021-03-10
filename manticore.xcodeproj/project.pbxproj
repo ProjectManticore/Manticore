@@ -724,7 +724,7 @@
 				CODE_SIGN_ENTITLEMENTS = manticore/manticore.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/manticore/include",
@@ -742,7 +742,7 @@
 					"$(SRCROOT)/manticore/lib/jelbrekLib",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manticore.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -756,7 +756,7 @@
 				CODE_SIGN_ENTITLEMENTS = manticore/manticore.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/manticore/include",
@@ -774,7 +774,7 @@
 					"$(SRCROOT)/manticore/lib/jelbrekLib",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manticore.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
