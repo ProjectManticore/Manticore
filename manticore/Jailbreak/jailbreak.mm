@@ -25,7 +25,7 @@
 #include "manticore/jailbreak.h"
 #include "manticore/rootfs.h"
 #include "manticore/utils.h"
-
+#include "amfid_patches.h"
 #include "util/plistutils.h"
 #include "xnu/libsyscall/wrappers/libproc/libproc.h"
 
@@ -42,7 +42,7 @@ extern "C" int jailbreak() {
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
     // AMFID PATCHES
-
+    fuckup_amfid();
 
     printf("Goodbye!\n");
     return 0;

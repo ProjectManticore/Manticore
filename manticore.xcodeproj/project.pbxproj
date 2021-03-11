@@ -117,7 +117,7 @@
 		23004E8125FA4CF2002F6354 /* cs_blobs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cs_blobs.h; sourceTree = "<group>"; };
 		23004E8425FA4D8D002F6354 /* amfidServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfidServer.h; sourceTree = "<group>"; };
 		23004E8625FA4E3C002F6354 /* amfidServer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = amfidServer.c; sourceTree = "<group>"; };
-		230215F825DE8B02003E7C5C /* amfid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfid.h; sourceTree = "<group>"; };
+		230215F825DE8B02003E7C5C /* amfid_patches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfid_patches.h; sourceTree = "<group>"; };
 		230215FA25DE8E8F003E7C5C /* rootfs.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = rootfs.mm; sourceTree = "<group>"; };
 		230215FD25DE8E97003E7C5C /* rootfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rootfs.h; sourceTree = "<group>"; };
 		2302160125DE93B5003E7C5C /* snappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snappy.h; sourceTree = "<group>"; };
@@ -611,7 +611,7 @@
 			isa = PBXGroup;
 			children = (
 				23C7055225DB2F820078DC37 /* jailbreak.h */,
-				230215F825DE8B02003E7C5C /* amfid.h */,
+				230215F825DE8B02003E7C5C /* amfid_patches.h */,
 				230215FD25DE8E97003E7C5C /* rootfs.h */,
 				2302161D25DEA25E003E7C5C /* utils.h */,
 				2302163025DEA571003E7C5C /* kernel_utils.h */,

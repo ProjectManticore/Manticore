@@ -34,6 +34,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "amfid_patches.h"
 #include "threadexec/threadexec.h"
 
 #include "cdhash.h"
@@ -42,6 +43,7 @@
 
 // The path to the amfid daemon.
 const char *AMFID_PATH = "/usr/libexec/amfid";
+typedef uint32_t kptr_t;
 
 // The threadexec context for amfid.
 threadexec_t amfid_tx;
@@ -73,7 +75,7 @@ create_amfid_threadexec() {
     printf("Amfid PID: %d", amfid_pid);
     // Get amfid's task port.
     mach_port_t amfid_task;
-    kern_return_t kr = task_for_pid(mach_task_self(), amfid_pid, &amfid_task);
+    kern_return_t kr = host_get_amfid_port(mach_host_self(), &amfid_task);
     if (kr != KERN_SUCCESS) {
         printf("Could not get amfid task");
         return false;
@@ -267,7 +269,6 @@ run_amfid_server() {
             mach_port_deallocate(mach_task_self(), reply->Head.msgh_remote_port);
             goto check_amfid;
         }
-        // Finally, make amfid send the reply to the kernel.
         ok = threadexec_call_cv(amfid_tx, &kr, sizeof(kr),
                 mach_msg, 7,
                 TX_CARG_LITERAL(mach_msg_header_t *, reply_R),
@@ -282,9 +283,7 @@ run_amfid_server() {
             threadexec_mach_port_deallocate(amfid_tx, reply->Head.msgh_remote_port);
             goto check_amfid;
         }
-        // Everything's good :)
         continue;
-        // If we encountered an error, check that amfid is still alive.
 check_amfid:;
         int amfid_pid;
         kr = pid_for_task(threadexec_task(amfid_tx), &amfid_pid);
@@ -295,17 +294,11 @@ check_amfid:;
     }
 }
 
-// The signal handler for all signals.
-static void
-signal_handler(int signum) {
-    // Restoring the amfid port will also destroy our fake port, which should break us out of
-    // the server loop.
+static void signal_handler(int signum) {
     restore_amfid_port();
 }
 
-// Register our signal handler.
-static void
-install_signal_handler() {
+static void install_signal_handler() {
     const int signals[] = {
         SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGEMT, SIGFPE, SIGBUS,
         SIGSEGV, SIGSYS, SIGPIPE, SIGALRM, SIGTERM, SIGXCPU, SIGXFSZ, SIGVTALRM, SIGPROF,
@@ -320,31 +313,21 @@ install_signal_handler() {
     }
 }
 
-int fuckup_amfid(int argc, const char *argv[]) {
+uint64_t fuckup_amfid() {
     int ret = 1;
-    printf("amfidupe: pid=%d, uid=%d", getpid(), getuid());
-    // Set up our signal handlers.
+    printf("\nStarting Amfid fuckery...\n");
+    printf("amfidupe: pid=%d, uid=%d\n", getpid(), getuid());
     install_signal_handler();
-    // Create an execution context in amfid.
     bool ok = create_amfid_threadexec();
-    if (!ok) {
-        goto fail_0;
-    }
-    // Replace the kernel's amfid port with our own port.
+    if (!ok) goto fail_0;
     ok = replace_amfid_port();
-    if (!ok) {
-        goto fail_1;
-    }
-    // Run our custom amfid server. This function will run until we're told to quit.
+    if (!ok) goto fail_1;
     run_amfid_server();
     ret = 0;
-    // Restore the original amfid port.
     restore_amfid_port();
-fail_1:
-    // Close the threadexec context in amfid.
-    threadexec_deinit(amfid_tx);
-fail_0:
-    // Done!
+    fail_1:
+        threadexec_deinit(amfid_tx);
+    fail_0:
     printf("amfidupe: exit");
     return ret;
 }

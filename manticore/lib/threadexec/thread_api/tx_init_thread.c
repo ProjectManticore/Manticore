@@ -114,8 +114,7 @@ init_by_hijacking_thread(threadexec_t threadexec) {
 // choose a preexisting thread in the task to hijack, and create a threadexec with that using
 // TX_PRESERVE semantics. Then we will use that thread to create a new thread. Once we have the new
 // thread, we will replace the original thread in the threadexec struct with the new thread.
-static bool
-init_without_thread(threadexec_t threadexec) {
+static bool init_without_thread(threadexec_t threadexec) {
 	DEBUG_TRACE(1, "Performing temporary thread hijacking");
 	ERROR("NOT IMPLEMENTED"); // TODO: There used to be a partial implementation here.
 	// TODO: The issue appears to be that the suspend/abort/get_state/set_state/resume sequence
@@ -141,8 +140,7 @@ tx_init_with_thread_api(threadexec_t threadexec) {
 	}
 }
 
-void
-tx_deinit_with_thread_api(threadexec_t threadexec) {
+void tx_deinit_with_thread_api(threadexec_t threadexec) {
 	DEBUG_TRACE(2, "%s", __func__);
 	if (threadexec->shmem_size) {
 		// Don't bother deallocating the remote memory if we're killing the task.

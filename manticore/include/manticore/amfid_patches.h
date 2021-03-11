@@ -8,7 +8,15 @@
 #ifndef amfid_h
 #define amfid_h
 
-kptr_t perform_amfid_patches();
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+
+uint64_t fuckup_amfid();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* amfid_h */
