@@ -5,8 +5,8 @@
 //  Created by fugiefire on 7/3/21.
 //
 
-#ifndef _util_log_h
-#define _util_log_h
+#ifndef _util_log_hpp
+#define _util_log_hpp
 
 enum manticore_log_level {
     LOG_DEBUG,

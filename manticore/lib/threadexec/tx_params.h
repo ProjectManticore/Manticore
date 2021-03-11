@@ -1,0 +1,8 @@
+#ifndef THREADEXEC__TX_PARAMS_H_
+#define THREADEXEC__TX_PARAMS_H_
+
+#define TX_SHARED_MEMORY_SIZE (8 * 0x4000)
+
+#define TX_CLIENT_SHMEM_SIZE (2 * 0x4000)
+
+#endif
