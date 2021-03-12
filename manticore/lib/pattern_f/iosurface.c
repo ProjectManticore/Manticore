@@ -69,7 +69,7 @@ struct IOSurfaceValueResultArgs {
 
 // ---- Global variables --------------------------------------------------------------------------
 
-static uint32_t IOSurface_property_index = 0;
+static uint32_t __unused IOSurface_property_index = 0;
 
 // Is the IOSurface subsystem initialized?
 static bool IOSurface_initialized;

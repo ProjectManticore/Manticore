@@ -20,8 +20,7 @@
 // pipe spray
 // ---------------------------------------------------------------------------
 
-void
-pipe_close(int pipefds[2]) {
+void pipe_close(int pipefds[2]) {
     close(pipefds[0]);
     close(pipefds[1]);
 }
@@ -32,15 +31,13 @@ pipe_close(int pipefds[2]) {
  * Description:
  *     Set the O_NONBLOCK flag on the specified file descriptor.
  */
-static void
-set_nonblock(int fd) {
+static void __unused set_nonblock(int fd) {
     int flags = fcntl(fd, F_GETFL);
     flags |= O_NONBLOCK;
     fcntl(fd, F_SETFL, flags);
 }
 
-int *
-create_pipes(size_t *pipe_count) {
+int *create_pipes(size_t *pipe_count) {
     // Allocate our initial array.
     size_t capacity = *pipe_count;
     int *pipefds = calloc(2 * capacity, sizeof(int));
@@ -72,15 +69,13 @@ create_pipes(size_t *pipe_count) {
     return new_pipefds;
 }
 
-void
-close_pipes(int *pipefds, size_t pipe_count) {
+void close_pipes(int *pipefds, size_t pipe_count) {
     for (size_t i = 0; i < pipe_count; i++) {
         pipe_close(pipefds + 2 * i);
     }
 }
 
-size_t
-pipe_spray(const int *pipefds, size_t pipe_count,
+size_t pipe_spray(const int *pipefds, size_t pipe_count,
         void *pipe_buffer, size_t pipe_buffer_size,
         void (^update)(uint32_t pipe_index, void *data, size_t size)) {
     assert(pipe_count <= 0xffffff);

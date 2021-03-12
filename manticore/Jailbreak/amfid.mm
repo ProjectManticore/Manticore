@@ -247,22 +247,24 @@ void* amfid_exception_handler(void* arg){
 }
 
 void set_exception_handler(mach_port_t amfid_task_port){
+    kern_return_t ret = 0;
     if(!MACH_PORT_VALID(amfid_task_port)){
         printf("Invalid amfid task port!\n");
         return;
     }
-    printf("Attempting to set exception handler...\t(0x%x)\n", amfid_task_port);
-    // allocate a port to receive exceptions on:
+    
+    
+    // allocate a port to receive exceptions on and assign rights:
     mach_port_t amfid_exception_port = MACH_PORT_NULL;
-    mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port);
-    mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND);
+    if((ret = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port)) != KERN_SUCCESS) printf("Allocating a new task port failed.\t(%d)\n", ret);
+    if((ret = mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND)) != KERN_SUCCESS) printf("Inserting rights to amfid_exception_port failed.\t(%d)\n", ret);
     
     if(!MACH_PORT_VALID(amfid_exception_port)){
         printf("Invalid amfid exception handler port!\n");
         return;
     }
     
-    
+    printf("Attempting to set exception handler...\t(0x%x)\n", amfid_task_port);
     
     kern_return_t err = task_set_exception_ports(amfid_task_port,
                                                  EXC_MASK_ALL,
@@ -333,9 +335,6 @@ kptr_t perform_amfid_patches(){
         printf("ip_kobject : 0x%llx\n", port_name_to_ipc_port(amfid_task_port));
         debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
         printf("amfid port:\t0x%x\n", amfid_task_port);
-        execute_with_kernel_credentials(^{
-            set_exception_handler(amfid_task_port);
-        });
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
         printf("amfid base:\t0x%llx\n", amfid_base);

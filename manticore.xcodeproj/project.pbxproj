@@ -756,6 +756,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = "-Wunused";
 			};
 			name = Debug;
 		};
@@ -789,6 +790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = "-Wunused";
 			};
 			name = Release;
 		};
