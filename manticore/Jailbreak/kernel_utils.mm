@@ -104,10 +104,12 @@ kptr_t get_kernel_cred_addr(){
 
 bool execute_with_kernel_credentials(void (^function)(void)){
     kptr_t kernel_credentials = get_kernel_cred_addr();
-    if(execute_with_credentials(g_exp.self_proc, kernel_credentials, function) != true){
-        manticore_warn("Execution as kernel failed.");
-        return false;
-    } else return true;
+    if(KERN_POINTER_VALID(kernel_credentials)){
+        if(execute_with_credentials(g_exp.self_proc, kernel_credentials, function) != true){
+            manticore_warn("Execution as kernel failed.");
+            return false;
+        } else return true;
+    }
 }
 
 

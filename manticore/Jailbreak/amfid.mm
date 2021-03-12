@@ -317,7 +317,7 @@ kptr_t perform_amfid_patches(){
     kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
     printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
     kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
-    printf("----> AMFID Gadget:\t\t0x%llx\n", amfid_OFFSET_gadget);
+    printf("----> AMFID Gadget:\t0x%llx\n", amfid_OFFSET_gadget);
     
     /** Map amfid to local memory */
     mach_port_t amfid_task_port = MACH_PORT_NULL;
@@ -330,7 +330,7 @@ kptr_t perform_amfid_patches(){
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
         kptr_t amfid_ipc_entry = ipc_entry_lookup(amfid_task_port);
-        printf("----> AMFID Task:\t0x%llx\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
+        printf("----> AMFID Task:\t0x%llx\t\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
         // debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
         printf("----> AMFID Port:\t0x%x\n\n", amfid_task_port);
         set_exception_handler(amfid_task_port);
