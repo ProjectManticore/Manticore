@@ -330,9 +330,9 @@ kptr_t perform_amfid_patches(){
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
         kptr_t amfid_ipc_entry = ipc_entry_lookup(amfid_task_port);
-        printf("\namfid task:\t0x%llx\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
+        printf("----> AMFID Task:\t0x%llx\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
         // debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
-        printf("amfid port:\t0x%x\n", amfid_task_port);
+        printf("----> AMFID Port:\t0x%x\n\n", amfid_task_port);
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
         printf("amfid base:\t0x%llx\n", amfid_base);
