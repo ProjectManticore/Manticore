@@ -311,13 +311,13 @@ kptr_t perform_amfid_patches(){
     if(getuid() != 0) return 0;
     printf("* ------- AMFID Patches -------- *\n");
     uint8_t *amfid_fdata = map_file_to_mem("/usr/libexec/amfid");
-    printf("Extracted AMFID Offsets:\n");
+    printf("Extracted AMFID Offsets:\n\n");
     
     /** Finding Amfid related offsets */
     kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
-    printf("\n----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
+    printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
     kptr_t amfid_OFFSET_gadget = find_amfid_OFFSET_gadget(amfid_fdata);
-    printf("----> Gadget:\t\t0x%llx\n", amfid_OFFSET_gadget);
+    printf("----> AMFID Gadget:\t\t0x%llx\n", amfid_OFFSET_gadget);
     
     /** Map amfid to local memory */
     mach_port_t amfid_task_port = MACH_PORT_NULL;
