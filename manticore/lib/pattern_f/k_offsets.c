@@ -1,20 +1,16 @@
-//
-//  k_offsets.c
-//  ios-fuzzer
-//
-//  Created by Quote on 2021/1/26.
-//  Copyright © 2021 Quote. All rights reserved.
-//
-
 #include <string.h>
 #include <stdio.h>
 #include "lib/tq/tq_common_p.h"
 #include "lib/tq/utils.h"
 #define Q_INTERNAL
 #include "lib/tq/k_offsets.h"
+#include "include/util/arm.h"
 
-static void offsets_base_iOS_14_x()
-{
+#ifndef _arm64e
+#define _arm64e (is_pac == 0)
+#endif
+
+static void offsets_base_iOS_14_x() {
     kc_kernel_base = 0xFFFFFFF007004000;
 
     SIZE(ipc_entry)              = 0x18;
@@ -26,11 +22,17 @@ static void offsets_base_iOS_14_x()
 
     OFFSET(ipc_space, is_table_size) = 0x14;
     OFFSET(ipc_space, is_table)      = 0x20;
-
+    
     OFFSET(task, map) = 0x28;
     OFFSET(task, itk_space) = 0x330;
+    
+#if _arm64e
     OFFSET(task, bsd_info) = 0x3a0;
     OFFSET(task, t_flags) = 0x3f4;
+#else
+    OFFSET(task, bsd_info) = 0x390;
+    OFFSET(task, t_flags) = 0x3d8;
+#endif
 
     OFFSET(proc, le_next) = 0x00;
     OFFSET(proc, le_prev) = 0x08;
@@ -69,83 +71,9 @@ static void offsets_base_iOS_14_x()
     OFFSET(IOSurfaceRootUserClient, surfaceClients) = 0x118;
 }
 
-static void offsets_iPhone6s_18A373() {
+void kernel_offsets_init(void) {
+    fprintf(stdout, "has_pac: %x\n", g_exp.has_PAC);
+    util_info("using default iOS 14.3 Offsets");
     offsets_base_iOS_14_x();
-
-    kc_kernel_map = 0xFFFFFFF0070AA670;
-    kc_kernel_task = 0xFFFFFFF0070A69C8;
-    kc_IOSurfaceClient_vt = 0xFFFFFFF006E2EF40;
-    kc_IOSurfaceClient_vt_0 = 0xFFFFFFF0060109F8;
-
-    OFFSET(task, itk_space) = 0x330;
-    OFFSET(task, bsd_info) = 0x390;
-    OFFSET(task, t_flags) = 0x3d8;
-}
-
-static void offsets_iPhone12_18A8395() {
-    offsets_base_iOS_14_x();
-
-    kc_kernel_map =             0xFFFFFFF0077F2620;             //          0x3C88
-    kc_kernel_task =            0xFFFFFFF0077EE998;             //          0x3C88
-    kc_IOSurfaceClient_vt =     0xFFFFFFF007951D28;             //          0xE59E40
-    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF0087ABB68;             //          0xE59E40
-}
-
-static void offsets_iPhone11_18A373() {
-    offsets_base_iOS_14_x();
-
-    kc_kernel_map =             0xFFFFFFF0076DA618;             //          0x3C80
-    kc_kernel_task =            0xFFFFFFF0076D6998;             //          0x3C80
-    kc_IOSurfaceClient_vt =     0xFFFFFFF00783CDA8;             //          0xE3D9D0
-    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF00867A778;             //          0xE3D9D0
-}
-
-static void offsets_iPhone12pro_18C66() {
-    offsets_base_iOS_14_x();
-
-    kc_kernel_map =             0xFFFFFFF0076C8918;             //          0x3C98
-    kc_kernel_task =            0xFFFFFFF0076C4C80;             //          0x3C98
-    kc_IOSurfaceClient_vt =     0xFFFFFFF0078262A0;             //          0xE968B4
-    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF0086BCB54;             //          0xE968B4
-}
-
-static void offsets_iPad4air_18C66() {
-    offsets_base_iOS_14_x();
-
-    kc_kernel_map =             0xFFFFFFF0076C0918;             //          0x3C98
-    kc_kernel_task =            0xFFFFFFF0076bCC80;             //          0x3C98
-    kc_IOSurfaceClient_vt =     0xFFFFFFF007898050;             //          0x10AB36C
-    kc_IOSurfaceClient_vt_0 =   0xFFFFFFF0089433BC;             //          0x10AB36C
-}
-
-struct device_def {
-    const char *name;
-    const char *model;
-    const char *build;
-    void (*init)(void);
-};
-
-static struct device_def devices[] = {
-    { "iPad 4", "J307AP", "18C66", offsets_iPad4air_18C66 },
-    { "iPhone 6s", "N71AP", "18A373", offsets_iPhone6s_18A373 },
-    { "iPhone 11", "N104AP", "18A373", offsets_iPhone11_18A373 },
-    { "iPhone 12", "D53GAP", "18A8395", offsets_iPhone12_18A8395 },
-    { "iPhone 12 pro", "D53pAP", "18C66", offsets_iPhone12pro_18C66 },
-    { "iPhone ?", "?", "*", offsets_base_iOS_14_x },
-};
-
-void kernel_offsets_init(void){
-    for (int i = 0; i < arrayn(devices); i++) {
-        struct device_def *dev = &devices[i];
-        if (!strcmp(g_exp.model, dev->model) && !strcmp(g_exp.osversion, dev->build)) {
-            dev->init();
-            return;
-        }
-        if (!strcmp(dev->build, "*")) {
-            util_warning("fallback to default iOS 14.x offsets");
-            dev->init();
-            return;
-        }
-    }
-    fail_info("no device defination");
+    return;
 }
