@@ -14,6 +14,11 @@
 
 #import <Foundation/Foundation.h>
 
+/* ugh i forgot stack has a lifetime so most of this is useless atm
+ * todo: add functionality to return a uuid for each registered var, and be able to deregister them
+ * then, add macros on function prologue/epilogue to automatically handle registery removal
+ * - fugiefire */
+
 #pragma mark -- private func decls
 void _manticore_log_out(enum manticore_log_level level, const char *s);
 void _manticore_add_empty_dump_entry();
