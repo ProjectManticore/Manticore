@@ -20,6 +20,7 @@ typedef mach_port_t vm_map_t;
 #define VM_MIN_KERNEL_ADDRESS   0xffffffe000000000ULL
 #define VM_MAX_KERNEL_ADDRESS   0xfffffff3ffffffffULL
 #define KERN_POINTER_VALID(val) (((val) & 0xffffffff) != 0xdeadbeef && (val) >= VM_MIN_KERNEL_ADDRESS && (val) <= VM_MAX_KERNEL_ADDRESS)
+#define KERN_POINTER_INVALID(val) (!KERN_POINTER_VALID(val))
 
 #define TF_PLATFORM 0x00000400 /* task is a platform binary */
 

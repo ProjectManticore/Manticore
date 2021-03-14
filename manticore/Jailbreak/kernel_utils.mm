@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "../include/lib/tq/kapi.h"
+#include "lib/tq/kapi.h"
 #include "exploit/cicuta/cicuta_virosa.h"
 
 #include "log.hpp"
@@ -16,13 +16,14 @@
 #include <mach/mach_traps.h>
 #include <mach/mach.h>
 
-
 #include "lib/tq/iosurface.h"
 #include "lib/tq/kapi.h"
 #include "lib/tq/k_offsets.h"
 #include "lib/tq/tq_common_p.h"
 #include "lib/tq/utils.h"
 #include "lib/tq/k_utils.h"
+
+#include "util/error.hpp"
 
 #if 1
 #define MAX_CHUNK 0xff0
@@ -34,11 +35,11 @@ mach_port_t tfp0 = MACH_PORT_NULL;
 uint64_t kreads = 0;
 uint64_t kwrites = 0;
 
-typedef struct {
+typedef struct __attribute__((packed)) {
     struct {
         uint64_t data;
-        uint32_t reserved : 24,
-                    type     :  8;
+        uint32_t reserved : 24;
+        uint32_t type     :  8;
         uint32_t pad;
     } lock; // mutex lock
     uint32_t ref_count;
@@ -50,7 +51,7 @@ typedef struct {
 
 bool set_platform_binary(kptr_t proc, bool set) {
     bool ret = false;
-    if(!KERN_POINTER_VALID(proc)) return 0;
+    if(!KERN_POINTER_VALID(proc)) return 0; // what the fuck? proc needs to be invalid?
     kptr_t task_struct_addr = read_64(proc + 0x10);
     if(!KERN_POINTER_VALID(task_struct_addr)) return 0;
     kptr_t task_t_flags_addr = task_struct_addr + 0x3a0;
@@ -65,51 +66,67 @@ bool set_platform_binary(kptr_t proc, bool set) {
     return ret;
 }
 
-kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t cred_addr){
-    kptr_t ret = KPTR_NULL;
-    if(KERN_POINTER_VALID(proc) && KERN_POINTER_VALID(cred_addr)){
-        kptr_t proc_cred_addr       = proc + OFFSET(proc, p_ucred);
-        kptr_t current_cred_addr    = kapi_read_kptr(proc_cred_addr);
-        if(KERN_POINTER_VALID(current_cred_addr)){
-            kapi_write64(proc_cred_addr, cred_addr);
-            ret = current_cred_addr;
-        } else manticore_warn("Invalid current_cred_addr!\t\t(0x%llx)\n", current_cred_addr);
-    } else manticore_warn("Invalid proc_addr/cred_drr!\t\t(0x%llx - 0x%llx)\n", proc, cred_addr);
-    return ret;
+kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t creds) {
+    // should never recieve invalid values
+    MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(proc));
+    MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(creds));
+    
+    auto our_creds = proc + OFFSET(proc, p_ucred); // current creds of the proc
+    auto old_creds = kapi_read_kptr(our_creds); // store them for restoration later
+    
+    if (KERN_POINTER_INVALID(old_creds)) {
+        manticore_warn("[give_creds_to_proc_at_addr] old_creds invalid value: %#0llx", old_creds);
+        return (kptr_t)NULL;
+    }
+    
+    kapi_write64(our_creds, creds); // update creds
+    
+    return old_creds;
 }
 
-bool execute_with_credentials(kptr_t proc, kptr_t credentials, void (^function)(void)){
-    bool ret = KPTR_NULL;
-    if(KERN_POINTER_VALID(proc) && KERN_POINTER_VALID(credentials) && function != NULL){
-        kptr_t saved_creds = give_creds_to_proc_at_addr(proc, credentials);
-        if(KERN_POINTER_VALID(saved_creds)){
-            function();
-            ret = give_creds_to_proc_at_addr(proc, saved_creds);
-        } else manticore_warn("Invalid saved_creds!\t\t(0x%llx)\n", saved_creds);
-    } else manticore_warn("Invalid proc/credentials!\t\t(0x%llx - 0x%llx)\n", proc, credentials);
-    return ret;
+bool execute_with_credentials(kptr_t proc, kptr_t creds, void (^function)(void)) {
+    MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(proc));
+    MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(creds));
+    MANTICORE_THROW_ON_NULL(function);
+    
+    auto old_creds = give_creds_to_proc_at_addr(proc, creds);
+    
+    if (KERN_POINTER_INVALID(old_creds)) {
+        manticore_warn("[execute_with_credentials] old_creds invalid value: %#0llx", old_creds);
+        return false;
+    }
+    
+    function();
+    
+    return (bool)give_creds_to_proc_at_addr(proc, old_creds);
 }
 
 kptr_t get_kernel_cred_addr(){
-    kptr_t ret = KPTR_NULL;
-    kptr_t kernel_proc_struct_addr = g_exp.kernel_proc;
-    if(KERN_POINTER_VALID(kernel_proc_struct_addr)){
-        kptr_t kernel_ucred_struct_addr = kapi_read_kptr(kernel_proc_struct_addr + OFFSET(proc, p_ucred));
-        if(KERN_POINTER_VALID(kernel_ucred_struct_addr)){
-            ret = kernel_ucred_struct_addr;
-        } else manticore_warn("Invalid Kernel ucred struct pointer!\n");
-    } else manticore_warn("Invalid kernel process struct pointer!\n");
-    return ret;
+    MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(g_exp.kernel_proc));
+    auto k_ucred = kapi_read_kptr(g_exp.kernel_proc + OFFSET(proc, p_ucred));
+    
+    if (KERN_POINTER_INVALID(k_ucred)) {
+        manticore_warn("[get_kernel_cred_addr] k_ucred invalid value: %#0llx", k_ucred);
+        return (kptr_t)NULL;
+    }
+    
+    return k_ucred;
 }
 
 bool execute_with_kernel_credentials(void (^function)(void)){
-    kptr_t kernel_credentials = get_kernel_cred_addr();
-    if(KERN_POINTER_VALID(kernel_credentials)){
-        if(execute_with_credentials(g_exp.self_proc, kernel_credentials, function) != true){
-            manticore_warn("Execution as kernel failed.");
-            return false;
-        } else return true;
+    auto k_cred = get_kernel_cred_addr();
+    
+    if (KERN_POINTER_INVALID(k_cred)) {
+        manticore_warn("[execute_with_kernel_credentials] k_cred invalid value: %#0llx", k_cred);
+        return false;
     }
+    
+    if (!execute_with_credentials(g_exp.self_proc, k_cred, function)) {
+        manticore_warn("[execute_with_kernel_credentials] failed to execute as kernel :(");
+        return false;
+    }
+    
+    return true;
 }
 
 
