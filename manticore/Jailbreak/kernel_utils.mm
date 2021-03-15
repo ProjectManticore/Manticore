@@ -71,13 +71,13 @@ kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t creds) {
     MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(proc));
     MANTICORE_THROW_ON_FALSE(KERN_POINTER_VALID(creds));
     
-    auto our_creds = proc + OFFSET(proc, p_ucred); // current creds of the proc
-    auto old_creds = kapi_read_kptr(our_creds); // store them for restoration later
+    auto our_creds = proc + OFFSET(proc, p_ucred);  // current creds of the proc
+    auto old_creds = kapi_read_kptr(our_creds);     // store them for restoration later
     
     if (KERN_POINTER_INVALID(old_creds)) {
         manticore_warn("[give_creds_to_proc_at_addr] old_creds invalid value: %#0llx", old_creds);
         return (kptr_t)NULL;
-    }
+    } else manticore_info("[give_creds_to_proc_at_addr] old_creds stored at %#0llx", old_creds);
     
     kapi_write64(our_creds, creds); // update creds
     
@@ -108,13 +108,23 @@ kptr_t get_kernel_cred_addr(){
     if (KERN_POINTER_INVALID(k_ucred)) {
         manticore_warn("[get_kernel_cred_addr] k_ucred invalid value: %#0llx", k_ucred);
         return (kptr_t)NULL;
-    }
+    } else manticore_info("[get_kernel_cred_addr] kernel credits found @ 0x%llx", k_ucred);
     
     return k_ucred;
 }
 
 bool execute_with_kernel_credentials(void (^function)(void)){
     auto k_cred = get_kernel_cred_addr();
+    
+    uint32_t data[10] = {};
+    kapi_read(g_exp.self_proc + OFFSET(proc, p_ucred), data, sizeof(data));
+    util_hexprint(data, sizeof(data), "owncreds");
+    
+    printf("\n\n");
+    
+    uint32_t data2[10] = {};
+    kapi_read(k_cred, data2, sizeof(data2));
+    util_hexprint(data2, sizeof(data2), "kerncreds");
     
     if (KERN_POINTER_INVALID(k_cred)) {
         manticore_warn("[execute_with_kernel_credentials] k_cred invalid value: %#0llx", k_cred);
@@ -124,7 +134,7 @@ bool execute_with_kernel_credentials(void (^function)(void)){
     if (!execute_with_credentials(g_exp.self_proc, k_cred, function)) {
         manticore_warn("[execute_with_kernel_credentials] failed to execute as kernel :(");
         return false;
-    }
+    } else manticore_info("[execute_with_kernel_credentials] successfully executed as kernel :)");
     
     return true;
 }

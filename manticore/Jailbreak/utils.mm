@@ -339,3 +339,9 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
     }
     return rv;
 }
+
+void patch_tf_platform(uint64_t target_task){
+    uint32_t old_t_flags = read_32(target_task + OFFSET(task, t_flags));
+    old_t_flags |= 0x00000400; // TF_PLATFORM
+}
+

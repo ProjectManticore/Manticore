@@ -16,18 +16,20 @@
 
 #include "log.hpp"
 #include "util/mach_vm.h"
-
 #include "manticore/amfid.h"
 
 #include <mach/mach_traps.h>
 #include <mach/vm_region.h>
 #include <mach/vm_map.h>
-#include <mach-o/loader.h>
 #include <mach/mach_init.h>
 #include <mach/host_special_ports.h>
 #include <mach/mach_error.h>
-#import <mach/mach_types.h>
+#include <mach/mach_types.h>
 #include <mach/mach.h>
+#include <mach/mach_traps.h>
+
+#include <mach-o/loader.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread/pthread.h>
@@ -252,11 +254,12 @@ void set_exception_handler(mach_port_t amfid_task_port){
         return;
     }
     
-    
     // allocate a port to receive exceptions on and assign rights:
     mach_port_t amfid_exception_port = MACH_PORT_NULL;
     if((ret = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port)) != KERN_SUCCESS) printf("Allocating a new task port failed.\t(%d)\n", ret);
     if((ret = mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND)) != KERN_SUCCESS) printf("Inserting rights to amfid_exception_port failed.\t(%d)\n", ret);
+
+    
     
     if(!MACH_PORT_VALID(amfid_exception_port)){
         printf("Invalid amfid exception handler port!\n");
@@ -269,7 +272,7 @@ void set_exception_handler(mach_port_t amfid_task_port){
                                                  EXC_MASK_ALL,
                                                  amfid_exception_port,
                                                  EXCEPTION_DEFAULT | MACH_EXCEPTION_CODES,  // we want to receive a catch_exception_raise message with the thread port for the crashing thread
-                                                 ARM_THREAD_STATE64);
+                                                 6);
     
     if (err != KERN_SUCCESS){
         (printf)("error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
@@ -323,7 +326,7 @@ kptr_t perform_amfid_patches(){
     mach_port_t amfid_task_port = MACH_PORT_NULL;
     pid_t amfid_pid = look_for_proc("/usr/libexec/amfid");
     munmap(amfid_fdata, amfid_fsize);
-    
+
     /** Swap Spindump creds with local ones */
     // safepatch_swap_spindump_cred(g_exp.self_proc);
 

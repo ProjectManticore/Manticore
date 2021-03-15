@@ -13,7 +13,6 @@
 		2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2302160625DE93D6003E7C5C /* IOKit.framework */; };
 		2302161B25DEA254003E7C5C /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.mm */; };
 		2302162E25DEA566003E7C5C /* kernel_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.mm */; };
-		2302163725DEB41F003E7C5C /* hsp4.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302163625DEB41F003E7C5C /* hsp4.mm */; };
 		23652AFD25E7ABE4004D7F7E /* iosurface.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652AFC25E7ABE3004D7F7E /* iosurface.c */; };
 		23652B0225E7AC37004D7F7E /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B0125E7AC37004D7F7E /* utils.c */; };
 		23652B0925E7ACEB004D7F7E /* sys_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B0825E7ACEB004D7F7E /* sys_darwin.c */; };
@@ -65,8 +64,6 @@
 		2302162A25DEA365003E7C5C /* libproc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libproc.h; sourceTree = "<group>"; };
 		2302162D25DEA566003E7C5C /* kernel_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = kernel_utils.mm; sourceTree = "<group>"; };
 		2302163025DEA571003E7C5C /* kernel_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
-		2302163625DEB41F003E7C5C /* hsp4.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = hsp4.mm; sourceTree = "<group>"; };
-		2302163925DEB42B003E7C5C /* hsp4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsp4.h; sourceTree = "<group>"; };
 		23467B3525F916220083FCAE /* mach_vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mach_vm.h; path = manticore/include/xnu/mach_vm.h; sourceTree = SOURCE_ROOT; };
 		23652AFC25E7ABE3004D7F7E /* iosurface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iosurface.c; sourceTree = "<group>"; };
 		23652AFF25E7AC30004D7F7E /* tq_common_p.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tq_common_p.h; sourceTree = "<group>"; };
@@ -267,7 +264,6 @@
 				230215FA25DE8E8F003E7C5C /* rootfs.mm */,
 				2302161A25DEA254003E7C5C /* utils.mm */,
 				2302162D25DEA566003E7C5C /* kernel_utils.mm */,
-				2302163625DEB41F003E7C5C /* hsp4.mm */,
 			);
 			path = jailbreak;
 			sourceTree = "<group>";
@@ -459,7 +455,6 @@
 				230215FD25DE8E97003E7C5C /* rootfs.h */,
 				2302161D25DEA25E003E7C5C /* utils.h */,
 				2302163025DEA571003E7C5C /* kernel_utils.h */,
-				2302163925DEB42B003E7C5C /* hsp4.h */,
 			);
 			path = manticore;
 			sourceTree = "<group>";
@@ -580,7 +575,6 @@
 				848C426825F461DB00842110 /* log.mm in Sources */,
 				230215FB25DE8E8F003E7C5C /* rootfs.mm in Sources */,
 				23652B0925E7ACEB004D7F7E /* sys_darwin.c in Sources */,
-				2302163725DEB41F003E7C5C /* hsp4.mm in Sources */,
 				23652B0225E7AC37004D7F7E /* utils.c in Sources */,
 				23652B0D25E7AD96004D7F7E /* kapi_mem.c in Sources */,
 				2302162E25DEA566003E7C5C /* kernel_utils.mm in Sources */,

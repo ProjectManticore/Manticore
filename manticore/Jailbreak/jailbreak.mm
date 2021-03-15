@@ -20,7 +20,6 @@
 #include "exploit/cicuta/cicuta_virosa.h"
 #include "exploit/cicuta/exploit_main.h"
 #include "manticore/amfid.h"
-#include "manticore/hsp4.h"
 #include "manticore/kernel_utils.h"
 #include "manticore/jailbreak.h"
 #include "manticore/rootfs.h"
