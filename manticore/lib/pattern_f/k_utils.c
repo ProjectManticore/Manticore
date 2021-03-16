@@ -26,7 +26,6 @@ static void kproc_foreach(kptr_t proc, bool (^match)(kptr_t, pid_t)){
     while (KERN_POINTER_VALID(proc)) {
         pid = kapi_read32(proc + OFFSET(proc, p_pid));
         if (g_exp.debug) {
-           // util_debug("pid %u", pid);
             util_msleep(100);
         }
         if (match(proc, pid)) {
@@ -61,10 +60,6 @@ static void kproc_foreach_reverse(kptr_t proc, bool (^match)(kptr_t, pid_t)){
     kptr_t prev;
     while (KERN_POINTER_VALID(proc)) {
         pid = kapi_read32(proc + OFFSET(proc, p_pid));
-        if (g_exp.debug) {
-            util_info("pid %u", pid);
-            util_msleep(100);
-        }
         if (match(proc, pid)) {
             break;
         }
