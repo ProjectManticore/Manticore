@@ -53,20 +53,27 @@ uint64_t spindump_proc_cred = 0;
 pid_t spindump_pid = 0;
 
 
+
+/*!
+    @function safepatch_swap_spindump_cred
+        @param target_proc
+            target process to give creds to
+        @abstract steal credentials of a child process to get rights for patching amfid
+        @discussion safepatch_swap_spindump_cred
+            Trying to spawn a new spindump process, as a pwnd child process
+            swapping the credentials with spindump <-> ourproc should
+            give us enough priviledges over the amfid process/task to
+            set the exception handler and apply our patches
+ 
+ */
+
 void safepatch_swap_spindump_cred(uint64_t target_proc){
     if(spindump_proc_cred == 0){
         spindump_pid = 0;
         pid_t fpid = 0;
-        printf("-> Swapping spindump credentials....\t%s\n", look_for_proc("/usr/sbin/spindump") ? "(Spindump running already)" : "(Attempting to spawn spindump)");
+        printf("-> Swapping spindump credentials....\t%s\n", look_for_proc("/usr/sbin/spindump") ? "(Spindump running already)" : "(Spindump not running)");
         
-        /*!
-         *  @discussion safepatch_swap_spindump_cred
-         *    Trying to spawn a new spindump process, as a pwnd child process
-         *    swapping the credentials with spindump <-> ourproc should
-         *    give us enough priviledges over the amfid process/task to
-         *    set the exception handler and apply our patches
-         *
-         */
+
         
         if(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
             printf("-> Spawning spindump. This may take some time...\n");
