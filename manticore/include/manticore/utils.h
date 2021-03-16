@@ -18,7 +18,7 @@ struct proc_cred {
 extern "C" {
 #endif
 
-void patch_TF_PLATFORM(kptr_t task);
+bool patch_TF_PLATFORM(kptr_t task);
 void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred);
 int perform_root_patches(kptr_t ucred);
 char *get_path_for_pid(pid_t pid);
