@@ -147,8 +147,7 @@ void iosurface_s_set_indexed_timestamp(uint64_t v)
     }
 }
 
-bool
-IOSurface_init() {
+bool IOSurface_init(void) {
 	if (IOSurface_initialized) {
 		return true;
 	}
@@ -187,8 +186,7 @@ IOSurface_init() {
 	return true;
 }
 
-void
-IOSurface_deinit() {
+void IOSurface_deinit(void) {
 	assert(IOSurface_initialized);
 	IOSurface_initialized = false;
 	IOSurface_id = 0;

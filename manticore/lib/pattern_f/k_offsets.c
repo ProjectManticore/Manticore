@@ -27,11 +27,11 @@ static void offsets_base_iOS_14_x() {
     OFFSET(task, itk_space) = 0x330;
     
 #if _arm64e
-    OFFSET(task, bsd_info) = 0x3a0;
-    OFFSET(task, t_flags) = 0x3f4;
-#else
     OFFSET(task, bsd_info) = 0x390;
     OFFSET(task, t_flags) = 0x3d8;
+#else
+    OFFSET(task, bsd_info) = 0x3a0;
+    OFFSET(task, t_flags) = 0x3f4;
 #endif
 
     OFFSET(proc, le_next) = 0x00;
