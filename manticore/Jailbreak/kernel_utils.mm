@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "lib/tq/kapi.h"
-#include "exploit/cicuta/cicuta_virosa.h"
+#include <lib/tq/kapi.h>
+#include <exploit/cicuta/cicuta_virosa.h>
 
 #include "log.hpp"
 #include "kernel_utils.h"
@@ -16,14 +16,14 @@
 #include <mach/mach_traps.h>
 #include <mach/mach.h>
 
-#include "lib/tq/iosurface.h"
-#include "lib/tq/kapi.h"
-#include "lib/tq/k_offsets.h"
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
-#include "lib/tq/k_utils.h"
+#include <lib/tq/iosurface.h>
+#include <lib/tq/kapi.h>
+#include <lib/tq/k_offsets.h>
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
+#include <lib/tq/k_utils.h>
 
-#include "util/error.hpp"
+#include <util/error.hpp>
 
 #if 1
 #define MAX_CHUNK 0xff0

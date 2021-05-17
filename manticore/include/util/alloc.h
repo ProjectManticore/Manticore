@@ -8,7 +8,7 @@
 #ifndef alloc_h
 #define alloc_h
 
-#include "util/error.hpp"
+#include <util/error.hpp>
 
 #define SafeFree(x) do { if (x) free(x); } while (false)
 #define SafeFreeNULL(x) do { SafeFree(x); (x) = NULL; } while (false)

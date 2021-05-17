@@ -1,9 +1,9 @@
 #include <string.h>
 #include <stdio.h>
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
 #define Q_INTERNAL
-#include "lib/tq/k_offsets.h"
+#include <lib/tq/k_offsets.h>
 #include "include/util/arm.h"
 
 #ifndef _arm64e

@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <mach/mach.h>
-#include "lib/tq/utils.h"
-#include "lib/tq/user_kernel_alloc.h"
+#include <lib/tq/utils.h>
+#include <lib/tq/user_kernel_alloc.h>
 
 // ---------------------------------------------------------------------------
 // pipe spray

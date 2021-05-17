@@ -5,8 +5,8 @@
 //  Created by fugiefire on 7/3/21.
 //
 
-#include "util/log.hpp"
-#include "util/error.hpp"
+#include <util/log.hpp>
+#include <util/error.hpp>
 
 #include <stdlib.h>
 #include <string.h>

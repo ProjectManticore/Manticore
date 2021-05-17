@@ -11,11 +11,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <mach/mach_types.h>
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
-#include "lib/tq/k_utils.h"
-#include "lib/tq/kapi.h"
-#include "lib/tq/k_offsets.h"
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
+#include <lib/tq/k_utils.h>
+#include <lib/tq/kapi.h>
+#include <lib/tq/k_offsets.h>
 
 #define KPTR_NULL ((kptr_t) 0)
 #define _assert(x)

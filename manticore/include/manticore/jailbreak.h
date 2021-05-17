@@ -9,7 +9,7 @@
 #ifndef jailbreak_h
 #define jailbreak_h
 
-#include "exploit/cicuta/cicuta_virosa.h"
+#include <exploit/cicuta/cicuta_virosa.h>
 
 #ifdef __cplusplus
 extern "C" {

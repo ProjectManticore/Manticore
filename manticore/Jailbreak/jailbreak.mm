@@ -11,23 +11,23 @@
 #include <sys/snapshot.h>
 #include <mach/mach.h>
 #include <Foundation/Foundation.h>
-#include "lib/tq/iosurface.h"
-#include "lib/tq/kapi.h"
-#include "lib/tq/k_offsets.h"
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
-#include "lib/tq/k_utils.h"
-#include "exploit/cicuta/cicuta_virosa.h"
-#include "exploit/cicuta/exploit_main.h"
-#include "manticore/amfid.h"
-#include "manticore/kernel_utils.h"
-#include "manticore/jailbreak.h"
-#include "manticore/rootfs.h"
-#include "manticore/utils.h"
+#include <lib/tq/iosurface.h>
+#include <lib/tq/kapi.h>
+#include <lib/tq/k_offsets.h>
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
+#include <lib/tq/k_utils.h>
+#include <exploit/cicuta/cicuta_virosa.h>
+#include <exploit/cicuta/exploit_main.h>
+#include <manticore/amfid.h>
+#include <manticore/kernel_utils.h>
+#include <manticore/jailbreak.h>
+#include <manticore/rootfs.h>
+#include <manticore/utils.h>
 
-#include "util/plistutils.h"
+#include <util/plistutils.h>
 
-#include "xnu/libsyscall/wrappers/libproc/libproc.h"
+#include <xnu/libsyscall/wrappers/libproc/libproc.h>
 
 
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)

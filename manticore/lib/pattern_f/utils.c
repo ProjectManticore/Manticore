@@ -16,8 +16,8 @@
 #include <signal.h>
 #include <string.h>
 #include <CoreFoundation/CoreFoundation.h>
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
 
 static void util_vprintf(const char *fmt, va_list ap);
 

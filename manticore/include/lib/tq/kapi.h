@@ -12,7 +12,7 @@
 #include <sys/cdefs.h>
 #include <stdint.h>
 
-#include "util/kutils.h"
+#include <util/kutils.h>
 
 __BEGIN_DECLS
 

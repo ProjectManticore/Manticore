@@ -8,7 +8,7 @@
 #ifndef error_h
 #define error_h
 
-#include "util/log.hpp"
+#include <util/log.hpp>
 
 /* handy macros for sanity checking */
 /* fairly self explanatory */

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "exploit/cicuta/cicuta_virosa.h"
+#include <exploit/cicuta/cicuta_virosa.h>
 #include "exploit_utilities.h"
 
 #include "utils.h"
@@ -15,8 +15,8 @@
 #include "kapi.h"
 
 #include "log.hpp"
-#include "util/mach_vm.h"
-#include "manticore/amfid.h"
+#include <util/mach_vm.h>
+#include <manticore/amfid.h>
 
 #include <mach/mach_traps.h>
 #include <mach/vm_region.h>

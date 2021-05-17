@@ -6,8 +6,8 @@
 //  Copyright © 2021 Quote. All rights reserved.
 //
 
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/kapi.h"
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/kapi.h>
 
 mach_port_t kernel_task_port;
 

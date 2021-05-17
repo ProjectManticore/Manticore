@@ -33,7 +33,7 @@
 #include <stdbool.h>
 #include <mach/message.h> /* for audit_token_t */
 
-#include "xnu/bsd/sys/proc_info.h"
+#include <xnu/bsd/sys/proc_info.h>
 
 #include <Availability.h>
 #include <os/availability.h>

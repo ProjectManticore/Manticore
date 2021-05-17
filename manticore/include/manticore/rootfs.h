@@ -8,7 +8,7 @@
 #ifndef rootfs_h
 #define rootfs_h
 
-#include "util/kutils.h"
+#include <util/kutils.h>
 
 #ifdef __cplusplus
 extern "C" {

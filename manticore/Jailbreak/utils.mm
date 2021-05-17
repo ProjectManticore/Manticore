@@ -26,7 +26,7 @@
 #include <lib/tq/k_offsets.h>
 
 #include "k_offsets.h"
-#include "util/alloc.h"
+#include <util/alloc.h>
 
 extern char **environ;
 NSData *lastSystemOutput=nil;

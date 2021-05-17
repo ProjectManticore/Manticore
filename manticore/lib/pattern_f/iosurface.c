@@ -10,8 +10,8 @@
 
 #include "IOKitUser/IOKitLib.h"
 
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
 
 enum {
     kOSSerializeDictionary      = 0x01000000,

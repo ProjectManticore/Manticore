@@ -8,7 +8,7 @@
 #ifndef kernel_utils_h
 #define kernel_utils_h
 
-#include "util/kutils.h"
+#include <util/kutils.h>
 
 #define OFFSET(base_, object_) _##base_##__##object_##__offset_
 typedef unsigned long long addr_t;

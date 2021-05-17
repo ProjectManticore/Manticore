@@ -7,8 +7,8 @@
 #include <strings.h>
 #include <getopt.h>
 #import <CoreFoundation/CoreFoundation.h>
-#include "lib/snappy/IOKit.h"
-#include "lib/snappy/snappy.h"
+#include <lib/snappy/IOKit.h>
+#include <lib/snappy/snappy.h>
 
 static char *copyBootHash(void);
 #define APPLESNAP "com.apple.os.update-"
