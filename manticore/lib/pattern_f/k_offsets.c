@@ -45,6 +45,7 @@ static void offsets_base_iOS_14_x() {
     OFFSET(proc, rgid) = 0x3c;
     OFFSET(proc, uid) = 0x30;
     OFFSET(proc, ruid) = 0x38;
+    OFFSET(proc, pid) = 0x68;
     
     OFFSET(filedesc, fd_ofiles) = 0x00;
     OFFSET(fileproc, fp_glob) = 0x10;
@@ -69,6 +70,8 @@ static void offsets_base_iOS_14_x() {
     OFFSET(OSString, string) = 0x10;
 
     OFFSET(IOSurfaceRootUserClient, surfaceClients) = 0x118;
+    
+    OFFSET(vnode, vmount) = 0xd8;
 }
 
 void kernel_offsets_init(void) {

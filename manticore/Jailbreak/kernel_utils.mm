@@ -184,12 +184,12 @@ void patch_codesign(){
 
 
 uint64_t proc_of_pid(pid_t pid) {
-    //uint64_t proc = read_64(find_allproc()), pd;
-    //while (proc) { //iterate over all processes till we find the one we're looking for
-    //    pd = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_PID));
-    //    if (pd == pid) return proc;
-    //    proc = read_64(proc);
-    //}
+//    uint64_t proc = read_64(find_allproc()), pd;
+//    while (proc) { //iterate over all processes till we find the one we're looking for
+//        pd = read_32(proc + koffset(KSTRUCT_OFFSET_PROC_PID));
+//        if (pd == pid) return proc;
+//        proc = read_64(proc);
+//    }
     return 0;
 }
 

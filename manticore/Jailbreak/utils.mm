@@ -418,8 +418,8 @@ void *CDHashFor(char *file){
         CFNumberGetValue(nn, kCFNumberIntType, &algoIndex);
     }
     
-    //(printf)("cdhashesCnt: %d\n", CFArrayGetCount(cdhashes));
-    //(printf)("algosCnt: %d\n", CFArrayGetCount(algos));
+    (printf)("cdhashesCnt: %d\n", CFArrayGetCount(cdhashes));
+    (printf)("algosCnt: %d\n", CFArrayGetCount(algos));
     
     CFDataRef cdhash = NULL;
     if (cdhashes == NULL) {
@@ -439,9 +439,156 @@ void *CDHashFor(char *file){
         return NULL;
     }
     
-    //(printf)("cdhash len: %d\n", CFDataGetLength(cdhash));
+    (printf)("cdhash len: %d\n", CFDataGetLength(cdhash));
     char *rv = (char *)calloc(1, 20);
     memcpy(rv, CFDataGetBytePtr(cdhash), 20);
     CFRelease(signinginfo);
+    return rv;
+}
+
+bool isSymlink(const char *filename) {
+    struct stat buf;
+    if (lstat(filename, &buf) != ERR_SUCCESS) {
+        return false;
+    }
+    return S_ISLNK(buf.st_mode);
+}
+
+bool isDirectory(const char *filename) {
+    struct stat buf;
+    if (lstat(filename, &buf) != ERR_SUCCESS) {
+        return false;
+    }
+    return S_ISDIR(buf.st_mode);
+}
+
+bool isMountpoint(const char *filename) {
+    struct stat buf;
+    if (lstat(filename, &buf) != ERR_SUCCESS) {
+        return false;
+    }
+
+    if (!S_ISDIR(buf.st_mode))
+        return false;
+    
+    char *cwd = getcwd(NULL, 0);
+    int rv = chdir(filename);
+    assert(rv == ERR_SUCCESS);
+    struct stat p_buf;
+    rv = lstat("..", &p_buf);
+    assert(rv == ERR_SUCCESS);
+    if (cwd) {
+        chdir(cwd);
+        SafeFreeNULL(cwd);
+    }
+    return buf.st_dev != p_buf.st_dev || buf.st_ino == p_buf.st_ino;
+}
+
+bool deleteFile(const char *file) {
+    NSString *path = @(file);
+    if ([[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil]) {
+        return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    }
+    return YES;
+}
+
+bool ensureDirectory(const char *directory, int owner, mode_t mode) {
+    NSString *path = @(directory);
+    NSFileManager *fm = [NSFileManager defaultManager];
+    id attributes = [fm attributesOfItemAtPath:path error:nil];
+    if (attributes &&
+        [attributes[NSFileType] isEqual:NSFileTypeDirectory] &&
+        [attributes[NSFileOwnerAccountID] isEqual:@(owner)] &&
+        [attributes[NSFileGroupOwnerAccountID] isEqual:@(owner)] &&
+        [attributes[NSFilePosixPermissions] isEqual:@(mode)]
+        ) {
+        // Directory exists and matches arguments
+        return true;
+    }
+    if (attributes) {
+        if ([attributes[NSFileType] isEqual:NSFileTypeDirectory]) {
+            // Item exists and is a directory
+            return [fm setAttributes:@{
+                           NSFileOwnerAccountID: @(owner),
+                           NSFileGroupOwnerAccountID: @(owner),
+                           NSFilePosixPermissions: @(mode)
+                           } ofItemAtPath:path error:nil];
+        } else if (![fm removeItemAtPath:path error:nil]) {
+            // Item exists and is not a directory but could not be removed
+            return false;
+        }
+    }
+    // Item does not exist at this point
+    return [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:@{
+                   NSFileOwnerAccountID: @(owner),
+                   NSFileGroupOwnerAccountID: @(owner),
+                   NSFilePosixPermissions: @(mode)
+               } error:nil];
+}
+
+bool ensureSymlink(const char *to, const char *from) {
+    ssize_t wantedLength = strlen(to);
+    ssize_t maxLen = wantedLength + 1;
+    char link[maxLen];
+    ssize_t linkLength = readlink(from, link, sizeof(link));
+    if (linkLength != wantedLength ||
+        strncmp(link, to, maxLen) != ERR_SUCCESS
+        ) {
+        if (!deleteFile(from)) {
+            return false;
+        }
+        if (symlink(to, from) != ERR_SUCCESS) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ensureFile(const char *file, int owner, mode_t mode) {
+    NSString *path = @(file);
+    NSFileManager *fm = [NSFileManager defaultManager];
+    id attributes = [fm attributesOfItemAtPath:path error:nil];
+    if (attributes &&
+        [attributes[NSFileType] isEqual:NSFileTypeRegular] &&
+        [attributes[NSFileOwnerAccountID] isEqual:@(owner)] &&
+        [attributes[NSFileGroupOwnerAccountID] isEqual:@(owner)] &&
+        [attributes[NSFilePosixPermissions] isEqual:@(mode)]
+        ) {
+        // File exists and matches arguments
+        return true;
+    }
+    if (attributes) {
+        if ([attributes[NSFileType] isEqual:NSFileTypeRegular]) {
+            // Item exists and is a file
+            return [fm setAttributes:@{
+                                       NSFileOwnerAccountID: @(owner),
+                                       NSFileGroupOwnerAccountID: @(owner),
+                                       NSFilePosixPermissions: @(mode)
+                                       } ofItemAtPath:path error:nil];
+        } else if (![fm removeItemAtPath:path error:nil]) {
+            // Item exists and is not a file but could not be removed
+            return false;
+        }
+    }
+    // Item does not exist at this point
+    return [fm createFileAtPath:path contents:nil attributes:@{
+                               NSFileOwnerAccountID: @(owner),
+                               NSFileGroupOwnerAccountID: @(owner),
+                               NSFilePosixPermissions: @(mode)
+                               }];
+}
+
+
+void jailbreakExistenceCheck(){
+    // Check for taurine related files
+    
+}
+
+int waitForFile(const char *filename) {
+    int rv = access(filename, F_OK);
+    for (int i = 0; !(i >= 100 || rv == ERR_SUCCESS); i++) {
+        usleep(100000);
+        rv = access(filename, F_OK);
+    }
     return rv;
 }

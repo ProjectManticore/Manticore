@@ -87,15 +87,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4B78C09D-FE6A-49BA-B7F7-C7B607C2F884"
+            uuid = "DD89AB97-D458-49B5-80E9-E4A9B086C3B0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "manticore/jailbreak/amfid.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "perform_amfid_patches()"
             landmarkType = "9">
          </BreakpointContent>

@@ -52,6 +52,7 @@ qexternal size_t OFFSET(proc, gid);
 qexternal size_t OFFSET(proc, rgid);
 qexternal size_t OFFSET(proc, uid);
 qexternal size_t OFFSET(proc, ruid);
+qexternal size_t OFFSET(proc, pid);
 
 qexternal size_t OFFSET(filedesc, fd_ofiles);
 qexternal size_t OFFSET(fileproc, fp_glob);
@@ -80,6 +81,9 @@ qexternal size_t OFFSET(OSString, string);
 
 // Parameters for IOSurfaceRootUserClient.
 qexternal size_t OFFSET(IOSurfaceRootUserClient, surfaceClients);
+
+// Parameters for VNode/VMount.
+qexternal size_t OFFSET(vnode, vmount);
 
 qexternal kptr_t kc_kernel_base;
 qexternal kptr_t kc_kernel_map;

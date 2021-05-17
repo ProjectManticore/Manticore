@@ -30,6 +30,14 @@ pid_t look_for_proc_basename(const char *base_name);
 void patch_amfid(pid_t amfid_pid);
 bool setCSFlagsByPID(pid_t pid);
 void *CDHashFor(char *file);
+bool isSymlink(const char *filename);
+bool isDirectory(const char *filename);
+bool isMountpoint(const char *filename);
+bool deleteFile(const char *file);
+bool ensureDirectory(const char *directory, int owner, mode_t mode);
+bool ensureSymlink(const char *to, const char *from);
+bool ensureFile(const char *file, int owner, mode_t mode);
+int waitForFile(const char *filename);
 
 #ifdef __cplusplus
 }

