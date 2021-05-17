@@ -21,6 +21,7 @@
 		23652B1525E7ADA9004D7F7E /* k_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B1225E7ADA9004D7F7E /* k_utils.c */; };
 		23652B1A25E7AFEA004D7F7E /* exploit_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B1925E7AFEA004D7F7E /* exploit_main.c */; };
 		23652B1E25E7B04F004D7F7E /* user_kernel_alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 23652B1D25E7B04F004D7F7E /* user_kernel_alloc.c */; };
+		23B644ED26526CD700531BCC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B644EC26526CD700531BCC /* SystemConfiguration.framework */; };
 		23C704F625DB2EE80078DC37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704F525DB2EE80078DC37 /* AppDelegate.m */; };
 		23C704FC25DB2EE80078DC37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C704FB25DB2EE80078DC37 /* ViewController.m */; };
 		23C704FF25DB2EE80078DC37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C704FD25DB2EE80078DC37 /* Main.storyboard */; };
@@ -82,6 +83,9 @@
 		23652B1C25E7B04F004D7F7E /* user_kernel_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user_kernel_alloc.h; sourceTree = "<group>"; };
 		23652B1D25E7B04F004D7F7E /* user_kernel_alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = user_kernel_alloc.c; sourceTree = "<group>"; };
 		23652B2225E7B39B004D7F7E /* iosurface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosurface.h; sourceTree = "<group>"; };
+		23B644E72652681B00531BCC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		23B644EC26526CD700531BCC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		23B644EE2652700300531BCC /* cs_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cs_common.h; sourceTree = "<group>"; };
 		23BC8E6925E3BFE1006C6445 /* IOKitKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitKeys.h; sourceTree = "<group>"; };
 		23BC8E6B25E3C00A006C6445 /* OSMessageNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSMessageNotification.h; sourceTree = "<group>"; };
 		23C704F125DB2EE80078DC37 /* manticore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manticore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23B644ED26526CD700531BCC /* SystemConfiguration.framework in Frameworks */,
 				2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,6 +176,8 @@
 		231D23F325DD2CE8003C09FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23B644EC26526CD700531BCC /* SystemConfiguration.framework */,
+				23B644E72652681B00531BCC /* Security.framework */,
 				8112CA2525F6C8B8001A3D83 /* Kernel.framework */,
 				2302160625DE93D6003E7C5C /* IOKit.framework */,
 				2302160C25DE965B003E7C5C /* IOKit.framework */,
@@ -378,6 +385,7 @@
 				848C425F25F45D7400842110 /* iokit */,
 				848C425C25F45C7700842110 /* bsd */,
 				848C425925F45C6000842110 /* libsyscall */,
+				23B644EE2652700300531BCC /* cs_common.h */,
 			);
 			path = xnu;
 			sourceTree = "<group>";
@@ -729,6 +737,11 @@
 		23C7052425DB2EE90078DC37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = (
+					arm64e,
+					arm64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = manticore/manticore.entitlements;
@@ -741,7 +754,7 @@
 					"$(SRCROOT)/manticore",
 				);
 				INFOPLIST_FILE = manticore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -753,6 +766,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = 0.1;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -763,6 +777,11 @@
 		23C7052525DB2EE90078DC37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = (
+					arm64e,
+					arm64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = manticore/manticore.entitlements;
@@ -775,7 +794,7 @@
 					"$(SRCROOT)/manticore",
 				);
 				INFOPLIST_FILE = manticore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -787,6 +806,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = 0.1;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -29,6 +29,7 @@ pid_t look_for_proc(const char *proc_name);
 pid_t look_for_proc_basename(const char *base_name);
 void patch_amfid(pid_t amfid_pid);
 bool setCSFlagsByPID(pid_t pid);
+void *CDHashFor(char *file);
 
 #ifdef __cplusplus
 }

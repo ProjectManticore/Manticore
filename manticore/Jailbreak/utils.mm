@@ -6,11 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#include <CoreFoundation/CoreFoundation.h>
 #include <mach/error.h>
+#include <Security/Security.h>
+#include <mach/mach.h>
+#include <Security/Security.h>
 #include "xnu/bsd/sys/proc_info.h"
 #include "xnu/libsyscall/wrappers/libproc/libproc.h"
 #include "exploit/cicuta/cicuta_virosa.h"
-#include "kernel_utils.h"
+#include <manticore/kernel_utils.h>
 #include "utils.h"
 #import <spawn.h>
 
@@ -100,7 +104,7 @@ bool patch_TF_PLATFORM(kptr_t task) {
     if(KERN_POINTER_VALID(task)){
         uint32_t t_flags = kapi_read32(task + OFFSET(task, t_flags));
         uint32_t t_flags_mod = t_flags;
-        if(g_exp.debug) printf("TF-Flags:\t%#x |", t_flags);
+        if(g_exp.debug) printf("--> tf_flags:\t%#x |", t_flags);
         t_flags |= 0x00000400;
         kapi_write32(task + OFFSET(task, t_flags), t_flags);
         t_flags_mod = kapi_read32(task + OFFSET(task, t_flags));
@@ -351,3 +355,93 @@ void patch_tf_platform(uint64_t target_task){
     old_t_flags |= 0x00000400; // TF_PLATFORM
 }
 
+typedef CF_OPTIONS(uint32_t, SecCSFlags) {
+    kSecCSDefaultFlags = 0,                    /* no particular flags (default behavior) */
+    kSecCSConsiderExpiration = (NSUInteger)1 << 31,        /* consider expired certificates invalid */
+};
+
+typedef void *SecStaticCodeRef;
+extern "C" OSStatus SecStaticCodeCreateWithPathAndAttributes(CFURLRef path, SecCSFlags flags, CFDictionaryRef attributes, SecStaticCodeRef  _Nullable *staticCode);
+extern "C" OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags, CFDictionaryRef  _Nullable *information);
+CFStringRef (*_SecCopyErrorMessageString)(OSStatus status, void * __nullable reserved) = NULL;
+enum cdHashType {
+    cdHashTypeSHA1 = 1,
+    cdHashTypeSHA256 = 2
+};
+
+static char *cdHashName[3] = {NULL, "SHA1", "SHA256"};
+static enum cdHashType requiredHash = cdHashTypeSHA256;
+
+const void *CFArrayGetValueAtIndex_prevenOverFlow(CFArrayRef theArray, CFIndex idx){
+    CFIndex arrCnt = CFArrayGetCount(theArray);
+    if(idx >= arrCnt){
+        idx = arrCnt - 1;
+    }
+    return CFArrayGetValueAtIndex(theArray, idx);
+}
+
+
+void *CDHashFor(char *file){
+
+    SecStaticCodeRef staticCode = NULL;
+    
+    CFStringRef cfstr_path = CFStringCreateWithCString(kCFAllocatorDefault, file, kCFStringEncodingUTF8);
+    CFURLRef cfurl = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, cfstr_path, kCFURLPOSIXPathStyle, false);
+    CFRelease(cfstr_path);
+    OSStatus result = SecStaticCodeCreateWithPathAndAttributes(cfurl, kSecCSDefaultFlags, NULL, &staticCode);
+    CFRelease(cfurl);
+    if (result != 0) {
+        if (_SecCopyErrorMessageString != NULL) {
+            CFStringRef error = _SecCopyErrorMessageString(result, NULL);
+            
+            (printf)("Unable to generate cdhash for %s: %s\n", file, CFStringGetCStringPtr(error, kCFStringEncodingUTF8));
+            CFRelease(error);
+        } else {
+            (printf)("Unable to generate cdhash for %s: %d\n", file, result);
+        }
+        return nil;
+    }
+    
+    CFDictionaryRef signinginfo;
+    result = SecCodeCopySigningInformation(staticCode, kSecCSDefaultFlags, &signinginfo);
+    CFRelease(staticCode);
+    if (result != 0) {
+        (printf)("Unable to copy cdhash info for %s\n", file);
+        return NULL;
+    }
+    
+    CFArrayRef cdhashes = (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("cdhashes"));
+    CFArrayRef algos = (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("digest-algorithms"));
+    int algoIndex = -1;
+    CFNumberRef nn = (CFNumberRef)CFArrayGetValueAtIndex_prevenOverFlow(algos, requiredHash);
+    if(nn){
+        CFNumberGetValue(nn, kCFNumberIntType, &algoIndex);
+    }
+    
+    //(printf)("cdhashesCnt: %d\n", CFArrayGetCount(cdhashes));
+    //(printf)("algosCnt: %d\n", CFArrayGetCount(algos));
+    
+    CFDataRef cdhash = NULL;
+    if (cdhashes == NULL) {
+        (printf)("%s: no cdhashes\n", file);
+    } else if (algos == NULL) {
+        (printf)("%s: no algos\n", file);
+    } else if (algoIndex == -1) {
+        (printf)("%s: does not have %s hash", cdHashName[requiredHash], file);
+    } else {
+        cdhash = (CFDataRef)CFArrayGetValueAtIndex_prevenOverFlow(cdhashes, requiredHash);
+        if (cdhash == NULL) {
+            (printf)("%s: missing %s cdhash entry\n", file, cdHashName[requiredHash]);
+        }
+    }
+    if(cdhash == NULL){
+        CFRelease(signinginfo);
+        return NULL;
+    }
+    
+    //(printf)("cdhash len: %d\n", CFDataGetLength(cdhash));
+    char *rv = (char *)calloc(1, 20);
+    memcpy(rv, CFDataGetBytePtr(cdhash), 20);
+    CFRelease(signinginfo);
+    return rv;
+}
