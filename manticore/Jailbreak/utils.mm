@@ -383,9 +383,7 @@ const void *CFArrayGetValueAtIndex_prevenOverFlow(CFArrayRef theArray, CFIndex i
 
 
 void *CDHashFor(char *file){
-
     SecStaticCodeRef staticCode = NULL;
-    
     CFStringRef cfstr_path = CFStringCreateWithCString(kCFAllocatorDefault, file, kCFStringEncodingUTF8);
     CFURLRef cfurl = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, cfstr_path, kCFURLPOSIXPathStyle, false);
     CFRelease(cfstr_path);
@@ -584,8 +582,13 @@ void jailbreakExistenceCheck(){
     // Check for files that indicate the existence of another jailbreak
     
     // Check for taurine related files
-    if(isDirectory("/taurine") && access("/taurine/amfidebilitate.plist", R_OK)){
+    if(isDirectory("/taurine") && access("/taurine/amfidebilitate.plist", O_RDONLY)){
         printf("-> Spotted taurine files\n");
+    }
+    
+    // Check for unc0ver related files
+    if(access("/.installed_unc0ver", O_RDONLY)){
+        printf("-> Spotted unc0ver files\n");
     }
 }
 

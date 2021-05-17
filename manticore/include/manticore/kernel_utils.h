@@ -27,7 +27,7 @@ bool execute_with_credentials(kptr_t proc, kptr_t credentials, void (^function)(
 
 
 size_t kread(kptr_t where, void* p, size_t size);
-
+kptr_t find_allproc();
 uint64_t proc_of_pid(pid_t pid);
 kptr_t find_vnode_with_fd(kptr_t proc, int fd);
 

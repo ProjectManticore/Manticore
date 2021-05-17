@@ -207,3 +207,14 @@ kptr_t find_vnode_with_fd(kptr_t proc, int fd) {
     ret = vnode;
     return ret;
 }
+
+kptr_t find_allproc(){
+    kptr_t current_proc = g_exp.kernel_proc;
+    while(true){
+        kptr_t next_proc = kapi_read_kptr(current_proc + OFFSET(proc, le_next));
+        if(KERN_POINTER_VALID(next_proc)) current_proc = next_proc;
+        if(KERN_POINTER_INVALID(next_proc)) break;
+    }
+    
+    return current_proc;
+}

@@ -59,9 +59,11 @@ extern "C" int jailbreak() {
     uint64_t csflags = read_32(g_exp.self_proc + OFFSET(proc, csflags));
     uint64_t csflags_mod = (csflags|0xA8|0x0000008|0x0000004|0x10000000)&~(0x0000800|0x0000100|0x0000200);
     printf("CS Flags:\t0x%llx | 0x%llx\n", csflags, csflags_mod);
-    // AMFID PATCHES
-    start_rootfs_remount();
-    //perform_amfid_patches();
+    find_allproc();
+    
+    //    perform_amfid_patches();
+//    start_rootfs_remount();
+    
 
     printf("Goodbye!\n");
     return 0;
