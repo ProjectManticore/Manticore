@@ -2,8 +2,8 @@
 iOS Jailbreak based on cicuta_virosa
 
 ## About us
-The Manticore Jailbreak, is an independant jailbreak tool for all devices, including A14 and below, running iOS 14.3 or lower.
-It's our goal to steal the title, "the Most advanced jailbreak" title from unc0ver.
+The Manticore Jailbreak is an independent jailbreaking tool for all devices, including A14 and below, running iOS 14.3 or lower.
+It's our goal to take back the "The most advanced jailbreak" title from unc0ver.
 
 ## Completion 
 - [x] Exploit Implementation (cicuta_virosa)
@@ -11,9 +11,10 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [x] Sandbox escape
 - [x] Privilege escalation
 - [x] offset finder/dynamic offsets
-- [ ] amfid bypass/patch
+- [x] amfid bypass/patch
 - [x] amfid -> getting task port address 
-- [ ] rootfs remount
+- [x] rootfs remount
+- [ ] `jailbreakd` implementation
 - [ ] bootstrap/package manager installation
 
 ### Credits
