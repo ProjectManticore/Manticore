@@ -5,29 +5,29 @@
 //  Created by Luca on 18.02.21.
 //
 
-#include <CoreFoundation/CoreFoundation.h>
+#import <CoreFoundation/CoreFoundation.h>
 #import <Foundation/Foundation.h>
-#include <Security/Security.h>
-#include <exploit/cicuta/cicuta_virosa.h>
-#include <mach/error.h>
-#include <mach/mach.h>
-#include <manticore/kernel_utils.h>
-#include <manticore/utils.h>
-#import <spawn.h>
-#include <stdlib.h>
-#include <sys/mman.h>
-#include <unistd.h>
-#include <xnu/bsd/sys/proc_info.h>
-#include <xnu/libsyscall/wrappers/libproc/libproc.h>
+#import <Security/Security.h>
 
+#include <exploit/cicuta/cicuta_virosa.h>
 #include <lib/tq/k_offsets.h>
 #include <lib/tq/k_utils.h>
 #include <lib/tq/kapi.h>
 #include <lib/tq/tq_common_p.h>
 #include <lib/tq/utils.h>
+#include <mach/error.h>
+#include <mach/mach.h>
+#include <manticore/kernel_utils.h>
+#include <manticore/utils.h>
+#include <spawn.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <unistd.h>
+#include <util/alloc.h>
+#include <xnu/bsd/sys/proc_info.h>
+#include <xnu/libsyscall/wrappers/libproc/libproc.h>
 
 #include "k_offsets.h"
-#include <util/alloc.h>
 
 extern char **environ;
 NSData *lastSystemOutput = nil;

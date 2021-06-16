@@ -5,21 +5,24 @@
 //  Created by Luca on 18.02.21.
 //
 
-// todo: sort
-#include "exploit_utilities.h"
 #import <Foundation/Foundation.h>
-#include <exploit/cicuta/cicuta_virosa.h>
 
+#include "../include/lib/tq/utils.h"
+#include "exploit_utilities.h"
+#include "k_offsets.h"
 #include "k_utils.h"
 #include "kapi.h"
+#include "kernel_utils.h"
+#include "kutils.h"
+#include "log.hpp"
 #include "tq_common_p.h"
 #include "utils.h"
 
-#include "log.hpp"
-#include <manticore/amfid.h>
-#include <util/error.hpp>
-#include <util/mach_vm.h>
-
+#include <errno.h>
+#include <exploit/cicuta/cicuta_virosa.h>
+#include <mach-o/getsect.h>
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
 #include <mach/host_special_ports.h>
 #include <mach/mach.h>
 #include <mach/mach_error.h>
@@ -28,22 +31,15 @@
 #include <mach/mach_types.h>
 #include <mach/vm_map.h>
 #include <mach/vm_region.h>
-
-#include <mach-o/loader.h>
-
-#include "../include/lib/tq/utils.h"
-#include "k_offsets.h"
-#include "kapi.h"
-#include "kernel_utils.h"
-#include "kutils.h"
-#include <errno.h>
-#include <mach-o/getsect.h>
-#include <mach-o/nlist.h>
 #include <pthread/pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+
+#include <manticore/amfid.h>
+#include <util/error.hpp>
+#include <util/mach_vm.h>
 
 #define TRUST_CDHASH_LEN (20)
 
