@@ -9,8 +9,8 @@
 #ifndef kapi_h
 #define kapi_h
 
-#include <sys/cdefs.h>
 #include <stdint.h>
+#include <sys/cdefs.h>
 
 #include <util/kutils.h>
 
@@ -46,4 +46,3 @@ bool kapi_write64(kptr_t addr, uint64_t value);
 __END_DECLS
 
 #endif /* kapi_h */
-

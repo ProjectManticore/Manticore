@@ -96,7 +96,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "585"
             endingLineNumber = "585"
-            landmarkName = "perform_amfid_patches()"
+            landmarkName = "performAmfidPatches()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

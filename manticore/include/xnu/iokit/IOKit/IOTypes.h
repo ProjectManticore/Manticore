@@ -41,22 +41,22 @@
 #include <mach/vm_types.h>
 #endif
 
-#include <xnu/iokit/IOKit/IOReturn.h>
 #include <MacTypes.h>
+#include <xnu/iokit/IOKit/IOReturn.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #ifndef NULL
-#if defined (__cplusplus)
+#if defined(__cplusplus)
 #ifdef XNU_KERNEL_PRIVATE
 #define NULL nullptr
 #else
 #if __cplusplus >= 201103L && (defined(__arm__) || defined(__arm64__))
 #define NULL nullptr
 #else
-#define NULL    0
+#define NULL 0
 #endif
 #endif
 #else
@@ -74,69 +74,71 @@ extern "C" {
 #include <libkern/OSBase.h>
 #endif
 
-typedef UInt32          IOOptionBits;
-typedef SInt32          IOFixed;
-typedef UInt32          IOVersion;
-typedef UInt32          IOItemCount;
-typedef UInt32          IOCacheMode;
+typedef UInt32 IOOptionBits;
+typedef SInt32 IOFixed;
+typedef UInt32 IOVersion;
+typedef UInt32 IOItemCount;
+typedef UInt32 IOCacheMode;
 
-typedef UInt32          IOByteCount32;
-typedef UInt64          IOByteCount64;
+typedef UInt32 IOByteCount32;
+typedef UInt64 IOByteCount64;
 
-typedef UInt32  IOPhysicalAddress32;
-typedef UInt64  IOPhysicalAddress64;
-typedef UInt32  IOPhysicalLength32;
-typedef UInt64  IOPhysicalLength64;
+typedef UInt32 IOPhysicalAddress32;
+typedef UInt64 IOPhysicalAddress64;
+typedef UInt32 IOPhysicalLength32;
+typedef UInt64 IOPhysicalLength64;
 
 #if !defined(__arm__) && !defined(__i386__)
-typedef mach_vm_address_t       IOVirtualAddress;
+typedef mach_vm_address_t IOVirtualAddress;
 #else
-typedef vm_address_t            IOVirtualAddress;
+typedef vm_address_t IOVirtualAddress;
 #endif
 
-#if !defined(__arm__) && !defined(__i386__) && !(defined(__x86_64__) && !defined(KERNEL)) && !(defined(__arm64__) && !defined(__LP64__))
-typedef IOByteCount64           IOByteCount;
-#define PRIIOByteCount                  PRIu64
+#if !defined(__arm__) && !defined(__i386__) &&                                 \
+    !(defined(__x86_64__) && !defined(KERNEL)) &&                              \
+    !(defined(__arm64__) && !defined(__LP64__))
+typedef IOByteCount64 IOByteCount;
+#define PRIIOByteCount PRIu64
 #else
-typedef IOByteCount32           IOByteCount;
-#define PRIIOByteCount                  PRIu32
+typedef IOByteCount32 IOByteCount;
+#define PRIIOByteCount PRIu32
 #endif
 
-typedef IOVirtualAddress    IOLogicalAddress;
+typedef IOVirtualAddress IOLogicalAddress;
 
-#if !defined(__arm__) && !defined(__i386__) && !(defined(__x86_64__) && !defined(KERNEL))
+#if !defined(__arm__) && !defined(__i386__) &&                                 \
+    !(defined(__x86_64__) && !defined(KERNEL))
 
-typedef IOPhysicalAddress64      IOPhysicalAddress;
-typedef IOPhysicalLength64       IOPhysicalLength;
-#define IOPhysical32( hi, lo )          ((UInt64) lo + ((UInt64)(hi) << 32))
-#define IOPhysSize      64
+typedef IOPhysicalAddress64 IOPhysicalAddress;
+typedef IOPhysicalLength64 IOPhysicalLength;
+#define IOPhysical32(hi, lo) ((UInt64)lo + ((UInt64)(hi) << 32))
+#define IOPhysSize 64
 
 #else
 
-typedef IOPhysicalAddress32      IOPhysicalAddress;
-typedef IOPhysicalLength32       IOPhysicalLength;
-#define IOPhysical32( hi, lo )          (lo)
-#define IOPhysSize      32
+typedef IOPhysicalAddress32 IOPhysicalAddress;
+typedef IOPhysicalLength32 IOPhysicalLength;
+#define IOPhysical32(hi, lo) (lo)
+#define IOPhysSize 32
 
 #endif
 
-
-typedef struct{
-    IOPhysicalAddress   address;
-    IOByteCount         length;
+typedef struct {
+    IOPhysicalAddress address;
+    IOByteCount length;
 } IOPhysicalRange;
 
-typedef struct{
-    IOVirtualAddress    address;
-    IOByteCount         length;
+typedef struct {
+    IOVirtualAddress address;
+    IOByteCount length;
 } IOVirtualRange;
 
 #if !defined(__arm__) && !defined(__i386__)
-typedef IOVirtualRange  IOAddressRange;
+typedef IOVirtualRange IOAddressRange;
 #else
-typedef struct{
-    mach_vm_address_t   address;
-    mach_vm_size_t      length;
+typedef struct {
+    mach_vm_address_t address;
+    mach_vm_size_t length;
 } IOAddressRange;
 #endif
 
@@ -148,14 +150,12 @@ typedef struct {
     const char *name;
 } IONamedValue;
 
-
 /*
  * Memory alignment -- specified as a power of two.
  */
-typedef unsigned int    IOAlignment;
+typedef unsigned int IOAlignment;
 
-#define IO_NULL_VM_TASK         ((vm_task_t)0)
-
+#define IO_NULL_VM_TASK ((vm_task_t)0)
 
 /*
  * Pull in machine specific stuff.
@@ -170,79 +170,79 @@ typedef unsigned int    IOAlignment;
 #ifdef KERNEL
 #ifdef __cplusplus
 class OSObject;
-typedef OSObject * io_object_t;
+typedef OSObject *io_object_t;
 #else
-typedef struct OSObject * io_object_t;
+typedef struct OSObject *io_object_t;
 #endif
-#else /* KERNEL */
-typedef mach_port_t     io_object_t;
+#else  /* KERNEL */
+typedef mach_port_t io_object_t;
 #endif /* KERNEL */
 #endif /* __IOKIT_PORTS_DEFINED__ */
 
 #include <device/device_types.h>
 
-typedef io_object_t     io_connect_t;
-typedef io_object_t     io_enumerator_t;
-typedef io_object_t     io_iterator_t;
-typedef io_object_t     io_registry_entry_t;
-typedef io_object_t     io_service_t;
-typedef io_object_t     uext_object_t;
+typedef io_object_t io_connect_t;
+typedef io_object_t io_enumerator_t;
+typedef io_object_t io_iterator_t;
+typedef io_object_t io_registry_entry_t;
+typedef io_object_t io_service_t;
+typedef io_object_t uext_object_t;
 
-#define IO_OBJECT_NULL  ((io_object_t) 0)
+#define IO_OBJECT_NULL ((io_object_t)0)
 
 #endif /* MACH_KERNEL */
 
 // IOConnectMapMemory memoryTypes
-enum {
-    kIODefaultMemoryType        = 0
-};
+enum { kIODefaultMemoryType = 0 };
 
 enum {
-    kIODefaultCache             = 0,
-    kIOInhibitCache             = 1,
-    kIOWriteThruCache           = 2,
-    kIOCopybackCache            = 3,
-    kIOWriteCombineCache        = 4,
-    kIOCopybackInnerCache       = 5,
-    kIOPostedWrite              = 6,
-    kIORealTimeCache            = 7,
-    kIOPostedReordered          = 8,
-    kIOPostedCombinedReordered  = 9,
+    kIODefaultCache = 0,
+    kIOInhibitCache = 1,
+    kIOWriteThruCache = 2,
+    kIOCopybackCache = 3,
+    kIOWriteCombineCache = 4,
+    kIOCopybackInnerCache = 5,
+    kIOPostedWrite = 6,
+    kIORealTimeCache = 7,
+    kIOPostedReordered = 8,
+    kIOPostedCombinedReordered = 9,
 };
 
 // IOMemory mapping options
 enum {
-    kIOMapAnywhere                = 0x00000001,
+    kIOMapAnywhere = 0x00000001,
 
-    kIOMapCacheMask               = 0x00000f00,
-    kIOMapCacheShift              = 8,
-    kIOMapDefaultCache            = kIODefaultCache            << kIOMapCacheShift,
-    kIOMapInhibitCache            = kIOInhibitCache            << kIOMapCacheShift,
-    kIOMapWriteThruCache          = kIOWriteThruCache          << kIOMapCacheShift,
-    kIOMapCopybackCache           = kIOCopybackCache           << kIOMapCacheShift,
-    kIOMapWriteCombineCache       = kIOWriteCombineCache       << kIOMapCacheShift,
-    kIOMapCopybackInnerCache      = kIOCopybackInnerCache      << kIOMapCacheShift,
-    kIOMapPostedWrite             = kIOPostedWrite             << kIOMapCacheShift,
-    kIOMapRealTimeCache           = kIORealTimeCache           << kIOMapCacheShift,
-    kIOMapPostedReordered         = kIOPostedReordered         << kIOMapCacheShift,
-    kIOMapPostedCombinedReordered = kIOPostedCombinedReordered << kIOMapCacheShift,
+    kIOMapCacheMask = 0x00000f00,
+    kIOMapCacheShift = 8,
+    kIOMapDefaultCache = kIODefaultCache << kIOMapCacheShift,
+    kIOMapInhibitCache = kIOInhibitCache << kIOMapCacheShift,
+    kIOMapWriteThruCache = kIOWriteThruCache << kIOMapCacheShift,
+    kIOMapCopybackCache = kIOCopybackCache << kIOMapCacheShift,
+    kIOMapWriteCombineCache = kIOWriteCombineCache << kIOMapCacheShift,
+    kIOMapCopybackInnerCache = kIOCopybackInnerCache << kIOMapCacheShift,
+    kIOMapPostedWrite = kIOPostedWrite << kIOMapCacheShift,
+    kIOMapRealTimeCache = kIORealTimeCache << kIOMapCacheShift,
+    kIOMapPostedReordered = kIOPostedReordered << kIOMapCacheShift,
+    kIOMapPostedCombinedReordered = kIOPostedCombinedReordered
+                                    << kIOMapCacheShift,
 
-    kIOMapUserOptionsMask         = 0x00000fff,
+    kIOMapUserOptionsMask = 0x00000fff,
 
-    kIOMapReadOnly                = 0x00001000,
+    kIOMapReadOnly = 0x00001000,
 
-    kIOMapStatic                  = 0x01000000,
-    kIOMapReference               = 0x02000000,
-    kIOMapUnique                  = 0x04000000,
+    kIOMapStatic = 0x01000000,
+    kIOMapReference = 0x02000000,
+    kIOMapUnique = 0x04000000,
 #ifdef XNU_KERNEL_PRIVATE
-    kIOMap64Bit                   = 0x08000000,
+    kIOMap64Bit = 0x08000000,
 #endif
-    kIOMapPrefault                = 0x10000000,
-    kIOMapOverwrite               = 0x20000000
+    kIOMapPrefault = 0x10000000,
+    kIOMapOverwrite = 0x20000000
 };
 
 /*! @enum Scale Factors
- *   @discussion Used when a scale_factor parameter is required to define a unit of time.
+ *   @discussion Used when a scale_factor parameter is required to define a unit
+ * of time.
  *   @constant kNanosecondScale Scale factor for nanosecond based times.
  *   @constant kMicrosecondScale Scale factor for microsecond based times.
  *   @constant kMillisecondScale Scale factor for millisecond based times.
@@ -250,16 +250,14 @@ enum {
  *   @constant kSecondScale Scale factor for second based times. */
 
 enum {
-    kNanosecondScale  = 1,
+    kNanosecondScale = 1,
     kMicrosecondScale = 1000,
     kMillisecondScale = 1000 * 1000,
-    kSecondScale      = 1000 * 1000 * 1000,
-    kTickScale        = (kSecondScale / 100)
+    kSecondScale = 1000 * 1000 * 1000,
+    kTickScale = (kSecondScale / 100)
 };
 
-enum {
-    kIOConnectMethodVarOutputSize = -3
-};
+enum { kIOConnectMethodVarOutputSize = -3 };
 
 /* compatibility types */
 
@@ -277,25 +275,25 @@ typedef unsigned int IODeviceNumber;
 
 #include <stdint.h>
 
-typedef uint32_t          IOOptionBits;
-typedef int32_t           IOFixed;
-typedef uint32_t          IOVersion;
-typedef uint32_t          IOItemCount;
-typedef uint32_t          IOCacheMode;
+typedef uint32_t IOOptionBits;
+typedef int32_t IOFixed;
+typedef uint32_t IOVersion;
+typedef uint32_t IOItemCount;
+typedef uint32_t IOCacheMode;
 
-typedef uint32_t          IOByteCount32;
-typedef uint64_t          IOByteCount64;
-typedef IOByteCount64     IOByteCount;
+typedef uint32_t IOByteCount32;
+typedef uint64_t IOByteCount64;
+typedef IOByteCount64 IOByteCount;
 
-typedef uint32_t  IOPhysicalAddress32;
-typedef uint64_t  IOPhysicalAddress64;
-typedef uint32_t  IOPhysicalLength32;
-typedef uint64_t  IOPhysicalLength64;
+typedef uint32_t IOPhysicalAddress32;
+typedef uint64_t IOPhysicalAddress64;
+typedef uint32_t IOPhysicalLength32;
+typedef uint64_t IOPhysicalLength64;
 
-typedef IOPhysicalAddress64      IOPhysicalAddress;
-typedef IOPhysicalLength64       IOPhysicalLength;
+typedef IOPhysicalAddress64 IOPhysicalAddress;
+typedef IOPhysicalLength64 IOPhysicalLength;
 
-typedef uint64_t       IOVirtualAddress;
+typedef uint64_t IOVirtualAddress;
 
 #endif /* PLATFORM_DriverKit */
 
@@ -305,8 +303,8 @@ enum {
     kIOMaxBusStall25usec = 25000,
     kIOMaxBusStall20usec = 20000,
     kIOMaxBusStall10usec = 10000,
-    kIOMaxBusStall5usec  = 5000,
-    kIOMaxBusStallNone   = 0,
+    kIOMaxBusStall5usec = 5000,
+    kIOMaxBusStallNone = 0,
 };
 
 #endif /* ! __IOKIT_IOTYPES_H */

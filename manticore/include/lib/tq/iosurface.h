@@ -8,8 +8,8 @@
 #ifndef IOSurfaceLib_h
 #define IOSurfaceLib_h
 
-#include <mach/mach.h>
 #include <mach/error.h>
+#include <mach/mach.h>
 #include <mach/message.h>
 
 extern mach_port_t IOSurfaceRootUserClient;

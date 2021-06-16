@@ -10,10 +10,10 @@
 #define k_offsets_h
 
 // Generate the name for an offset.
-#define OFFSET(base_, object_)      _##base_##__##object_##__offset_
+#define OFFSET(base_, object_) _##base_##__##object_##__offset_
 
 // Generate the name for the size of an object.
-#define SIZE(object_)               _##object_##__size_
+#define SIZE(object_) _##object_##__size_
 typedef uint64_t kptr_t;
 #ifdef Q_INTERNAL
 #define qexternal

@@ -8,5 +8,6 @@
 #import <Foundation/Foundation.h>
 
 NSString *programVersion() {
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    return
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }

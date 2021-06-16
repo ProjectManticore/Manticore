@@ -18,8 +18,8 @@ bool IOSurface_init(void);
 int *create_pipes(size_t *pipe_count);
 void close_pipes(int *pipefds, size_t pipe_count);
 void pipe_close(int pipefds[2]);
-size_t pipe_spray(const int *pipefds, size_t pipe_count,
-                  void *pipe_buffer, size_t pipe_buffer_size,
+size_t pipe_spray(const int *pipefds, size_t pipe_count, void *pipe_buffer,
+                  size_t pipe_buffer_size,
                   void (^update)(uint32_t pipe_index, void *data, size_t size));
 
 #ifdef __cplusplus

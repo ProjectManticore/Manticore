@@ -23,15 +23,15 @@
 #ifndef _LIBPROC_H_
 #define _LIBPROC_H_
 
-#include <sys/cdefs.h>
-#include <sys/param.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/mount.h>
-#include <sys/resource.h>
-#include <stdint.h>
-#include <stdbool.h>
 #include <mach/message.h> /* for audit_token_t */
+#include <stdbool.h>
+#include <stdint.h>
+#include <sys/cdefs.h>
+#include <sys/mount.h>
+#include <sys/param.h>
+#include <sys/resource.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <xnu/bsd/sys/proc_info.h>
 
@@ -49,8 +49,7 @@
  *               file references on the volume associated with the specified
  *               path should be returned.
  */
-#define PROC_LISTPIDSPATH_PATH_IS_VOLUME        1
-
+#define PROC_LISTPIDSPATH_PATH_IS_VOLUME 1
 
 /*!
  *       @define PROC_LISTPIDSPATH_EXCLUDE_EVTONLY
@@ -58,10 +57,9 @@
  *               with the O_EVTONLY flag should be excluded from the matching
  *               criteria.
  */
-#define PROC_LISTPIDSPATH_EXCLUDE_EVTONLY       2
+#define PROC_LISTPIDSPATH_EXCLUDE_EVTONLY 2
 
 __BEGIN_DECLS
-
 
 /*!
  *       @function proc_listpidspath
@@ -82,44 +80,64 @@ __BEGIN_DECLS
  *       @result the number of bytes of data returned in the provided buffer;
  *               -1 if an error was encountered;
  */
-int     proc_listpidspath(uint32_t      type,
-    uint32_t      typeinfo,
-    const char    *path,
-    uint32_t      pathflags,
-    void          *buffer,
-    int           buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_listpidspath(uint32_t type, uint32_t typeinfo, const char *path,
+                      uint32_t pathflags, void *buffer, int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
-int proc_listpids(uint32_t type, uint32_t typeinfo, void *buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_listallpids(void * buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_1);
-int proc_listpgrppids(pid_t pgrpid, void * buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_1);
-int proc_listchildpids(pid_t ppid, void * buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_1);
-int proc_pidinfo(int pid, int flavor, uint64_t arg, void *buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_pidfdinfo(int pid, int fd, int flavor, void * buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_pidfileportinfo(int pid, uint32_t fileport, int flavor, void *buffer, int buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_3);
-int proc_name(int pid, void * buffer, uint32_t buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_regionfilename(int pid, uint64_t address, void * buffer, uint32_t buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_kmsgbuf(void * buffer, uint32_t buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_pidpath(int pid, void * buffer, uint32_t  buffersize) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-int proc_pidpath_audittoken(audit_token_t *audittoken, void * buffer, uint32_t  buffersize) API_AVAILABLE(macos(10.16), ios(14.0), watchos(7.0), tvos(14.0));
-int proc_libversion(int *major, int * minor) __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_listpids(uint32_t type, uint32_t typeinfo, void *buffer,
+                  int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_listallpids(void *buffer, int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_1);
+int proc_listpgrppids(pid_t pgrpid, void *buffer, int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_1);
+int proc_listchildpids(pid_t ppid, void *buffer, int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_1);
+int proc_pidinfo(int pid, int flavor, uint64_t arg, void *buffer,
+                 int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_pidfdinfo(int pid, int fd, int flavor, void *buffer, int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_pidfileportinfo(int pid, uint32_t fileport, int flavor, void *buffer,
+                         int buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_4_3);
+int proc_name(int pid, void *buffer, uint32_t buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_regionfilename(int pid, uint64_t address, void *buffer,
+                        uint32_t buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_kmsgbuf(void *buffer, uint32_t buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_pidpath(int pid, void *buffer, uint32_t buffersize)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+int proc_pidpath_audittoken(audit_token_t *audittoken, void *buffer,
+                            uint32_t buffersize)
+    API_AVAILABLE(macos(10.16), ios(14.0), watchos(7.0), tvos(14.0));
+int proc_libversion(int *major, int *minor)
+    __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /*
- * Return resource usage information for the given pid, which can be a live process or a zombie.
+ * Return resource usage information for the given pid, which can be a live
+ * process or a zombie.
  *
- * Returns 0 on success; or -1 on failure, with errno set to indicate the specific error.
+ * Returns 0 on success; or -1 on failure, with errno set to indicate the
+ * specific error.
  */
-int proc_pid_rusage(int pid, int flavor, rusage_info_t *buffer) __OSX_AVAILABLE_STARTING(__MAC_10_9, __IPHONE_7_0);
+int proc_pid_rusage(int pid, int flavor, rusage_info_t *buffer)
+    __OSX_AVAILABLE_STARTING(__MAC_10_9, __IPHONE_7_0);
 
 /*
  * A process can use the following api to set its own process control
- * state on resoure starvation. The argument can have one of the PROC_SETPC_XX values
+ * state on resoure starvation. The argument can have one of the PROC_SETPC_XX
+ * values
  */
-#define PROC_SETPC_NONE         0
-#define PROC_SETPC_THROTTLEMEM  1
-#define PROC_SETPC_SUSPEND      2
-#define PROC_SETPC_TERMINATE    3
+#define PROC_SETPC_NONE 0
+#define PROC_SETPC_THROTTLEMEM 1
+#define PROC_SETPC_SUSPEND 2
+#define PROC_SETPC_TERMINATE 3
 
-int proc_setpcontrol(const int control) __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_3_2);
+int proc_setpcontrol(const int control)
+    __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_3_2);
 int proc_setpcontrol(const int control);
 
 int proc_track_dirty(pid_t pid, uint32_t flags);
@@ -144,8 +162,8 @@ int proc_setthread_no_smt(void) __API_AVAILABLE(macos(10.16));
 /*
  * CPU Security Mitigation APIs
  *
- * Set CPU security mitigation on the current proc (all existing and future threads)
- * This attribute is inherited on fork and exec
+ * Set CPU security mitigation on the current proc (all existing and future
+ * threads) This attribute is inherited on fork and exec
  */
 int proc_set_csm(uint32_t flags) __API_AVAILABLE(macos(10.16));
 
@@ -157,9 +175,9 @@ int proc_setthread_csm(uint32_t flags) __API_AVAILABLE(macos(10.16));
  * PROC_CSM_ALL should be used in most cases,
  * the individual flags are provided only for performance evaluation etc
  */
-#define PROC_CSM_ALL         0x0001  /* Set all available mitigations */
-#define PROC_CSM_NOSMT       0x0002  /* Set NO_SMT - see above */
-#define PROC_CSM_TECS        0x0004  /* Execute VERW on every return to user mode */
+#define PROC_CSM_ALL 0x0001   /* Set all available mitigations */
+#define PROC_CSM_NOSMT 0x0002 /* Set NO_SMT - see above */
+#define PROC_CSM_TECS 0x0004  /* Execute VERW on every return to user mode */
 
 #ifdef PRIVATE
 #include <sys/event.h>
@@ -177,7 +195,7 @@ int proc_list_uptrs(pid_t pid, uint64_t *buffer, uint32_t buffersize);
 
 int proc_list_dynkqueueids(int pid, kqueue_id_t *buf, uint32_t bufsz);
 int proc_piddynkqueueinfo(int pid, int flavor, kqueue_id_t kq_id, void *buffer,
-    int buffersize);
+                          int buffersize);
 #endif /* PRIVATE */
 
 int proc_udata_info(int pid, int flavor, void *buffer, int buffersize);

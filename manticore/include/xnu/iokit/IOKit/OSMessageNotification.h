@@ -39,36 +39,36 @@
 extern "C" {
 #endif
 
-#include <mach/mach_types.h>
 #include <device/device_types.h>
+#include <mach/mach_types.h>
 #include <xnu/iokit/IOKit/IOReturn.h>
 
 enum {
-    kFirstIOKitNotificationType                 = 100,
-    kIOServicePublishNotificationType           = 100,
-    kIOServiceMatchedNotificationType           = 101,
-    kIOServiceTerminatedNotificationType        = 102,
-    kIOAsyncCompletionNotificationType          = 150,
-    kIOServiceMessageNotificationType           = 160,
-    kLastIOKitNotificationType                  = 199,
+    kFirstIOKitNotificationType = 100,
+    kIOServicePublishNotificationType = 100,
+    kIOServiceMatchedNotificationType = 101,
+    kIOServiceTerminatedNotificationType = 102,
+    kIOAsyncCompletionNotificationType = 150,
+    kIOServiceMessageNotificationType = 160,
+    kLastIOKitNotificationType = 199,
 
     // reserved bits
-    kIOKitNoticationTypeMask                    = 0x00000FFF,
-    kIOKitNoticationTypeSizeAdjShift            = 30,
-    kIOKitNoticationMsgSizeMask                 = 3,
+    kIOKitNoticationTypeMask = 0x00000FFF,
+    kIOKitNoticationTypeSizeAdjShift = 30,
+    kIOKitNoticationMsgSizeMask = 3,
 };
 
 enum {
-    kOSNotificationMessageID            = 53,
-    kOSAsyncCompleteMessageID           = 57,
-    kMaxAsyncArgs                       = 16
+    kOSNotificationMessageID = 53,
+    kOSAsyncCompleteMessageID = 57,
+    kMaxAsyncArgs = 16
 };
 
 enum {
-    kIOAsyncReservedIndex       = 0,
+    kIOAsyncReservedIndex = 0,
     kIOAsyncReservedCount,
 
-    kIOAsyncCalloutFuncIndex    = kIOAsyncReservedCount,
+    kIOAsyncCalloutFuncIndex = kIOAsyncReservedCount,
     kIOAsyncCalloutRefconIndex,
     kIOAsyncCalloutCount,
 
@@ -82,30 +82,28 @@ enum {
     kIOInterestCalloutCount
 };
 
-
-
 // --------------
 enum {
-    kOSAsyncRef64Count  = 8,
-    kOSAsyncRef64Size   = kOSAsyncRef64Count * ((int) sizeof(io_user_reference_t))
+    kOSAsyncRef64Count = 8,
+    kOSAsyncRef64Size = kOSAsyncRef64Count * ((int)sizeof(io_user_reference_t))
 };
 typedef io_user_reference_t OSAsyncReference64[kOSAsyncRef64Count];
 
 struct OSNotificationHeader64 {
-    mach_msg_size_t     size;       /* content size */
-    natural_t           type;
-    OSAsyncReference64  reference;
+    mach_msg_size_t size; /* content size */
+    natural_t type;
+    OSAsyncReference64 reference;
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
-    unsigned char       content[];
+    unsigned char content[];
 #else
-    unsigned char       content[0];
+    unsigned char content[0];
 #endif
 };
 
 #pragma pack(4)
 struct IOServiceInterestContent64 {
-    natural_t           messageType;
+    natural_t messageType;
     io_user_reference_t messageArgument[1];
 };
 #pragma pack()
@@ -113,28 +111,25 @@ struct IOServiceInterestContent64 {
 
 #if !KERNEL_USER32
 
-enum {
-    kOSAsyncRefCount    = 8,
-    kOSAsyncRefSize     = 32
-};
+enum { kOSAsyncRefCount = 8, kOSAsyncRefSize = 32 };
 typedef natural_t OSAsyncReference[kOSAsyncRefCount];
 
 struct OSNotificationHeader {
-    mach_msg_size_t     size;       /* content size */
-    natural_t           type;
-    OSAsyncReference    reference;
+    mach_msg_size_t size; /* content size */
+    natural_t type;
+    OSAsyncReference reference;
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
-    unsigned char       content[];
+    unsigned char content[];
 #else
-    unsigned char       content[0];
+    unsigned char content[0];
 #endif
 };
 
 #pragma pack(4)
 struct IOServiceInterestContent {
-    natural_t   messageType;
-    void *      messageArgument[1];
+    natural_t messageType;
+    void *messageArgument[1];
 };
 #pragma pack()
 
@@ -143,9 +138,9 @@ struct IOServiceInterestContent {
 struct IOAsyncCompletionContent {
     IOReturn result;
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
-    void * args[] __attribute__ ((packed));
+    void *args[] __attribute__((packed));
 #else
-    void * args[0] __attribute__ ((packed));
+    void *args[0] __attribute__((packed));
 #endif
 };
 

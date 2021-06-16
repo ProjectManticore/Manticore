@@ -9,10 +9,10 @@
 #ifndef mycommon_h
 #define mycommon_h
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
-#define arrayn(array) (sizeof(array)/sizeof((array)[0]))
+#define arrayn(array) (sizeof(array) / sizeof((array)[0]))
 
 typedef uint64_t kptr_t; // 64 bit CPU only
 
@@ -32,17 +32,17 @@ struct exploit_common_s {
     kptr_t kernel_task;
     kptr_t kernel_map;
     kptr_t kernel_proc;
-    
+
     kptr_t self_proc;
     kptr_t self_task;
     kptr_t self_task_pac;
     kptr_t self_ipc_space;
     kptr_t kernel_slide;
-    
+
     kptr_t text_slide;
     kptr_t data_slide;
     kptr_t zone_array;
-    
+
     uint32_t num_zones;
 };
 
@@ -55,7 +55,7 @@ extern "C" {
 uint32_t iosurface_create_fast(void);
 uint32_t iosurface_s_get_ycbcrmatrix(void);
 void iosurface_s_set_indexed_timestamp(uint64_t v);
-                                       
+
 void sys_init(void);
 void print_os_details(void);
 

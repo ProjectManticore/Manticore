@@ -10,5 +10,6 @@
 
 bool bypassPAC(void) {
     // PAC bypass here
+    // mm yes, this does magic to bypass pac :>
     return true;
 }

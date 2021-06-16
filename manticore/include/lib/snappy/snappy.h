@@ -1,5 +1,5 @@
 /* Copyright 2018 Sam Bingner All Rights Reserved
-	 */
+ */
 
 #ifndef _SNAPPY_H
 #define _SNAPPY_H
