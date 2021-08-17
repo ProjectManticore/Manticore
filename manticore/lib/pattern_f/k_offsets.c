@@ -70,6 +70,8 @@ static void offsets_base_iOS_14_x() {
     OFFSET(OSString, string) = 0x10;
 
     OFFSET(IOSurfaceRootUserClient, surfaceClients) = 0x118;
+    OFFSET(IOSurfaceClient, surface) = 0x40;
+    OFFSET(IOSurface, values) = 0xe8;
     
     OFFSET(vnode, vmount) = 0xd8;
 }

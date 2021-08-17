@@ -17,6 +17,15 @@
 
 @implementation ViewController
 
+char *Build_resource_path(char *filename){
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    if(filename == NULL) {
+        return strdup([[resourcePath stringByAppendingString:@"/"] UTF8String]);
+    }
+    return strdup([[resourcePath stringByAppendingPathComponent:[NSString stringWithUTF8String:filename]] UTF8String]);
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];

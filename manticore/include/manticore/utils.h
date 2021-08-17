@@ -38,7 +38,7 @@ bool ensureDirectory(const char *directory, int owner, mode_t mode);
 bool ensureSymlink(const char *to, const char *from);
 bool ensureFile(const char *file, int owner, mode_t mode);
 int waitForFile(const char *filename);
-
+void *userspace_PAC_hack(mach_port_t target_thread, void *pc);
 #ifdef __cplusplus
 }
 #endif

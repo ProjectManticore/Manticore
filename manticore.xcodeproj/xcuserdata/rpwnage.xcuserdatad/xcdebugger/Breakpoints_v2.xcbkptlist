@@ -78,8 +78,8 @@
             filePath = "manticore/jailbreak/utils.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "patch_TF_PLATFORM(task)"
             landmarkType = "9">
          </BreakpointContent>
@@ -94,10 +94,10 @@
             filePath = "manticore/jailbreak/amfid.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "585"
-            endingLineNumber = "585"
-            landmarkName = "perform_amfid_patches()"
-            landmarkType = "9">
+            startingLineNumber = "792"
+            endingLineNumber = "792"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

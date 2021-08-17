@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		230215F625DE8AF3003E7C5C /* amfid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 230215F525DE8AF3003E7C5C /* amfid.mm */; };
+		230215F625DE8AF3003E7C5C /* amfid.c in Sources */ = {isa = PBXBuildFile; fileRef = 230215F525DE8AF3003E7C5C /* amfid.c */; };
 		230215FB25DE8E8F003E7C5C /* rootfs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 230215FA25DE8E8F003E7C5C /* rootfs.mm */; };
 		2302160425DE93B5003E7C5C /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2302160225DE93B5003E7C5C /* libsnappy.c */; };
 		2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2302160625DE93D6003E7C5C /* IOKit.framework */; };
@@ -46,7 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		230215F525DE8AF3003E7C5C /* amfid.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = amfid.mm; sourceTree = "<group>"; };
+		230215F525DE8AF3003E7C5C /* amfid.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = amfid.c; sourceTree = "<group>"; };
 		230215F825DE8B02003E7C5C /* amfid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfid.h; sourceTree = "<group>"; };
 		230215FA25DE8E8F003E7C5C /* rootfs.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = rootfs.mm; sourceTree = "<group>"; };
 		230215FD25DE8E97003E7C5C /* rootfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rootfs.h; sourceTree = "<group>"; };
@@ -270,7 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				23C7054D25DB2F790078DC37 /* jailbreak.mm */,
-				230215F525DE8AF3003E7C5C /* amfid.mm */,
+				230215F525DE8AF3003E7C5C /* amfid.c */,
 				230215FA25DE8E8F003E7C5C /* rootfs.mm */,
 				2302161A25DEA254003E7C5C /* utils.mm */,
 				2302162D25DEA566003E7C5C /* kernel_utils.mm */,
@@ -596,7 +596,7 @@
 				848C427B25F47FF700842110 /* util.mm in Sources */,
 				23652B1E25E7B04F004D7F7E /* user_kernel_alloc.c in Sources */,
 				2302160425DE93B5003E7C5C /* libsnappy.c in Sources */,
-				230215F625DE8AF3003E7C5C /* amfid.mm in Sources */,
+				230215F625DE8AF3003E7C5C /* amfid.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

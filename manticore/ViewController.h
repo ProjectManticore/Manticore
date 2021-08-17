@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+char *Build_resource_path(char *filename);
 
 @interface ViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *jailbreakButton;

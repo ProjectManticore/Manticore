@@ -29,7 +29,8 @@
 
 #include <xnu/libsyscall/wrappers/libproc/libproc.h>
 
-
+#define JAILB_ROOT "/private/var/containers/Bundle/jb_resources/"
+static const char *jailb_root = JAILB_ROOT;
 #define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
 cpu_subtype_t get_cpu_subtype() {
