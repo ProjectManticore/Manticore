@@ -11,8 +11,8 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 - [x] Sandbox escape
 - [x] Privilege escalation
 - [x] offset finder/dynamic offsets
-- [ ] amfid bypass/patch
-- [x] amfid -> getting task port address 
+- [x] amfid bypass/patch
+- [x] pac bypass
 - [ ] rootfs remount
 - [ ] bootstrap/package manager installation
 
@@ -20,5 +20,6 @@ It's our goal to steal the title, "the Most advanced jailbreak" title from unc0v
 * [RPwnage](https://twitter.com/rpwnage)
 * [fugiefire](https://twitter.com/fugiefire)
 * [PwnedC99](https://twitter.com/pwnedc99)
+* [GeoSn0w](https://twitter.com/FCE365)
 * [Pattern-F](https://twitter.com/pattern_f_) (Exploit and Stable Primitives)
 * [XerusDesign](https://twitter.com/xerusdesign) (UI Design/Concept)
