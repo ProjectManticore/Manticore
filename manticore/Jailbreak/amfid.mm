@@ -59,9 +59,9 @@ void set_exception_handler(mach_port_t amfid_task_port){
                                                  6);
     
     if (err != KERN_SUCCESS){
-        (printf)("error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
+        (printf)("[-] Error setting amfid exception port: %s\t(%d)\n", mach_error_string(err), err);
     } else {
-        (printf)("set amfid exception port: succeed!\n");
+        (printf)("[+] Set amfid exception port: succeed!\n");
     }
     
     pthread_t exception_thread;
@@ -77,21 +77,21 @@ bool replace_amfid_port(){
 	mach_port_t host = mach_host_self();
 	kern_return_t kr = host_get_amfid_port(host, &real_amfid_port);
 	if (kr != KERN_SUCCESS) {
-		manticore_error("Could not get amfid's service port!\n");
+		manticore_error("[-] Could not get amfid's service port!\n");
 		return false;
 	}
 	mach_port_options_t options = { .flags = MPO_INSERT_SEND_RIGHT };
 	kr = mach_port_construct(mach_task_self(), &options, 0, &fake_amfid_port);
 	if (kr != KERN_SUCCESS) {
-		manticore_error("Could not create fake amfid port!\n");
+		manticore_error("[-] Could not create fake amfid port!\n");
 		return false;
 	}
 	kr = host_set_amfid_port(host, fake_amfid_port);
 	if (kr != KERN_SUCCESS) {
-		manticore_error("Could not register fake amfid port: error %d\n", kr);
+		manticore_error("[-] Could not register fake amfid port: error %d\n", kr);
 		return false;
 	}
-	manticore_info("Registered new amfid port: 0x%x\n", fake_amfid_port);
+	manticore_info("[+] Registered new amfid port: 0x%x\n", fake_amfid_port);
 	return true;
 }
 
@@ -101,10 +101,10 @@ kptr_t perform_amfid_patches(){
     mach_port_t amfid_task_port = MACH_PORT_NULL;
     kern_return_t ret = host_get_amfid_port(mach_host_self(), &amfid_task_port);
     if(ret == KERN_SUCCESS){
-        printf("amfid port:\t0x%x\n", amfid_task_port);
+        printf("[i] amfid port:\t0x%x\n", amfid_task_port);
         set_exception_handler(amfid_task_port);
         kptr_t amfid_base = binary_load_address(amfid_task_port);
-        printf("amfid base:\t0x%llx\n", amfid_base);
-	} else manticore_error("Could not get amfid's service port!\n");
+        printf("[i] amfid base:\t0x%llx\n", amfid_base);
+	} else manticore_error("[-] Could not get amfid's service port!\n");
     return 0;
 }
