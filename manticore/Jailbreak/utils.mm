@@ -512,8 +512,6 @@ int waitForFile(const char *filename) {
 }
 
 
-static struct kOSDict *self_macf;
-
 void reset_self_ents(kptr_t proc){
     proc_write_MACF(proc, self_macf);
 }

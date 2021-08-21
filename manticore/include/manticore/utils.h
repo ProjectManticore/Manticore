@@ -18,6 +18,7 @@ struct proc_cred {
 extern "C" {
 #endif
 
+static struct kOSDict *self_macf;
 bool patch_TF_PLATFORM(kptr_t task);
 void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred);
 int perform_root_patches(kptr_t ucred);
@@ -28,6 +29,7 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
 pid_t look_for_proc(const char *proc_name);
 pid_t look_for_proc_basename(const char *base_name);
 void patch_amfid(pid_t amfid_pid);
+void patch_codesign();
 bool setCSFlagsByPID(pid_t pid);
 void *CDHashFor(char *file);
 bool isSymlink(const char *filename);
