@@ -28,7 +28,7 @@ char *Build_resource_path(char *filename){
 - (BOOL)checkCompatibility {
     NSArray *osVersion = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
 
-    if ([[osVersion objectAtIndex:0] doubleValue] >= 14.3 || [[osVersion objectAtIndex:0] doubleValue] < 14.0) {
+    if ([[osVersion objectAtIndex:0] doubleValue] > 14.3 || [[osVersion objectAtIndex:0] doubleValue] < 14.0) {
         return false; // Device version either greater than 14.3, or less than 14.0
     }
     return true;
