@@ -17,9 +17,8 @@
 #include <manticore/kernel_utils.h>
 #include <unistd.h>
 #include <manticore/utils.h>
-#import <spawn.h>
+#include <spawn.h>
 #include <ViewController.h>
-
 #include <sys/mman.h>
 #include <copyfile.h>
 #include <lib/tq/tq_common_p.h>
@@ -27,8 +26,6 @@
 #include <lib/tq/k_utils.h>
 #include <lib/tq/kapi.h>
 #include <lib/tq/k_offsets.h>
-
-#include "k_offsets.h"
 #include <util/alloc.h>
 
 #define JAILB_ROOT "/private/var/containers/Bundle/jb_resources/"
@@ -546,7 +543,7 @@ void enable_container_ents(uint64_t proc){
     proc_append_ents(proc, special_ents, arrayn(special_ents));
 }
 
-void patch_codesign(){
+void patch_codesign(void){
     util_info("patch_codesign in progress..");
 
     const char *amfid_bypassd_path = JAILB_ROOT"amfid_bypassd";

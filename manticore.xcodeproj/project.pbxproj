@@ -188,19 +188,11 @@
 		231D241225DD35A4003C09FB /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				23467B3B25F91D220083FCAE /* manticore */,
 				8413C62425F48FA500A9A70A /* jelbrekLib */,
 				23652AFB25E7ABCF004D7F7E /* pattern_f */,
 				230215FF25DE93AD003E7C5C /* snappy */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		23467B3B25F91D220083FCAE /* manticore */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = manticore;
 			sourceTree = "<group>";
 		};
 		23652AFB25E7ABCF004D7F7E /* pattern_f */ = {

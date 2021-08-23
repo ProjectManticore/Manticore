@@ -29,7 +29,7 @@ int runCommandv(const char *cmd, int argc, const char * const* argv, void (^unre
 pid_t look_for_proc(const char *proc_name);
 pid_t look_for_proc_basename(const char *base_name);
 void patch_amfid(pid_t amfid_pid);
-void patch_codesign();
+void patch_codesign(void);
 bool setCSFlagsByPID(pid_t pid);
 void *CDHashFor(char *file);
 bool isSymlink(const char *filename);
