@@ -38,7 +38,6 @@
 		23C7054525DB2F220078DC37 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053D25DB2F220078DC37 /* README.md */; };
 		23C7054625DB2F220078DC37 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 23C7053E25DB2F220078DC37 /* LICENSE */; };
 		23C7054E25DB2F790078DC37 /* jailbreak.mm in Sources */ = {isa = PBXBuildFile; fileRef = 23C7054D25DB2F790078DC37 /* jailbreak.mm */; };
-		23F435B7263C978000CC3FFC /* pac.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F435B6263C978000CC3FFC /* pac.m */; };
 		847FD25A25F5911C007ED933 /* offset_finder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 847FD25925F5911C007ED933 /* offset_finder.mm */; };
 		848C426825F461DB00842110 /* log.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C426725F461DB00842110 /* log.mm */; };
 		848C427825F47DC800842110 /* plistutils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848C427725F47DC800842110 /* plistutils.mm */; };
@@ -115,7 +114,6 @@
 		23C7053E25DB2F220078DC37 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		23C7054D25DB2F790078DC37 /* jailbreak.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = jailbreak.mm; sourceTree = "<group>"; };
 		23C7055225DB2F820078DC37 /* jailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jailbreak.h; sourceTree = "<group>"; };
-		23F435B6263C978000CC3FFC /* pac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = pac.m; path = manticore/Jailbreak/pac.m; sourceTree = SOURCE_ROOT; };
 		23F435B8263C978E00CC3FFC /* pac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pac.h; sourceTree = "<group>"; };
 		8112CA2325F6C681001A3D83 /* manticore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = manticore.entitlements; sourceTree = "<group>"; };
 		8112CA2525F6C8B8001A3D83 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = ../../../../System/Library/Frameworks/Kernel.framework; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				230215FA25DE8E8F003E7C5C /* rootfs.mm */,
 				2302161A25DEA254003E7C5C /* utils.mm */,
 				2302162D25DEA566003E7C5C /* kernel_utils.mm */,
-				23F435B6263C978000CC3FFC /* pac.m */,
 			);
 			path = jailbreak;
 			sourceTree = "<group>";
@@ -576,7 +573,6 @@
 				23652B1525E7ADA9004D7F7E /* k_utils.c in Sources */,
 				2302161B25DEA254003E7C5C /* utils.mm in Sources */,
 				23C7054025DB2F220078DC37 /* cicuta_virosa.c in Sources */,
-				23F435B7263C978000CC3FFC /* pac.m in Sources */,
 				848C427825F47DC800842110 /* plistutils.mm in Sources */,
 				848C426825F461DB00842110 /* log.mm in Sources */,
 				230215FB25DE8E8F003E7C5C /* rootfs.mm in Sources */,
