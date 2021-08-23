@@ -168,7 +168,7 @@ void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint6
     const void *keys[] = { realCFString };
     const void *values[] = { cfhash_cfdata };
     char *realCFDic = (char*)CFDictionaryCreate(0, keys, values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    CFRetain(realCFDic); // Pump in some extra lifes
+    CFRetain(realCFDic); // Pump in some extra lifes [x4]
     CFRetain(realCFDic);
     CFRetain(realCFDic);
     CFRetain(realCFDic);
@@ -190,12 +190,12 @@ void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint6
 
     writep -= 0x40;
     shadowp -= 0x40;
-    *(uint64_t*)(writep + 0x10) = 0x41414141;//key;
-    *(uint64_t*)(writep + 0x18) = 0x42424242;//value;
-    *(uint64_t*)(writep + 0x20) = key;//0x43434343;
-    *(uint64_t*)(writep + 0x28) = value;//0x44444444;
-    *(uint64_t*)(writep + 0x30) = 0;//0x45454545;
-    *(uint64_t*)(writep + 0x38) = 0;//0x46464646;
+    *(uint64_t*)(writep + 0x10) = 0x41414141; // Key
+    *(uint64_t*)(writep + 0x18) = 0x42424242; // Value
+    *(uint64_t*)(writep + 0x20) = key; // 0x43434343
+    *(uint64_t*)(writep + 0x28) = value; // 0x44444444
+    *(uint64_t*)(writep + 0x30) = 0; // 0x45454545
+    *(uint64_t*)(writep + 0x38) = 0; // 0x46464646
 
     CFRelease(realCFDic);
     CFRelease(realCFDic);
@@ -214,7 +214,7 @@ typedef struct {
     mach_msg_port_descriptor_t thread;
     mach_msg_port_descriptor_t task;
     NDR_record_t NDR;
-} exception_raise_request; // the bits we need at least
+} exception_raise_request; // Bits needed
 
 typedef struct {
     mach_msg_header_t Head;
@@ -331,7 +331,7 @@ static void *amfid_exception_thread(void *args){
 
         task_write64(task_port, ts.__x[2], amfid_alloc_page + dict_off);
         ts.__x[0] = 0; // MISValidateSignatureAndCopyInfo success
-#if __arm64e__
+#if __arm64e__ 
         ts.__opaque_pc = (void *)signed_pc;
 #else
         ts.__pc = ts.__lr; // ret
