@@ -25,24 +25,45 @@ char *Build_resource_path(char *filename){
     return strdup([[resourcePath stringByAppendingPathComponent:[NSString stringWithUTF8String:filename]] UTF8String]);
 }
 
+- (BOOL)checkCompatibility {
+    NSArray *osVersion = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+
+    if ([[osVersion objectAtIndex:0] doubleValue] >= 14.3 || [[osVersion objectAtIndex:0] doubleValue] < 14.0) {
+        return true; // Device version either greater than 14.3, or less than 14.0
+    }
+    return false;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    // TODO
-    //  checkCompatibility();
-    _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is compatible with manticore!", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+    
+    // TODO: Finish checkCompatibility method.
+    
+    BOOL compatible = [self checkCompatibility];
+    
+    if (compatible) {
+        _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is compatible with manticore!", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+    } else {
+        _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is NOT compatible with Manticore.", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+    }
+    
     [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak me' to start (Manticore %@)", programVersion]];
+    
     [self sendMessageToLog:[NSString stringWithFormat:@"@RPwnage && PwnedC99"]];
+    
     // Do any additional setup after loading the view.
 }
 
 
 - (IBAction)runJailbreak:(id)sender {
+    
     [self sendMessageToLog:@"[*] Starting...."];
+    
     self.logWindow.text = @"";
     self.jailbreakButton.enabled = NO;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_sync( dispatch_get_main_queue(), ^{
             exploit_main();
