@@ -194,8 +194,8 @@ void *Build_ValidateSignature_dic(uint8_t *input_cdHash, size_t *out_size, uint6
     *(uint64_t*)(writep + 0x18) = 0x42424242; // Value
     *(uint64_t*)(writep + 0x20) = key; // 0x43434343
     *(uint64_t*)(writep + 0x28) = value; // 0x44444444
-    *(uint64_t*)(writep + 0x30) = 0;// 0x45454545
-    *(uint64_t*)(writep + 0x38) = 0;// 0x46464646
+    *(uint64_t*)(writep + 0x30) = 0; // 0x45454545
+    *(uint64_t*)(writep + 0x38) = 0; // 0x46464646
 
     CFRelease(realCFDic);
     CFRelease(realCFDic);
