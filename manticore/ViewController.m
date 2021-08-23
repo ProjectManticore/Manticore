@@ -6,7 +6,7 @@
 //
 
 #import "ViewController.h"
-#include <exploit/cicuta/cicuta_virosa.h>
+#include <exploit/cicuta/cicuta_virosa.h> // cicuta_virosa exploit [14.0 --> 14.3]
 #include <manticore/jailbreak.h>
 #include <exploit/cicuta/exploit_main.h>
 #include <objc/runtime.h>
@@ -49,7 +49,7 @@ char *Build_resource_path(char *filename){
         _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is NOT compatible with Manticore.", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
     }
     
-    [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak me' to start (Manticore %@)", programVersion]];
+    [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak Me' to start (Manticore %@)", programVersion]];
     
     [self sendMessageToLog:[NSString stringWithFormat:@"@RPwnage && PwnedC99"]];
     
