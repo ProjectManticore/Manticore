@@ -1,11 +1,11 @@
-# Manticore Jailbreak
-iOS Jailbreak based on cicuta_virosa
+# Manticore Semi-Untethered Jailbreak
+iOS Jailbreak based on cicuta_virosa - iOS 14.0 --> 14.3
 
-## About us
-The Manticore Jailbreak is an independent jailbreaking tool for all devices, including A14 and below, running iOS 14.3 or lower.
+## About Us
+The Manticore Jailbreak is an independent jailbreaking tool for all devices, including A14 and below, running iOS 14.3-14.0.
 It's our goal to take back the "The most advanced jailbreak" title from unc0ver.
 
-## Completion 
+## Completion
 - [x] Exploit Implementation (cicuta_virosa)
 - [x] Stable Exploit Primitives
 - [x] Sandbox escape
