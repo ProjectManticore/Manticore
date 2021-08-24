@@ -15,7 +15,7 @@ char *Build_resource_path(char *filename);
 - (IBAction)runJailbreak:(id)sender;
 - (IBAction)openOptions:(id)sender;
 - (void)sendMessageToLog:(NSString *)Message;
-- (BOOL)checkCompatibility; // Check if device is compatible with Manticore.
+bool checkDeviceCompatibility(void);
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UILabel *compatibilityLabel;
 
