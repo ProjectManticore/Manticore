@@ -17,6 +17,8 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+NSString *APNonce = NULL;
+
 @interface ViewController ()
 
 @end
@@ -78,9 +80,17 @@ char *Build_resource_path(char *filename){
         });
     });
 }
+- (IBAction)setApNonceToNVRAM:(id)sender {
+    
+    
+}
+
 
 - (void)sendMessageToLog:(NSString *)Message {
     [self.logWindow insertText:[NSString stringWithFormat:@"%@\n", Message]];
+}
+
+- (IBAction)setApNonceBtn:(id)sender {
 }
 
 - (IBAction)openOptions:(id)sender {

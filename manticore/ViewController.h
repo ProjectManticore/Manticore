@@ -12,8 +12,10 @@ char *Build_resource_path(char *filename);
 @property (weak, nonatomic) IBOutlet UIButton *jailbreakButton;
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 @property (weak, nonatomic) IBOutlet UITextView *logWindow;
+
 - (IBAction)runJailbreak:(id)sender;
 - (IBAction)openOptions:(id)sender;
+- (IBAction)setApNonceBtn:(id)sender;
 - (void)sendMessageToLog:(NSString *)Message;
 bool checkDeviceCompatibility(void);
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
