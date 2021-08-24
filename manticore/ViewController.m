@@ -39,8 +39,6 @@ char *Build_resource_path(char *filename){
     [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
-    // TODO: Finish checkCompatibility method.
-    
     BOOL compatible = [self checkCompatibility];
     
     if (compatible) {
