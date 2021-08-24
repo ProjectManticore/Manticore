@@ -484,7 +484,6 @@ bool ensureFile(const char *file, int owner, mode_t mode) {
                                }];
 }
 
-
 void jailbreakExistenceCheck(){
     // Check for files that indicate the existence of another jailbreak
     

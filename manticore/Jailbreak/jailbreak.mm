@@ -93,7 +93,7 @@ bool setup_manticore_filesystem(void){
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/.manticore/"] && [[NSFileManager defaultManager]  fileExistsAtPath:jailbreakPlistPath]) {
         return YES;
     } else {
-        printf("initial installation of manticore starting...\n");
+        printf("Initial installation of manticore starting...\n");
             
         // Create /var/mobile/.manticore folder for jailbreak/project specific files
         if(![[NSFileManager defaultManager] fileExistsAtPath:jailbreakDirBasePath]) [[NSFileManager defaultManager] createDirectoryAtPath:jailbreakDirBasePath withIntermediateDirectories:YES attributes:nil error:NULL];

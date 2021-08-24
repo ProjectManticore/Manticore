@@ -49,7 +49,7 @@ char *Build_resource_path(char *filename){
     [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
-    
+    handleExistingJailbreak(self);
     
     if (checkDeviceCompatibility()) {
         _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is compatible with manticore!", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
@@ -68,7 +68,6 @@ char *Build_resource_path(char *filename){
 
 
 - (IBAction)runJailbreak:(id)sender {
-    
     [self sendMessageToLog:@"[*] Starting...."];
     
     self.logWindow.text = @"";
@@ -80,17 +79,19 @@ char *Build_resource_path(char *filename){
         });
     });
 }
-- (IBAction)setApNonceToNVRAM:(id)sender {
-    
-    
-}
-
 
 - (void)sendMessageToLog:(NSString *)Message {
     [self.logWindow insertText:[NSString stringWithFormat:@"%@\n", Message]];
 }
 
-- (IBAction)setApNonceBtn:(id)sender {
+char *anotherJailbreakMessage;
+void handleExistingJailbreak(id selfless) {
+    NSString *jailbreakName = [NSString stringWithUTF8String:anotherJailbreakMessage];
+    NSString *messageForUser = [NSString stringWithFormat:@"%s/%@/%@", "We've detected you have ", jailbreakName, @"already installed. Please uninstall it first, and restore ROOT FS before jailbreaking with Manticore to prevent any compatibility issues."];
+    
+    UIAlertController *existingJailbreakAlert = [UIAlertController alertControllerWithTitle:@"Critical Error" message:messageForUser preferredStyle:UIAlertControllerStyleAlert];
+
+    [selfless presentViewController:existingJailbreakAlert animated:YES completion:nil];
 }
 
 - (IBAction)openOptions:(id)sender {
