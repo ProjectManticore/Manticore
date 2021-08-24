@@ -53,6 +53,8 @@ char *Build_resource_path(char *filename){
         _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is compatible with manticore!", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
     } else {
         _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is NOT compatible with Manticore.", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+        self.jailbreakButton.enabled = NO;
+        [_jailbreakButton setTitle:@"Incompatible" forState:UIControlStateDisabled];
     }
     
     [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak Me' to start (Manticore %@)", programVersion]];
