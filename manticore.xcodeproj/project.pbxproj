@@ -82,6 +82,8 @@
 		23652B1C25E7B04F004D7F7E /* user_kernel_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user_kernel_alloc.h; sourceTree = "<group>"; };
 		23652B1D25E7B04F004D7F7E /* user_kernel_alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = user_kernel_alloc.c; sourceTree = "<group>"; };
 		23652B2225E7B39B004D7F7E /* iosurface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosurface.h; sourceTree = "<group>"; };
+		2367F20A26D7DE6200959B29 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		2367F20B26D7DE6300959B29 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		23B644E72652681B00531BCC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		23B644EC26526CD700531BCC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		23B644EE2652700300531BCC /* cs_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cs_common.h; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 23C704E825DB2EE80078DC37;
 			productRefGroup = 23C704F225DB2EE80078DC37 /* Products */;
@@ -585,6 +588,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				23C704FE25DB2EE80078DC37 /* Base */,
+				2367F20A26D7DE6200959B29 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -593,6 +597,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				23C7050625DB2EE90078DC37 /* Base */,
+				2367F20B26D7DE6300959B29 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -604,6 +609,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -663,6 +669,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
