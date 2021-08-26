@@ -86,7 +86,7 @@ char *Build_resource_path(char *filename){
 
 char *anotherJailbreakMessage;
 void handleExistingJailbreak(id selfless) {
-    NSString *jailbreakName = [NSString stringWithUTF8String:anotherJailbreakMessage];
+    NSString *jailbreakName = anotherJailbreakMessage ? [NSString stringWithUTF8String: anotherJailbreakMessage]: nil;
     NSString *messageForUser = [NSString stringWithFormat:@"%s/%@/%@", "We've detected you have ", jailbreakName, @"already installed. Please uninstall it first, and restore ROOT FS before jailbreaking with Manticore to prevent any compatibility issues."];
     
     UIAlertController *existingJailbreakAlert = [UIAlertController alertControllerWithTitle:@"Critical Error" message:messageForUser preferredStyle:UIAlertControllerStyleAlert];
