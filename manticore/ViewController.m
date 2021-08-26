@@ -2,7 +2,7 @@
 //  ViewController.m
 //  reton
 //
-//  Created by Luca on 15.02.21.
+//  Created by GeoSn0w on 24.08.21.
 //
 
 #import "ViewController.h"
@@ -11,11 +11,30 @@
 #include <exploit/cicuta/exploit_main.h>
 #include <objc/runtime.h>
 
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+NSString *APNonce = NULL;
+
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
+
+bool checkDeviceCompatibility(){
+    // proper range check so that iOS 14.7.1 wouldn't say it's compatible when we use cicuta_virosa
+    if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"14.3") && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"14.0")){
+        NSLog(@"[+] Found compatible device, continuing...");
+        return true;
+    } else {
+        NSLog(@"[!] Incompatible device detected. Will not continue.");
+        return false;
+    }
+}
 
 char *Build_resource_path(char *filename){
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
@@ -25,28 +44,19 @@ char *Build_resource_path(char *filename){
     return strdup([[resourcePath stringByAppendingPathComponent:[NSString stringWithUTF8String:filename]] UTF8String]);
 }
 
-- (BOOL)checkCompatibility {
-    NSArray *osVersion = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-
-    if ([[osVersion objectAtIndex:0] doubleValue] > 14.3 || [[osVersion objectAtIndex:0] doubleValue] < 14.0) {
-        return false; // Device version either greater than 14.3, or less than 14.0
-    }
-    return true;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_jailbreakButton.layer setBorderColor:[UIColor systemGray2Color].CGColor];
     NSString *programVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
-    // TODO: Finish checkCompatibility method.
+    handleExistingJailbreak(self);
     
-    BOOL compatible = [self checkCompatibility];
-    
-    if (compatible) {
+    if (checkDeviceCompatibility()) {
         _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is compatible with manticore!", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
     } else {
         _compatibilityLabel.text = [NSString stringWithFormat:@"Your %@ on iOS %@ is NOT compatible with Manticore.", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+        self.jailbreakButton.enabled = NO;
+        [_jailbreakButton setTitle:@"Incompatible" forState:UIControlStateDisabled];
     }
     
     [self sendMessageToLog:[NSString stringWithFormat:@"Press 'Jailbreak Me' to start (Manticore %@)", programVersion]];
@@ -58,7 +68,6 @@ char *Build_resource_path(char *filename){
 
 
 - (IBAction)runJailbreak:(id)sender {
-    
     [self sendMessageToLog:@"[*] Starting...."];
     
     self.logWindow.text = @"";
@@ -73,6 +82,16 @@ char *Build_resource_path(char *filename){
 
 - (void)sendMessageToLog:(NSString *)Message {
     [self.logWindow insertText:[NSString stringWithFormat:@"%@\n", Message]];
+}
+
+char *anotherJailbreakMessage;
+void handleExistingJailbreak(id selfless) {
+    NSString *jailbreakName = anotherJailbreakMessage ? [NSString stringWithUTF8String: anotherJailbreakMessage]: nil;
+    NSString *messageForUser = [NSString stringWithFormat:@"%s/%@/%@", "We've detected you have ", jailbreakName, @"already installed. Please uninstall it first, and restore ROOT FS before jailbreaking with Manticore to prevent any compatibility issues."];
+    
+    UIAlertController *existingJailbreakAlert = [UIAlertController alertControllerWithTitle:@"Critical Error" message:messageForUser preferredStyle:UIAlertControllerStyleAlert];
+
+    [selfless presentViewController:existingJailbreakAlert animated:YES completion:nil];
 }
 
 - (IBAction)openOptions:(id)sender {

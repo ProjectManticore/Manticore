@@ -1,5 +1,4 @@
-/* Copyright 2018 Sam Bingner All Rights Reserved
-	 */
+/* Copyright 2018 Sam Bingner All Rights Reserved */
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
