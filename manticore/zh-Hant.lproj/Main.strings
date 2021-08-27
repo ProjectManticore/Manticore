@@ -36,7 +36,7 @@
 "i1H-yX-3n8.text" = "兼容性";
 
 /* Class = "UILabel"; text = "Remove ScreenTime"; ObjectID = "kyq-MK-M3C"; */
-"kyq-MK-M3C.text" = "移除螢幕時間";
+"kyq-MK-M3C.text" = "移除螢幕使用時間";
 
 /* Class = "UILabel"; text = "Manticore"; ObjectID = "mUJ-nK-XHv"; */
 "mUJ-nK-XHv.text" = "Manticore";
