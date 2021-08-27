@@ -735,7 +735,7 @@
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="I5H-bE-iec" id="UjB-rS-0q7"/>
-                            <outlet property="delegate" destination="I5H-bE-iec" id="wBt-pg-Ud5"/>
+                            <outlet property="delegate" destination="I5H-bE-iec" id="uqW-9l-EJt"/>
                         </connections>
                     </tableView>
                     <value key="contentSizeForViewInPopover" type="size" width="320" height="340"/>

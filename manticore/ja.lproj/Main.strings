@@ -1,0 +1,57 @@
+
+/* Class = "UILabel"; text = "Manticore"; ObjectID = "0il-tf-sNa"; */
+"0il-tf-sNa.text" = "Manticore";
+
+/* Class = "UILabel"; text = "Set APNonce"; ObjectID = "0yi-4F-L8u"; */
+"0yi-4F-L8u.text" = "APNonceをセット";
+
+/* Class = "UILabel"; text = "Enable Tweaks"; ObjectID = "2Nf-dY-FJy"; */
+"2Nf-dY-FJy.text" = "Tweaksの有効化";
+
+/* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "6hM-Fc-FDp"; */
+"6hM-Fc-FDp.normalTitle" = "脱獄";
+
+/* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "AVZ-qX-0ms"; */
+"AVZ-qX-0ms.text" = "RootFSの復元";
+
+/* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "B09-wX-UeI"; */
+"B09-wX-UeI.normalTitle" = "脱獄";
+
+/* Class = "UITextField"; placeholder = "0x1111111111111111"; ObjectID = "JaD-0s-nbo"; */
+"JaD-0s-nbo.placeholder" = "0x1111111111111111";
+
+/* Class = "UILabel"; text = "iOS 14.0 - 14.3"; ObjectID = "Kda-OK-gFg"; */
+"Kda-OK-gFg.text" = "iOS 14.0 - 14.3";
+
+/* Class = "UIButton"; normalTitle = "Save & Set APNonce"; ObjectID = "WEh-zy-xS5"; */
+"WEh-zy-xS5.normalTitle" = "APNonceの保存 & セット";
+
+/* Class = "UIButton"; normalTitle = "Options"; ObjectID = "czz-vo-cHF"; */
+"czz-vo-cHF.normalTitle" = "設定";
+
+/* Class = "UILabel"; text = "Block OTA Updates"; ObjectID = "efL-nQ-xsh"; */
+"efL-nQ-xsh.text" = "OTAアップデートの無効化";
+
+/* Class = "UILabel"; text = "Compatibility"; ObjectID = "i1H-yX-3n8"; */
+"i1H-yX-3n8.text" = "互換性";
+
+/* Class = "UILabel"; text = "Remove ScreenTime"; ObjectID = "kyq-MK-M3C"; */
+"kyq-MK-M3C.text" = "スクリーンタイムの無効化";
+
+/* Class = "UILabel"; text = "Manticore"; ObjectID = "mUJ-nK-XHv"; */
+"mUJ-nK-XHv.text" = "Manticore";
+
+/* Class = "UILabel"; text = "Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!"; ObjectID = "o5h-H3-igh"; */
+"o5h-H3-igh.text" = "iOS 14.3のiPhone11は互換性があります！";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "oZg-Pf-ew7"; */
+"oZg-Pf-ew7.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Log ECID"; ObjectID = "voS-Ev-D3K"; */
+"voS-Ev-D3K.text" = "ECIDを記録する";
+
+/* Class = "UILabel"; text = "iOS 14.0 - 14.3"; ObjectID = "xtR-ck-MtY"; */
+"xtR-ck-MtY.text" = "iOS 14.0 - 14.3";
+
+/* Class = "UILabel"; text = "Toggle Log Window"; ObjectID = "yiE-wg-tPU"; */
+"yiE-wg-tPU.text" = "ログ画面の切り替え";
