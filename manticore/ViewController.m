@@ -36,6 +36,7 @@ bool checkDeviceCompatibility(){
     }
 }
 
+
 char *Build_resource_path(char *filename){
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     if(filename == NULL) {
@@ -66,6 +67,8 @@ char *Build_resource_path(char *filename){
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)done:(UIStoryboardSegue *)segue {
+}
 
 - (IBAction)runJailbreak:(id)sender {
     [self sendMessageToLog:@"[*] Starting...."];
