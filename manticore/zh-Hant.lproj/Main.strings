@@ -27,7 +27,7 @@
 "WEh-zy-xS5.normalTitle" = "設定並保存APNonce";
 
 /* Class = "UIButton"; normalTitle = "Options"; ObjectID = "czz-vo-cHF"; */
-"czz-vo-cHF.normalTitle" = "設定";
+"czz-vo-cHF.normalTitle" = "選項";
 
 /* Class = "UILabel"; text = "Block OTA Updates"; ObjectID = "efL-nQ-xsh"; */
 "efL-nQ-xsh.text" = "禁用OTA更新";
