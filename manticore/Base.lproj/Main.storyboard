@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YHF-Wz-R07">
-<<<<<<< Updated upstream
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
-=======
     <device id="retina6_1" orientation="portrait" appearance="light"/>
->>>>>>> Stashed changes
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,19 +13,11 @@
             <objects>
                 <viewController interfaceStyle="dark" id="YHF-Wz-R07" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rlb-Om-voS">
-<<<<<<< Updated upstream
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manticore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mUJ-nK-XHv">
-                                <rect key="frame" x="0.0" y="90" width="390" height="98"/>
-=======
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manticore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mUJ-nK-XHv">
                                 <rect key="frame" x="0.0" y="90" width="414" height="98"/>
->>>>>>> Stashed changes
                                 <constraints>
                                     <constraint firstAttribute="height" constant="98" id="NE9-cO-Iv2"/>
                                 </constraints>
@@ -38,11 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 14.0 - 14.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtR-ck-MtY">
-<<<<<<< Updated upstream
-                                <rect key="frame" x="0.0" y="152" width="390" height="58"/>
-=======
                                 <rect key="frame" x="0.0" y="152" width="414" height="58"/>
->>>>>>> Stashed changes
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="cEH-Wc-cvG"/>
                                 </constraints>
@@ -51,11 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czz-vo-cHF">
-<<<<<<< Updated upstream
-                                <rect key="frame" x="39" y="774" width="312" height="122"/>
-=======
                                 <rect key="frame" x="41.5" y="818.5" width="331" height="129.5"/>
->>>>>>> Stashed changes
                                 <color key="backgroundColor" red="0.050971612329999999" green="0.0509859696" blue="0.050968460739999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Options">
@@ -68,21 +48,13 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="openOptions:" destination="YHF-Wz-R07" eventType="touchUpInside" id="Q1b-Fg-4wQ"/>
-<<<<<<< Updated upstream
-                                    <segue destination="Xf7-nI-O40" kind="show" id="ccY-EO-Y0h"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-wX-UeI">
-                                <rect key="frame" x="117" y="364" width="156" height="55"/>
-=======
-                                    <segue destination="KN0-4Y-RWv" kind="popoverPresentation" popoverAnchorView="czz-vo-cHF" id="g99-xL-nli">
+                                    <segue destination="KN0-4Y-RWv" kind="popoverPresentation" popoverAnchorView="czz-vo-cHF" id="eTw-Me-7Iq">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B09-wX-UeI">
                                 <rect key="frame" x="124" y="364" width="166" height="58"/>
->>>>>>> Stashed changes
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <state key="normal" title="Jailbreak">
@@ -104,20 +76,12 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p82-Jv-jUY">
-<<<<<<< Updated upstream
-                                <rect key="frame" x="117" y="434" width="156" height="4"/>
-=======
                                 <rect key="frame" x="124" y="437" width="166" height="4"/>
->>>>>>> Stashed changes
                                 <color key="progressTintColor" systemColor="labelColor"/>
                                 <color key="trackTintColor" red="0.1254752576" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="KZq-oY-Zug">
-<<<<<<< Updated upstream
-                                <rect key="frame" x="39" y="630.33333333333337" width="312" height="129.66666666666663"/>
-=======
                                 <rect key="frame" x="41.5" y="667" width="331" height="137.5"/>
->>>>>>> Stashed changes
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Compatibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1H-yX-3n8">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="52"/>
@@ -126,11 +90,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!" textAlignment="center" lineBreakMode="clip" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5h-H3-igh">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="79" y="43.000000000000007" width="152" height="86.666666666666686"/>
-=======
                                         <rect key="frame" x="79" y="43" width="171" height="94.5"/>
->>>>>>> Stashed changes
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -207,25 +167,6 @@
             <objects>
                 <viewController interfaceStyle="dark" id="Xf7-nI-O40" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="vQt-Cm-Cmw">
-<<<<<<< Updated upstream
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW6-5e-AxS">
-                                <rect key="frame" x="26" y="28" width="348" height="66"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="38"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5TR-vw-z1D">
-                                <rect key="frame" x="26" y="102" width="348" height="157"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Package Management" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfV-sc-du4">
-                                        <rect key="frame" x="0.0" y="8" width="348" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -236,20 +177,14 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Package Management" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfV-sc-du4">
                                         <rect key="frame" x="12" y="8" width="348" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Cydia" translatesAutoresizingMaskIntoConstraints="NO" id="j4a-xg-Qaj">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="17" y="72" width="65" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="30" y="72" width="55" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
->>>>>>> Stashed changes
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -258,13 +193,8 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Sileo" translatesAutoresizingMaskIntoConstraints="NO" id="MhZ-a0-DyY">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="99" y="72" width="65" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="111" y="72" width="56" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -272,15 +202,9 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-<<<<<<< Updated upstream
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Zebra" translatesAutoresizingMaskIntoConstraints="NO" id="A90-gI-VVu">
-                                        <rect key="frame" x="182" y="72" width="65" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Zebra" translatesAutoresizingMaskIntoConstraints="NO" id="A90-gI-VVu">
                                         <rect key="frame" x="195" y="72" width="56" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -288,11 +212,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-<<<<<<< Updated upstream
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Installer" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-K0-irE">
-                                        <rect key="frame" x="267" y="72" width="65" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cydia" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIA-Jz-grT">
                                         <rect key="frame" x="20" y="134" width="76" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -324,7 +243,6 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Installer" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-K0-irE">
                                         <rect key="frame" x="280" y="72" width="56" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -341,34 +259,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7uW-AT-eQy">
-                                <rect key="frame" x="26" y="267" width="348" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Restore RootFS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URV-C4-By7">
-                                        <rect key="frame" x="8" y="0.0" width="274" height="72"/>
-=======
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uW-AT-eQy">
                                 <rect key="frame" x="21" y="267" width="372" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Restore RootFS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URV-C4-By7">
                                         <rect key="frame" x="8" y="-7" width="274" height="72"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WpG-BF-N7Z">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="284" y="21" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="308" y="13" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <color key="onTintColor" systemColor="systemIndigoColor"/>
                                     </switch>
                                 </subviews>
@@ -380,34 +284,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QEG-6r-YjA">
-                                <rect key="frame" x="26" y="347" width="348" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Disable Updates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJd-E1-VIg">
-                                        <rect key="frame" x="8" y="0.0" width="274" height="72"/>
-=======
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEG-6r-YjA">
                                 <rect key="frame" x="21" y="330" width="372" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Disable Updates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJd-E1-VIg">
                                         <rect key="frame" x="8" y="-7" width="274" height="72"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iyg-0k-JWy">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="284" y="21" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="308" y="13" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <color key="onTintColor" systemColor="systemIndigoColor"/>
                                     </switch>
                                 </subviews>
@@ -419,34 +309,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A6N-v8-psY">
-                                <rect key="frame" x="26" y="507" width="348" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Load Tweaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-dz-Rmo">
-                                        <rect key="frame" x="8" y="0.0" width="274" height="72"/>
-=======
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6N-v8-psY">
                                 <rect key="frame" x="21" y="458" width="372" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Load Tweaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-dz-Rmo">
                                         <rect key="frame" x="8" y="-7" width="274" height="72"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91P-hM-rOV">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="284" y="21" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="308" y="13" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <color key="onTintColor" systemColor="systemIndigoColor"/>
                                     </switch>
                                 </subviews>
@@ -458,31 +334,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oDZ-xa-jAm">
-                                <rect key="frame" x="26" y="587" width="348" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Load Daemons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWh-ol-p7M">
-                                        <rect key="frame" x="8" y="0.0" width="274" height="72"/>
-=======
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDZ-xa-jAm">
                                 <rect key="frame" x="21" y="522" width="372" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Load Daemons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWh-ol-p7M">
                                         <rect key="frame" x="8" y="-7" width="274" height="72"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PKa-GK-l7Z">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="284" y="21" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="308" y="13" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="onTintColor" systemColor="systemIndigoColor"/>
@@ -510,7 +373,6 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uyN-r1-NLj">
                                         <rect key="frame" x="308" y="13" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <color key="onTintColor" systemColor="systemIndigoColor"/>
                                     </switch>
                                 </subviews>
@@ -522,34 +384,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kEG-BC-hWC">
-                                <rect key="frame" x="26" y="667" width="348" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Log Window" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fth-HK-C5J">
-                                        <rect key="frame" x="8" y="0.0" width="274" height="72"/>
-=======
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEG-BC-hWC">
                                 <rect key="frame" x="21" y="587" width="372" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Log Window" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fth-HK-C5J">
                                         <rect key="frame" x="8" y="-7" width="274" height="72"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cuv-Vl-ZsY">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="284" y="21" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                         <rect key="frame" x="308" y="13" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
->>>>>>> Stashed changes
                                         <color key="onTintColor" systemColor="systemIndigoColor"/>
                                     </switch>
                                 </subviews>
@@ -561,19 +409,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y2P-5z-3fy">
-                                <rect key="frame" x="26" y="427" width="348" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eZ4-N1-POZ">
-                                        <rect key="frame" x="284" y="21" width="49" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="onTintColor" systemColor="systemIndigoColor"/>
-                                    </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Max Memory Limit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUY-mF-9JE">
-                                        <rect key="frame" x="8" y="0.0" width="268" height="72"/>
-=======
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D59-3O-hvL">
                                 <rect key="frame" x="20" y="717" width="372" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -610,7 +445,6 @@
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Max Memory Limit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUY-mF-9JE">
                                         <rect key="frame" x="8" y="-7" width="268" height="72"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <nil key="textColor"/>
@@ -625,8 +459,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-<<<<<<< Updated upstream
-=======
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW6-5e-AxS">
                                 <rect key="frame" x="19" y="28" width="384" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -634,7 +466,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
->>>>>>> Stashed changes
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JMX-D3-ZOb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -642,10 +473,6 @@
                     <navigationItem key="navigationItem" id="Liv-k8-z68"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="noa-2w-y7w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-<<<<<<< Updated upstream
-            </objects>
-            <point key="canvasLocation" x="1787.6923076923076" y="-206.1611374407583"/>
-=======
                 <tapGestureRecognizer id="R44-W6-IJH"/>
             </objects>
             <point key="canvasLocation" x="1639" y="-626"/>
@@ -660,13 +487,23 @@
                         <sections>
                             <tableViewSection id="39T-px-vfM">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="v4r-ae-YSG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="80" id="v4r-ae-YSG">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v4r-ae-YSG" id="9pC-Ca-hAA">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY7-XL-bze" customClass="SettingsDoneButton">
+                                                    <rect key="frame" x="353" y="31.5" width="37" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Done">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="x7b-YT-1T6" kind="unwind" unwindAction="done:" id="dZv-mF-Ehe"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVP-vA-4W2">
                                                     <rect key="frame" x="20" y="14" width="374" height="66"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -674,13 +511,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY7-XL-bze" customClass="SettingsDoneButton">
-                                                    <rect key="frame" x="353" y="32" width="37" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Done">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -755,7 +585,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Installer" translatesAutoresizingMaskIntoConstraints="NO" id="9ZF-Uz-Cd0">
-                                                            <rect key="frame" x="280" y="69" width="56" height="52"/>
+                                                            <rect key="frame" x="280" y="68" width="56" height="52"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -1039,34 +869,26 @@
                     <navigationItem key="navigationItem" id="shB-Ky-5ZE"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XlJ-r0-2dX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="x7b-YT-1T6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1869.5652173913045" y="126.5625"/>
->>>>>>> Stashed changes
         </scene>
         <!--Table View Controller-->
         <scene sceneID="KYv-Cq-uyG">
             <objects>
                 <tableViewController id="I5H-bE-iec" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tfc-c9-lrF">
-<<<<<<< Updated upstream
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-=======
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
->>>>>>> Stashed changes
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
                             <tableViewSection id="aOO-cn-fwD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="0Eg-3t-zKO" userLabel="BlockOTAUpdatesCell">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="43.5"/>
-=======
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Eg-3t-zKO" id="1bU-rT-LS8">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block OTA Updates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efL-nQ-xsh">
@@ -1076,11 +898,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pAU-Xx-Ndd">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="326" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-=======
                                                     <rect key="frame" x="350" y="6.5" width="51" height="31"/>
->>>>>>> Stashed changes
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1092,14 +910,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="m5y-hK-XfK" userLabel="EnableTweaksCell">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="67.833333969116211" width="390" height="43.5"/>
-=======
                                         <rect key="frame" x="0.0" y="68" width="414" height="43.5"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m5y-hK-XfK" id="Vzx-BC-42K">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Tweaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nf-dY-FJy">
@@ -1109,11 +923,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qBw-WR-Slq">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="326" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-=======
                                                     <rect key="frame" x="350" y="6.5" width="51" height="31"/>
->>>>>>> Stashed changes
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1125,14 +935,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="5QJ-Bj-JI3" userLabel="RestoreRootFSCell">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="111.33333396911621" width="390" height="43.5"/>
-=======
                                         <rect key="frame" x="0.0" y="111.5" width="414" height="43.5"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5QJ-Bj-JI3" id="8W3-9N-zPf">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restore RootFS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVZ-qX-0ms">
@@ -1142,11 +948,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ORC-V1-um7">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="326" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-=======
                                                     <rect key="frame" x="350" y="6.5" width="51" height="31"/>
->>>>>>> Stashed changes
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1158,14 +960,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kKh-vf-aHZ" userLabel="LogWindowCell">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="154.83333396911621" width="390" height="43.5"/>
-=======
                                         <rect key="frame" x="0.0" y="155" width="414" height="43.5"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kKh-vf-aHZ" id="Gn4-nr-djG">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toggle Log Window" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiE-wg-tPU">
@@ -1175,11 +973,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bO-lT-Zsq">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="326" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-=======
                                                     <rect key="frame" x="350" y="6.5" width="51" height="31"/>
->>>>>>> Stashed changes
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1191,14 +985,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="I1K-3i-nnI" userLabel="LogECIDCell">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="198.33333396911621" width="390" height="43.5"/>
-=======
                                         <rect key="frame" x="0.0" y="198.5" width="414" height="43.5"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I1K-3i-nnI" id="hZx-qZ-f7q">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log ECID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voS-Ev-D3K">
@@ -1208,11 +998,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFs-VG-V1z">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="326" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-=======
                                                     <rect key="frame" x="350" y="6.5" width="51" height="31"/>
->>>>>>> Stashed changes
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1224,14 +1010,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gUZ-DE-dkT" userLabel="ScreenTimeCell">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="241.83333396911621" width="390" height="43.5"/>
-=======
                                         <rect key="frame" x="0.0" y="242" width="414" height="43.5"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gUZ-DE-dkT" id="3Q6-mN-lyE">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove ScreenTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyq-MK-M3C">
@@ -1241,11 +1023,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnZ-of-fnW">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="326" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-=======
                                                     <rect key="frame" x="350" y="6.5" width="51" height="31"/>
->>>>>>> Stashed changes
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1257,32 +1035,20 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="S6b-9g-94h">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="285.33333396911621" width="390" height="44"/>
-=======
                                         <rect key="frame" x="0.0" y="285.5" width="414" height="44"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S6b-9g-94h" id="w3E-9f-IK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set APNonce" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="0yi-4F-L8u">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="20" y="55.000000000000007" width="101" height="20.333333333333336"/>
-=======
                                                     <rect key="frame" x="20" y="55" width="101" height="20.5"/>
->>>>>>> Stashed changes
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0x1111111111111111" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JaD-0s-nbo">
-<<<<<<< Updated upstream
-                                                    <rect key="frame" x="232" y="5.9999999999999982" width="146" height="23.333333333333329"/>
-=======
                                                     <rect key="frame" x="256" y="6" width="146" height="23"/>
->>>>>>> Stashed changes
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -1299,14 +1065,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="K3V-K2-yF1">
-<<<<<<< Updated upstream
-                                        <rect key="frame" x="0.0" y="329.33333396911621" width="390" height="44"/>
-=======
                                         <rect key="frame" x="0.0" y="329.5" width="414" height="44"/>
->>>>>>> Stashed changes
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K3V-K2-yF1" id="4Yy-n4-Xpj">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WEh-zy-xS5">
