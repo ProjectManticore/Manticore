@@ -9,13 +9,13 @@
 "2Nf-dY-FJy.text" = "啟用插件";
 
 /* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "6hM-Fc-FDp"; */
-"6hM-Fc-FDp.normalTitle" = "越獄";
+"6hM-Fc-FDp.normalTitle" = "Jailbreak";
 
 /* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "AVZ-qX-0ms"; */
 "AVZ-qX-0ms.text" = "回復RootFS";
 
 /* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "B09-wX-UeI"; */
-"B09-wX-UeI.normalTitle" = "越獄";
+"B09-wX-UeI.normalTitle" = "Jailbreak";
 
 /* Class = "UITextField"; placeholder = "0x1111111111111111"; ObjectID = "JaD-0s-nbo"; */
 "JaD-0s-nbo.placeholder" = "0x1111111111111111";
