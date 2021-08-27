@@ -725,7 +725,11 @@
 				CODE_SIGN_ENTITLEMENTS = manticore/manticore.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
+<<<<<<< Updated upstream
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+=======
+				DEVELOPMENT_TEAM = RU46VQZNZL;
+>>>>>>> Stashed changes
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/manticore/include",
@@ -745,7 +749,11 @@
 				);
 				MARKETING_VERSION = 0.1;
 				OTHER_LDFLAGS = "";
+<<<<<<< Updated upstream
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.bludood.manticore;
+>>>>>>> Stashed changes
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wunused";
@@ -765,7 +773,11 @@
 				CODE_SIGN_ENTITLEMENTS = manticore/manticore.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
+<<<<<<< Updated upstream
 				DEVELOPMENT_TEAM = 3LJ9H6BD56;
+=======
+				DEVELOPMENT_TEAM = RU46VQZNZL;
+>>>>>>> Stashed changes
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/manticore/include",
@@ -785,7 +797,11 @@
 				);
 				MARKETING_VERSION = 0.1;
 				OTHER_LDFLAGS = "";
+<<<<<<< Updated upstream
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpwnage.manticore;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.bludood.manticore;
+>>>>>>> Stashed changes
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wunused";
