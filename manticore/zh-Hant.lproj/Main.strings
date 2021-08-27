@@ -3,7 +3,7 @@
 "0il-tf-sNa.text" = "Manticore";
 
 /* Class = "UILabel"; text = "Set APNonce"; ObjectID = "0yi-4F-L8u"; */
-"0yi-4F-L8u.text" = "設定 APNonce";
+"0yi-4F-L8u.text" = "設定APNonce";
 
 /* Class = "UILabel"; text = "Enable Tweaks"; ObjectID = "2Nf-dY-FJy"; */
 "2Nf-dY-FJy.text" = "啟用插件";
@@ -12,7 +12,7 @@
 "6hM-Fc-FDp.normalTitle" = "越獄";
 
 /* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "AVZ-qX-0ms"; */
-"AVZ-qX-0ms.text" = "回復 RootFS";
+"AVZ-qX-0ms.text" = "回復RootFS";
 
 /* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "B09-wX-UeI"; */
 "B09-wX-UeI.normalTitle" = "越獄";
@@ -24,7 +24,7 @@
 "Kda-OK-gFg.text" = "iOS 14.0 - 14.3";
 
 /* Class = "UIButton"; normalTitle = "Save & Set APNonce"; ObjectID = "WEh-zy-xS5"; */
-"WEh-zy-xS5.normalTitle" = "設定並保存 APNonce";
+"WEh-zy-xS5.normalTitle" = "設定並保存APNonce";
 
 /* Class = "UIButton"; normalTitle = "Options"; ObjectID = "czz-vo-cHF"; */
 "czz-vo-cHF.normalTitle" = "設定";
