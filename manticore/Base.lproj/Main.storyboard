@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="QbI-f5-76K">
             <objects>
-                <viewController interfaceStyle="dark" id="YHF-Wz-R07" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="YHF-Wz-R07" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rlb-Om-voS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                                     <constraint firstAttribute="height" constant="98" id="NE9-cO-Iv2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="54"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 14.0 - 14.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtR-ck-MtY">
@@ -31,7 +31,7 @@
                                     <constraint firstAttribute="height" constant="58" id="cEH-Wc-cvG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czz-vo-cHF">
@@ -39,7 +39,7 @@
                                 <color key="backgroundColor" red="0.050971612329999999" green="0.0509859696" blue="0.050968460739999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Options">
-                                    <color key="titleColor" red="0.31761622430000003" green="0.31766676900000002" blue="0.31760513779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -58,7 +58,7 @@
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.1254997253" blue="0.12546992300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <state key="normal" title="Jailbreak">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -86,13 +86,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Compatibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1H-yX-3n8">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="52"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!" textAlignment="center" lineBreakMode="clip" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5h-H3-igh">
                                         <rect key="frame" x="79" y="43" width="171" height="94.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -124,7 +124,7 @@
                             </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gOM-ig-eaM"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="czz-vo-cHF" firstAttribute="centerX" secondItem="p82-Jv-jUY" secondAttribute="centerX" id="1ON-XO-agd"/>
                             <constraint firstItem="p82-Jv-jUY" firstAttribute="top" secondItem="B09-wX-UeI" secondAttribute="bottom" constant="15" id="3dK-lP-S2Y"/>
@@ -169,6 +169,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qhW-m3-rM1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection id="39T-px-vfM">
                                 <cells>
@@ -183,10 +184,11 @@
                                                     <rect key="frame" x="20" y="14" width="374" height="66"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="38"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="175" id="fKH-Dg-7gQ">
@@ -204,11 +206,11 @@
                                                             <rect key="frame" x="12" y="7" width="347" height="45"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Cydia" translatesAutoresizingMaskIntoConstraints="NO" id="Ndj-Fv-dPZ">
-                                                            <rect key="frame" x="30" y="68" width="65" height="65"/>
+                                                            <rect key="frame" x="30" y="67" width="65" height="65"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <gestureRecognizers/>
                                                             <userDefinedRuntimeAttributes>
@@ -219,7 +221,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Sileo" translatesAutoresizingMaskIntoConstraints="NO" id="sjS-sa-a61">
-                                                            <rect key="frame" x="111" y="68" width="65" height="65"/>
+                                                            <rect key="frame" x="111" y="67" width="65" height="65"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
@@ -229,7 +231,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Zebra" translatesAutoresizingMaskIntoConstraints="NO" id="0SQ-4S-ljV">
-                                                            <rect key="frame" x="195" y="67" width="65" height="65"/>
+                                                            <rect key="frame" x="195" y="66" width="65" height="65"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -239,7 +241,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Installer" translatesAutoresizingMaskIntoConstraints="NO" id="9ZF-Uz-Cd0">
-                                                            <rect key="frame" x="280" y="66" width="65" height="65"/>
+                                                            <rect key="frame" x="280" y="65" width="65" height="65"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -259,6 +261,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="p4b-Vy-P76">
                                         <rect key="frame" x="0.0" y="279.5" width="414" height="60"/>
@@ -275,7 +278,7 @@
                                                             <rect key="frame" x="7.9999999999997726" y="-10.451274126600765" width="274" height="71.999999999999886"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yGO-VV-RY3">
@@ -284,7 +287,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -294,6 +297,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="trU-H2-JTR">
                                         <rect key="frame" x="0.0" y="339.5" width="414" height="60"/>
@@ -307,10 +311,10 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Disable Updates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4g-i5-DXs">
-                                                            <rect key="frame" x="7.9999999999997726" y="-10.523437077770382" width="274" height="72.000000000000057"/>
+                                                            <rect key="frame" x="7.9999999999997726" y="-9.5234370777703816" width="274" height="72.000000000000057"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Uet-4W-2h1">
@@ -319,7 +323,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -329,6 +333,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="aTp-TT-DFP">
                                         <rect key="frame" x="0.0" y="399.5" width="414" height="60"/>
@@ -345,7 +350,7 @@
                                                             <rect key="frame" x="7.9999999999997726" y="-10.595600028941817" width="274" height="71.999999999999886"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Kx3-4S-CiL">
@@ -354,7 +359,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -364,6 +369,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="HeI-Xz-Sa8">
                                         <rect key="frame" x="0.0" y="459.5" width="414" height="60"/>
@@ -380,7 +386,7 @@
                                                             <rect key="frame" x="7.9999999999997726" y="-10.667762980113366" width="274" height="71.999999999999943"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRx-xe-n8A">
@@ -389,7 +395,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -399,6 +405,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="TxA-1s-Aps">
                                         <rect key="frame" x="0.0" y="519.5" width="414" height="60"/>
@@ -415,7 +422,7 @@
                                                             <rect key="frame" x="7.9999999999997726" y="-10.739925931285143" width="274" height="72.000000000000014"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B58-g8-p6f">
@@ -424,7 +431,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -434,6 +441,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="rKq-gP-qm8">
                                         <rect key="frame" x="0.0" y="579.5" width="414" height="60"/>
@@ -450,7 +458,7 @@
                                                             <rect key="frame" x="7.9999999999997726" y="-10.812088882456692" width="274" height="72"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3EH-jC-XBJ">
@@ -459,7 +467,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -469,6 +477,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="mgp-9H-4OQ">
                                         <rect key="frame" x="0.0" y="639.5" width="414" height="60"/>
@@ -485,7 +494,7 @@
                                                             <rect key="frame" x="7.9999999999997726" y="-10.884251833628241" width="274" height="71.999999999999901"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UoQ-fq-cWM">
@@ -494,7 +503,7 @@
                                                             <color key="onTintColor" systemColor="systemIndigoColor"/>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.12548390030000001" green="0.1254959702" blue="0.12958794830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -504,6 +513,7 @@
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -751,14 +761,11 @@
     </scenes>
     <resources>
         <image name="Cydia" width="180" height="180"/>
-        <image name="Installer" width="512" height="512"/>
-        <image name="Sileo" width="399" height="399"/>
-        <image name="Zebra" width="1125" height="1066"/>
+        <image name="Installer" width="180" height="180"/>
+        <image name="Sileo" width="180" height="180"/>
+        <image name="Zebra" width="180" height="180"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
