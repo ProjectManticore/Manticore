@@ -26,7 +26,7 @@
 /* Class = "UIButton"; normalTitle = "Save & Set APNonce"; ObjectID = "WEh-zy-xS5"; */
 "WEh-zy-xS5.normalTitle" = "設定並保存APNonce";
 
-/* Class = "UIButton"; normalTitle = "Options"; ObjectID = "czz-vo-cHF"; */
+/* Class = "UIButton"; normalTitle = "Options Button"; ObjectID = "czz-vo-cHF"; */
 "czz-vo-cHF.normalTitle" = "選項";
 
 /* Class = "UILabel"; text = "Block OTA Updates"; ObjectID = "efL-nQ-xsh"; */
@@ -42,7 +42,7 @@
 "mUJ-nK-XHv.text" = "Manticore";
 
 /* Class = "UILabel"; text = "Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!"; ObjectID = "o5h-H3-igh"; */
-"o5h-H3-igh.text" = "Manticore兼容於您的iPhone11 Pro iOS 14.3";
+"o5h-H3-igh.text" = "Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!";
 
 /* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "oZg-Pf-ew7"; */
 "oZg-Pf-ew7.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
@@ -55,3 +55,30 @@
 
 /* Class = "UILabel"; text = "Toggle Log Window"; ObjectID = "yiE-wg-tPU"; */
 "yiE-wg-tPU.text" = "開啟記錄視窗";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "KVP-vA-4W2"; */
+"KVP-vA-4W2.text" = "設定";
+
+/* Class = "UILabel"; text = "Package Management"; ObjectID = "8lS-uL-LxK"; */
+"8lS-uL-LxK.text" = "套件管理器";
+
+/* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "bFz-pN-VmJ"; */
+"bFz-pN-VmJ.text" = "回復RootFS";
+
+/* Class = "UILabel"; text = "Disable Updates"; ObjectID = "K4g-i5-DXs"; */
+"K4g-i5-DXs.text" = "禁用(OTA)更新";
+
+/* Class = "UILabel"; text = "Max Memory Limit"; ObjectID = "hav-yD-P83"; */
+"hav-yD-P83.text" = "最大記憶體限制";
+
+/* Class = "UILabel"; text = "Load Tweaks"; ObjectID = "ntj-8w-lbe"; */
+"ntj-8w-lbe.text" = "加載插件";
+
+/* Class = "UILabel"; text = "Load Daemons"; ObjectID = "kFD-2g-aOl"; */
+"kFD-2g-aOl.text" = "加載系統進程";
+
+/* Class = "UILabel"; text = "Show Log Window"; ObjectID = "GyA-VR-ZRI"; */
+"GyA-VR-ZRI.text" = "顯示記錄視窗";
+
+/* Class = "UILabel"; text = "Disable Screen Time"; ObjectID = "8Oy-13-2xy"; */
+"8Oy-13-2xy.text" = "禁用螢幕使用時間";
