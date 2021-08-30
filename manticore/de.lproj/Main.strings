@@ -1,15 +1,15 @@
 
-/* Class = "UILabel"; text = "Manticore"; ObjectID = "0il-tf-sNa"; */
-"0il-tf-sNa.text" = "Manticore";
-
 /* Class = "UILabel"; text = "Set APNonce"; ObjectID = "0yi-4F-L8u"; */
-"0yi-4F-L8u.text" = "APNonce setzen";
+"0yi-4F-L8u.text" = "APNonce Setzen";
 
 /* Class = "UILabel"; text = "Enable Tweaks"; ObjectID = "2Nf-dY-FJy"; */
 "2Nf-dY-FJy.text" = "Tweaks Erlauben";
 
-/* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "6hM-Fc-FDp"; */
-"6hM-Fc-FDp.normalTitle" = "Jailbreak";
+/* Class = "UILabel"; text = "Disable Screen Time"; ObjectID = "8Oy-13-2xy"; */
+"8Oy-13-2xy.text" = "Bildschirmzeit Deaktivieren";
+
+/* Class = "UILabel"; text = "Package Management"; ObjectID = "8lS-uL-LxK"; */
+"8lS-uL-LxK.text" = "Package Management";
 
 /* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "AVZ-qX-0ms"; */
 "AVZ-qX-0ms.text" = "RootFS Wiederherstellen";
@@ -17,14 +17,23 @@
 /* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "B09-wX-UeI"; */
 "B09-wX-UeI.normalTitle" = "Jailbreak";
 
+/* Class = "UILabel"; text = "Show Log Window"; ObjectID = "GyA-VR-ZRI"; */
+"GyA-VR-ZRI.text" = "Log Window Zeigen";
+
 /* Class = "UITextField"; placeholder = "0x1111111111111111"; ObjectID = "JaD-0s-nbo"; */
 "JaD-0s-nbo.placeholder" = "0x1111111111111111";
 
-/* Class = "UILabel"; text = "iOS 14.0 - 14.3"; ObjectID = "Kda-OK-gFg"; */
-"Kda-OK-gFg.text" = "iOS 14.0 - 14.3";
+/* Class = "UILabel"; text = "Disable Updates"; ObjectID = "K4g-i5-DXs"; */
+"K4g-i5-DXs.text" = "Updates Blockieren";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "KVP-vA-4W2"; */
+"KVP-vA-4W2.text" = "Einstellungen";
 
 /* Class = "UIButton"; normalTitle = "Save & Set APNonce"; ObjectID = "WEh-zy-xS5"; */
 "WEh-zy-xS5.normalTitle" = "APNonce Speichern & Setzen";
+
+/* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "bFz-pN-VmJ"; */
+"bFz-pN-VmJ.text" = "RootFS Wiederherstellen";
 
 /* Class = "UIButton"; normalTitle = "Options"; ObjectID = "czz-vo-cHF"; */
 "czz-vo-cHF.normalTitle" = "Einstellungen";
@@ -32,14 +41,23 @@
 /* Class = "UILabel"; text = "Block OTA Updates"; ObjectID = "efL-nQ-xsh"; */
 "efL-nQ-xsh.text" = "OTA Updates Blockieren";
 
+/* Class = "UILabel"; text = "Max Memory Limit"; ObjectID = "hav-yD-P83"; */
+"hav-yD-P83.text" = "Max Memory Limit";
+
 /* Class = "UILabel"; text = "Compatibility"; ObjectID = "i1H-yX-3n8"; */
 "i1H-yX-3n8.text" = "Kompatibilität";
 
+/* Class = "UILabel"; text = "Load Daemons"; ObjectID = "kFD-2g-aOl"; */
+"kFD-2g-aOl.text" = "Daemons Laden";
+
 /* Class = "UILabel"; text = "Remove ScreenTime"; ObjectID = "kyq-MK-M3C"; */
-"kyq-MK-M3C.text" = "Bildschirmzeit Entfernen";
+"kyq-MK-M3C.text" = "Bildschirmzeit Deaktivieren";
 
 /* Class = "UILabel"; text = "Manticore"; ObjectID = "mUJ-nK-XHv"; */
 "mUJ-nK-XHv.text" = "Manticore";
+
+/* Class = "UILabel"; text = "Load Tweaks"; ObjectID = "ntj-8w-lbe"; */
+"ntj-8w-lbe.text" = "Tweaks Laden";
 
 /* Class = "UILabel"; text = "Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!"; ObjectID = "o5h-H3-igh"; */
 "o5h-H3-igh.text" = "Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!";
@@ -54,4 +72,4 @@
 "xtR-ck-MtY.text" = "iOS 14.0 - 14.3";
 
 /* Class = "UILabel"; text = "Toggle Log Window"; ObjectID = "yiE-wg-tPU"; */
-"yiE-wg-tPU.text" = "Log Window Einblenden";
+"yiE-wg-tPU.text" = "Toggle Log Window";
