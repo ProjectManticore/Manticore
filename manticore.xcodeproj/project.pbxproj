@@ -132,6 +132,7 @@
 		848C427A25F47FF700842110 /* util.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = util.mm; sourceTree = "<group>"; };
 		848C427D25F4800700842110 /* plistutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plistutils.h; sourceTree = "<group>"; };
 		848C427E25F4801100842110 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		B59B19E126DCC21800967B39 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -519,6 +520,7 @@
 				en,
 				Base,
 				de,
+				"zh-Hant",
 			);
 			mainGroup = 23C704E825DB2EE80078DC37;
 			productRefGroup = 23C704F225DB2EE80078DC37 /* Products */;
@@ -589,6 +591,7 @@
 			children = (
 				23C704FE25DB2EE80078DC37 /* Base */,
 				238AC48B26DCC01B00761684 /* de */,
+				B59B19E126DCC21800967B39 /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
