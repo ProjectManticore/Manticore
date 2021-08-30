@@ -75,7 +75,7 @@
 "ntj-8w-lbe.text" = "加載插件";
 
 /* Class = "UILabel"; text = "Load Daemons"; ObjectID = "kFD-2g-aOl"; */
-"kFD-2g-aOl.text" = "加載系統進程";
+"kFD-2g-aOl.text" = "加載守護程式";
 
 /* Class = "UILabel"; text = "Show Log Window"; ObjectID = "GyA-VR-ZRI"; */
 "GyA-VR-ZRI.text" = "顯示記錄視窗";
