@@ -24,7 +24,7 @@
 "KVP-vA-4W2.text" = "‎الإعدادات";
 
 /* Class = "UILabel"; text = "Package Management"; ObjectID = "8lS-uL-LxK"; */
-"8lS-uL-LxK.text" = "‎إدارة الحزم";
+"8lS-uL-LxK.text" = "‎‎إختيار مدير الحزم";
 
 /* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "bFz-pN-VmJ"; */
 "bFz-pN-VmJ.text" = "‎استعادة الضبط الافتراضي";
