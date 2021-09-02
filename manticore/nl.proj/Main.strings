@@ -1,0 +1,74 @@
+/* Class = "UILabel"; text = "Set APNonce"; ObjectID = "0yi-4F-L8u"; */
+"0yi-4F-L8u.text" = "Zet APNonce";
+
+/* Class = "UILabel"; text = "Enable Tweaks"; ObjectID = "2Nf-dY-FJy"; */
+"2Nf-dY-FJy.text" = "Tweaks Aanzetten";
+
+/* Class = "UILabel"; text = "Disable Screen Time"; ObjectID = "8Oy-13-2xy"; */
+"8Oy-13-2xy.text" = "Schakel Scherm Tijd uit";
+
+/* Class = "UILabel"; text = "Package Management"; ObjectID = "8lS-uL-LxK"; */
+"8lS-uL-LxK.text" = "Package Management";
+
+/* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "AVZ-qX-0ms"; */
+"AVZ-qX-0ms.text" = "Herstel RootFS";
+
+/* Class = "UIButton"; normalTitle = "Jailbreak"; ObjectID = "B09-wX-UeI"; */
+"B09-wX-UeI.normalTitle" = "Jailbreak";
+
+/* Class = "UILabel"; text = "Show Log Window"; ObjectID = "GyA-VR-ZRI"; */
+"GyA-VR-ZRI.text" = "Laat Log Window Zien";
+
+/* Class = "UITextField"; placeholder = "0x1111111111111111"; ObjectID = "JaD-0s-nbo"; */
+"JaD-0s-nbo.placeholder" = "0x1111111111111111";
+
+/* Class = "UILabel"; text = "Disable Updates"; ObjectID = "K4g-i5-DXs"; */
+"K4g-i5-DXs.text" = "Updates Blokkeren";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "KVP-vA-4W2"; */
+"KVP-vA-4W2.text" = "Instellingen";
+
+/* Class = "UIButton"; normalTitle = "Save & Set APNonce"; ObjectID = "WEh-zy-xS5"; */
+"WEh-zy-xS5.normalTitle" = "APNonce Opslaan & Zetten";
+
+/* Class = "UILabel"; text = "Restore RootFS"; ObjectID = "bFz-pN-VmJ"; */
+"bFz-pN-VmJ.text" = "Herstel RootFS";
+
+/* Class = "UIButton"; normalTitle = "Options"; ObjectID = "czz-vo-cHF"; */
+"czz-vo-cHF.normalTitle" = "Instellingen";
+
+/* Class = "UILabel"; text = "Block OTA Updates"; ObjectID = "efL-nQ-xsh"; */
+"efL-nQ-xsh.text" = "OTA Updates Blokkeren";
+
+/* Class = "UILabel"; text = "Max Memory Limit"; ObjectID = "hav-yD-P83"; */
+"hav-yD-P83.text" = "Max Geheugen Limiet";
+
+/* Class = "UILabel"; text = "Compatibility"; ObjectID = "i1H-yX-3n8"; */
+"i1H-yX-3n8.text" = "Compatibiliteit";
+
+/* Class = "UILabel"; text = "Load Daemons"; ObjectID = "kFD-2g-aOl"; */
+"kFD-2g-aOl.text" = "Laad Daemons";
+
+/* Class = "UILabel"; text = "Remove ScreenTime"; ObjectID = "kyq-MK-M3C"; */
+"kyq-MK-M3C.text" = "Verwijder Schermtijd";
+
+/* Class = "UILabel"; text = "Manticore"; ObjectID = "mUJ-nK-XHv"; */
+"mUJ-nK-XHv.text" = "Manticore";
+
+/* Class = "UILabel"; text = "Load Tweaks"; ObjectID = "ntj-8w-lbe"; */
+"ntj-8w-lbe.text" = "Laad Tweaks";
+
+/* Class = "UILabel"; text = "Your iPhone 11 Pro on iOS 14.3 is compatible with Manticore!"; ObjectID = "o5h-H3-igh"; */
+"o5h-H3-igh.text" = "Je iPhone 11 Pro op iOS 14.3 is compatible met Manticore!";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "oZg-Pf-ew7"; */
+"oZg-Pf-ew7.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Log ECID"; ObjectID = "voS-Ev-D3K"; */
+"voS-Ev-D3K.text" = "Log ECID";
+
+/* Class = "UILabel"; text = "iOS 14.0 - 14.3"; ObjectID = "xtR-ck-MtY"; */
+"xtR-ck-MtY.text" = "iOS 14.0 - 14.3";
+
+/* Class = "UILabel"; text = "Toggle Log Window"; ObjectID = "yiE-wg-tPU"; */
+"yiE-wg-tPU.text" = "Toggle Log Window";

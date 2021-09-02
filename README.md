@@ -27,3 +27,4 @@ It's our goal to take back the "The most advanced jailbreak" title from unc0ver.
 * [GeoSn0w](https://twitter.com/FCE365)
 * [Pattern-F](https://twitter.com/pattern_f_) (Exploit and Stable Primitives)
 * [XerusDesign](https://twitter.com/xerusdesign) (UI Design/Concept)
+* [ModernPwner](https://twitter.com/ModernPwner) (Original Exploit)
