@@ -5,7 +5,6 @@
 //  Created by Luca on 15.02.21.
 //
 
-#include "ViewController.h"
 #include <UIKit/UIKit.h>
 #include <sys/sysctl.h>
 #include <sys/snapshot.h>

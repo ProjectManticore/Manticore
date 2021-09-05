@@ -18,7 +18,6 @@
 #include <unistd.h>
 #include <manticore/utils.h>
 #include <spawn.h>
-#include <ViewController.h>
 #include <sys/mman.h>
 #include <copyfile.h>
 #include <lib/tq/tq_common_p.h>
