@@ -1,0 +1,24 @@
+name: Build
+on:
+  workflow_dispatch:
+  push:
+    branches: [ amfid2 ]
+
+jobs:
+  build:
+   runs-on: macos-latest
+
+   steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: |
+          xcodebuild clean build ONLY_ACTIVE_ARCH=NO PRODUCT_BUNDLE_IDENTIFIER='dev.manticore.manticore' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED="NO" -sdk iphoneos -scheme manticore -configuration Debug -derivedDataPath build
+          ln -sf build/Build/Products/Debug-iphoneos Payload
+          rm -rf Payload/Manticore.app/Frameworks
+          zip -r9 Manticore.ipa Payload/Manticore.app
+          
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+         name: Manticore.ipa
+         path: "Manticore.ipa"
