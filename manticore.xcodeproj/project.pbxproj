@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		230215F625DE8AF3003E7C5C /* amfid.c in Sources */ = {isa = PBXBuildFile; fileRef = 230215F525DE8AF3003E7C5C /* amfid.c */; };
 		230215FB25DE8E8F003E7C5C /* rootfs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 230215FA25DE8E8F003E7C5C /* rootfs.mm */; };
-		2302160425DE93B5003E7C5C /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2302160225DE93B5003E7C5C /* libsnappy.c */; };
 		2302161725DE97E7003E7C5C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2302160625DE93D6003E7C5C /* IOKit.framework */; };
 		2302161B25DEA254003E7C5C /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302161A25DEA254003E7C5C /* utils.mm */; };
 		2302162E25DEA566003E7C5C /* kernel_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2302162D25DEA566003E7C5C /* kernel_utils.mm */; };
@@ -50,7 +49,6 @@
 		230215FA25DE8E8F003E7C5C /* rootfs.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = rootfs.mm; sourceTree = "<group>"; };
 		230215FD25DE8E97003E7C5C /* rootfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rootfs.h; sourceTree = "<group>"; };
 		2302160125DE93B5003E7C5C /* snappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snappy.h; sourceTree = "<group>"; };
-		2302160225DE93B5003E7C5C /* libsnappy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libsnappy.c; sourceTree = "<group>"; };
 		2302160625DE93D6003E7C5C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		2302160C25DE965B003E7C5C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = ../../../../System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
 		2302161125DE9791003E7C5C /* IOReturn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOReturn.h; sourceTree = "<group>"; };
@@ -148,14 +146,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		230215FF25DE93AD003E7C5C /* snappy */ = {
-			isa = PBXGroup;
-			children = (
-				2302160225DE93B5003E7C5C /* libsnappy.c */,
-			);
-			path = snappy;
-			sourceTree = "<group>";
-		};
 		2302162025DEA2C8003E7C5C /* sys */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				23652AFB25E7ABCF004D7F7E /* pattern_f */,
-				230215FF25DE93AD003E7C5C /* snappy */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -578,7 +567,6 @@
 				23C7053F25DB2F220078DC37 /* cicuta_log.c in Sources */,
 				848C427B25F47FF700842110 /* util.mm in Sources */,
 				23652B1E25E7B04F004D7F7E /* user_kernel_alloc.c in Sources */,
-				2302160425DE93B5003E7C5C /* libsnappy.c in Sources */,
 				230215F625DE8AF3003E7C5C /* amfid.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
