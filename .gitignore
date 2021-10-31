@@ -2,4 +2,5 @@ project.pbxproj
 *.DS_Store
 *.xcuserdatad
 *.ipa
+Payload
 build/
